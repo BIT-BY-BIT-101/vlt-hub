@@ -1,0 +1,7 @@
+{
+  "name": "vlt-hub",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
