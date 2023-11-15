@@ -16,13 +16,17 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { IonContent } from "@ionic/react";
+import { IonApp, IonContent, setupIonicReact } from "@ionic/react";
+import RouteService from "./router/RouteService";
+
+setupIonicReact();
 
 const App: React.FC = () => {
   return (
-    <>
-      <IonContent></IonContent>;
-    </>
+    <IonApp>
+      <RouteService />
+      {/* <Home /> */}
+    </IonApp>
   );
 };
 
