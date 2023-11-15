@@ -48,84 +48,82 @@ function Forms() {
     deleteData(id);
   };
   return (
-    <div id="container">
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>Card Title</IonCardTitle>
-          <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-        </IonCardHeader>
+    <IonCard>
+      <IonCardHeader>
+        <IonCardTitle>Card Title</IonCardTitle>
+        <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+      </IonCardHeader>
 
-        <IonCardContent>
-          <IonList>
-            {data.map((event) => (
-              <IonItem key={event.id}>
-                <IonLabel>
-                  <h2>{event.event_name}</h2>
-                  <p>{event.event_description}</p>
-                  <p>{event.host_id}</p>
-                  <p>{event.event_date}</p>
-                </IonLabel>
-                <IonButton onClick={() => handleDeleteEvent(event.id)}>
-                  Delete
-                </IonButton>
-              </IonItem>
-            ))}
-          </IonList>
+      <IonCardContent>
+        <IonList>
+          {data.map((event) => (
+            <IonItem key={event.id}>
+              <IonLabel>
+                <h2>{event.event_name}</h2>
+                <p>{event.event_description}</p>
+                <p>{event.host_id}</p>
+                <p>{event.event_date}</p>
+              </IonLabel>
+              <IonButton onClick={() => handleDeleteEvent(event.id)}>
+                Delete
+              </IonButton>
+            </IonItem>
+          ))}
+        </IonList>
 
-          <IonLoading isOpen={loading} message={"Fetching Data..."} />
+        <IonLoading isOpen={loading} message={"Fetching Data..."} />
 
-          <IonToast
-            isOpen={!!error}
-            message={`Error: ${error?.message || "Unknown error"}`}
-            duration={5000}
-          />
+        <IonToast
+          isOpen={!!error}
+          message={`Error: ${error?.message || "Unknown error"}`}
+          duration={5000}
+        />
 
+        <IonItem>
+          <IonLabel position="stacked">New Data Text</IonLabel>
           <IonItem>
-            <IonLabel position="stacked">New Data Text</IonLabel>
-            <IonItem>
-              <IonLabel position="stacked">Event Name</IonLabel>
-              <IonInput
-                name="event_name"
-                value={eventData.event_name}
-                onIonChange={handleInputChange}
-              ></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked">Event Description</IonLabel>
-              <IonInput
-                name="event_description"
-                value={eventData.event_description}
-                onIonChange={handleInputChange}
-              ></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked">Host ID</IonLabel>
-              <IonInput
-                name="host_id"
-                value={eventData.host_id}
-                onIonChange={handleInputChange}
-              ></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked">Event Date</IonLabel>
-              <IonInput
-                name="event_date"
-                value={eventData.event_date}
-                onIonChange={handleInputChange}
-              ></IonInput>
-            </IonItem>
+            <IonLabel position="stacked">Event Name</IonLabel>
+            <IonInput
+              name="event_name"
+              value={eventData.event_name}
+              onIonChange={handleInputChange}
+            ></IonInput>
           </IonItem>
 
-          <IonButton onClick={handleAddEvent}>Add Data to Firebase</IonButton>
-          <IonLoading isOpen={loading} message={"Adding Event..."} />
+          <IonItem>
+            <IonLabel position="stacked">Event Description</IonLabel>
+            <IonInput
+              name="event_description"
+              value={eventData.event_description}
+              onIonChange={handleInputChange}
+            ></IonInput>
+          </IonItem>
 
-          {error && <p>Error: {error.message}</p>}
-        </IonCardContent>
-      </IonCard>
-    </div>
+          <IonItem>
+            <IonLabel position="stacked">Host ID</IonLabel>
+            <IonInput
+              name="host_id"
+              value={eventData.host_id}
+              onIonChange={handleInputChange}
+            ></IonInput>
+          </IonItem>
+
+          <IonItem>
+            <IonLabel position="stacked">Event Date</IonLabel>
+            <IonInput
+              name="event_date"
+              value={eventData.event_date}
+              onIonChange={handleInputChange}
+            ></IonInput>
+          </IonItem>
+        </IonItem>
+
+        <IonButton onClick={handleAddEvent}>Add Data to Firebase</IonButton>
+        <IonLoading isOpen={loading} message={"Adding Event..."} />
+
+        {error && <p>Error: {error.message}</p>}
+      </IonCardContent>
+    </IonCard>
   );
 }
 
