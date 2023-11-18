@@ -6,12 +6,14 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonImg,
   IonInput,
   IonItem,
   IonText,
 } from "@ionic/react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/signin.svg";
 import "./ParticipantSigninComponent.css";
 
@@ -20,58 +22,75 @@ const ParticipantSigninComponent: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
-  const handleLogin = () => {
-    
-  };
+  const handleLogin = () => {};
 
   return (
-    <IonCard className="psignin-card">
-      <IonCardHeader>
-        <IonCardTitle className="psignin-heading">Let's sign you in.</IonCardTitle>
-        <IonCardSubtitle className="psignin-subheading">
-          Welcome back.<br/>
-          You've been missed!
-        </IonCardSubtitle>
-      </IonCardHeader>
+    <div className="psignin-container">
+      <div className="left-section">
+        <img src={SignInSVG} alt="SignInSVG" className="psignin-img" />
+      </div>
 
-      <IonCardContent>
-        <IonInput
-          className="psignin-input"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onIonChange={(e) => setEmail(e.detail.value!)}
-        ></IonInput>
+      <div className="right-section">
+        <IonCard className="psignin-card">
+          <IonCardHeader>
+            <div className="logo-container">
+              <img src={Logo} alt="V.L.T. Hub" className="psignin-logo" />
+            </div>
+            <IonCardTitle className="psignin-heading">
+              Let's sign you in.
+            </IonCardTitle>
+            <IonCardSubtitle className="psignin-subheading1">
+              Welcome back.
+            </IonCardSubtitle>
+            <IonCardSubtitle className="psignin-subheading2">
+              You've been missed!
+            </IonCardSubtitle>
+          </IonCardHeader>
 
-        <IonInput
-          className="psignin-input"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onIonChange={(e) => setPassword(e.detail.value!)}
-        ></IonInput>
+          <IonCardContent>
+            <IonInput
+              className="psignin-input"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onIonChange={(e) => setEmail(e.detail.value!)}
+            ></IonInput>
 
-        <IonItem>
-          <IonText className="psignin-prompt">
-            <p>
-              Don't have an Account? <Link to={"/signup"}>Sign up!</Link>
-            </p>
-          </IonText>
-        </IonItem>
+            <IonInput
+              className="psignin-input"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onIonChange={(e) => setPassword(e.detail.value!)}
+            ></IonInput>
 
-        <IonButton expand="full" onClick={handleLogin} className="psignin-loginbtn">
-          Log In
-        </IonButton>
+            <IonItem>
+              <IonText className="psignin-prompt">
+                <p>
+                  Don't have an Account? <Link to={"/signup"}>Sign up!</Link>
+                </p>
+              </IonText>
+            </IonItem>
 
-        <IonAlert
-          isOpen={showAlert}
-          onDidDismiss={() => setShowAlert(false)}
-          header="Authentication Error"
-          message="An Error Occurred"
-          buttons={["Close"]}
-        />
-      </IonCardContent>
-    </IonCard>
+            <IonButton
+              expand="full"
+              onClick={handleLogin}
+              className="psignin-loginbtn"
+            >
+              Log In
+            </IonButton>
+
+            <IonAlert
+              isOpen={showAlert}
+              onDidDismiss={() => setShowAlert(false)}
+              header="Authentication Error"
+              message="An Error Occurred"
+              buttons={["Close"]}
+            />
+          </IonCardContent>
+        </IonCard>
+      </div>
+    </div>
   );
 };
 
