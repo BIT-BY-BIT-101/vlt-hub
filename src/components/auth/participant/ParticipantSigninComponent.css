@@ -1,0 +1,115 @@
+:root {
+   --main-color: #282A2A;
+   --secondary-color: #F46197;
+}
+
+:root {
+   --main-color: #282A2A;
+   --secondary-color: #F46197;
+}
+
+html,
+body {
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   font-family: 'Poppins', sans-serif;
+   height: 100%;
+}
+
+body {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.psignin-card {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   max-width: 400px;
+   width: 100%;
+   padding: 20px;
+   box-sizing: border-box;
+   margin: auto;
+   border-radius: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.psignin-heading {
+   font-size: 26px;
+   font-weight: 600;
+   color: white;
+   margin-bottom: 10px;
+   caret-color: transparent;
+}
+
+.psignin-subheading {
+   font-size: 20px;
+   font-weight: normal;
+   color: white;
+   margin-top: 5px;
+}
+
+.psignin-input {
+   --highlight-color: var(--secondary-color);
+   --padding-start: 10px;
+   border: 2px solid var(--main-color);
+   border-radius: 8px;
+   background-color: rgba(255, 255, 255, 0.1);
+   color: white;
+   margin-bottom: 15px;
+   transition: border-color 0.3s ease;
+}
+
+.psignin-input::placeholder {
+   color: #ccc;
+}
+
+.psignin-input:hover,
+.psignin-input:focus {
+   border-color: var(--secondary-color);
+   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.psignin-prompt {
+   display: block;
+   margin: 0;
+   padding: 0;
+   caret-color: transparent;
+}
+
+.psignin-prompt p {
+   font-size: 15px;
+   font-weight: 600;
+   color: white;
+   margin: 20px 0;
+}
+
+.psignin-prompt a {
+   text-decoration: none;
+   color: var(--secondary-color);
+}
+
+.psignin-loginbtn {
+   background-color: var(--secondary-color) !important;
+   color: white !important;
+   --background: var(--secondary-color) !important;
+   --border-color: var(--secondary-color) !important;
+   --box-shadow: none !important;
+   margin-top: 10px;
+   border-radius: 10px;
+   padding: 5px;
+   cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+   .psignin-card {
+      max-width: 80%;
+   }
+}
