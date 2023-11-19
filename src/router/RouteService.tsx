@@ -3,7 +3,9 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
 import Home from "../pages/Home";
 import { IonRouterOutlet } from "@ionic/react";
-import ParticipantSigninComponent from "../components/auth/participant/ParticipantSigninComponent";
+
+import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
+import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
 
 const RouteService = () => {
   return (
@@ -13,7 +15,10 @@ const RouteService = () => {
           <Home />
         </Route>
         <Route exact path="/signin">
-          <ParticipantSigninComponent />
+          <ParticipantSigninPage />
+        </Route>
+        <Route exact path="/signup">
+          <ParticipantSignupPage />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
