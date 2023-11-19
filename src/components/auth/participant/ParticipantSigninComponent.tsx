@@ -77,7 +77,7 @@ const ParticipantSigninComponent: React.FC = () => {
               onClick={handleLogin}
               className="psignin-loginbtn"
             >
-              Log In
+              Sign in as a Participant
             </IonButton>
 
             <IonAlert

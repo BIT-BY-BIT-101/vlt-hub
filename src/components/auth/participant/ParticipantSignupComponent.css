@@ -22,7 +22,7 @@ body {
    overflow: hidden;
 }
 
-.psignin-container {
+.psignup-container {
    display: flex;
    height: 100%;
    overflow-y: auto;
@@ -46,12 +46,12 @@ body {
    z-index: 2;
 }
 
-.psignin-img {
+.psignup-img {
    max-width: 100%;
    max-height: 100%;
 }
 
-.psignin-card {
+.psignup-card {
    /* position: absolute; */
    /* top: 50%;
    left: 50%; */
@@ -69,11 +69,11 @@ body {
    transition: box-shadow 0.3s ease;
 }
 
-.psignin-card:hover {
+.psignup-card:hover {
    box-shadow: 0 20px 40px var(--hover-shadow-color);
 }
 
-.psignin-heading {
+.psignup-heading {
    font-size: 26px;
    font-weight: 600;
    color: white;
@@ -95,21 +95,14 @@ body {
    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.4);
 }
 
-.psignin-logo {
+.psignup-logo {
    width: 100%;
    height: 100%;
    object-fit: cover;
    border-radius: 50%;
 }
 
-.psignin-subheading1 {
-   font-size: 20px;
-   font-weight: normal;
-   color: white;
-   margin-top: 5px;
-}
-
-.psignin-subheading2 {
+.psignup-subheading {
    font-size: 20px;
    font-weight: normal;
    color: white;
@@ -117,7 +110,7 @@ body {
    margin-bottom: 5px;
 }
 
-.psignin-input {
+.psignup-input {
    --highlight-color: var(--secondary-color);
    --padding-start: 10px;
    border: 2px solid var(--main-color);
@@ -128,36 +121,51 @@ body {
    transition: border-color 0.3s ease;
 }
 
-.psignin-input::placeholder {
+.psignup-input::placeholder {
    color: #ccc;
 }
 
-.psignin-input:hover,
-.psignin-input:focus {
+.psignup-input:hover,
+.psignup-input:focus {
    border-color: var(--secondary-color);
    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.psignin-prompt {
+.psignup-group {
+   display: flex;
+   gap: 10px;
+}
+
+.psignup-eye-icon {
+   cursor: pointer;
+   position: absolute;
+   top: 50%;
+   right: 15px;
+   transform: translateY(-50%);
+   z-index: 1;
+   font-size: 1.2em;
+}
+
+.psignup-prompt {
    display: block;
    margin: 0;
    padding: 0;
    caret-color: transparent;
 }
 
-.psignin-prompt p {
+.psignup-prompt p {
    font-size: 15px;
    font-weight: 600;
    color: white;
    margin: 20px 0;
 }
 
-.psignin-prompt a {
+.psignup-prompt a {
    text-decoration: none;
    color: var(--secondary-color);
 }
 
-.psignin-loginbtn {
+.psignup-signupbtn {
    background-color: var(--secondary-color) !important;
    color: white !important;
    --background: var(--secondary-color) !important;
@@ -170,7 +178,7 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-   .psignin-container {
+   .psignup-container {
       flex-direction: column;
    }
 
@@ -179,7 +187,44 @@ body {
       width: 100%;
    }
 
-   .psignin-card {
+   .psignup-card {
       max-width: 100%;
+      padding: 10px;
+   }
+
+   .psignup-img {
+      max-width: 30%;
+      width: 100%;
+   }
+
+   .psignup-group {
+      flex-direction: column;
+      gap: 0;
+   }
+
+   .psignup-input {
+      border-radius: 6px;
+      border-width: 1px;
+   }
+
+   .psignup-eye-icon {
+      font-size: 1em;
+   }
+
+   .psignup-heading {
+      font-size: 20px;
+   }
+
+   .psignup-subheading {
+      font-size: 16px;
+   }
+
+   .psignup-prompt p {
+      font-size: 14px;
+      margin: 10px 0;
+   }
+
+   .psignup-signupbtn {
+      padding: 10px;
    }
 }
