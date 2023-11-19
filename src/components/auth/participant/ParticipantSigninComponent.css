@@ -181,5 +181,32 @@ body {
 
    .psignin-card {
       max-width: 100%;
+      padding: 10px;
+   }
+
+   .psignin-img {
+      max-width: 30%;
+      width: 100%;
+   }
+
+   .psignin-heading {
+      font-size: 20px;
+   }
+
+   .psignin-subheading1 {
+      font-size: 16px;
+   }
+
+   .psignin-subheading2 {
+      font-size: 16px;
+   }
+
+   .psignin-prompt p {
+      font-size: 14px;
+      margin: 10px 0;
+   }
+
+   .psignin-loginbtn {
+      padding: 10px;
    }
 }
