@@ -15,7 +15,10 @@ import { pencil, home, calendar, time, logOut } from "ionicons/icons";
 import React from "react";
 import UserImg from "../../assets/user.jpg";
 
-function NaveMenu(handleLogout: any) {
+function NaveMenu() {
+  const handleLogout = () => {
+    console.log("Logout clicked");
+  };
   return (
     <IonMenu contentId="phome-main" type="overlay">
       <IonHeader>

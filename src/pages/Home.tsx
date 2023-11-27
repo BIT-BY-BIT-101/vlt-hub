@@ -17,14 +17,17 @@ import {
   IonCardTitle,
 } from "@ionic/react";
 import useFirebaseData from "../hooks/useFirestore";
-import Forms from "../components/cards/Forms";
+import Forms from "../components/experiment/Forms";
+import AuthButton from "../components/experiment/AuthButton";
 
 const Home = () => {
+  const path = "/signup";
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <AuthButton defaultpath={path} to={"/signup"} slots="start" />
+          <AuthButton defaultpath={path} to={"/signin"} slots="end" />
         </IonToolbar>
       </IonHeader>
       <IonContent>

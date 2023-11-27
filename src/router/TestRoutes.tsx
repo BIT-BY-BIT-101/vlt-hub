@@ -1,6 +1,6 @@
 import React from "react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Redirect, Route } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import Home from "../pages/Home";
 import { IonRouterOutlet } from "@ionic/react";
 
@@ -10,8 +10,13 @@ import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import HostHomePage from "../pages/host/HostHomePage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
 import Signin from "../pages/auth/Signin";
+import ProtectedRoute from "../components/ProtectedRoute";
+import AuthPage from "../pages/test/AuthPage";
+import Test1 from "../pages/test/Test1";
+import Test2 from "../pages/test/Test2";
+import Test3 from "../pages/test/Test3";
 
-const RouteService = () => {
+const TestRoutes = () => {
   return (
     <IonReactRouter>
       <IonRouterOutlet>
@@ -58,8 +63,36 @@ const RouteService = () => {
         <Route exact path="/auth/signin">
           <Signin />
         </Route>
+
+        <Route exact path="/test">
+          <Redirect to="/test/auth" />
+        </Route>
+        <Route exact path="/test/auth">
+          <AuthPage />
+        </Route>
+
+        <Switch>
+          <ProtectedRoute
+            path="/test/host"
+            allowedRoles={["host"]}
+            component={Test1}
+            redirected="/test/auth"
+          />
+          <ProtectedRoute
+            path="/test/participant"
+            allowedRoles={["participant"]}
+            component={Test2}
+            redirected="/test/auth"
+          />
+          <ProtectedRoute
+            path="/test/venue"
+            allowedRoles={["venue"]}
+            component={Test3}
+            redirected="/test/auth"
+          />
+        </Switch>
       </IonRouterOutlet>
     </IonReactRouter>
   );
 };
-export default RouteService;
+export default TestRoutes;

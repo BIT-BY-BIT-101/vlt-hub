@@ -11,18 +11,35 @@ import {
   IonButton,
   IonLoading,
   IonToast,
+  IonImg,
 } from "@ionic/react";
 import React, { useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { useParams } from "react-router";
+import usePhoto from "../../hooks/usePhoto";
+// import { EventDataModel } from "../../models/Model";
+// import * from "../../asset/"
 
 function Forms() {
-  const { addData, error, loading, data, deleteData } = useFirestore("events");
+  const {
+    addData: addEvent,
+    error,
+    loading,
+    data,
+    deleteData,
+  } = useFirestore("user_events");
+  const { data: applicationData, addData: addApplication } =
+    useFirestore("event_application");
   const [eventData, setEventData] = useState({
     event_name: "",
     event_description: "",
     host_id: "",
     event_date: "",
   });
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { uploadImage, uploading, uploadError } = usePhoto();
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -32,20 +49,48 @@ function Forms() {
     }));
   };
 
-  const handleAddEvent = () => {
-    // const eventData = {
-    //   event_name: "Your Event Name",
-    //   event_description: "Your Event Description",
-    //   host_id: "Host ID",
-    //   event_date: "Event Date",
-    // };
-
-    addData(eventData);
+  const handleAddEvent = async () => {
+    await addEvent(eventData);
+    if (selectedFile) {
+      try {
+        const downloadURL = await uploadImage(selectedFile);
+        console.log("Image uploaded:", downloadURL);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+  const handleApplyEvent = async () => {
+    // try {
+    //   const collectionRef = collection(db, "event_application_tbl");
+    //   await addDoc(collectionRef, applyEvent);
+    //   console.log("Event added successfully!", collectionRef.id);
+    // } catch (err) {
+    //   console.error("Error adding event:", err);
+    // }
+    console.log("Applied Successfully");
   };
 
-  const handleDeleteEvent = (id) => {
+  const handleDeleteEvent = (id: string) => {
     // Call the delete function when the delete button is clicked
     deleteData(id);
+    console.log(id, "was deleted successfully");
+  };
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files?.[0] || null;
+    setSelectedFile(file);
+  };
+
+  const handleUpload = async () => {
+    if (selectedFile) {
+      try {
+        const downloadURL = await uploadImage(selectedFile);
+        console.log("Image uploaded:", downloadURL);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
   };
   return (
     <IonCard>
@@ -64,6 +109,7 @@ function Forms() {
                 <p>{event.host_id}</p>
                 <p>{event.event_date}</p>
               </IonLabel>
+              <IonButton onClick={handleApplyEvent}>Apply</IonButton>
               <IonButton onClick={() => handleDeleteEvent(event.id)}>
                 Delete
               </IonButton>
@@ -73,14 +119,12 @@ function Forms() {
 
         <IonLoading isOpen={loading} message={"Fetching Data..."} />
 
-        <IonToast
-          isOpen={!!error}
-          message={`Error: ${error?.message || "Unknown error"}`}
-          duration={5000}
-        />
-
         <IonItem>
           <IonLabel position="stacked">New Data Text</IonLabel>
+          <IonItem>
+            <IonLabel position="stacked">Event Name</IonLabel>
+            <IonInput type="file" onIonChange={handleFileChange}></IonInput>
+          </IonItem>
           <IonItem>
             <IonLabel position="stacked">Event Name</IonLabel>
             <IonInput
@@ -111,6 +155,7 @@ function Forms() {
           <IonItem>
             <IonLabel position="stacked">Event Date</IonLabel>
             <IonInput
+              type="date"
               name="event_date"
               value={eventData.event_date}
               onIonChange={handleInputChange}
@@ -120,8 +165,6 @@ function Forms() {
 
         <IonButton onClick={handleAddEvent}>Add Data to Firebase</IonButton>
         <IonLoading isOpen={loading} message={"Adding Event..."} />
-
-        {error && <p>Error: {error.message}</p>}
       </IonCardContent>
     </IonCard>
   );

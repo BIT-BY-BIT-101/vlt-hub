@@ -18,13 +18,15 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import { IonApp, IonContent, setupIonicReact } from "@ionic/react";
 import RouteService from "./router/RouteService";
+import TestRoutes from "./router/TestRoutes";
 
 setupIonicReact();
 
 const App: React.FC = () => {
   return (
     <IonApp>
-      <RouteService />
+      {/* <RouteService /> */}
+      <TestRoutes />
       {/* <Home /> */}
     </IonApp>
   );

@@ -23,11 +23,9 @@ import techythursdays from "../../assets/techythursdays.jpg";
 import Logo from "../../assets/user.jpg";
 import "./ParticipantHomePage.css";
 import NaveMenu from "../../components/menus/NaveMenu";
+import UserEventsCard from "../../components/cards/UserEventsCard";
 
 const ParticipantHomePage: React.FC = () => {
-  const handleLogout = () => {
-    console.log("Logout clicked");
-  };
   return (
     <IonPage>
       <NaveMenu />
@@ -40,27 +38,7 @@ const ParticipantHomePage: React.FC = () => {
 
       <IonContent id="phome-main">
         <div className="phome-cards-container">
-          <IonCard className="phome-event-card">
-            <IonImg
-              src={IntrotoCSharp}
-              alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
-              className="phome-event-image"
-            />
-            <IonLabel>
-              <h2 className="phome-event-title">
-                Mastering the Fundamentals: An Introduction to Visual C#
-                Programming
-              </h2>
-              <IonLabel className="phome-event-details">
-                <p>
-                  <span>Date:</span> October 15, 2023
-                </p>
-                <p>
-                  <span>Venue:</span> Zoom
-                </p>
-              </IonLabel>
-            </IonLabel>
-          </IonCard>
+          <UserEventsCard />
 
           <IonCard className="phome-event-card">
             <IonImg
