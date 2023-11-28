@@ -1,17 +1,17 @@
 import {
-  IonMenu,
-  IonHeader,
-  IonToolbar,
-  IonImg,
-  IonLabel,
-  IonButtons,
   IonButton,
-  IonIcon,
+  IonButtons,
   IonContent,
-  IonList,
+  IonHeader,
+  IonIcon,
+  IonImg,
   IonItem,
+  IonLabel,
+  IonList,
+  IonMenu,
+  IonToolbar,
 } from "@ionic/react";
-import { pencil, home, calendar, time, logOut } from "ionicons/icons";
+import { calendar, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
 import UserImg from "../../assets/user.jpg";
 

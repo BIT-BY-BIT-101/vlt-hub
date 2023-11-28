@@ -21,9 +21,9 @@ import IntrotoCSharp from "../../assets/introtocsharp.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
 import Logo from "../../assets/user.jpg";
-import "./ParticipantHomePage.css";
-import NaveMenu from "../../components/menus/NaveMenu";
 import UserEventsCard from "../../components/cards/UserEventsCard";
+import NaveMenu from "../../components/menus/ParticipantNavMenu";
+import "./ParticipantHomePage.css";
 
 const ParticipantHomePage: React.FC = () => {
   return (
