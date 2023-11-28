@@ -1,0 +1,294 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.vhome-logocontainer {
+   max-width: 50%;
+   margin: 20px auto;
+   border-radius: 50%;
+   overflow: hidden;
+   --ion-text-color: #fff;
+   --ion-background-color: var(--main-color);
+}
+
+.vhome-userinfo {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-bottom: 20px;
+}
+
+.vhome-username {
+   color: #fff;
+   font-size: 1.2rem;
+   margin-top: 10px;
+   margin-bottom: 20px;
+   display: block;
+   font-family: "Roboto", sans-serif;
+   font-weight: bold;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   opacity: 0.8;
+}
+
+.vhome-editprofile {
+   color: #fff;
+   background-color: var(--main-color);
+   font-size: 0.9rem;
+   font-weight: 600;
+   border: 2px solid #fff;
+   border-radius: 20px;
+   padding: 8px 16px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 10px;
+   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.vhome-editprofile ion-icon {
+   margin-right: 8px;
+}
+
+.vhome-editprofile:hover {
+   background-color: #fff;
+   color: #f46197;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.vhome-menu-header {
+   background: linear-gradient(to bottom, var(--main-color), var(--secondary-color));
+   box-shadow: 0px 3px 8px var(--shadow-color);
+}
+
+.vhome-menu-content {
+   --ion-background-color: #282a2a;
+   background-color: var(--ion-background-color);
+   display: flex;
+   flex-direction: column;
+}
+
+.vhome-menu-item,
+.vhome-logout {
+   --color: #fff;
+   --highlight-color: #f46197;
+   transition: background-color 0.3s ease-in-out;
+   display: flex;
+   justify-content: center;
+   padding: 8px;
+   cursor: pointer;
+   position: relative;
+}
+
+.vhome-menu-item {
+   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.vhome-menu-item:last-child {
+   border-bottom: none;
+}
+
+.vhome-menu-item:hover,
+.vhome-menu-item.activated,
+.vhome-logout:hover {
+   --ion-item-background: #ffff;
+}
+
+.vhome-menu-item ion-label,
+.vhome-logout ion-label {
+   font-size: 1.3rem !important;
+   letter-spacing: 0.5px;
+   color: var(--color);
+   transition: color 0.3s ease-in-out;
+   user-select: none;
+}
+
+.vhome-menu-item:hover ion-label,
+.vhome-menu-item.activated ion-label,
+.vhome-logout:hover ion-label {
+   color: var(--highlight-color);
+   font-weight: bold;
+}
+
+.vhome-menu-icon {
+   color: #fff;
+   margin-right: 20px;
+}
+
+.vhome-menu-item:hover .vhome-menu-icon {
+   color: #000;
+}
+
+.vhome-logout {
+   margin-top: 110px;
+}
+
+.vhome-logout ion-icon {
+   margin-right: 20px;
+}
+
+.vhome-logout::before {
+   content: "";
+   height: 1px;
+   width: calc(100% - 16px);
+   background-color: rgba(255, 255, 255, 0.2);
+   position: absolute;
+   top: 0;
+   left: 8px;
+}
+
+.vhome-cards-container {
+   display: flex;
+   justify-content: space-between;
+   margin: 0 -10px;
+   margin-left: 20px;
+   margin-right: 20px;/
+}
+
+.vhome-event-card {
+   width: 30%;
+   background-color: var(--main-color);
+   padding: 20px;
+   border-radius: 15px;
+   box-shadow: 14px 14px 28px #b5b5b5,
+      -14px -14px 28px #ffffff;
+   margin: 20px 10px;
+   color: #fff;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   /* text-align: center; */
+   max-width: 450px;
+   max-height: 800px;
+   align-items: stretch;
+   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+   overflow: hidden;
+}
+
+.vhome-event-card:hover {
+   transform: scale(1.05);
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.vhome-event-image {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   border-radius: 8px;
+   margin-bottom: 20px;
+   transition: transform 0.3s ease-in-out;
+}
+
+.vhome-event-card:hover .vhome-event-image {
+   transform: scale(1.1);
+}
+
+.vhome-event-title {
+   display: flex;
+   flex-direction: column;
+   height: 80px;
+   font-weight: bold;
+   overflow: hidden;
+}
+
+.vhome-event-card ion-label {
+   font-size: 1.5rem;
+   font-weight: bold;
+   caret-color: transparent;
+   margin-bottom: 10px;
+   flex-grow: 1;
+}
+
+.vhome-event-card ion-label h2 {
+   font-size: 1.2rem;
+   font-weight: bold;
+   margin-bottom: -10px;
+}
+
+.vhome-event-details {
+   margin-top: 10px;
+}
+
+.vhome-event-details p {
+   color: #eae1e1;
+   margin: 5px 0;
+   font-size: 1rem;
+   text-align: left;
+}
+
+.vhome-event-details p span {
+   color: #f46197;
+   font-weight: bold;
+   margin-right: 5px;
+}
+
+.vhome-card-icons {
+   margin-right: 5px;
+   color: #f46197;
+}
+
+
+@media (max-width: 768px) {
+   .vhome-cards-container {
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+   }
+
+   .vhome-event-card {
+      width: 90%;
+      max-height: 250px;
+      margin: 20px 0;
+      flex-direction: row;
+      display: flex;
+      align-items: center;
+   }
+
+   .vhome-event-image {
+      max-width: 100px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px 0 0 8px;
+      margin-bottom: 0;
+   }
+
+   .vhome-event-card ion-label,
+   .vhome-event-details {
+      text-align: left;
+      margin-left: 10px;
+   }
+
+   .vhome-event-card ion-label h2 {
+      font-size: 1rem;
+   }
+
+   .vhome-event-title {
+      height: 90px;
+      overflow: hidden;
+   }
+
+   .vhome-event-details p,
+   .vhome-event-details p span {
+      font-size: 0.8rem;
+   }
+}
