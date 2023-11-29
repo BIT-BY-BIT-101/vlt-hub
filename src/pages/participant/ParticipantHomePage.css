@@ -54,14 +54,15 @@ body {
 .phome-editprofile {
    color: #fff;
    background-color: var(--main-color);
-   font-size: 0.9rem;
+   font-size: 1rem;
+   /* Adjust the font size as needed */
    font-weight: 600;
    border: 2px solid #fff;
    border-radius: 20px;
-   padding: 8px 16px;
+   padding: 10px 16px;
+   /* Adjust padding as needed */
    display: flex;
    align-items: center;
-   justify-content: center;
    margin-top: 10px;
    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
@@ -108,6 +109,10 @@ body {
    border-bottom: none;
 }
 
+.phome-menu-options {
+   margin-bottom: 150px;
+}
+
 .phome-menu-item:hover,
 .phome-menu-item.activated,
 .phome-logout:hover {
@@ -135,12 +140,17 @@ body {
    margin-right: 20px;
 }
 
-.phome-menu-item:hover .phome-menu-icon {
+.phome-menu-item ion-icon {
+   color: #fff;
+   margin-right: 20px;
+}
+
+.phome-menu-item.activated ion-icon {
    color: #000;
 }
 
-.phome-logout {
-   margin-top: 180px;
+.phome-menu-item:hover .phome-menu-icon {
+   color: #000;
 }
 
 .phome-logout ion-icon {
@@ -254,6 +264,10 @@ body {
       flex-direction: column;
       align-items: center;
       margin: 0;
+   }
+
+   .phome-menu-options {
+      margin-bottom: 60px;
    }
 
    .phome-event-card {

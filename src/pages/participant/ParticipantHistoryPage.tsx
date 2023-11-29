@@ -1,4 +1,5 @@
 import {
+  IonContent,
   IonHeader,
   IonMenuButton,
   IonPage,
@@ -6,18 +7,19 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
-import NavMenu from "../../components/menus/ParticipantNavMenu";
+import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 
 const ParticipantHistoryPage = () => {
   return (
     <IonPage>
-      <NavMenu />
+      <ParticipantNavMenu />
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot="start" />
           <IonTitle>History</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <IonContent id="phome-main"></IonContent>
     </IonPage>
   );
 };

@@ -13,12 +13,21 @@ import {
 } from "@ionic/react";
 import { calendar, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
 
-function NavMenu() {
+function ParticipantNavMenu() {
+  const history = useHistory();
+  const location = useLocation();
+
   const handleLogout = () => {
     console.log("Logout clicked");
   };
+
+  const isMenuItemActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <IonMenu contentId="phome-main" type="overlay">
       <IonHeader>
@@ -41,16 +50,31 @@ function NavMenu() {
       </IonHeader>
 
       <IonContent className="phome-menu-content">
-        <IonList>
-          <IonItem className="phome-menu-item">
+        <IonList className="phome-menu-options">
+          <IonItem
+            className={`phome-menu-item ${
+              isMenuItemActive("/participant/home") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/participant/home")}
+          >
             <IonIcon icon={home} slot="start" className="phome-menu-icon" />
             <IonLabel class="phome-menu-label">Home</IonLabel>
           </IonItem>
-          <IonItem className="phome-menu-item">
+          <IonItem
+            className={`phome-menu-item ${
+              isMenuItemActive("/participant/event") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/participant/event")}
+          >
             <IonIcon icon={calendar} slot="start" className="phome-menu-icon" />
             <IonLabel class="phome-menu-label">My Events</IonLabel>
           </IonItem>
-          <IonItem className="phome-menu-item">
+          <IonItem
+            className={`phome-menu-item ${
+              isMenuItemActive("/participant/history") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/participant/history")}
+          >
             <IonIcon icon={time} slot="start" className="phome-menu-icon" />
             <IonLabel class="phome-menu-label">History</IonLabel>
           </IonItem>
@@ -67,4 +91,4 @@ function NavMenu() {
   );
 }
 
-export default NavMenu;
+export default ParticipantNavMenu;

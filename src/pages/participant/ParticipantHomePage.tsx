@@ -22,13 +22,13 @@ import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
 import Logo from "../../assets/user.jpg";
 import UserEventsCard from "../../components/cards/UserEventsCard";
-import NavMenu from "../../components/menus/ParticipantNavMenu";
+import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import "./ParticipantHomePage.css";
 
 const ParticipantHomePage: React.FC = () => {
   return (
     <IonPage>
-      <NavMenu />
+      <ParticipantNavMenu />
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot="start" />
@@ -54,7 +54,7 @@ const ParticipantHomePage: React.FC = () => {
               </h2>
               <IonLabel className="phome-event-details">
                 <p>
-                  <span>Date:</span> October 15, 2023
+                  <span>Date:</span> November 29, 2023
                 </p>
                 <p>
                   <span>Venue:</span> Zoom
@@ -75,7 +75,7 @@ const ParticipantHomePage: React.FC = () => {
               </h2>
               <IonLabel className="phome-event-details">
                 <p>
-                  <span>Date:</span> October 15, 2023
+                  <span>Date:</span> December 1, 2023
                 </p>
                 <p>
                   <span>Venue:</span> Zoom

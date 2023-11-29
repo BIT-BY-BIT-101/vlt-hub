@@ -1,0 +1,95 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.search-bar {
+   --background: #ffffff;
+   --color: var(--secondary-color);
+   --border-radius: 20px;
+   --placeholder-color: var(--secondary-color);
+   --placeholder-font-weight: bold;
+   --border-width: 2px;
+   --border-color: var(--secondary-color);
+   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   margin: 30px 15px 50px 15px;
+   border: 3px solid black;
+   border-radius: 25px;
+   width: calc(100% - 30px);
+}
+
+.search-bar:focus-within {
+   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   --border-color: var(--hover-shadow-color);
+}
+
+.event-card {
+   border-radius: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+   overflow: hidden;
+   margin: 0 20px;
+}
+
+.event-card:hover {
+   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.event-date {
+   text-align: left;
+   margin-top: 20px;
+   margin-bottom: 30px;
+   margin-left: 20px;
+   color: black;
+   font-weight: bold;
+   font-size: 20px;
+}
+
+.eventcard-btn {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 15px;
+}
+
+.view-btn,
+.cancel-btn {
+   width: 48%;
+   font-size: 14px;
+   --background: #ffffff;
+   --color: var(--secondary-color);
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.view-btn:hover {
+   --background: var(--secondary-color);
+   --color: #ffffff;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-btn:hover {
+   --background: red;
+   --color: white;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
