@@ -22,13 +22,13 @@ import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
 import Logo from "../../assets/user.jpg";
 import UserEventsCard from "../../components/cards/UserEventsCard";
-import NaveMenu from "../../components/menus/ParticipantNavMenu";
+import NavMenu from "../../components/menus/ParticipantNavMenu";
 import "./ParticipantHomePage.css";
 
 const ParticipantHomePage: React.FC = () => {
   return (
     <IonPage>
-      <NaveMenu />
+      <NavMenu />
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot="start" />

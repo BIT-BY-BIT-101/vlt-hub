@@ -15,7 +15,7 @@ import { calendar, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
 import UserImg from "../../assets/user.jpg";
 
-function NaveMenu() {
+function NavMenu() {
   const handleLogout = () => {
     console.log("Logout clicked");
   };
@@ -67,4 +67,4 @@ function NaveMenu() {
   );
 }
 
-export default NaveMenu;
+export default NavMenu;

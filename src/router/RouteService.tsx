@@ -10,6 +10,8 @@ import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import HostHomePage from "../pages/host/HostHomePage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
 import Signin from "../pages/auth/Signin";
+import ParticipantHistoryPage from "../pages/participant/ParticipantHistoryPage";
+import ParticipantEventPage from "../pages/participant/ParticipantEventPage";
 
 const RouteService = () => {
   return (
@@ -34,6 +36,12 @@ const RouteService = () => {
         </Route>
         <Route exact path="/participant/home">
           <ParticipantHomePage />
+        </Route>
+        <Route exact path="/participant/history">
+          <ParticipantHistoryPage />
+        </Route>
+        <Route exact path="/participant/event">
+          <ParticipantEventPage />
         </Route>
 
         {/* Host Routes */}
