@@ -15,12 +15,17 @@ import { calendar, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
+import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 function ParticipantNavMenu() {
+  const { signOut } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
 
-  const handleLogout = () => {
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {}
     console.log("Logout clicked");
   };
 
@@ -81,7 +86,7 @@ function ParticipantNavMenu() {
         </IonList>
         <IonItem
           className="phome-menu-item phome-logout"
-          onClick={handleLogout}
+          onClick={handleSignOut}
         >
           <IonIcon icon={logOut} slot="start" className="phome-menu-icon" />
           <IonLabel class="phome-menu-label">Logout</IonLabel>

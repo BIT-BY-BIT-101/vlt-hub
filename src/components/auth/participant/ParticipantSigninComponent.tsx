@@ -18,8 +18,10 @@ import { Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/psignin.svg";
 import "./ParticipantSigninComponent.css";
+import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const ParticipantSigninComponent: React.FC = () => {
+  const { user, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -29,7 +31,13 @@ const ParticipantSigninComponent: React.FC = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleLogin = () => {};
+  const handleSignin = async () => {
+    try {
+      await signIn(email, password);
+      console.log("Your Signin Successfully with an email", user);
+    } catch (error) {}
+    console.log("An Error Occured");
+  };
 
   return (
     <div className="psignin-container">
@@ -88,7 +96,7 @@ const ParticipantSigninComponent: React.FC = () => {
 
             <IonButton
               expand="full"
-              onClick={handleLogin}
+              onClick={handleSignin}
               className="psignin-loginbtn"
             >
               Sign in as a Participant

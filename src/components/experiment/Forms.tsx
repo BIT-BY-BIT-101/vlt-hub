@@ -16,13 +16,17 @@ import {
 import React, { useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { db, storage } from "../../config/firebase";
 import { useParams } from "react-router";
-import usePhoto from "../../hooks/usePhoto";
+
+import useFirebaseStorage from "../../hooks/useFirestorage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // import { EventDataModel } from "../../models/Model";
 // import * from "../../asset/"
 
 function Forms() {
+  const [imageUpload, setImageUpload] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
   const {
     addData: addEvent,
     error,
@@ -37,9 +41,8 @@ function Forms() {
     event_description: "",
     host_id: "",
     event_date: "",
+    event_imageUrl: imageUrl,
   });
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { uploadImage, uploading, uploadError } = usePhoto();
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -50,25 +53,17 @@ function Forms() {
   };
 
   const handleAddEvent = async () => {
+    if (imageUpload == null) return;
+    const filename = `${Date.now()}_${imageUpload.name}`;
+    const imageRef = ref(storage, `images/${filename}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrl(url);
+      });
+    });
+    console.log(imageUpload.name, "Uploaded Successfully");
+    console.log(imageUrl);
     await addEvent(eventData);
-    if (selectedFile) {
-      try {
-        const downloadURL = await uploadImage(selectedFile);
-        console.log("Image uploaded:", downloadURL);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-    }
-  };
-  const handleApplyEvent = async () => {
-    // try {
-    //   const collectionRef = collection(db, "event_application_tbl");
-    //   await addDoc(collectionRef, applyEvent);
-    //   console.log("Event added successfully!", collectionRef.id);
-    // } catch (err) {
-    //   console.error("Error adding event:", err);
-    // }
-    console.log("Applied Successfully");
   };
 
   const handleDeleteEvent = (id: string) => {
@@ -77,21 +72,6 @@ function Forms() {
     console.log(id, "was deleted successfully");
   };
 
-  const handleFileChange = (e: any) => {
-    const file = e.target.files?.[0] || null;
-    setSelectedFile(file);
-  };
-
-  const handleUpload = async () => {
-    if (selectedFile) {
-      try {
-        const downloadURL = await uploadImage(selectedFile);
-        console.log("Image uploaded:", downloadURL);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-    }
-  };
   return (
     <IonCard>
       <IonCardHeader>
@@ -109,7 +89,7 @@ function Forms() {
                 <p>{event.host_id}</p>
                 <p>{event.event_date}</p>
               </IonLabel>
-              <IonButton onClick={handleApplyEvent}>Apply</IonButton>
+              <IonButton>Apply</IonButton>
               <IonButton onClick={() => handleDeleteEvent(event.id)}>
                 Delete
               </IonButton>
@@ -123,7 +103,18 @@ function Forms() {
           <IonLabel position="stacked">New Data Text</IonLabel>
           <IonItem>
             <IonLabel position="stacked">Event Name</IonLabel>
-            <IonInput type="file" onIonChange={handleFileChange}></IonInput>
+            {/* <IonInput
+              type="file"
+              onIonChange={(e) => {
+                setSelectedFile(e.target.files[0]);
+              }}
+            ></IonInput> */}
+            <input
+              type="file"
+              onChange={(event) => {
+                setImageUpload(event.target.files?.[0] || null);
+              }}
+            />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Event Name</IonLabel>

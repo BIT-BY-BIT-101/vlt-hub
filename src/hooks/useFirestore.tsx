@@ -30,7 +30,7 @@ const useFirestore = (collectionPath: string) => {
     try {
       const collectionRef = collection(db, collectionPath);
       await addDoc(collectionRef, newData);
-      console.log("Event added successfully!", collectionRef.id);
+      console.log("Data added successfully!", collectionRef.id);
       getData();
     } catch (err) {
       setError(err);

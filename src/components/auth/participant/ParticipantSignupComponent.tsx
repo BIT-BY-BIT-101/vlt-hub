@@ -5,10 +5,13 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonDatetime,
+  IonDatetimeButton,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
+  IonModal,
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
@@ -17,10 +20,45 @@ import { Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/psignup.svg";
 import "./ParticipantSignupComponent.css";
+import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const handleSignup = () => {};
 
 const ParticipantSignupComponent = () => {
+  const { user, signUp } = useFirebaseAuth();
+  const [newEmail, setNewEmail] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [newFirstname, setNewFirstname] = useState<string>("");
+  const [newLastnaem, setNewLastname] = useState<string>("");
+  const [newBirthdate, setNewBirthdate] = useState<string>("");
+  const [newRole, setNewRole] = useState<"host" | "participant" | "venue">(
+    "participant"
+  );
+
+  const [month, setMonth] = useState("");
+  const [date, setDate] = useState("");
+  const [year, setYear] = useState("");
+
+  const handleSignup = async () => {
+    const formattedBirthdate = `${month}/${date}/${year}`;
+    await setNewBirthdate(formattedBirthdate);
+    try {
+      await signUp(
+        newEmail,
+        newPassword,
+        newFirstname,
+        newLastnaem,
+        newBirthdate,
+        "participant"
+      );
+      // Redirect or handle success as needed
+      console.log("Account created successfully");
+    } catch (err) {
+      console.error("Signup error:", err);
+      // Handle error, show message, etc.
+    }
+  };
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -53,12 +91,14 @@ const ParticipantSignupComponent = () => {
                 className="psignup-input"
                 type="text"
                 placeholder="First Name"
+                onIonChange={(e) => setNewFirstname(e.detail.value!)}
               ></IonInput>
 
               <IonInput
                 className="psignup-input"
                 type="text"
                 placeholder="Last Name"
+                onIonChange={(e) => setNewLastname(e.detail.value!)}
               ></IonInput>
             </div>
 
@@ -66,12 +106,14 @@ const ParticipantSignupComponent = () => {
               className="psignup-input"
               type="email"
               placeholder="Enter your email address"
+              onIonChange={(e) => setNewEmail(e.detail.value!)}
             ></IonInput>
 
             <IonInput
               className="psignup-input"
               type={showPassword ? "text" : "password"}
               placeholder="Enter a password"
+              onIonChange={(e) => setNewPassword(e.detail.value!)}
             />
 
             <IonIcon
@@ -81,24 +123,45 @@ const ParticipantSignupComponent = () => {
               onClick={handleTogglePassword}
             />
 
+            {/* <IonDatetimeButton datetime="date"></IonDatetimeButton>
+            <IonModal keepContentsMounted={true}>
+              <IonDatetime
+                presentation="date"
+                id="date"
+                onIonChange={(e) => {
+                  const selectedDate = new Date().toString();
+                  setNewBirthdate(selectedDate);
+                }}
+              ></IonDatetime>
+            </IonModal> */}
+
             <div className="psignup-birthdate">
               <IonInput
                 className="psignup-input psignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="MM"
+                onIonChange={(e) => {
+                  setMonth(e.detail.value!);
+                }}
               />
               <IonInput
                 className="psignup-input psignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="DD"
+                onIonChange={(e) => {
+                  setDate(e.detail.value!);
+                }}
               />
               <IonInput
                 className="psignup-input psignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="YYYY"
+                onIonChange={(e) => {
+                  setYear(e.detail.value!);
+                }}
               />
             </div>
 
