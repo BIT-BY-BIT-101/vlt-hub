@@ -1,17 +1,21 @@
-import React from "react";
+import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import React from "react";
 import { Redirect, Route } from "react-router";
 import Home from "../pages/Home";
-import { IonRouterOutlet } from "@ionic/react";
 
+import Signin from "../pages/auth/Signin";
+import HostSigninPage from "../pages/auth/host/HostSigninPage";
+import HostSignupPage from "../pages/auth/host/HostSignupPage";
 import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
 import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
-import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
+import VenueSigninPage from "../pages/auth/venue/VenueSigninPage";
+import VenueSignupPage from "../pages/auth/venue/VenueSignupPage";
 import HostHomePage from "../pages/host/HostHomePage";
-import VenueHomePage from "../pages/venue/VenueHomePage";
-import Signin from "../pages/auth/Signin";
-import ParticipantHistoryPage from "../pages/participant/ParticipantHistoryPage";
 import ParticipantEventPage from "../pages/participant/ParticipantEventPage";
+import ParticipantHistoryPage from "../pages/participant/ParticipantHistoryPage";
+import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
+import VenueHomePage from "../pages/venue/VenueHomePage";
 
 const RouteService = () => {
   return (
@@ -20,12 +24,25 @@ const RouteService = () => {
         <Route exact path="/home">
           <Home />
         </Route>
-        <Route exact path="/signin">
+        <Route exact path="/participant/signin">
           <ParticipantSigninPage />
         </Route>
-        <Route exact path="/signup">
+        <Route exact path="/participant/signup">
           <ParticipantSignupPage />
         </Route>
+        <Route exact path="/host/signup">
+          <HostSignupPage />
+        </Route>
+        <Route exact path="/host/signin">
+          <HostSigninPage />
+        </Route>
+        <Route exact path="/venue/signin">
+          <VenueSigninPage />
+        </Route>
+        <Route exact path="/venue/signup">
+          <VenueSignupPage />
+        </Route>
+
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

@@ -15,12 +15,12 @@ import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
-import SignUpSVG from "../../../assets/psignup.svg";
-import "./ParticipantSignupComponent.css";
+import SignUpSVG from "../../../assets/vsignup.svg";
+import "./VenueSignupComponent.css";
 
 const handleSignup = () => {};
 
-const ParticipantSignupComponent = () => {
+const VenueSignupComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -28,74 +28,74 @@ const ParticipantSignupComponent = () => {
   };
 
   return (
-    <div className="psignup-container">
+    <div className="vsignup-container">
       <div className="left-section">
-        <img src={SignUpSVG} alt="SignUpSVG" className="psignup-img" />
+        <img src={SignUpSVG} alt="SignUpSVG" className="vsignup-img" />
       </div>
 
       <div className="right-section">
-        <IonCard className="psignup-card">
+        <IonCard className="vsignup-card">
           <div className="logo-container">
-            <img src={Logo} alt="V.L.T. Hub" className="psignup-logo" />
+            <img src={Logo} alt="V.L.T. Hub" className="vsignup-logo" />
           </div>
           <IonCardHeader>
-            <IonCardTitle className="psignup-heading">
+            <IonCardTitle className="vsignup-heading">
               Building Bridges for Brighter Minds.
             </IonCardTitle>
-            <IonCardSubtitle className="psignup-subheading">
-              Join V.L.T. Hub now.
+            <IonCardSubtitle className="vsignup-subheading">
+              Unlock Venue Opportunities.
             </IonCardSubtitle>
           </IonCardHeader>
 
           <IonCardContent>
-            <div className="psignup-flname">
+            <div className="vsignup-flname">
               <IonInput
-                className="psignup-input"
+                className="vsignup-input"
                 type="text"
                 placeholder="First Name"
               ></IonInput>
 
               <IonInput
-                className="psignup-input"
+                className="vsignup-input"
                 type="text"
                 placeholder="Last Name"
               ></IonInput>
             </div>
 
             <IonInput
-              className="psignup-input"
+              className="vsignup-input"
               type="email"
               placeholder="Enter your email address"
             ></IonInput>
 
             <IonInput
-              className="psignup-input"
+              className="vsignup-input"
               type={showPassword ? "text" : "password"}
               placeholder="Enter a password"
             />
 
             <IonIcon
-              className="psignup-eye-icon"
+              className="vsignup-eye-icon"
               slot="end"
               icon={showPassword ? eyeOff : eye}
               onClick={handleTogglePassword}
             />
 
-            <div className="psignup-birthdate">
+            <div className="vsignup-birthdate">
               <IonInput
-                className="psignup-input psignup-birthdate-input"
+                className="vsignup-input hsignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="MM"
               />
               <IonInput
-                className="psignup-input psignup-birthdate-input"
+                className="vsignup-input hsignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="DD"
               />
               <IonInput
-                className="psignup-input psignup-birthdate-input"
+                className="vsignup-input hsignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="YYYY"
@@ -103,10 +103,10 @@ const ParticipantSignupComponent = () => {
             </div>
 
             <IonItem>
-              <IonText className="psignup-prompt">
+              <IonText className="vsignup-prompt">
                 <p>
                   Already have an Account?{" "}
-                  <Link to={"/participant/signin"}>Sign in</Link>
+                  <Link to={"/venue/signin"}>Sign in</Link>
                 </p>
               </IonText>
             </IonItem>
@@ -114,9 +114,9 @@ const ParticipantSignupComponent = () => {
             <IonButton
               expand="full"
               onClick={handleSignup}
-              className="psignup-signupbtn"
+              className="vsignup-signupbtn"
             >
-              Sign up as a Participant
+              Sign up as a Venue
             </IonButton>
           </IonCardContent>
         </IonCard>
@@ -125,4 +125,4 @@ const ParticipantSignupComponent = () => {
   );
 };
 
-export default ParticipantSignupComponent;
+export default VenueSignupComponent;

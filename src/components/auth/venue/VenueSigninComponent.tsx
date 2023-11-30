@@ -16,10 +16,10 @@ import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
-import SignInSVG from "../../../assets/psignin.svg";
-import "./ParticipantSigninComponent.css";
+import SignInSVG from "../../../assets/vsignin.svg";
+import "./VenueSigninComponent.css";
 
-const ParticipantSigninComponent: React.FC = () => {
+const VenueSigninComponent: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -32,31 +32,31 @@ const ParticipantSigninComponent: React.FC = () => {
   const handleLogin = () => {};
 
   return (
-    <div className="psignin-container">
+    <div className="vsignin-container">
       <div className="left-section">
-        <img src={SignInSVG} alt="SignInSVG" className="psignin-img" />
+        <img src={SignInSVG} alt="SignInSVG" className="vsignin-img" />
       </div>
 
       <div className="right-section">
-        <IonCard className="psignin-card">
+        <IonCard className="vsignin-card">
           <IonCardHeader>
             <div className="logo-container">
-              <img src={Logo} alt="V.L.T. Hub" className="psignin-logo" />
+              <img src={Logo} alt="V.L.T. Hub" className="vsignin-logo" />
             </div>
-            <IonCardTitle className="psignin-heading">
+            <IonCardTitle className="vsignin-heading">
               Let's sign you in.
             </IonCardTitle>
-            <IonCardSubtitle className="psignin-subheading1">
+            <IonCardSubtitle className="vsignin-subheading1">
               Welcome back.
             </IonCardSubtitle>
-            <IonCardSubtitle className="psignin-subheading2">
-              You've been missed!
+            <IonCardSubtitle className="vsignin-subheading2">
+              Ready to manage venues?
             </IonCardSubtitle>
           </IonCardHeader>
 
           <IonCardContent>
             <IonInput
-              className="psignin-input"
+              className="vsignin-input"
               type="email"
               placeholder="Email"
               value={email}
@@ -64,24 +64,24 @@ const ParticipantSigninComponent: React.FC = () => {
             ></IonInput>
 
             <IonInput
-              className="psignin-input"
+              className="vsignin-input"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onIonChange={(e) => setPassword(e.detail.value!)}
             ></IonInput>
             <IonIcon
-              className="psignin-eye-icon"
+              className="vsignin-eye-icon"
               slot="end"
               icon={showPassword ? eyeOff : eye}
               onClick={handleTogglePassword}
             />
 
             <IonItem>
-              <IonText className="psignin-prompt">
+              <IonText className="vsignin-prompt">
                 <p>
                   Don't have an Account?{" "}
-                  <Link to={"/participant/signup"}>Sign up!</Link>
+                  <Link to={"/venue/signup"}>Sign up!</Link>
                 </p>
               </IonText>
             </IonItem>
@@ -89,9 +89,9 @@ const ParticipantSigninComponent: React.FC = () => {
             <IonButton
               expand="full"
               onClick={handleLogin}
-              className="psignin-loginbtn"
+              className="vsignin-loginbtn"
             >
-              Sign in as a Participant
+              Sign in as a Venue
             </IonButton>
 
             <IonAlert
@@ -108,4 +108,4 @@ const ParticipantSigninComponent: React.FC = () => {
   );
 };
 
-export default ParticipantSigninComponent;
+export default VenueSigninComponent;

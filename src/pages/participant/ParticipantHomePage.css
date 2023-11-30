@@ -193,7 +193,6 @@ body {
    align-items: stretch;
    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
    overflow: hidden;
-
 }
 
 .phome-event-card:hover {

@@ -14,13 +14,13 @@ import {
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SignUpSVG from "../../../assets/hsignup.svg";
 import Logo from "../../../assets/logo.png";
-import SignUpSVG from "../../../assets/psignup.svg";
-import "./ParticipantSignupComponent.css";
+import "./HostSignupComponent.css";
 
 const handleSignup = () => {};
 
-const ParticipantSignupComponent = () => {
+const HostSignupComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -28,74 +28,74 @@ const ParticipantSignupComponent = () => {
   };
 
   return (
-    <div className="psignup-container">
+    <div className="hsignup-container">
       <div className="left-section">
         <img src={SignUpSVG} alt="SignUpSVG" className="psignup-img" />
       </div>
 
       <div className="right-section">
-        <IonCard className="psignup-card">
+        <IonCard className="hsignup-card">
           <div className="logo-container">
             <img src={Logo} alt="V.L.T. Hub" className="psignup-logo" />
           </div>
           <IonCardHeader>
-            <IonCardTitle className="psignup-heading">
+            <IonCardTitle className="hsignup-heading">
               Building Bridges for Brighter Minds.
             </IonCardTitle>
-            <IonCardSubtitle className="psignup-subheading">
-              Join V.L.T. Hub now.
+            <IonCardSubtitle className="hsignup-subheading">
+              Host your seminar with VLT Hub.
             </IonCardSubtitle>
           </IonCardHeader>
 
           <IonCardContent>
-            <div className="psignup-flname">
+            <div className="hsignup-flname">
               <IonInput
-                className="psignup-input"
+                className="hsignup-input"
                 type="text"
                 placeholder="First Name"
               ></IonInput>
 
               <IonInput
-                className="psignup-input"
+                className="hsignup-input"
                 type="text"
                 placeholder="Last Name"
               ></IonInput>
             </div>
 
             <IonInput
-              className="psignup-input"
+              className="hsignup-input"
               type="email"
               placeholder="Enter your email address"
             ></IonInput>
 
             <IonInput
-              className="psignup-input"
+              className="hsignup-input"
               type={showPassword ? "text" : "password"}
               placeholder="Enter a password"
             />
 
             <IonIcon
-              className="psignup-eye-icon"
+              className="hsignup-eye-icon"
               slot="end"
               icon={showPassword ? eyeOff : eye}
               onClick={handleTogglePassword}
             />
 
-            <div className="psignup-birthdate">
+            <div className="hsignup-birthdate">
               <IonInput
-                className="psignup-input psignup-birthdate-input"
+                className="hsignup-input hsignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="MM"
               />
               <IonInput
-                className="psignup-input psignup-birthdate-input"
+                className="hsignup-input hsignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="DD"
               />
               <IonInput
-                className="psignup-input psignup-birthdate-input"
+                className="hsignup-input hsignup-birthdate-input"
                 type="number"
                 inputmode="numeric"
                 placeholder="YYYY"
@@ -103,10 +103,10 @@ const ParticipantSignupComponent = () => {
             </div>
 
             <IonItem>
-              <IonText className="psignup-prompt">
+              <IonText className="hsignup-prompt">
                 <p>
                   Already have an Account?{" "}
-                  <Link to={"/participant/signin"}>Sign in</Link>
+                  <Link to={"/host/signin"}>Sign in</Link>
                 </p>
               </IonText>
             </IonItem>
@@ -114,9 +114,9 @@ const ParticipantSignupComponent = () => {
             <IonButton
               expand="full"
               onClick={handleSignup}
-              className="psignup-signupbtn"
+              className="hsignup-signupbtn"
             >
-              Sign up as a Participant
+              Sign up as a Host
             </IonButton>
           </IonCardContent>
         </IonCard>
@@ -125,4 +125,4 @@ const ParticipantSignupComponent = () => {
   );
 };
 
-export default ParticipantSignupComponent;
+export default HostSignupComponent;

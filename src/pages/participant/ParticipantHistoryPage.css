@@ -1,0 +1,58 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.table-title {
+   font-size: 2rem;
+   color: #ffffff;
+   text-align: left;
+   margin-top: 1rem;
+}
+
+.table-header {
+   text-align: center;
+   font-size: 1.5rem;
+   color: #ffffff;
+}
+
+.header-cell {
+   text-align: center;
+   font-size: 1.2rem;
+   font-weight: bold;
+   border: 1px solid #ffffff;
+}
+
+.content-row {
+   text-align: center;
+   color: #c5c2c2;
+}
+
+.content-cell {
+   text-align: center;
+   border: 1px solid #c5c2c2;
+}
+
+.content-cell-status {
+   color: #00ff00;
+   border: 1px solid #c5c2c2;
+}

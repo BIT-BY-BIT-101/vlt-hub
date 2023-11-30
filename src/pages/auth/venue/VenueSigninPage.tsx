@@ -6,16 +6,14 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
-import HostSigninComponent from "../../../components/auth/host/HostSigninComponent";
+import VenueSigninComponent from "../../../components/auth/venue/VenueSigninComponent";
 
-function HostSigninPage() {
+export default function VenueSigninPage() {
   return (
     <IonPage>
       <IonContent fullscreen className="ion-padding">
-        <HostSigninComponent />
+        <VenueSigninComponent />
       </IonContent>
     </IonPage>
   );
 }
-
-export default HostSigninPage;

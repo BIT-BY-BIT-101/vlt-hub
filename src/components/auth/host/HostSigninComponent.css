@@ -22,7 +22,7 @@ body {
    overflow: hidden;
 }
 
-.psignin-container {
+.hsignin-container {
    display: flex;
    height: 100%;
    overflow-y: auto;
@@ -46,12 +46,12 @@ body {
    z-index: 2;
 }
 
-.psignin-img {
+.hsignin-img {
    max-width: 100%;
    max-height: 100%;
 }
 
-.psignin-card {
+.hsignin-card {
    /* position: absolute; */
    /* top: 50%;
    left: 50%; */
@@ -69,11 +69,11 @@ body {
    transition: box-shadow 0.3s ease;
 }
 
-.psignin-card:hover {
+.hsignin-card:hover {
    box-shadow: 0 20px 40px var(--hover-shadow-color);
 }
 
-.psignin-heading {
+.hsignin-heading {
    font-size: 26px;
    font-weight: 600;
    color: white;
@@ -95,21 +95,21 @@ body {
    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.4);
 }
 
-.psignin-logo {
+.hsignin-logo {
    width: 100%;
    height: 100%;
    object-fit: cover;
    border-radius: 50%;
 }
 
-.psignin-subheading1 {
+.hsignin-subheading1 {
    font-size: 20px;
    font-weight: normal;
    color: white;
    margin-top: 5px;
 }
 
-.psignin-subheading2 {
+.hsignin-subheading2 {
    font-size: 20px;
    font-weight: normal;
    color: white;
@@ -117,7 +117,7 @@ body {
    margin-bottom: 5px;
 }
 
-.psignin-input {
+.hsignin-input {
    --highlight-color: var(--secondary-color);
    --padding-start: 10px;
    border: 2px solid var(--main-color);
@@ -128,17 +128,17 @@ body {
    transition: border-color 0.3s ease;
 }
 
-.psignin-input::placeholder {
+.hsignin-input::placeholder {
    color: #ccc;
 }
 
-.psignin-input:hover,
-.psignin-input:focus {
+.hsignin-input:hover,
+.hsignin-input:focus {
    border-color: var(--secondary-color);
    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.psignin-eye-icon {
+.hsignin-eye-icon {
    cursor: pointer;
    position: absolute;
    top: 38%;
@@ -148,26 +148,26 @@ body {
    font-size: 1.3em;
 }
 
-.psignin-prompt {
+.hsignin-prompt {
    display: block;
    margin: 0;
    padding: 0;
    caret-color: transparent;
 }
 
-.psignin-prompt p {
+.hsignin-prompt p {
    font-size: 15px;
    font-weight: 600;
    color: white;
    margin: 20px 0;
 }
 
-.psignin-prompt a {
+.hsignin-prompt a {
    text-decoration: none;
    color: var(--secondary-color);
 }
 
-.psignin-loginbtn {
+.hsignin-loginbtn {
    background-color: var(--secondary-color) !important;
    color: white !important;
    --background: var(--secondary-color) !important;
@@ -180,7 +180,7 @@ body {
 }
 
 @media screen and (max-width: 600px) {
-   .psignin-container {
+   .hsignin-container {
       flex-direction: column;
    }
 
@@ -189,34 +189,34 @@ body {
       width: 100%;
    }
 
-   .psignin-card {
+   .hsignin-card {
       max-width: 100%;
       padding: 10px;
    }
 
-   .psignin-img {
+   .hsignin-img {
       max-width: 30%;
       width: 100%;
    }
 
-   .psignin-heading {
+   .hsignin-heading {
       font-size: 20px;
    }
 
-   .psignin-subheading1 {
+   .hsignin-subheading1 {
       font-size: 16px;
    }
 
-   .psignin-subheading2 {
+   .hsignin-subheading2 {
       font-size: 16px;
    }
 
-   .psignin-prompt p {
+   .hsignin-prompt p {
       font-size: 14px;
       margin: 10px 0;
    }
 
-   .psignin-loginbtn {
+   .hsignin-loginbtn {
       padding: 10px;
    }
 }

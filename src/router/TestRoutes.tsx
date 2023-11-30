@@ -1,20 +1,20 @@
-import React from "react";
+import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import Home from "../pages/Home";
-import { IonRouterOutlet } from "@ionic/react";
 
+import ProtectedRoute from "../components/ProtectedRoute";
+import Signin from "../pages/auth/Signin";
 import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
 import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
-import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import HostHomePage from "../pages/host/HostHomePage";
-import VenueHomePage from "../pages/venue/VenueHomePage";
-import Signin from "../pages/auth/Signin";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import AuthPage from "../pages/test/AuthPage";
 import Test1 from "../pages/test/Test1";
 import Test2 from "../pages/test/Test2";
 import Test3 from "../pages/test/Test3";
+import VenueHomePage from "../pages/venue/VenueHomePage";
 
 const TestRoutes = () => {
   return (
