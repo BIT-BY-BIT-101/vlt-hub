@@ -137,15 +137,6 @@ body {
    gap: 10px;
 }
 
-.vsignup-birthdate {
-   display: flex;
-   gap: 10px;
-}
-
-.vsignup-birthdate-input {
-   text-align: center;
-}
-
 .vsignup-eye-icon {
    cursor: pointer;
    position: absolute;
@@ -154,6 +145,39 @@ body {
    transform: translateY(-50%);
    z-index: 999;
    font-size: 1.3em;
+}
+
+.vsignup-birthdate {
+   margin-top: -10px;
+}
+
+.vsignup-birthdate-container {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 5px;
+}
+
+.vsignup-birthdate-label {
+   color: #ccc;
+   font-size: 16px;
+   margin-bottom: 10px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.vsignup-birthdate-button {
+   --ion-color-step-300: transparent;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   padding: 8px;
+   cursor: pointer;
+   caret-color: transparent;
+}
+
+.vsignup-birthdate-button:hover {
+   border-color: var(--secondary-color);
 }
 
 .vsignup-prompt {

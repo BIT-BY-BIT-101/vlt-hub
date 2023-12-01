@@ -5,10 +5,16 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonCol,
+  IonDatetime,
+  IonDatetimeButton,
+  IonGrid,
   IonIcon,
   IonInput,
   IonItem,
   IonLabel,
+  IonModal,
+  IonRow,
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
@@ -82,24 +88,24 @@ const VenueSignupComponent = () => {
             />
 
             <div className="vsignup-birthdate">
-              <IonInput
-                className="vsignup-input hsignup-birthdate-input"
-                type="number"
-                inputmode="numeric"
-                placeholder="MM"
-              />
-              <IonInput
-                className="vsignup-input hsignup-birthdate-input"
-                type="number"
-                inputmode="numeric"
-                placeholder="DD"
-              />
-              <IonInput
-                className="vsignup-input hsignup-birthdate-input"
-                type="number"
-                inputmode="numeric"
-                placeholder="YYYY"
-              />
+              <IonGrid>
+                <IonRow className="vsignup-birthdate-container">
+                  <IonCol>
+                    <IonLabel className="vsignup-birthdate-label">
+                      Date of Birth:
+                    </IonLabel>
+                  </IonCol>
+                  <IonCol>
+                    <IonDatetimeButton
+                      datetime="date"
+                      className="vsignup-birthdate-button"
+                    ></IonDatetimeButton>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+              <IonModal keepContentsMounted={true}>
+                <IonDatetime presentation="date" id="date"></IonDatetime>
+              </IonModal>
             </div>
 
             <IonItem>
