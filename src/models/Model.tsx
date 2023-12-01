@@ -6,6 +6,7 @@ export type EventDataModel = {
   host_id: string;
   event_date: string;
   event_start_time: string;
+  event_end_time: string;
   event_status: string;
 };
 

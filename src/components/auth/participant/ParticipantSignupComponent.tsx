@@ -34,17 +34,17 @@ const ParticipantSignupComponent = () => {
   const [newFirstname, setNewFirstname] = useState<string>("");
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
-  const [newRole, setNewRole] = useState<"host" | "participant" | "venue">(
-    "participant"
-  );
+  // const [newRole, setNewRole] = useState<"host" | "participant" | "venue">(
+  //   "participant"
+  // );
 
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
 
   const handleSignup = async () => {
-    const formattedBirthdate = `${month}/${date}/${year}`;
-    await setNewBirthdate(formattedBirthdate);
+    // const formattedBirthdate = `${month}/${date}/${year}`;
+    // await setNewBirthdate(formattedBirthdate);
     try {
       await signUp(
         newEmail,
@@ -146,10 +146,13 @@ const ParticipantSignupComponent = () => {
                 <IonDatetime
                   presentation="date"
                   id="date"
+                  showDefaultButtons={true}
                   onIonChange={(e) => {
-                    const selectedDate = new Date().toString();
-                    setNewBirthdate(selectedDate);
+                    // const selectedDate = new Date().toString();
+                    setNewBirthdate(e.detail.value!.toString());
+                    console.log(e.detail.value!.toString());
                   }}
+                  min="1950"
                 ></IonDatetime>
               </IonModal>
             </div>
