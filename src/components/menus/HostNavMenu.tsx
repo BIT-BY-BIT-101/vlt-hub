@@ -13,12 +13,21 @@ import {
 } from "@ionic/react";
 import { calendar, create, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import HostImg from "../../assets/host.jpg";
 
 function HostNavMenu() {
+  const history = useHistory();
+  const location = useLocation();
+
   const handleLogout = () => {
     console.log("Logout clicked");
   };
+
+  const isMenuItemActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   return (
     <IonMenu contentId="hhome-main" type="overlay">
       <IonHeader>
@@ -41,20 +50,40 @@ function HostNavMenu() {
       </IonHeader>
 
       <IonContent className="hhome-menu-content">
-        <IonList>
-          <IonItem className="hhome-menu-item">
+        <IonList className="hhome-menu-options">
+          <IonItem
+            className={`hhome-menu-item ${
+              isMenuItemActive("/host/home") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/host/home")}
+          >
             <IonIcon icon={home} slot="start" className="hhome-menu-icon" />
             <IonLabel class="hhome-menu-label">Home</IonLabel>
           </IonItem>
-          <IonItem className="hhome-menu-item">
-            <IonIcon icon={create} slot="start" className="hhome-menu-icon" />
+          <IonItem
+            className={`hhome-menu-item ${
+              isMenuItemActive("/host/create") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/host/create")}
+          >
+            <IonIcon icon={home} slot="start" className="hhome-menu-icon" />
             <IonLabel class="hhome-menu-label">Create</IonLabel>
           </IonItem>
-          <IonItem className="hhome-menu-item">
+          <IonItem
+            className={`hhome-menu-item ${
+              isMenuItemActive("/host/event") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/host/event")}
+          >
             <IonIcon icon={calendar} slot="start" className="hhome-menu-icon" />
             <IonLabel class="hhome-menu-label">My Events</IonLabel>
           </IonItem>
-          <IonItem className="hhome-menu-item">
+          <IonItem
+            className={`hhome-menu-item ${
+              isMenuItemActive("/host/history") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/host/history")}
+          >
             <IonIcon icon={time} slot="start" className="hhome-menu-icon" />
             <IonLabel class="hhome-menu-label">History</IonLabel>
           </IonItem>

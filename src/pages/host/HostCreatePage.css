@@ -1,0 +1,206 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+   --ion-card-background: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.hhome-form-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 50px;
+   margin-bottom: 20px;
+}
+
+.hhome-card-container {
+   --ion-card-background: #ffff;
+   cursor: pointer;
+   max-width: 90vw;
+   width: 100%;
+   position: relative;
+   border-radius: 20px;
+   padding: 30px;
+   color: black;
+   border: 2px solid #c3c6ce;
+   transition: 0.5s ease-out;
+   margin: auto;
+
+   &:hover {
+      border-color: var(--secondary-color);
+      box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+   }
+}
+
+.hhome-form-label {
+   display: grid;
+   margin-bottom: 20px;
+   font-weight: bold;
+   grid-template-columns: 1fr;
+   font-size: 16px;
+}
+
+.hhome-form-label :not(.hhome-form-title) {
+   font-size: 16px;
+   color: #747474;
+}
+
+ion-input::part(placeholder) {
+   font-size: 16px;
+   color: #747474;
+}
+
+ion-select::part(placeholder) {
+   font-size: 16px;
+   color: #1a1818;
+}
+
+.hhome-form-title {
+   font-size: 18px;
+}
+
+.hhome-form-select {
+   width: 100%;
+   padding: 15px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   margin-top: 5px;
+   color: black;
+   --highlight-color: var(--secondary-color);
+   --webkit-appearance: none;
+   transition: border-color 0.3s ease;
+}
+
+.hhome-form-input {
+   width: 100%;
+   --padding-start: 10px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   margin-top: 5px;
+   color: black;
+   --highlight-color: var(--secondary-color);
+   --webkit-appearance: none;
+   transition: border-color 0.3s ease;
+}
+
+.hhome-form-input-file {
+   width: 100%;
+   padding: 15px;
+   border-radius: 5px;
+   color: #747474;
+   --highlight-color: var(--secondary-color);
+   --webkit-appearance: none;
+   transition: border-color 0.3s ease;
+}
+
+.hhome-image-preview {
+   width: 100%;
+   max-height: 200px;
+   object-fit: contain;
+   margin-top: 10px;
+}
+
+.hhome-form-input:hover,
+.hhome-form-input:focus,
+.hhome-form-select:hover,
+.hhome-form-select:focus {
+   border-color: var(--highlight-color);
+}
+
+ion-alert {
+   --background: var(--main-color) !important;
+   --backdrop-opacity: 0.5 !important;
+   --border-radius: 10px !important;
+   --box-shadow: 0 4px 8px var(--shadow-color) !important;
+   --ion-color-primary: var(--secondary-color) !important;
+}
+
+ion-select::part(icon) {
+   color: var(--secondary-color);
+}
+
+.hhome-form-label.date-time-label {
+   grid-template-columns: auto 1fr;
+   column-gap: 10px;
+   align-items: center;
+}
+
+.date-time-row {
+   display: flex;
+   justify-content: space-between;
+}
+
+.date-time-item {
+   flex: 1;
+}
+
+.date-time-container {
+   display: flex;
+   align-items: center;
+}
+
+.hsubmit-btn {
+   --ion-color-primary: var(--secondary-color);
+   margin-top: 15px;
+   background-color: var(--secondary-color);
+   border: none;
+   border-radius: 25px;
+   padding: 15px;
+   cursor: pointer;
+   transition: background-color 0.3s ease, transform 0.2s ease;
+
+   &:hover {
+      background-color: #ae2f5e;
+      transform: scale(1.01);
+   }
+}
+
+.hsubmit-txt {
+   font-size: 18px;
+   font-weight: bold;
+   color: #fff;
+   transition: color 0.3s ease;
+
+   &:hover {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);/
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .hhome-form-container {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .hhome-form-label {
+      margin-bottom: 15px;
+   }
+
+   .date-time-row {
+      flex-direction: column;
+   }
+
+   .date-time-item {
+      flex: none;
+      margin-bottom: 15px;
+   }
+
+}

@@ -3,7 +3,6 @@ import { IonReactRouter } from "@ionic/react-router";
 import React from "react";
 import { Redirect, Route } from "react-router";
 import Home from "../pages/Home";
-
 import Signin from "../pages/auth/Signin";
 import HostSigninPage from "../pages/auth/host/HostSigninPage";
 import HostSignupPage from "../pages/auth/host/HostSignupPage";
@@ -11,10 +10,14 @@ import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninP
 import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
 import VenueSigninPage from "../pages/auth/venue/VenueSigninPage";
 import VenueSignupPage from "../pages/auth/venue/VenueSignupPage";
+import HostCreatePage from "../pages/host/HostCreatePage";
+import HostEventPage from "../pages/host/HostEventPage";
+import HostHistoryPage from "../pages/host/HostHistoryPage";
 import HostHomePage from "../pages/host/HostHomePage";
 import ParticipantEventPage from "../pages/participant/ParticipantEventPage";
 import ParticipantHistoryPage from "../pages/participant/ParticipantHistoryPage";
 import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
+import VenueHistoryPage from "../pages/venue/VenueHistoryPage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
 
 const RouteService = () => {
@@ -68,6 +71,15 @@ const RouteService = () => {
         <Route exact path="/host/home">
           <HostHomePage />
         </Route>
+        <Route exact path="/host/create">
+          <HostCreatePage />
+        </Route>
+        <Route exact path="/host/event">
+          <HostEventPage />
+        </Route>
+        <Route exact path="/host/history">
+          <HostHistoryPage />
+        </Route>
 
         {/* Venue Routes */}
         <Route exact path="/venue">
@@ -75,6 +87,9 @@ const RouteService = () => {
         </Route>
         <Route exact path="/venue/home">
           <VenueHomePage />
+        </Route>
+        <Route exact path="/venue/history">
+          <VenueHistoryPage />
         </Route>
 
         <Route exact path="/auth">

@@ -13,9 +13,17 @@ import {
 } from "@ionic/react";
 import { alertCircle, book, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import VenueOrgImg from "../../assets/venueorg.jpg";
 
 function VenueNavMenu() {
+  const history = useHistory();
+  const location = useLocation();
+
+  const isMenuItemActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   const handleLogout = () => {
     console.log("Logout clicked");
   };
@@ -41,8 +49,13 @@ function VenueNavMenu() {
       </IonHeader>
 
       <IonContent className="vhome-menu-content">
-        <IonList>
-          <IonItem className="vhome-menu-item">
+        <IonList className="vhome-menu-options">
+          <IonItem
+            className={`vhome-menu-item ${
+              isMenuItemActive("/venue/home") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/venue/home")}
+          >
             <IonIcon icon={home} slot="start" className="vhome-menu-icon" />
             <IonLabel class="vhome-menu-label">Home</IonLabel>
           </IonItem>
@@ -58,7 +71,12 @@ function VenueNavMenu() {
             <IonIcon icon={book} slot="start" className="vhome-menu-icon" />
             <IonLabel class="vhome-menu-label">Booked Events</IonLabel>
           </IonItem>
-          <IonItem className="vhome-menu-item">
+          <IonItem
+            className={`vhome-menu-item ${
+              isMenuItemActive("/venue/history") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/venue/history")}
+          >
             <IonIcon icon={time} slot="start" className="vhome-menu-icon" />
             <IonLabel class="vhome-menu-label">History</IonLabel>
           </IonItem>
