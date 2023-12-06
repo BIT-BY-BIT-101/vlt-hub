@@ -7,11 +7,9 @@ import {
   getDocs,
   deleteDoc,
   doc,
-  getDoc,
 } from "firebase/firestore";
 
 import { EventDataModel } from "../models/Model";
-import useFirebaseAuth from "./useFirebaseAuth";
 
 // type FirebaseData = {
 //   data: EventDataModel[];
@@ -24,9 +22,7 @@ import useFirebaseAuth from "./useFirebaseAuth";
 type FormsProps = EventDataModel;
 
 const useFirestore = (collectionPath: string) => {
-  const { user } = useFirebaseAuth();
   const [data, setData] = useState<FormsProps[]>([]);
-  const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
 
@@ -60,25 +56,7 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  const fetchUserData = async () => {
-    try {
-      const userEmail = localStorage.getItem("session");
-      if (userEmail) {
-        const userDocRef = doc(db, "profiles", userEmail);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          setUserData(userDocSnap.data());
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchUserData();
     getData();
   }, []);
 
@@ -93,7 +71,7 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  return { addData, error, data, deleteData, loading, userData };
+  return { addData, error, data, deleteData, loading };
 };
 
 export default useFirestore;

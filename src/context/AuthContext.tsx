@@ -1,36 +1,48 @@
-import { createContext, useEffect, useState } from "react";
-import { db } from "../config/firebase";
-import useFirebaseAuth from "../hooks/useFirebaseAuth";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
+import useFirebaseAuth, { User } from "../hooks/useFirebaseAuth";
 
-// interface User {
-//   id: string;
-//   roles: string[];
-// }
+type AuthContextType = {
+  user: User | null;
+  loading: boolean;
+  error: any;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (
+    email: string,
+    password: string,
+    role: "host" | "venue" | "participant"
+  ) => Promise<void>;
+  signOut: () => Promise<void>;
+};
 
-// interface AuthContextType {
-//   user: User | null;
-// }
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const auth = useFirebaseAuth();
+  const [user, setUser] = useState<User | null>(null);
 
-export const AuthContext = createContext<AuthContextType>(null!);
-
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // const [userData, setUserData] = useState<User | null>(null);
-  const { user } = useFirebaseAuth();
-
-  // useEffect(() => {
-  //   const unsub = db.doc(`/profiles/${email}`).onSnapshot((doc) => {
-  //     if (doc.exists) {
-  //       setUserData(doc.data() as User);
-  //     }
-  //   });
-  //   return unsub;
-  // }, []);
+  useEffect(() => {
+    setUser(auth.user);
+  }, [auth.user]);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ ...auth, user }}>
+      {children}
+    </AuthContext.Provider>
   );
+};
+
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

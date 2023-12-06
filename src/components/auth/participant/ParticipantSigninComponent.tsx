@@ -19,18 +19,13 @@ import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/psignin.svg";
 import "./ParticipantSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
-import { auth } from "../../../config/firebase";
 
 const ParticipantSigninComponent: React.FC = () => {
-  const { user, signIn, error } = useFirebaseAuth();
+  const { user, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  const userLoggedIn = auth.currentUser;
-
-  console.log(userLoggedIn);
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -40,7 +35,7 @@ const ParticipantSigninComponent: React.FC = () => {
     try {
       await signIn(email, password);
       console.log("Your Signin Successfully with an email", user);
-    } catch (err) {}
+    } catch (error) {}
     console.log("An Error Occured");
   };
 

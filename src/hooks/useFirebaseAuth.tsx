@@ -14,7 +14,6 @@ export type User = {
 
 type AuthHook = {
   user: User | null;
-  userData: any;
   loading: boolean;
   error: any; // Update this type based on your error handling
   signUp: (email: string, password: string) => Promise<void>;
@@ -24,19 +23,21 @@ type AuthHook = {
 
 const useFirebaseAuth = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
+    //   const unsubscribe = auth.onAuthStateChanged((user) => {
+    //     setUser(user ? { uid: user.uid, email: user.email || "" } : null);
+    //     setLoading(false);
+    //   });
+
+    //   return () => unsubscribe();
+
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
-        const userDoc = doc(db, "profiles", authUser.uid);
-        const userDocSnap = await getDoc(userDoc);
-        if (userDocSnap.exists()) {
-          setUserData(userDocSnap.data());
-          console.log(userData);
-        }
+        const userDoc = await doc(db, "profiles", authUser.uid);
+        const userData = await getDoc(userDoc);
         const userObj: User = {
           uid: authUser.uid,
           email: authUser.email || "",
@@ -45,7 +46,6 @@ const useFirebaseAuth = () => {
       } else {
         setUser(null);
       }
-      setLoading(false);
     });
   }, []);
 
@@ -58,12 +58,14 @@ const useFirebaseAuth = () => {
     role: string
   ): Promise<void> => {
     try {
+      // Your custom logic to set roles in the user profile, this can be done using Firebase Auth custom claims or additional user data in Firestore
+      // For simplicity, this example sets a basic role property in the user object
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      await setDoc(doc(db, "users", email), {
+      await setDoc(doc(db, "profiles", email), {
         email,
         fname,
         lname,
@@ -80,7 +82,6 @@ const useFirebaseAuth = () => {
   const signIn = async (email: string, password: string): Promise<void> => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("session", email);
     } catch (err) {
       setError(err);
     }

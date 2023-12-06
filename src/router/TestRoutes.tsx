@@ -74,21 +74,21 @@ const TestRoutes = () => {
         <Switch>
           <ProtectedRoute
             path="/test/host"
-            allowedRoles={"host"}
+            allowedRoles={["host"]}
             component={Test1}
-            redirected="/signin"
+            redirected="/test/auth"
           />
           <ProtectedRoute
             path="/test/participant"
-            allowedRoles={"participant"}
+            allowedRoles={["participant"]}
             component={Test2}
-            redirected="/signin"
+            redirected="/test/auth"
           />
           <ProtectedRoute
             path="/test/venue"
-            allowedRoles={"venue"}
+            allowedRoles={["venue"]}
             component={Test3}
-            redirected="/signin"
+            redirected="/test/auth"
           />
         </Switch>
       </IonRouterOutlet>
