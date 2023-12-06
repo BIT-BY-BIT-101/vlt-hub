@@ -59,13 +59,7 @@ function VenueNavMenu() {
             <IonIcon icon={home} slot="start" className="vhome-menu-icon" />
             <IonLabel class="vhome-menu-label">Home</IonLabel>
           </IonItem>
-
-          <IonItem
-            className={`vhome-menu-item ${
-              isMenuItemActive("/venue/requests") ? "activated" : ""
-            }`}
-            onClick={() => history.push("/venue/requests")}
-          >
+          <IonItem className="vhome-menu-item">
             <IonIcon
               icon={alertCircle}
               slot="start"
@@ -73,12 +67,10 @@ function VenueNavMenu() {
             />
             <IonLabel class="vhome-menu-label">Requests</IonLabel>
           </IonItem>
-
           <IonItem className="vhome-menu-item">
             <IonIcon icon={book} slot="start" className="vhome-menu-icon" />
             <IonLabel class="vhome-menu-label">Booked Events</IonLabel>
           </IonItem>
-
           <IonItem
             className={`vhome-menu-item ${
               isMenuItemActive("/venue/history") ? "activated" : ""
@@ -89,7 +81,6 @@ function VenueNavMenu() {
             <IonLabel class="vhome-menu-label">History</IonLabel>
           </IonItem>
         </IonList>
-
         <IonItem
           className="vhome-menu-item vhome-logout"
           onClick={handleLogout}
