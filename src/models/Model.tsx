@@ -12,10 +12,12 @@ export type EventDataModel = {
 
 export type UserDataModel = {
   id?: string;
-  user_imgUrl: string;
-  user_fname: string;
-  user_lname: string;
-  user_email: string;
+  imgUrl: string;
+  fname: string;
+  lname: string;
+  email: string;
+  birthdate: string;
+  role: string;
 };
 
 export type UserEventDataModel = {

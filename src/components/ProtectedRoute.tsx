@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db, auth } from "../config/firebase";
+import useFirebaseAuth from "../hooks/useFirebaseAuth";
+import useFirestore from "../hooks/useFirestore";
+import { IonLoading } from "@ionic/react";
 
 interface ProtectedRouteProps extends RouteProps {
-  allowedRoles: string[];
+  allowedRoles: "host" | "participant" | "venue";
   redirected: string;
 }
 
@@ -12,19 +17,27 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   redirected,
   ...routeProps
 }) => {
-  const { user, loading } = useAuth();
+  const { user, loading } = useFirebaseAuth();
+  const userEmail = localStorage.getItem("session");
+  const { userData } = useFirestore(`profiles`);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <IonLoading isOpen={loading} message={"Fetching Data"} />;
   }
 
-  if (!user) {
+  if (!user || !userData) {
+    console.log(userData, user);
+    // console.log(userData.role);
+    // console.log("Please Login");
+
     return <Redirect to={redirected} />;
   }
 
   // Check if the user's role is allowed to access the route
-  if (!allowedRoles.includes(user.role)) {
-    return <Redirect to="/unauthorized" />;
+  if (!allowedRoles.includes(userData?.role)) {
+    console.log(user);
+    // return <Redirect to="/unauthorized" />;
+    return <p>Unauthorized</p>;
   }
 
   return <Route {...routeProps} />;
