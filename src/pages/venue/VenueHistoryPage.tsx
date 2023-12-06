@@ -48,7 +48,7 @@ const VenueHistoryPage = () => {
                 <IonCol className="content-cell">November 29, 2023</IonCol>
                 <IonCol className="content-cell">Mr. Allan A. Custodio</IonCol>
                 <IonCol className="content-cell">Zoom</IonCol>
-                <IonCol className="content-cell-status">Attended</IonCol>
+                <IonCol className="content-cell-status">Completed</IonCol>
               </IonRow>
             </IonGrid>
           </IonCardContent>

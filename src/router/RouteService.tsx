@@ -19,6 +19,7 @@ import ParticipantHistoryPage from "../pages/participant/ParticipantHistoryPage"
 import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import VenueHistoryPage from "../pages/venue/VenueHistoryPage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
+import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
 
 const RouteService = () => {
   return (
@@ -87,6 +88,9 @@ const RouteService = () => {
         </Route>
         <Route exact path="/venue/home">
           <VenueHomePage />
+        </Route>
+        <Route exact path="/venue/requests">
+          <VenueRequestsPage />
         </Route>
         <Route exact path="/venue/history">
           <VenueHistoryPage />
