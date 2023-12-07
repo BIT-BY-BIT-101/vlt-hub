@@ -6,6 +6,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonIcon,
   IonImg,
   IonLabel,
   IonMenuButton,
@@ -15,6 +16,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { close } from "ionicons/icons";
 import React from "react";
 import HostImg from "../../assets/host.jpg";
 import EventPoster from "../../assets/techythursdays.jpg";
@@ -23,6 +25,17 @@ import "./VenueRequestsPage.css";
 
 const VenueRequestsPage = () => {
   const [showModal, setShowModal] = React.useState(false);
+  // const [showPosterPreviewModal, setShowPosterPreviewModal] =
+  //   React.useState(false);
+
+  const eventDetails = {
+    description: "Lorem ipsum dolor sit amet",
+    venue: "SMX Olongapo",
+    date: "December 4, 2023",
+    startTime: "10:00 AM",
+    endTime: "12:00 PM",
+  };
+
   return (
     <IonPage>
       <VenueNavMenu />
@@ -34,12 +47,13 @@ const VenueRequestsPage = () => {
       </IonHeader>
       <IonContent id="vhome-main">
         <IonGrid>
-          <IonRow>
-            <IonCol size="4">
+          <IonRow className="vhome-requests-row">
+            {/* 1st Card */}
+            <IonCol size="12" size-md="4">
               <IonCard className="vhome-requests-card">
                 <div
                   className="vhome-event-poster-container"
-                  onClick={() => setShowModal(true)}
+                  // onClick={() => setShowPosterPreviewModal(true)}
                 >
                   <IonImg
                     className="vhome-event-poster"
@@ -60,36 +74,31 @@ const VenueRequestsPage = () => {
                     Meta Safety in the Modern Age - Strategies for a Secure
                     Digital Journey
                   </h2>
-                  <IonLabel className="vhome-event-details">
-                    <p>
-                      <span>Description:</span> Lorem ipsum dolor sit amet,
-                    </p>
-                    <p>
-                      <span>Venue:</span> SMX Olongapo
-                    </p>
-                    <p>
-                      <span>Date:</span> December 4, 2023
-                    </p>
-                    <p>
-                      <span>Start time:</span> 10:00 AM
-                    </p>
-                    <p>
-                      <span>Venue:</span> 12:00 PM
-                    </p>
-                  </IonLabel>
                 </IonLabel>
-                <div className="vhome-buttons-container">
-                  <IonButton className="vaccept-btn">Accept</IonButton>
-                  <IonButton className="vdecline-btn" fill="clear">
-                    Decline
+
+                <div className="vhome-modalbtn-container">
+                  <IonButton
+                    onClick={() => setShowModal(true)}
+                    expand="full"
+                    className="vviewdetails-btn"
+                  >
+                    View Details
+                  </IonButton>
+                  <IonButton expand="full" className="vchat-btn">
+                    Chat
                   </IonButton>
                 </div>
               </IonCard>
             </IonCol>
 
-            <IonCol size="4">
+            {/* 2nd Card */}
+
+            <IonCol size="12" size-md="4">
               <IonCard className="vhome-requests-card">
-                <div className="vhome-event-poster-container">
+                <div
+                  className="vhome-event-poster-container"
+                  // onClick={() => setShowPosterPreviewModal(true)}
+                >
                   <IonImg
                     className="vhome-event-poster"
                     src={EventPoster}
@@ -109,35 +118,30 @@ const VenueRequestsPage = () => {
                     Meta Safety in the Modern Age - Strategies for a Secure
                     Digital Journey
                   </h2>
-                  <IonLabel className="vhome-event-details">
-                    <p>
-                      <span>Description:</span> Lorem ipsum dolor sit amet,
-                    </p>
-                    <p>
-                      <span>Venue:</span> SMX Olongapo
-                    </p>
-                    <p>
-                      <span>Date:</span> December 4, 2023
-                    </p>
-                    <p>
-                      <span>Start time:</span> 10:00 AM
-                    </p>
-                    <p>
-                      <span>Venue:</span> 12:00 PM
-                    </p>
-                  </IonLabel>
                 </IonLabel>
-                <div className="vhome-buttons-container">
-                  <IonButton className="vaccept-btn">Accept</IonButton>
-                  <IonButton className="vdecline-btn" fill="clear">
-                    Decline
+                <div className="vhome-modalbtn-container">
+                  <IonButton
+                    onClick={() => setShowModal(true)}
+                    expand="full"
+                    className="vviewdetails-btn"
+                  >
+                    View Details
+                  </IonButton>
+                  <IonButton expand="full" className="vchat-btn">
+                    Chat
                   </IonButton>
                 </div>
               </IonCard>
             </IonCol>
-            <IonCol size="4">
+
+            {/* 3rd Card */}
+
+            <IonCol size="12" size-md="4">
               <IonCard className="vhome-requests-card">
-                <div className="vhome-event-poster-container">
+                <div
+                  className="vhome-event-poster-container"
+                  // onClick={() => setShowPosterPreviewModal(true)}
+                >
                   <IonImg
                     className="vhome-event-poster"
                     src={EventPoster}
@@ -157,28 +161,18 @@ const VenueRequestsPage = () => {
                     Meta Safety in the Modern Age - Strategies for a Secure
                     Digital Journey
                   </h2>
-                  <IonLabel className="vhome-event-details">
-                    <p>
-                      <span>Description:</span> Lorem ipsum dolor sit amet,
-                    </p>
-                    <p>
-                      <span>Venue:</span> SMX Olongapo
-                    </p>
-                    <p>
-                      <span>Date:</span> December 4, 2023
-                    </p>
-                    <p>
-                      <span>Start time:</span> 10:00 AM
-                    </p>
-                    <p>
-                      <span>Venue:</span> 12:00 PM
-                    </p>
-                  </IonLabel>
                 </IonLabel>
-                <div className="vhome-buttons-container">
-                  <IonButton className="vaccept-btn">Accept</IonButton>
-                  <IonButton className="vdecline-btn" fill="clear">
-                    Decline
+
+                <div className="vhome-modalbtn-container">
+                  <IonButton
+                    onClick={() => setShowModal(true)}
+                    expand="full"
+                    className="vviewdetails-btn"
+                  >
+                    View Details
+                  </IonButton>
+                  <IonButton expand="full" className="vchat-btn">
+                    Chat
                   </IonButton>
                 </div>
               </IonCard>
@@ -186,16 +180,73 @@ const VenueRequestsPage = () => {
           </IonRow>
         </IonGrid>
       </IonContent>
-      <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
-        <IonContent>
+
+      <IonModal
+        isOpen={showModal}
+        onDidDismiss={() => setShowModal(false)}
+        className={`vhome-modal-container ${showModal ? "show-modal" : ""}`}
+      >
+        <IonContent
+          className={`vhome-modal-content ${showModal ? "show-modal" : ""}`}
+        >
+          <div className="vhome-modal-header">
+            <h2 className="vhome-modal-title">Event Details</h2>
+            <IonIcon
+              icon={close}
+              size="large"
+              onClick={() => setShowModal(false)}
+              className="vhome-close-icon"
+            />
+          </div>
+          <IonLabel className="vhome-modal-details">
+            <p>
+              <span>Description:</span> {eventDetails.description}
+            </p>
+            <p>
+              <span>Venue:</span> {eventDetails.venue}
+            </p>
+            <p>
+              <span>Date:</span> {eventDetails.date}
+            </p>
+            <p>
+              <span>Start time:</span> {eventDetails.startTime}
+            </p>
+            <p>
+              <span>End time:</span> {eventDetails.endTime}
+            </p>
+          </IonLabel>
+
+          <div className="vhome-actionbtn-container">
+            <IonButton className="vaccept-btn">Accept</IonButton>
+            <IonButton className="vdecline-btn" fill="clear">
+              Decline
+            </IonButton>
+          </div>
+        </IonContent>
+      </IonModal>
+
+      {/* Poster Preview Modal */}
+      {/* <IonModal
+        isOpen={showPosterPreviewModal}
+        onDidDismiss={() => setShowPosterPreviewModal(false)}
+        className="vhome-modal-container"
+      >
+        <IonContent className="vhome-modal-content">
+          <div className="vhome-modal-header">
+            <IonIcon
+              icon={close}
+              size="large"
+              onClick={() => setShowPosterPreviewModal(false)}
+              className="vhome-close-icon"
+            />
+          </div>
           <IonImg
-            className="vhome-event-poster-modal"
+            className="vhome-event-poster"
             src={EventPoster}
             alt="Event Poster"
           />
-          <IonButton onClick={() => setShowModal(false)}>Close</IonButton>
         </IonContent>
-      </IonModal>
+      </IonModal> */}
     </IonPage>
   );
 };

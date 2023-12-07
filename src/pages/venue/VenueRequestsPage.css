@@ -29,6 +29,10 @@ body {
    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.vhome-requests-card:hover {
+   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
 .vhome-host-container {
    display: flex;
    align-items: center;
@@ -49,40 +53,24 @@ body {
 }
 
 .vhome-host-name {
-   font-size: 14px;
+   font-size: 16px;
    color: #fff;
    margin-bottom: 5px;
    margin-left: 10px;
 }
 
 .vhome-event-poster-container {
-   margin-bottom: 10px;
+   margin-bottom: 20px;
    overflow: hidden;
    border-radius: 12px;
 }
 
 .vhome-event-poster {
    width: 100%;
-   height: 200px;
+   height: 80%;
    object-fit: contain;
    border-radius: 12px;
    transition: transform 0.3s ease;
-}
-
-.vhome-buttons-container {
-   display: flex;
-   justify-content: center;
-   gap: 50px;
-   margin-top: 20px;
-}
-
-.vhome-buttons-container .vaccept-btn {
-   --ion-color-primary: var(--secondary-color);
-}
-
-.vhome-buttons-container .vdecline-btn {
-   --ion-color-primary: #d6d4d4;
-   --background-hover: #2a2a2a;
 }
 
 .vhome-requests-card .vhome-event-title {
@@ -92,12 +80,172 @@ body {
    margin-top: 10px;
 }
 
-.vhome-requests-card .vhome-event-details {
-   margin-top: 5px;
+ion-modal.vhome-modal-container::part(content) {
+   --height: 38%;
+   --width: 35%;
+   --min-height: 38%;
+   --min-width: 35%;
+   --max-width: 80%;
+   --max-height: 80%;
+   --border-radius: 20px;
 }
 
-.vhome-event-poster-modal {
+.vhome-modal-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+   position: fixed;
+   top: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.7);
+   z-index: 100;
+   opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.vhome-modal-container.show-modal {
+   opacity: 1;
+}
+
+.vhome-modal-content {
+   padding: 20px;
+   background-color: #fff;
+   border-radius: 20px;
+   transition: transform 0.3s ease;
+}
+
+.vhome-modal-content.show-modal {
+   transform: scale(1);
+}
+
+.vhome-modal-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 20px;
+   margin-left: 20px;
+}
+
+.vhome-modal-title {
+   font-size: 28px;
+   font-weight: bold;
+   color: var(--main-color);
+}
+
+.vhome-close-icon {
+   color: var(--main-color);
+   cursor: pointer;
+   font-size: 24px;
+   margin-right: 10px;
+}
+
+.vhome-close-icon:hover {
+   color: var(--secondary-color);
+}
+
+.vhome-modal-details p {
+   color: #282a2a;
+   margin: 10px 0;
+   font-size: 1rem;
+   text-align: left;
+   margin-left: 20px;
+}
+
+.vhome-modal-details p span {
+   color: var(--secondary-color);
+   font-weight: bold;
+   margin-right: 5px;
+}
+
+/* .vhome-event-poster-modal {
    width: 100%;
    height: 100%;
    object-fit: contain;
+} */
+
+.vhome-modalbtn-container {
+   display: flex;
+   justify-content: flex-end;
+   margin-top: 20px;/
+}
+
+
+.vviewdetails-btn {
+   --ion-color-primary: var(--secondary-color);
+   font-weight: bold;
+}
+
+.vchat-btn {
+   --ion-color-primary: #ffffff;
+   color: #282a2a;
+   font-weight: bold;
+}
+
+.vhome-modalbtn-container ion-button {
+   flex: 1;
+}
+
+.vhome-modalbtn-container ion-button:first-child {
+   margin-right: 10px;
+}
+
+.vhome-actionbtn-container {
+   display: flex;
+   justify-content: center;
+   gap: 50px;
+   margin-top: 20px;
+}
+
+.vhome-actionbtn-container .vaccept-btn {
+   --ion-color-primary: var(--secondary-color);
+}
+
+.vhome-actionbtn-container .vdecline-btn {
+   font-weight: bold;
+   --ion-color-primary: #585555;
+   --background-hover: #2a2a2a;
+}
+
+@media only screen and (max-width: 600px) {
+   .vhome-requests-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .vhome-requests-card {
+      width: 90%;
+      margin: 0 auto 20px;
+      padding: 10px;
+      height: 500px;
+   }
+
+   .vhome-event-poster {
+      height: 60%;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+   }
+
+   .vhome-host-img {
+      width: 30px;
+      height: 30px;
+      margin-bottom: 5px;
+   }
+
+   .vhome-host-name {
+      font-size: 14px;
+      margin-left: 5px;
+   }
+
+   .vhome-event-title {
+      font-size: 16px;
+      margin-top: 5px
+   }
+
+   .vhome-modalbtn-container {
+      margin-top: 10px;
+   }
 }
