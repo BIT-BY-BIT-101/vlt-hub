@@ -10,22 +10,27 @@ import {
   IonImg,
   IonInput,
   IonItem,
+  IonLoading,
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/psignin.svg";
 import "./ParticipantSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
+import { auth } from "../../../config/firebase";
+import useFirestore from "../../../hooks/useFirestore";
 
 const ParticipantSigninComponent: React.FC = () => {
-  const { user, signIn } = useFirebaseAuth();
+  const { user, signIn, error } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  // const { userData } = useFirestore("profiles");
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -34,10 +39,35 @@ const ParticipantSigninComponent: React.FC = () => {
   const handleSignin = async () => {
     try {
       await signIn(email, password);
-      console.log("Your Signin Successfully with an email", user);
-    } catch (error) {}
-    console.log("An Error Occured");
+      localStorage.setItem("session", email);
+      console.log("Your Signin Successfully with an email", user?.email);
+      // history.push("/participant/home");
+    } catch (err) {
+      console.log(error.message);
+      setShowAlert(true);
+    }
   };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     history.push("/participant/home");
+  //   }
+  // }, [user, history]);
+
+  // if (loading) {
+  //   return <IonLoading isOpen={loading} message={"Please Wait"} />;
+  // }
+
+  if (user) {
+    return <Redirect to="/participant/home" />;
+  }
+  // if (loading) {
+  //   return <IonLoading isOpen={loading} message={"Please Wait"} />;
+  // }
+
+  const userLoggedIn = auth?.currentUser;
+
+  console.log(userLoggedIn);
 
   return (
     <div className="psignin-container">

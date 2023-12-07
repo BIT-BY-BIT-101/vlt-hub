@@ -1,9 +1,8 @@
 import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import React from "react";
-import { Redirect, Route } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import Home from "../pages/Home";
-import Signin from "../pages/auth/Signin";
 import HostSigninPage from "../pages/auth/host/HostSigninPage";
 import HostSignupPage from "../pages/auth/host/HostSignupPage";
 import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
@@ -20,14 +19,12 @@ import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import VenueHistoryPage from "../pages/venue/VenueHistoryPage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
 import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const RouteService = () => {
   return (
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
         <Route exact path="/participant/signin">
           <ParticipantSigninPage />
         </Route>
@@ -47,15 +44,40 @@ const RouteService = () => {
           <VenueSignupPage />
         </Route>
 
+        <Route exact path="/home">
+          <Home />
+        </Route>
+
         <Route exact path="/">
-          <Redirect to="/home" />
+          {/* <Redirect to="/home" /> */}
+          <Redirect to="/participant/signin" />
         </Route>
 
         {/* Participants Routes */}
+
         <Route exact path="/participant">
           <Redirect to="/participant/home" />
         </Route>
-        <Route exact path="/participant/home">
+        <ProtectedRoute
+          path="/participant/home"
+          allowedRoles={"participant"}
+          component={ParticipantHomePage}
+          redirected="/participant/signin"
+        />
+        <ProtectedRoute
+          path="/participant/event"
+          allowedRoles={"participant"}
+          component={ParticipantEventPage}
+          redirected="/participant/signin"
+        />
+        <ProtectedRoute
+          path="/participant/history"
+          allowedRoles={"participant"}
+          component={ParticipantHistoryPage}
+          redirected="/participant/signin"
+        />
+
+        {/* <Route exact path="/participant/home">
           <ParticipantHomePage />
         </Route>
         <Route exact path="/participant/history">
@@ -63,13 +85,37 @@ const RouteService = () => {
         </Route>
         <Route exact path="/participant/event">
           <ParticipantEventPage />
-        </Route>
+        </Route> */}
 
         {/* Host Routes */}
         <Route exact path="/host">
           <Redirect to="/hosts/home" />
         </Route>
-        <Route exact path="/host/home">
+        <ProtectedRoute
+          path="/host/home"
+          allowedRoles={"host"}
+          component={HostHomePage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/create"
+          allowedRoles={"host"}
+          component={HostCreatePage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/event"
+          allowedRoles={"host"}
+          component={HostEventPage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/history"
+          allowedRoles={"host"}
+          component={HostHistoryPage}
+          redirected="/host/signin"
+        />
+        {/* <Route exact path="/host/home">
           <HostHomePage />
         </Route>
         <Route exact path="/host/create">
@@ -80,13 +126,25 @@ const RouteService = () => {
         </Route>
         <Route exact path="/host/history">
           <HostHistoryPage />
-        </Route>
+        </Route> */}
 
         {/* Venue Routes */}
         <Route exact path="/venue">
           <Redirect to="/venue/home" />
         </Route>
-        <Route exact path="/venue/home">
+        <ProtectedRoute
+          path="/venue/home"
+          allowedRoles={"venue"}
+          component={VenueHomePage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/home"
+          allowedRoles={"venue"}
+          component={VenueHistoryPage}
+          redirected="/venue/signin"
+        />
+        {/* <Route exact path="/venue/home">
           <VenueHomePage />
         </Route>
         <Route exact path="/venue/requests">
@@ -101,7 +159,7 @@ const RouteService = () => {
         </Route>
         <Route exact path="/auth/signin">
           <Signin />
-        </Route>
+        </Route> */}
       </IonRouterOutlet>
     </IonReactRouter>
   );

@@ -24,6 +24,7 @@ import Logo from "../../assets/user.jpg";
 import UserEventsCard from "../../components/cards/UserEventsCard";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import "./ParticipantHomePage.css";
+import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 const ParticipantHomePage: React.FC = () => {
   return (

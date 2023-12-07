@@ -14,12 +14,14 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/vsignin.svg";
 import "./VenueSigninComponent.css";
+import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const VenueSigninComponent: React.FC = () => {
+  const { user, signIn, error } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -29,7 +31,21 @@ const VenueSigninComponent: React.FC = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleLogin = () => {};
+  const handleSignin = async () => {
+    try {
+      await signIn(email, password);
+      localStorage.setItem("session", email);
+      console.log("Your Signin Successfully with an email", user?.email);
+      // history.push("/participant/home");
+    } catch (err) {
+      console.log(error.message);
+      setShowAlert(true);
+    }
+  };
+
+  if (user) {
+    return <Redirect to="/venue/home" />;
+  }
 
   return (
     <div className="vsignin-container">
@@ -88,7 +104,7 @@ const VenueSigninComponent: React.FC = () => {
 
             <IonButton
               expand="full"
-              onClick={handleLogin}
+              onClick={handleSignin}
               className="vsignin-loginbtn"
             >
               Sign in as a Venue

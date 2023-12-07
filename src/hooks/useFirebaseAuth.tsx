@@ -14,6 +14,7 @@ export type User = {
 
 type AuthHook = {
   user: User | null;
+  userData: any;
   loading: boolean;
   error: any; // Update this type based on your error handling
   signUp: (email: string, password: string) => Promise<void>;
@@ -23,21 +24,20 @@ type AuthHook = {
 
 const useFirebaseAuth = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
-    //   const unsubscribe = auth.onAuthStateChanged((user) => {
-    //     setUser(user ? { uid: user.uid, email: user.email || "" } : null);
-    //     setLoading(false);
-    //   });
-
-    //   return () => unsubscribe();
-
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
-        const userDoc = await doc(db, "profiles", authUser.uid);
-        const userData = await getDoc(userDoc);
+        const userDoc = doc(db, "profiles", authUser?.email!);
+        const userDocSnap = await getDoc(userDoc);
+        if (userDocSnap.exists()) {
+          setUserData(userDocSnap.data());
+          console.log("User Data: ", userData);
+        }
+
         const userObj: User = {
           uid: authUser.uid,
           email: authUser.email || "",
@@ -46,7 +46,10 @@ const useFirebaseAuth = () => {
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
+
+    // return unsubscribe();
   }, []);
 
   const signUp = async (
@@ -57,51 +60,51 @@ const useFirebaseAuth = () => {
     birthdate: string,
     role: string
   ): Promise<void> => {
-    try {
-      // Your custom logic to set roles in the user profile, this can be done using Firebase Auth custom claims or additional user data in Firestore
-      // For simplicity, this example sets a basic role property in the user object
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await setDoc(doc(db, "profiles", email), {
-        email,
-        fname,
-        lname,
-        birthdate,
-        role,
-      });
-      const newUser: User = { uid: userCredential.user.uid, email };
-      setUser(newUser);
-    } catch (err) {
-      setError(err);
-    }
+    // try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    await setDoc(doc(db, "users", email), {
+      email,
+      fname,
+      lname,
+      birthdate,
+      role,
+    });
+    const newUser: User = { uid: userCredential.user.uid, email };
+    setUser(newUser);
+    // } catch (err) {
+    //   setError(err);
+    // }
   };
 
   const signIn = async (email: string, password: string): Promise<void> => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      setError(err);
-    }
+    // try {
+    await signInWithEmailAndPassword(auth, email, password);
+    localStorage.setItem("session", email);
+    // } catch (err) {
+    //   setError(err);
+    // }
   };
 
   const signOut = async (): Promise<void> => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (!currentUser) return;
-      try {
-        auth.signOut();
-        console.log(currentUser, " Has beem Logged Out Successfully");
-        setUser(null);
-      } catch (err) {
-        setError(err);
-        console.log("Error Occured");
-      }
-    });
+    // onAuthStateChanged(auth, (currentUser) => {
+    //   if (!currentUser) return;
+    // try {
+    auth.signOut();
+    // console.log(currentUser, " Has beem Logged Out Successfully");
+    setUser(null);
+    setLoading(false);
+    // } catch (err) {
+    //   setError(err);
+    //   console.log("Error Occured");
+    // }
+    // });
   };
 
-  return { user, loading, error, signUp, signIn, signOut };
+  return { user, loading, error, userData, signUp, signIn, signOut };
 };
 
 export default useFirebaseAuth;

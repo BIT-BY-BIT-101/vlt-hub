@@ -15,13 +15,19 @@ import { calendar, create, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import HostImg from "../../assets/host.jpg";
+import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 function HostNavMenu() {
+  const { signOut } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
 
-  const handleLogout = () => {
-    console.log("Logout clicked");
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      console.log("Logout clicked");
+      // history.push("/host/signin");
+    } catch (error) {}
   };
 
   const isMenuItemActive = (path: string) => {
@@ -90,7 +96,7 @@ function HostNavMenu() {
         </IonList>
         <IonItem
           className="hhome-menu-item hhome-logout"
-          onClick={handleLogout}
+          onClick={handleSignOut}
         >
           <IonIcon icon={logOut} slot="start" className="hhome-menu-icon" />
           <IonLabel class="hhome-menu-label">Logout</IonLabel>

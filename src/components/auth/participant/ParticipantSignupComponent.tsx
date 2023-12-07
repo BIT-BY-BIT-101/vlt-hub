@@ -25,18 +25,13 @@ import SignUpSVG from "../../../assets/psignup.svg";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import "./ParticipantSignupComponent.css";
 
-const handleSignup = () => {};
-
 const ParticipantSignupComponent = () => {
-  const { user, signUp } = useFirebaseAuth();
+  const { signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [newFirstname, setNewFirstname] = useState<string>("");
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
-  // const [newRole, setNewRole] = useState<"host" | "participant" | "venue">(
-  //   "participant"
-  // );
 
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");

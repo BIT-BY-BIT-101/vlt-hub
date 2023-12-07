@@ -25,8 +25,9 @@ function ParticipantNavMenu() {
   const handleSignOut = async () => {
     try {
       await signOut();
+      console.log("Logout clicked");
+      // history.push("/participant/signin");
     } catch (error) {}
-    console.log("Logout clicked");
   };
 
   const isMenuItemActive = (path: string) => {

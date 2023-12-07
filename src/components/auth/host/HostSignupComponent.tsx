@@ -23,10 +23,39 @@ import { Link } from "react-router-dom";
 import SignUpSVG from "../../../assets/hsignup.svg";
 import Logo from "../../../assets/logo.png";
 import "./HostSignupComponent.css";
-
-const handleSignup = () => {};
+import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const HostSignupComponent = () => {
+  const { signUp } = useFirebaseAuth();
+  const [newEmail, setNewEmail] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [newFirstname, setNewFirstname] = useState<string>("");
+  const [newLastnaem, setNewLastname] = useState<string>("");
+  const [newBirthdate, setNewBirthdate] = useState<string>("");
+
+  // const [month, setMonth] = useState("");
+  // const [date, setDate] = useState("");
+  // const [year, setYear] = useState("");
+
+  const handleSignup = async () => {
+    // const formattedBirthdate = `${month}/${date}/${year}`;
+    // await setNewBirthdate(formattedBirthdate);
+    try {
+      await signUp(
+        newEmail,
+        newPassword,
+        newFirstname,
+        newLastnaem,
+        newBirthdate,
+        "participant"
+      );
+      // Redirect or handle success as needed
+      console.log("Account created successfully");
+    } catch (err) {
+      console.error("Signup error:", err);
+      // Handle error, show message, etc.
+    }
+  };
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -59,12 +88,14 @@ const HostSignupComponent = () => {
                 className="hsignup-input"
                 type="text"
                 placeholder="First Name"
+                onIonChange={(e) => setNewFirstname(e.detail.value!)}
               ></IonInput>
 
               <IonInput
                 className="hsignup-input"
                 type="text"
                 placeholder="Last Name"
+                onIonChange={(e) => setNewLastname(e.detail.value!)}
               ></IonInput>
             </div>
 
@@ -72,12 +103,14 @@ const HostSignupComponent = () => {
               className="hsignup-input"
               type="email"
               placeholder="Enter your email address"
+              onIonChange={(e) => setNewEmail(e.detail.value!)}
             ></IonInput>
 
             <IonInput
               className="hsignup-input"
               type={showPassword ? "text" : "password"}
               placeholder="Enter a password"
+              onIonChange={(e) => setNewPassword(e.detail.value!)}
             />
 
             <IonIcon
@@ -104,7 +137,16 @@ const HostSignupComponent = () => {
                 </IonRow>
               </IonGrid>
               <IonModal keepContentsMounted={true}>
-                <IonDatetime presentation="date" id="date"></IonDatetime>
+                <IonDatetime
+                  presentation="date"
+                  id="date"
+                  onIonChange={(e) => {
+                    // const selectedDate = new Date().toString();
+                    setNewBirthdate(e.detail.value!.toString());
+                    console.log(e.detail.value!.toString());
+                  }}
+                  min="1950"
+                ></IonDatetime>
               </IonModal>
             </div>
 

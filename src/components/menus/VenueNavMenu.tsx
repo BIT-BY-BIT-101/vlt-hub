@@ -15,18 +15,25 @@ import { alertCircle, book, home, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import VenueOrgImg from "../../assets/venueorg.jpg";
+import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 function VenueNavMenu() {
+  const { signOut } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      console.log("Logout clicked");
+      // history.push("/venue/signin");
+    } catch (error) {}
+  };
 
   const isMenuItemActive = (path: string) => {
     return location.pathname === path;
   };
 
-  const handleLogout = () => {
-    console.log("Logout clicked");
-  };
   return (
     <IonMenu contentId="vhome-main" type="overlay">
       <IonHeader>
@@ -92,7 +99,7 @@ function VenueNavMenu() {
 
         <IonItem
           className="vhome-menu-item vhome-logout"
-          onClick={handleLogout}
+          onClick={handleSignOut}
         >
           <IonIcon icon={logOut} slot="start" className="vhome-menu-icon" />
           <IonLabel class="vhome-menu-label">Logout</IonLabel>
