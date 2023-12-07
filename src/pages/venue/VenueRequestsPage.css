@@ -168,7 +168,7 @@ ion-modal.vhome-modal-container::part(content) {
 .vhome-modalbtn-container {
    display: flex;
    justify-content: flex-end;
-   margin-top: 20px;/
+   margin-top: -10px;
 }
 
 
@@ -246,6 +246,6 @@ ion-modal.vhome-modal-container::part(content) {
    }
 
    .vhome-modalbtn-container {
-      margin-top: 10px;
+      margin-top: 5px;
    }
 }

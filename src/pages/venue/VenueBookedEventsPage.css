@@ -22,7 +22,7 @@ body {
    height: 100%;
 }
 
-.psearch-bar {
+.vsearch-bar {
    --background: #ffffff;
    --color: var(--secondary-color);
    --border-radius: 20px;
@@ -37,12 +37,12 @@ body {
    width: calc(100% - 30px);
 }
 
-.psearch-bar:focus-within {
+.vsearch-bar:focus-within {
    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
    --border-color: var(--hover-shadow-color);
 }
 
-.pevent-card {
+.vevent-card {
    border-radius: 20px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -50,11 +50,11 @@ body {
    margin: 0 20px;
 }
 
-.pevent-card:hover {
+.vevent-card:hover {
    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-.pevent-date {
+.vevent-date {
    text-align: left;
    margin-top: 20px;
    margin-bottom: 30px;
@@ -64,38 +64,61 @@ body {
    font-size: 20px;
 }
 
-.pevent-venue {
-   text-align: left;
-   font-size: 16px;
-   margin-bottom: 5px;
-}
-
-.pevent-venue span {
-   font-weight: bold;
-   color: var(--secondary-color);
-   margin-right: 5px;
-}
-
-.pevent-time {
-   text-align: left;
-   font-size: 16px;
-}
-
-.pevent-time span {
-   font-weight: bold;
-   color: var(--secondary-color);
-   margin-right: 5px;
-}
-
-.peventcard-btn {
+.veventcard-btn {
    display: flex;
    justify-content: space-between;
    margin-top: 15px;
+   align-items: center;
 }
 
-.pview-btn,
-.pcancel-btn {
+.vevent-host-info {
+   display: flex;
+   align-items: center;
+}
+
+.vevent-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+}
+
+.vevent-host-name {
+   font-weight: bold;
+}
+
+.vview-btn {
    width: 48%;
+   font-size: 14px;
+   font-weight: bold;
+   --background: #ffffff;
+   --color: var(--secondary-color);
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.vcancel-btn {
+   width: 48%;
+   font-size: 14px;
+   font-weight: bold;
+   --background: #ffffff;
+   --color: red;
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.vchat-btn-container {
+   text-align: center;
+   margin-top: 5px;
+}
+
+.vchat-btn {
+   font-weight: bold;
+   width: 38%;
    font-size: 14px;
    --background: #ffffff;
    --color: var(--secondary-color);
@@ -105,13 +128,19 @@ body {
    --padding-end: 16px;
 }
 
-.pview-btn:hover {
+.vchat-btn:hover {
+   --background: rgb(0, 140, 255);
+   --color: var(--secondary-color);
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.vview-btn:hover {
    --background: var(--secondary-color);
    --color: #ffffff;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.pcancel-btn:hover {
+.vcancel-btn:hover {
    --background: red;
    --color: white;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
