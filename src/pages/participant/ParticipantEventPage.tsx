@@ -13,6 +13,8 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useState } from "react";
+import HostImg from "../../assets/host.jpg";
+import HostImg2 from "../../assets/host2.jpg";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import "./ParticipantEventPage.css";
 
@@ -28,12 +30,16 @@ const ParticipantEventPage = () => {
       date: "WEDNESDAY, NOVEMBER 29, 2023",
       title:
         "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
+      hostname: "Abdul Rauf M. Sultan",
+      hostImg: HostImg,
       venue: "Zoom",
       time: "1:00PM - 3:00PM",
     },
     {
       date: "FRIDAY, DECEMBER 1, 2023",
       title: "#TechyThursdays - Introduction to Web 3.0",
+      hostname: "Jean Irish Mer",
+      hostImg: HostImg2,
       venue: "Zoom",
       time: "3:00PM - 5:00PM",
     },
@@ -69,6 +75,14 @@ const ParticipantEventPage = () => {
                 <IonCardTitle>{event.title}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
+                <div className="pevent-host-info">
+                  <img
+                    src={event.hostImg}
+                    alt={`Host: ${event.hostname}`}
+                    className="pevent-host-img"
+                  />
+                  <div className="pevent-host-name">{event.hostname}</div>
+                </div>
                 <div className="pevent-venue">
                   <span>Venue: </span>
                   {event.venue}

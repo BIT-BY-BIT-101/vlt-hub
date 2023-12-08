@@ -17,13 +17,14 @@ import {
 } from "@ionic/react";
 import { calendar, home, location, logOut, pencil, time } from "ionicons/icons";
 import React from "react";
+import HostImg from "../../assets/host.jpg";
 import IntrotoCSharp from "../../assets/introtocsharp.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
 import Logo from "../../assets/user.jpg";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
-import "./ParticipantHomePage.css";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import "./ParticipantHomePage.css";
 
 const ParticipantHomePage: React.FC = () => {
   return (
@@ -45,10 +46,29 @@ const ParticipantHomePage: React.FC = () => {
               className="phome-event-image"
             />
             <IonLabel>
-              <h2 className="phome-event-title">
+              <h2
+                className="phome-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
                 Mastering the Fundamentals: An Introduction to Visual C#
                 Programming
               </h2>
+              <div className="phome-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-event-host-img"
+                />
+                <p className="phome-event-host">Abdul Rauf M. Sultan</p>
+              </div>
               <IonLabel className="phome-event-details">
                 <p>
                   <span>Venue:</span> Zoom
@@ -59,6 +79,7 @@ const ParticipantHomePage: React.FC = () => {
                 <p>
                   <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
+                <p className="phome-event-free">Free</p>
               </IonLabel>
             </IonLabel>
           </IonCard>
@@ -67,13 +88,32 @@ const ParticipantHomePage: React.FC = () => {
             <IonImg
               src={MetaSafety}
               alt="Meta Safety in the Modern Age - Strategies for a Secure Digital Journey"
-              className="vhome-event-image"
+              className="phome-event-image"
             />
             <IonLabel>
-              <h2 className="phome-event-title">
+              <h2
+                className="phome-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
                 Meta Safety in the Modern Age - Strategies for a Secure Digital
                 Journey
               </h2>
+              <div className="phome-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-event-host-img"
+                />
+                <p className="phome-event-host">Abdul Rauf M. Sultan</p>
+              </div>
               <IonLabel className="phome-event-details">
                 <p>
                   <span>Venue:</span> Zoom
@@ -84,6 +124,7 @@ const ParticipantHomePage: React.FC = () => {
                 <p>
                   <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
+                <p className="phome-event-paid">₱200.00</p>
               </IonLabel>
             </IonLabel>
           </IonCard>
@@ -95,9 +136,29 @@ const ParticipantHomePage: React.FC = () => {
               className="phome-event-image"
             />
             <IonLabel>
-              <h2 className="phome-event-title">
+              <h2
+                className="phome-event-title"
+                style={{
+                  marginTop: "40px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
                 #TechyThursdays - Introduction to Web 3.0
               </h2>
+              <div className="phome-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-event-host-img"
+                />
+                <p className="phome-event-host">Abdul Rauf M. Sultan</p>
+              </div>
               <IonLabel className="phome-event-details">
                 <p>
                   <span>Venue:</span> Zoom
@@ -108,6 +169,7 @@ const ParticipantHomePage: React.FC = () => {
                 <p>
                   <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
+                <p className="phome-event-free">Free</p>
               </IonLabel>
             </IonLabel>
           </IonCard>

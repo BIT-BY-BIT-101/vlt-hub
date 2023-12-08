@@ -31,13 +31,13 @@ const VenueBookedEventsPage = () => {
       title:
         "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
       hostname: "Abdul Rauf M. Sultan",
-      hostImage: HostImg,
+      hostImg: HostImg,
     },
     {
       date: "FRIDAY, DECEMBER 1, 2023",
       title: "#TechyThursdays - Introduction to Web 3.0",
       hostname: "Jean Irish Mer",
-      hostImage: HostImg2,
+      hostImg: HostImg2,
     },
   ];
 
@@ -73,7 +73,7 @@ const VenueBookedEventsPage = () => {
               <IonCardContent>
                 <div className="vevent-host-info">
                   <img
-                    src={event.hostImage}
+                    src={event.hostImg}
                     alt={`Host: ${event.hostname}`}
                     className="vevent-host-img"
                   />
