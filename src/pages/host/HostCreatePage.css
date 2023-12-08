@@ -174,7 +174,7 @@ ion-select::part(icon) {
 }
 
 .hsubmit-txt {
-   font-size: 18px;
+   font-size: 20px;
    font-weight: bold;
    color: #fff;
    transition: color 0.3s ease;

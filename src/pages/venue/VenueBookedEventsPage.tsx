@@ -13,10 +13,12 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useState } from "react";
-import HostNavMenu from "../../components/menus/HostNavMenu";
-import "./HostEventPage.css";
+import HostImg from "../../assets/host.jpg";
+import HostImg2 from "../../assets/host2.jpg";
+import VenueNavMenu from "../../components/menus/VenueNavMenu";
+import "./VenueBookedEventsPage.css";
 
-const HostEventPage = () => {
+const VenueBookedEventsPage = () => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearchChange = (e: CustomEvent) => {
@@ -28,16 +30,17 @@ const HostEventPage = () => {
       date: "WEDNESDAY, NOVEMBER 29, 2023",
       title:
         "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
-      venue: "Zoom",
-      time: "1:00PM - 3:00PM",
+      hostname: "Abdul Rauf M. Sultan",
+      hostImage: HostImg,
     },
     {
       date: "FRIDAY, DECEMBER 1, 2023",
       title: "#TechyThursdays - Introduction to Web 3.0",
-      venue: "Zoom",
-      time: "3:00PM - 5:00PM",
+      hostname: "Jean Irish Mer",
+      hostImage: HostImg2,
     },
   ];
+
   const filteredEvents = searchText
     ? events.filter((event) =>
         event.title.toLowerCase().includes(searchText.toLowerCase())
@@ -46,39 +49,42 @@ const HostEventPage = () => {
 
   return (
     <IonPage>
-      <HostNavMenu />
+      <VenueNavMenu />
       <IonHeader>
         <IonToolbar>
           <IonMenuButton slot="start" />
-          <IonTitle>My Events</IonTitle>
+          <IonTitle>Booked Events</IonTitle>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent id="hhome-main">
+      <IonContent id="vhome-main">
         <IonSearchbar
-          className="hsearch-bar"
-          placeholder="Search events"
+          className="vsearch-bar"
+          placeholder="Search booked events"
           onIonChange={handleSearchChange}
         ></IonSearchbar>
         {filteredEvents.map((event, index) => (
           <React.Fragment key={index}>
-            <h1 className="hevent-date">{event.date}</h1>
-            <IonCard className="hevent-card">
+            <h1 className="vevent-date">{event.date}</h1>
+            <IonCard className="vevent-card">
               <IonCardHeader>
                 <IonCardTitle>{event.title}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
-                <div className="hevent-venue">
-                  <span>Venue: </span>
-                  {event.venue}
+                <div className="vevent-host-info">
+                  <img
+                    src={event.hostImage}
+                    alt={`Host: ${event.hostname}`}
+                    className="vevent-host-img"
+                  />
+                  <div className="vevent-host-name">{event.hostname}</div>
                 </div>
-                <div className="hevent-time">
-                  <span>Time: </span>
-                  {event.time}
+                <div className="veventcard-btn">
+                  <IonButton className="vview-btn">View</IonButton>
+                  <IonButton className="vcancel-btn">Cancel</IonButton>
                 </div>
-                <div className="heventcard-btn">
-                  <IonButton className="hview-btn">View</IonButton>
-                  <IonButton className="hcancel-btn">Cancel</IonButton>
+                <div className="vchat-btn-container">
+                  <IonButton className="vchat-btn">Chat</IonButton>
                 </div>
               </IonCardContent>
             </IonCard>
@@ -89,4 +95,4 @@ const HostEventPage = () => {
   );
 };
 
-export default HostEventPage;
+export default VenueBookedEventsPage;

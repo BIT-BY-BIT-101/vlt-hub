@@ -19,7 +19,6 @@ import React from "react";
 import IntrotoCSharp from "../../assets/introtocsharp.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
-import UserEventsCard from "../../components/cards/UserEventsCard";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostHomePage.css";
 
@@ -36,7 +35,30 @@ const HostHomePage: React.FC = () => {
 
       <IonContent id="hhome-main">
         <div className="hhome-cards-container">
-          <UserEventsCard />
+          <IonCard className="hhome-event-card">
+            <IonImg
+              src={IntrotoCSharp}
+              alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
+              className="hhome-event-image"
+            />
+            <IonLabel>
+              <h2 className="hhome-event-title">
+                Mastering the Fundamentals: An Introduction to Visual C#
+                Programming
+              </h2>
+              <IonLabel className="hhome-event-details">
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+              </IonLabel>
+            </IonLabel>
+          </IonCard>
 
           <IonCard className="hhome-event-card">
             <IonImg
@@ -51,10 +73,13 @@ const HostHomePage: React.FC = () => {
               </h2>
               <IonLabel className="hhome-event-details">
                 <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
                   <span>Date:</span> October 15, 2023
                 </p>
                 <p>
-                  <span>Venue:</span> Zoom
+                  <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
               </IonLabel>
             </IonLabel>
@@ -72,10 +97,13 @@ const HostHomePage: React.FC = () => {
               </h2>
               <IonLabel className="hhome-event-details">
                 <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
                   <span>Date:</span> October 15, 2023
                 </p>
                 <p>
-                  <span>Venue:</span> Zoom
+                  <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
               </IonLabel>
             </IonLabel>

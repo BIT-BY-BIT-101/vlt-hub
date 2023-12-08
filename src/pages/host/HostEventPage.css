@@ -22,7 +22,7 @@ body {
    height: 100%;
 }
 
-.search-bar {
+.hsearch-bar {
    --background: #ffffff;
    --color: var(--secondary-color);
    --border-radius: 20px;
@@ -37,12 +37,12 @@ body {
    width: calc(100% - 30px);
 }
 
-.search-bar:focus-within {
+.hsearch-bar:focus-within {
    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
    --border-color: var(--hover-shadow-color);
 }
 
-.event-card {
+.hevent-card {
    border-radius: 20px;
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -50,11 +50,11 @@ body {
    margin: 0 20px;
 }
 
-.event-card:hover {
+.hevent-card:hover {
    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-.event-date {
+.hevent-date {
    text-align: left;
    margin-top: 20px;
    margin-bottom: 30px;
@@ -64,14 +64,37 @@ body {
    font-size: 20px;
 }
 
-.eventcard-btn {
+.hevent-venue {
+   text-align: left;
+   font-size: 16px;
+   margin-bottom: 5px;
+}
+
+.hevent-venue span {
+   font-weight: bold;
+   color: var(--secondary-color);
+   margin-right: 5px;
+}
+
+.hevent-time {
+   text-align: left;
+   font-size: 16px;
+}
+
+.hevent-time span {
+   font-weight: bold;
+   color: var(--secondary-color);
+   margin-right: 5px;
+}
+
+.heventcard-btn {
    display: flex;
    justify-content: space-between;
    margin-top: 15px;
 }
 
-.view-btn,
-.cancel-btn {
+.hview-btn,
+.hcancel-btn {
    width: 48%;
    font-size: 14px;
    --background: #ffffff;
@@ -82,13 +105,13 @@ body {
    --padding-end: 16px;
 }
 
-.view-btn:hover {
+.hview-btn:hover {
    --background: var(--secondary-color);
    --color: #ffffff;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.cancel-btn:hover {
+.hcancel-btn:hover {
    --background: red;
    --color: white;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

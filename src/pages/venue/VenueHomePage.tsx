@@ -19,10 +19,8 @@ import React from "react";
 import IntrotoCSharp from "../../assets/introtocsharp.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
-import UserEventsCard from "../../components/cards/UserEventsCard";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueHomePage.css";
-
 const VenueHomePage: React.FC = () => {
   return (
     <IonPage>
@@ -36,13 +34,36 @@ const VenueHomePage: React.FC = () => {
 
       <IonContent id="vhome-main">
         <div className="vhome-cards-container">
-          <UserEventsCard />
+          <IonCard className="vhome-event-card">
+            <IonImg
+              src={IntrotoCSharp}
+              alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
+              className="vhome-event-image"
+            />
+            <IonLabel>
+              <h2 className="vhome-event-title">
+                Mastering the Fundamentals: An Introduction to Visual C#
+                Programming
+              </h2>
+              <IonLabel className="vhome-event-details">
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+              </IonLabel>
+            </IonLabel>
+          </IonCard>
 
           <IonCard className="vhome-event-card">
             <IonImg
               src={MetaSafety}
               alt="Meta Safety in the Modern Age - Strategies for a Secure Digital Journey"
-              className="hhome-event-image"
+              className="vhome-event-image"
             />
             <IonLabel>
               <h2 className="vhome-event-title">
@@ -51,10 +72,13 @@ const VenueHomePage: React.FC = () => {
               </h2>
               <IonLabel className="vhome-event-details">
                 <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
                   <span>Date:</span> October 15, 2023
                 </p>
                 <p>
-                  <span>Venue:</span> Zoom
+                  <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
               </IonLabel>
             </IonLabel>
@@ -72,10 +96,13 @@ const VenueHomePage: React.FC = () => {
               </h2>
               <IonLabel className="vhome-event-details">
                 <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
                   <span>Date:</span> October 15, 2023
                 </p>
                 <p>
-                  <span>Venue:</span> Zoom
+                  <span>Time:</span> 3:00 PM - 5:00 PM
                 </p>
               </IonLabel>
             </IonLabel>

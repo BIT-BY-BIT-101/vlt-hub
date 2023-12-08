@@ -29,11 +29,13 @@ const ParticipantEventPage = () => {
       title:
         "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
       venue: "Zoom",
+      time: "1:00PM - 3:00PM",
     },
     {
       date: "FRIDAY, DECEMBER 1, 2023",
       title: "#TechyThursdays - Introduction to Web 3.0",
       venue: "Zoom",
+      time: "3:00PM - 5:00PM",
     },
   ];
 
@@ -55,22 +57,29 @@ const ParticipantEventPage = () => {
 
       <IonContent id="phome-main">
         <IonSearchbar
-          className="search-bar"
+          className="psearch-bar"
           placeholder="Search events"
           onIonChange={handleSearchChange}
         ></IonSearchbar>
         {filteredEvents.map((event, index) => (
           <React.Fragment key={index}>
-            <h1 className="event-date">{event.date}</h1>
-            <IonCard className="event-card">
+            <h1 className="pevent-date">{event.date}</h1>
+            <IonCard className="pevent-card">
               <IonCardHeader>
                 <IonCardTitle>{event.title}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
-                Venue: {event.venue}
-                <div className="eventcard-btn">
-                  <IonButton className="view-btn">View</IonButton>
-                  <IonButton className="cancel-btn">Cancel</IonButton>
+                <div className="pevent-venue">
+                  <span>Venue: </span>
+                  {event.venue}
+                </div>
+                <div className="pevent-time">
+                  <span>Time: </span>
+                  {event.time}
+                </div>
+                <div className="peventcard-btn">
+                  <IonButton className="pview-btn">View</IonButton>
+                  <IonButton className="pcancel-btn">Cancel</IonButton>
                 </div>
               </IonCardContent>
             </IonCard>
