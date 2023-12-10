@@ -22,37 +22,380 @@ body {
    height: 100%;
 }
 
-.table-title {
-   font-size: 2rem;
-   color: #ffffff;
-   text-align: left;
-   margin-top: 1rem;
+.phistory-searchbar {
+   --background: #ffffff;
+   --color: var(--secondary-color);
+   --border-radius: 20px;
+   --placeholder-color: var(--secondary-color);
+   --placeholder-font-weight: bold;
+   --border-width: 2px;
+   --border-color: var(--secondary-color);
+   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   margin: 30px 15px 20px 15px;
+   border: 3px solid black;
+   border-radius: 25px;
+   width: calc(100% - 30px);
 }
 
-.table-header {
-   text-align: center;
+.phistory-cards-container {
+   display: flex;
+   justify-content: space-between;
+   margin: 0 -10px;
+   margin-left: 20px;
+   margin-right: 20px;/
+}
+
+.phistory-event-free {
+   background-color: green;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-top: 10px;
+}
+
+.phistory-event-paid {
+   background-color: #b8653c;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-top: 10px;
+}
+
+.phistory-event-card {
+   width: 30%;
+   background-color: var(--main-color);
+   padding: 20px;
+   border-radius: 15px;
+   box-shadow: 14px 14px 28px #b5b5b5,
+      -14px -14px 28px #ffffff;
+   margin: 20px 10px;
+   color: #fff;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   /* text-align: center; */
+   max-width: 450px;
+   max-height: 800px;
+   align-items: stretch;
+   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+   overflow: hidden;
+}
+
+.phistory-event-card:hover {
+   transform: scale(1.05);
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.phistory-event-image {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   border-radius: 8px;
+   margin-bottom: 20px;
+   transition: transform 0.3s ease-in-out;
+}
+
+.phistory-event-card:hover .phistory-event-image {
+   transform: scale(1.1);
+}
+
+.phistory-event-title {
+   display: flex;
+   flex-direction: column;
+   height: 60px;
+   font-weight: bold;
+   margin-top: 20px !important;
+   overflow: hidden;
+}
+
+.phistory-event-host-container {
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.phistory-event-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   object-fit: cover;
+   overflow: hidden;
+}
+
+.phistory-event-card ion-label {
    font-size: 1.5rem;
-   color: #ffffff;
+   font-weight: bold;
+   caret-color: transparent;
+   margin-bottom: 10px;
+   flex-grow: 1;
 }
 
-.header-cell {
-   text-align: center;
+.phistory-event-card ion-label h2 {
    font-size: 1.2rem;
    font-weight: bold;
-   border: 1px solid #ffffff;
+   margin-bottom: -10px;
 }
 
-.content-row {
-   text-align: center;
-   color: #c5c2c2;
+.phistory-event-details {
+   margin-top: 10px;
 }
 
-.content-cell {
-   text-align: center;
-   border: 1px solid #c5c2c2;
+.phistory-event-details p {
+   color: #eae1e1;
+   margin: 5px 0;
+   font-size: 1rem;
+   text-align: left;
 }
 
-.content-cell-status {
-   color: #00ff00;
-   border: 1px solid #c5c2c2;
+.phistory-event-details p span {
+   color: #f46197;
+   font-weight: bold;
+   margin-right: 5px;
+}
+
+.phistory-card-icons {
+   margin-right: 5px;
+   color: #f46197;
+}
+
+/* Modal Stylings*/
+ion-modal.phistory-modal-container::part(content) {
+   --background: var(--main-color);
+   --border-radius: 20px;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   --height: 75%;
+   --width: 50%;
+   --max-width: 50%;
+   --max-height: 80%;
+}
+
+.phistory-modal-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.phistory-modal-container ion-icon {
+   font-size: 28px;
+}
+
+.phistory-modal-content:not(.phistory-register-btn) {
+   --padding-start: 10px;
+}
+
+.phistory-modal-event-info {
+   color: var(--main-color);
+   margin-bottom: 5px;
+}
+
+.phistory-event-free {
+   background-color: green;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-bottom: 5px;
+}
+
+.phistory-modal-title {
+   font-size: 1.5rem;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: var(--main-color);
+}
+
+.phistory-modal-host-container {
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.phistory-modal-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   object-fit: cover;
+   overflow: hidden;
+}
+
+.phistory-modal-host {
+   color: var(--main-color);
+   font-weight: bold;
+}
+
+.phistory-modal-details {
+   color: var(--main-color);
+   font-weight: 500;
+}
+
+.phistory-modal-details span {
+   color: var(--secondary-color);
+   font-weight: bold;
+}
+
+.phistory-btn-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 20px;
+}
+
+.phistory-register-btn {
+   --background: var(--secondary-color);
+   --color: #fff;
+   font-weight: bold;
+   margin-top: 20px;
+   width: 100%;
+   padding: 0px 20px;
+}
+
+/* Media Queries */
+
+@media (min-width: 1151px) {
+   .phistory-event-card {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .phistory-event-image {
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+   }
+
+   .phistory-event-title {
+      height: auto;
+      margin-bottom: 20px;
+   }
+
+   .phistory-event-host-container {
+      margin-top: 20px;
+   }
+
+   .phistory-event-details {
+      text-align: center;
+   }
+}
+
+@media (min-width: 769px) and (max-width: 1150px) {
+   .phistory-event-card {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .phistory-event-image {
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+   }
+
+   .phistory-event-title {
+      height: auto;
+      margin-bottom: 10px;
+   }
+
+   .phistory-event-host-container {
+      margin-top: 20px;
+   }
+
+   .phistory-event-details {
+      text-align: center;
+   }
+}
+
+@media (max-width: 768px) {
+   .phistory-cards-container {
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+   }
+
+   .phistory-menu-options {
+      margin-bottom: 60px;
+   }
+
+   .phistory-event-card {
+      width: 90%;
+      max-height: 260px;
+      margin: 20px 0;
+      flex-direction: row;
+      display: flex;
+      align-items: flex-start;
+   }
+
+   .phistory-event-image {
+      max-width: 100px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px 0 0 8px;
+      margin-bottom: 0;
+   }
+
+   .phistory-event-card ion-label,
+   .phistory-event-details {
+      text-align: left;
+      margin-left: 10px;
+   }
+
+   .phistory-event-card ion-label h2 {
+      font-size: 1rem;
+   }
+
+   .phistory-event-title {
+      height: 90px;
+      overflow: hidden;
+      margin: 0 !important;
+   }
+
+   .phistory-event-host-container {
+      margin-top: 15px;
+      margin-bottom: -25px;
+   }
+
+   .phistory-event-details p,
+   .phistory-event-details p span {
+      font-size: 0.8rem;
+   }
+
+   ion-modal.phistory-modal-container::part(content) {
+      --height: 80%;
+      --width: 90%;
+      --max-width: 90%;
+      --max-height: 90%;
+   }
+
+   .phistory-modal-container ion-icon {
+      font-size: 24px;
+   }
+
+   .phistory-modal-content {
+      --padding-start: 10px;
+      padding: 10px;
+   }
+
+   .phistory-modal-event-info {
+      margin-bottom: 10px;
+   }
+
+   .phistory-modal-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+   }
+
+   .phistory-modal-host-container {
+      margin-top: 10px;
+   }
+
+   .phistory-modal-details {
+      margin-top: 10px;
+      font-size: 0.9rem;
+   }
+
+   .phistory-register-btn {
+      margin-top: 15px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+   }
 }
