@@ -29,6 +29,7 @@ const ParticipantEventPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [showPoster, setShowPoster] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   const handleSearchChange = (e: CustomEvent) => {
     setSearchText(e.detail.value);
@@ -43,6 +44,11 @@ const ParticipantEventPage: React.FC = () => {
     setSelectedEvent(null);
     setShowModal(false);
   };
+
+  const handleCancelClick = () => {
+    setShowConfirmationModal(true);
+  };
+
   const events = [
     {
       date: "Wednesday, November 29, 2023",
@@ -69,6 +75,13 @@ const ParticipantEventPage: React.FC = () => {
       )
     : events;
 
+  const handleConfirmation = (confirmed: boolean) => {
+    if (confirmed) {
+      console.log("Event canceled!");
+    }
+
+    setShowConfirmationModal(false);
+  };
   return (
     <IonPage>
       <ParticipantNavMenu />
@@ -116,7 +129,12 @@ const ParticipantEventPage: React.FC = () => {
                   >
                     View
                   </IonButton>
-                  <IonButton className="pcancel-btn">Cancel</IonButton>
+                  <IonButton
+                    className="pcancel-btn"
+                    onClick={handleCancelClick}
+                  >
+                    Cancel
+                  </IonButton>
                 </div>
               </IonCardContent>
             </IonCard>
@@ -130,7 +148,7 @@ const ParticipantEventPage: React.FC = () => {
             closeModal();
             setShowPoster(false);
           }}
-          className="phome-modal-myevent-container"
+          className="pevent-modal-container"
         >
           <IonHeader>
             <IonToolbar>
@@ -142,13 +160,13 @@ const ParticipantEventPage: React.FC = () => {
             </IonToolbar>
           </IonHeader>
 
-          <IonContent className="phome-modal-myevent-content">
+          <IonContent className="pevent-modal-content">
             {selectedEvent && (
               <div>
-                <div className="phome-modal-header">
-                  <p className="phome-event-free">Free</p>
+                <div className="pevent-modal-header">
+                  <p className="pevent-modal-free">Free</p>
                   <IonButton
-                    className="phome-view-poster-btn"
+                    className="pevent-view-poster-btn"
                     onClick={() => setShowPoster(!showPoster)}
                   >
                     {showPoster ? "Hide Poster" : "View Poster"}
@@ -158,22 +176,20 @@ const ParticipantEventPage: React.FC = () => {
                   <IonImg
                     src={MetaSafety}
                     alt="Poster"
-                    className="phome-poster-img"
+                    className="pevent-poster-img"
                   />
                 )}
-                <h2 className="phome-modal-myevent-title">
-                  {selectedEvent.title}
-                </h2>
+                <h2 className="pevent-modal-title">{selectedEvent.title}</h2>
 
-                <div className="phome-modal-host-container">
+                <div className="pevent-modal-host-container">
                   <IonImg
                     src={HostImg}
                     alt="Abdul Rauf M. Sultan"
-                    className="phome-modal-host-img"
+                    className="pevent-modal-host-img"
                   />
-                  <p className="phome-modal-host">Abdul Rauf M. Sultan</p>
+                  <p className="pevent-modal-host">Abdul Rauf M. Sultan</p>
                 </div>
-                <div className="phome-modal-myevent-details">
+                <div className="pevent-modal-details">
                   <p>
                     <span>Description:</span> This course is designed to help
                     you master the fundamentals of Visual C# programming. It is
@@ -199,9 +215,36 @@ const ParticipantEventPage: React.FC = () => {
               </div>
             )}
 
-            <div className="phome-myevent-btn-container">
-              <IonButton expand="block" className="phome-registered-btn">
+            <div className="pevent-modal-btn-container">
+              <IonButton expand="block" className="pevent-registered-btn">
                 Registered
+              </IonButton>
+            </div>
+          </IonContent>
+        </IonModal>
+
+        {/* Confirmation Modal */}
+        <IonModal
+          isOpen={showConfirmationModal}
+          onDidDismiss={() => setShowConfirmationModal(false)}
+          className="pevent-confirmation-modal-container"
+        >
+          <IonContent className="pevent-modal-content">
+            <h2 className="pevent-confirmation-modal-txt">Are you sure?</h2>
+            <div className="pevent-modal-btn-container">
+              <IonButton
+                expand="block"
+                className="pyes-btn"
+                onClick={() => handleConfirmation(true)}
+              >
+                Yes
+              </IonButton>
+              <IonButton
+                expand="block"
+                className="pno-btn"
+                onClick={() => handleConfirmation(false)}
+              >
+                No
               </IonButton>
             </div>
           </IonContent>
