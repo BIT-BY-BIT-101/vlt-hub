@@ -48,50 +48,52 @@ const VenueBookedEventsPage = () => {
     : events;
 
   return (
-    <IonPage>
+    <>
       <VenueNavMenu />
-      <IonHeader>
-        <IonToolbar>
-          <IonMenuButton slot="start" />
-          <IonTitle>Booked Events</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonMenuButton slot="start" />
+            <IonTitle>Booked Events</IonTitle>
+          </IonToolbar>
+        </IonHeader>
 
-      <IonContent id="vhome-main">
-        <IonSearchbar
-          className="vsearch-bar"
-          placeholder="Search booked events"
-          onIonChange={handleSearchChange}
-        ></IonSearchbar>
-        {filteredEvents.map((event, index) => (
-          <React.Fragment key={index}>
-            <h1 className="vevent-date">{event.date}</h1>
-            <IonCard className="vevent-card">
-              <IonCardHeader>
-                <IonCardTitle>{event.title}</IonCardTitle>
-              </IonCardHeader>
-              <IonCardContent>
-                <div className="vevent-host-info">
-                  <img
-                    src={event.hostImg}
-                    alt={`Host: ${event.hostname}`}
-                    className="vevent-host-img"
-                  />
-                  <div className="vevent-host-name">{event.hostname}</div>
-                </div>
-                <div className="veventcard-btn">
-                  <IonButton className="vview-btn">View</IonButton>
-                  <IonButton className="vcancel-btn">Cancel</IonButton>
-                </div>
-                <div className="vchat-btn-container">
-                  <IonButton className="vchat-btn">Chat</IonButton>
-                </div>
-              </IonCardContent>
-            </IonCard>
-          </React.Fragment>
-        ))}
-      </IonContent>
-    </IonPage>
+        <IonContent id="vhome-main">
+          <IonSearchbar
+            className="vsearch-bar"
+            placeholder="Search booked events"
+            onIonChange={handleSearchChange}
+          ></IonSearchbar>
+          {filteredEvents.map((event, index) => (
+            <React.Fragment key={index}>
+              <h1 className="vevent-date">{event.date}</h1>
+              <IonCard className="vevent-card">
+                <IonCardHeader>
+                  <IonCardTitle>{event.title}</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  <div className="vevent-host-info">
+                    <img
+                      src={event.hostImg}
+                      alt={`Host: ${event.hostname}`}
+                      className="vevent-host-img"
+                    />
+                    <div className="vevent-host-name">{event.hostname}</div>
+                  </div>
+                  <div className="veventcard-btn">
+                    <IonButton className="vview-btn">View</IonButton>
+                    <IonButton className="vcancel-btn">Cancel</IonButton>
+                  </div>
+                  <div className="vchat-btn-container">
+                    <IonButton className="vchat-btn">Chat</IonButton>
+                  </div>
+                </IonCardContent>
+              </IonCard>
+            </React.Fragment>
+          ))}
+        </IonContent>
+      </IonPage>
+    </>
   );
 };
 

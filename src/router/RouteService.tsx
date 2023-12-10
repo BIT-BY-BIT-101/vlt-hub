@@ -21,6 +21,7 @@ import VenueHistoryPage from "../pages/venue/VenueHistoryPage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
 import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
 import ProtectedRoute from "../components/ProtectedRoute";
+import { VenueProfilePage } from "../pages/venue/VenueProfilePage";
 
 const RouteService = () => {
   return (
@@ -59,6 +60,7 @@ const RouteService = () => {
         <Route exact path="/participant">
           <Redirect to="/participant/home" />
         </Route>
+
         <ProtectedRoute
           path="/participant/home"
           allowedRoles={"participant"}
@@ -111,6 +113,12 @@ const RouteService = () => {
         <Route exact path="/venue">
           <Redirect to="/venue/home" />
         </Route>
+        <ProtectedRoute
+          path="/venue/profile"
+          allowedRoles={"venue"}
+          component={VenueProfilePage}
+          redirected="/venue/signin"
+        />
         <ProtectedRoute
           path="/venue/home"
           allowedRoles={"venue"}

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {  } from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
 
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db, auth } from "../config/firebase";
 import useFirebaseAuth from "../hooks/useFirebaseAuth";
-import useFirestore from "../hooks/useFirestore";
 import { IonLoading } from "@ionic/react";
 
 interface ProtectedRouteProps extends RouteProps {
