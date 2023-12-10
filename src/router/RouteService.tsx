@@ -2,6 +2,8 @@ import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
+import ProtectedRoute from "../components/ProtectedRoute";
+import HomePage from "../pages/HomePage";
 import Test from "../pages/Test";
 import HostSigninPage from "../pages/auth/host/HostSigninPage";
 import HostSignupPage from "../pages/auth/host/HostSignupPage";
@@ -19,9 +21,8 @@ import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import VenueBookedEventsPage from "../pages/venue/VenueBookedEventsPage";
 import VenueHistoryPage from "../pages/venue/VenueHistoryPage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
-import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
-import ProtectedRoute from "../components/ProtectedRoute";
 import { VenueProfilePage } from "../pages/venue/VenueProfilePage";
+import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
 
 const RouteService = () => {
   return (
@@ -47,12 +48,12 @@ const RouteService = () => {
         </Route>
 
         <Route exact path="/home">
-          <Test />
+          <HomePage />
         </Route>
 
         <Route exact path="/">
-          {/* <Redirect to="/home" /> */}
-          <Redirect to="/participant/signin" />
+          <Redirect to="/home" />
+          {/* <Redirect to="/participant/signin" /> */}
         </Route>
 
         {/* Participants Routes */}
