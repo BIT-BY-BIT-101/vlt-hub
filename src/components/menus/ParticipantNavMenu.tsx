@@ -9,10 +9,11 @@ import {
   IonLabel,
   IonList,
   IonMenu,
+  IonModal,
   IonToolbar,
 } from "@ionic/react";
 import { calendar, home, logOut, pencil, time } from "ionicons/icons";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
@@ -21,6 +22,7 @@ function ParticipantNavMenu() {
   const { signOut } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -87,11 +89,35 @@ function ParticipantNavMenu() {
         </IonList>
         <IonItem
           className="phome-menu-item phome-logout"
-          onClick={handleSignOut}
+          onClick={() => setShowLogoutModal(true)}
         >
           <IonIcon icon={logOut} slot="start" className="phome-menu-icon" />
           <IonLabel class="phome-menu-label">Logout</IonLabel>
         </IonItem>
+
+        {/* Logout Confirmation Modal */}
+        <IonModal
+          isOpen={showLogoutModal}
+          onDidDismiss={() => setShowLogoutModal(false)}
+          className="phome-confirmation-modal-container"
+        >
+          <IonContent class="phome-confirmation-modal-content">
+            <h2 className="phome-confirmation-modal-txt">
+              Logout from V.L.T. Hub?
+            </h2>
+            <div className="phome-modal-btn-container">
+              <IonButton className="pyes-btn" onClick={handleSignOut}>
+                Yes
+              </IonButton>
+              <IonButton
+                className="pno-btn"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                No
+              </IonButton>
+            </div>
+          </IonContent>
+        </IonModal>
       </IonContent>
     </IonMenu>
   );

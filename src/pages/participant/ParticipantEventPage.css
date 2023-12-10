@@ -265,11 +265,21 @@ ion-modal.pevent-confirmation-modal-container::part(content) {
    --max-height: 20%;
 }
 
+.pevent-confirmation-modal-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
 .pevent-confirmation-modal-txt {
    color: var(--main-color);
    text-align: center;
    font-weight: bold;
    font-size: 1.5rem;
+}
+
+.pevent-modal-btn-container {
+   padding: 20px 16px 0 16px;
+   display: flex;
+   justify-content: space-between;
 }
 
 .pyes-btn {

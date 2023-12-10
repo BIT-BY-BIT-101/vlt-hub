@@ -229,7 +229,7 @@ const ParticipantEventPage: React.FC = () => {
           onDidDismiss={() => setShowConfirmationModal(false)}
           className="pevent-confirmation-modal-container"
         >
-          <IonContent className="pevent-modal-content">
+          <IonContent className="pevent-confirmation-modal-content">
             <h2 className="pevent-confirmation-modal-txt">Are you sure?</h2>
             <div className="pevent-modal-btn-container">
               <IonButton

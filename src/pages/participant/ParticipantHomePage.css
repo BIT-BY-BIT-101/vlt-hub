@@ -22,6 +22,8 @@ body {
    height: 100%;
 }
 
+/*Nav Bar Styling*/
+
 .phome-logocontainer {
    max-width: 50%;
    margin: 20px auto;
@@ -164,6 +166,71 @@ body {
    top: 0;
    left: 8px;
 }
+
+ion-modal.phome-confirmation-modal-container::part(content) {
+   --background: var(--main-color);
+   --border-radius: 20px;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   --height: 20%;
+   --width: 30%;
+   --max-width: 40%;
+   --max-height: 20%;
+}
+
+.phome-confirmation-modal-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.phome-confirmation-modal-txt {
+   color: var(--main-color);
+   text-align: center;
+   font-weight: bold;
+   font-size: 1.5rem;
+}
+
+.phome-modal-btn-container {
+   padding: 20px 16px 0 16px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.pyes-btn {
+   width: 48%;
+   font-size: 14px;
+   font-weight: bold;
+   --background: #d0c6c6;
+   --color: var(--main-color);
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.pyes-btn:hover {
+   --background: #424242;
+   --color: #ffffff;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.pno-btn {
+   width: 48%;
+   font-size: 14px;
+   font-weight: bold;
+   --background: rgb(213, 44, 44);
+   --color: #ffffff;
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.pno-btn:hover {
+   --background: red;
+   --color: white;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/*Home Page Stylings*/
 
 .phome-cards-container {
    display: flex;
