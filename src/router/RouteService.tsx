@@ -2,7 +2,7 @@ import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
-import Home from "../pages/Home";
+import Test from "../pages/Test";
 import HostSigninPage from "../pages/auth/host/HostSigninPage";
 import HostSignupPage from "../pages/auth/host/HostSignupPage";
 import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
@@ -47,7 +47,7 @@ const RouteService = () => {
         </Route>
 
         <Route exact path="/home">
-          <Home />
+          <Test />
         </Route>
 
         <Route exact path="/">

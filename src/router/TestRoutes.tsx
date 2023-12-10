@@ -2,7 +2,7 @@ import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
-import Home from "../pages/Home";
+import Home from "../pages/Test";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 import Signin from "../pages/auth/Signin";
