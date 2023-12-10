@@ -62,6 +62,7 @@ body {
    color: black;
    font-weight: bold;
    font-size: 20px;
+   text-transform: uppercase;
 }
 
 .pevent-venue {
@@ -133,4 +134,147 @@ body {
    --background: red;
    --color: white;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Stylings*/
+ion-modal.phome-modal-myevent-container::part(content) {
+   --background: var(--main-color);
+   --border-radius: 20px;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   --height: 80%;
+   --width: 50%;
+   --max-width: 50%;
+   --max-height: 80%;
+}
+
+.phome-modal-myevent-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.phome-modal-myevent-container ion-icon {
+   font-size: 28px;
+}
+
+.phome-modal-myevent-content:not(.phome-registered-btn) {
+   --padding-start: 10px;
+   --padding-end: 5px;
+}
+
+.phome-modal-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.phome-view-poster-btn {
+   width: auto;
+   font-size: 14px;
+   font-weight: bold;
+   --background: #ffffff;
+   --color: var(--secondary-color);
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.phome-view-poster-btn:hover {
+   --background: var(--secondary-color);
+   --color: #ffffff;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.phome-poster-img {
+   width: 100%;
+   height: 400px;
+   object-fit: contain;
+   margin-top: 10px;
+}
+
+.phome-modal-myevent-title {
+   font-size: 1.5rem;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: var(--main-color);
+}
+
+.phome-modal-myevent-details {
+   color: var(--main-color);
+   font-weight: 500;
+}
+
+.phome-modal-myevent-details span {
+   font-weight: bold;
+   color: var(--secondary-color);
+}
+
+.phome-myevent-btn-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 20px;
+}
+
+.phome-registered-btn {
+   --background: #9a2666;
+   --color: #fff;
+   font-weight: bold;
+   margin-top: 20px;
+   width: 100%;
+   padding: 0px 20px;
+}
+
+@media (min-width: 769px) and (max-width: 1150px) {
+   ion-modal.phome-modal-myevent-container::part(content) {
+      --height: 80%;
+      --width: 80%;
+      --max-width: 80%;
+      --max-height: 90%;
+   }
+}
+
+@media (max-width: 768px) {
+
+   ion-modal.phome-modal-myevent-container::part(content) {
+      --height: 80%;
+      --width: 90%;
+      --max-width: 90%;
+      --max-height: 90%;
+   }
+
+   .phome-modal-myevent-container ion-icon {
+      font-size: 24px;
+   }
+
+   .phome-modal-myevent-content {
+      --padding-start: 10px;
+      padding: 10px;
+   }
+
+   .phome-poster-img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      margin-top: 10px;
+   }
+
+   .phome-modal-myevent-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+   }
+
+   .phome-modal-host-container {
+      margin-top: 10px;
+   }
+
+   .phome-modal-myevent-details {
+      margin-top: 10px;
+      font-size: 0.9rem;
+   }
+
+   .phome-registered-btn {
+      margin-top: 15px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+   }
 }
