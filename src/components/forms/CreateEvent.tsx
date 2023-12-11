@@ -22,6 +22,7 @@ function CreateEvent() {
     title: "",
     description: "",
     host_id: "",
+    host_name: "",
     eventDate: "",
     imgUrl: "",
     venueType: "",
@@ -89,6 +90,7 @@ function CreateEvent() {
   const onSubmit = async (data: any) => {
     try {
       const hostId = userData.email;
+      const hostName = `${userData?.fname} ${userData?.lname}`;
 
       // Combine the state and any other data needed
       const eventDataToSubmit = {
@@ -96,6 +98,7 @@ function CreateEvent() {
         ...data,
         // ...register,
         host_id: hostId,
+        host_name: hostName,
       };
 
       // Call the createEvent function to add the event data to Firebase

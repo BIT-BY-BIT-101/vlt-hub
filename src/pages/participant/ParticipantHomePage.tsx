@@ -26,14 +26,13 @@ import Logo from "../../assets/user.jpg";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import "./ParticipantHomePage.css";
-import UserEventsCard from "../../components/cards/UserEventsCard";
-import UserEventModal from "../../components/modals/UserEventModal";
+import EventsCard from "../../components/cards/EventsCard";
+import EventsModal from "../../components/modals/EventsModal";
+import useFirebaseStorage from "../../hooks/useFirestorage";
+import useFirestore from "../../hooks/useFirestore";
 
 const ParticipantHomePage: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  const { data, error } = useFirestore("events");
 
   return (
     <IonPage>
@@ -49,11 +48,9 @@ const ParticipantHomePage: React.FC = () => {
       </IonHeader>
       <IonContent id="phome-main">
         <div className="phome-cards-container">
-          <UserEventsCard onOpen={openModal} />
+          <EventsCard />
 
           {/* Modal */}
-
-          <UserEventModal isOpen={showModal} onDidDismiss={closeModal} />
         </div>
       </IonContent>
     </IonPage>
