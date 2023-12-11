@@ -12,15 +12,17 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { alertCircle, book, home, logOut, pencil, time } from "ionicons/icons";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import VenueOrgImg from "../../assets/venueorg.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import LogoutModal from "../modals/LogoutModal";
 
 function VenueNavMenu() {
   const { signOut } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -34,10 +36,14 @@ function VenueNavMenu() {
     return location.pathname === path;
   };
 
+  const handleModalClose = () => {
+    setShowLogoutModal(false);
+  };
+
   return (
     <IonMenu contentId="vhome-main" type="overlay">
       <IonHeader>
-        <IonToolbar class="hhome-menu-header">
+        <IonToolbar class="vhome-menu-header">
           <IonImg
             src={VenueOrgImg}
             alt="V.L.T. Hub"
@@ -105,12 +111,13 @@ function VenueNavMenu() {
 
         <IonItem
           className="vhome-menu-item vhome-logout"
-          onClick={handleSignOut}
+          onClick={() => setShowLogoutModal(true)}
         >
           <IonIcon icon={logOut} slot="start" className="vhome-menu-icon" />
           <IonLabel class="vhome-menu-label">Logout</IonLabel>
         </IonItem>
       </IonContent>
+      <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
     </IonMenu>
   );
 }

@@ -83,7 +83,7 @@ const RouteService = () => {
 
         {/* Host Routes */}
         <Route exact path="/host">
-          <Redirect to="/hosts/home" />
+          <Redirect to="/host/home" />
         </Route>
         <ProtectedRoute
           path="/host/home"

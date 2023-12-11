@@ -331,18 +331,18 @@ ion-modal.pevent-confirmation-modal-container::part(content) {
 
 @media (max-width: 768px) {
 
-   ion-modal.pevent-modal-myevent-container::part(content) {
+   ion-modal.pevent-modal-container::part(content) {
       --height: 80%;
       --width: 90%;
       --max-width: 90%;
       --max-height: 90%;
    }
 
-   .pevent-modal-myevent-container ion-icon {
+   .pevent-modal-container ion-icon {
       font-size: 24px;
    }
 
-   .pevent-modal-myevent-content {
+   .pevent-modal-content {
       --padding-start: 10px;
       padding: 10px;
    }
@@ -354,7 +354,7 @@ ion-modal.pevent-confirmation-modal-container::part(content) {
       margin-top: 10px;
    }
 
-   .pevent-modal-myevent-title {
+   .pevent-modal-title {
       font-size: 1.2rem;
       margin-bottom: 15px;
    }
@@ -363,7 +363,7 @@ ion-modal.pevent-confirmation-modal-container::part(content) {
       margin-top: 10px;
    }
 
-   .pevent-modal-myevent-details {
+   .pevent-modal-details {
       margin-top: 10px;
       font-size: 0.9rem;
    }

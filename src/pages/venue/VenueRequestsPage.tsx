@@ -1,255 +1,296 @@
 import {
-  IonAvatar,
   IonButton,
+  IonButtons,
   IonCard,
-  IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
+  IonItem,
   IonLabel,
+  IonList,
+  IonMenu,
   IonMenuButton,
   IonModal,
   IonPage,
-  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { close } from "ionicons/icons";
-import React from "react";
+import { closeCircle } from "ionicons/icons";
+import React, { useState } from "react";
 import HostImg from "../../assets/host.jpg";
-import EventPoster from "../../assets/techythursdays.jpg";
+import IntrotoCSharp from "../../assets/introtocsharp.jpg";
+import MetaSafety from "../../assets/metasafety.jpg";
+import techythursdays from "../../assets/techythursdays.jpg";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueRequestsPage.css";
 
-const VenueRequestsPage = () => {
-  const [showModal, setShowModal] = React.useState(false);
-  // const [showPosterPreviewModal, setShowPosterPreviewModal] =
-  //   React.useState(false);
+const VenueRequestsPage: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
 
-  const eventDetails = {
-    description: "Lorem ipsum dolor sit amet",
-    venue: "SMX Olongapo",
-    date: "December 4, 2023",
-    startTime: "10:00 AM",
-    endTime: "12:00 PM",
-  };
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   return (
-    <>
+    <IonPage>
       <VenueNavMenu />
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonMenuButton slot="start" />
-            <IonTitle>Requests</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent id="vhome-main">
-          <IonGrid>
-            <IonRow className="vhome-requests-row">
-              {/* 1st Card */}
-              <IonCol size="12" size-md="4">
-                <IonCard className="vhome-requests-card">
-                  <div
-                    className="vhome-event-poster-container"
-                    // onClick={() => setShowPosterPreviewModal(true)}
-                  >
-                    <IonImg
-                      className="vhome-event-poster"
-                      src={EventPoster}
-                      alt="Event Poster"
-                    />
-                  </div>
-
-                  <div className="vhome-host-container">
-                    <IonAvatar className="vhome-host-img">
-                      <IonImg src={HostImg} alt="Host IMG"></IonImg>
-                    </IonAvatar>
-                    <div className="vhome-host-name">Abdul Rauf M. Sultan</div>
-                  </div>
-
-                  <IonLabel>
-                    <h2 className="vhome-event-title">
-                      Meta Safety in the Modern Age - Strategies for a Secure
-                      Digital Journey
-                    </h2>
-                  </IonLabel>
-
-                  <div className="vhome-modalbtn-container">
-                    <IonButton
-                      onClick={() => setShowModal(true)}
-                      expand="full"
-                      className="vviewdetails-btn"
-                    >
-                      View Details
-                    </IonButton>
-                    <IonButton expand="full" className="vchat-btn">
-                      Chat
-                    </IonButton>
-                  </div>
-                </IonCard>
-              </IonCol>
-
-              {/* 2nd Card */}
-
-              <IonCol size="12" size-md="4">
-                <IonCard className="vhome-requests-card">
-                  <div
-                    className="vhome-event-poster-container"
-                    // onClick={() => setShowPosterPreviewModal(true)}
-                  >
-                    <IonImg
-                      className="vhome-event-poster"
-                      src={EventPoster}
-                      alt="Event Poster"
-                    />
-                  </div>
-
-                  <div className="vhome-host-container">
-                    <IonAvatar className="vhome-host-img">
-                      <IonImg src={HostImg} alt="Host IMG"></IonImg>
-                    </IonAvatar>
-                    <div className="vhome-host-name">Abdul Rauf M. Sultan</div>
-                  </div>
-
-                  <IonLabel>
-                    <h2 className="vhome-event-title">
-                      Meta Safety in the Modern Age - Strategies for a Secure
-                      Digital Journey
-                    </h2>
-                  </IonLabel>
-                  <div className="vhome-modalbtn-container">
-                    <IonButton
-                      onClick={() => setShowModal(true)}
-                      expand="full"
-                      className="vviewdetails-btn"
-                    >
-                      View Details
-                    </IonButton>
-                    <IonButton expand="full" className="vchat-btn">
-                      Chat
-                    </IonButton>
-                  </div>
-                </IonCard>
-              </IonCol>
-
-              {/* 3rd Card */}
-
-              <IonCol size="12" size-md="4">
-                <IonCard className="vhome-requests-card">
-                  <div
-                    className="vhome-event-poster-container"
-                    // onClick={() => setShowPosterPreviewModal(true)}
-                  >
-                    <IonImg
-                      className="vhome-event-poster"
-                      src={EventPoster}
-                      alt="Event Poster"
-                    />
-                  </div>
-
-                  <div className="vhome-host-container">
-                    <IonAvatar className="vhome-host-img">
-                      <IonImg src={HostImg} alt="Host IMG"></IonImg>
-                    </IonAvatar>
-                    <div className="vhome-host-name">Abdul Rauf M. Sultan</div>
-                  </div>
-
-                  <IonLabel>
-                    <h2 className="vhome-event-title">
-                      Meta Safety in the Modern Age - Strategies for a Secure
-                      Digital Journey
-                    </h2>
-                  </IonLabel>
-
-                  <div className="vhome-modalbtn-container">
-                    <IonButton
-                      onClick={() => setShowModal(true)}
-                      expand="full"
-                      className="vviewdetails-btn"
-                    >
-                      View Details
-                    </IonButton>
-                    <IonButton expand="full" className="vchat-btn">
-                      Chat
-                    </IonButton>
-                  </div>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonContent>
-
-        <IonModal
-          isOpen={showModal}
-          onDidDismiss={() => setShowModal(false)}
-          className={`vhome-modal-container ${showModal ? "show-modal" : ""}`}
-        >
-          <IonContent
-            className={`vhome-modal-content ${showModal ? "show-modal" : ""}`}
-          >
-            <div className="vhome-modal-header">
-              <h2 className="vhome-modal-title">Event Details</h2>
-              <IonIcon
-                icon={close}
-                size="large"
-                onClick={() => setShowModal(false)}
-                className="vhome-close-icon"
-              />
-            </div>
-            <IonLabel className="vhome-modal-details">
-              <p>
-                <span>Description:</span> {eventDetails.description}
-              </p>
-              <p>
-                <span>Venue:</span> {eventDetails.venue}
-              </p>
-              <p>
-                <span>Date:</span> {eventDetails.date}
-              </p>
-              <p>
-                <span>Start time:</span> {eventDetails.startTime}
-              </p>
-              <p>
-                <span>End time:</span> {eventDetails.endTime}
-              </p>
-            </IonLabel>
-
-            <div className="vhome-actionbtn-container">
-              <IonButton className="vaccept-btn">Accept</IonButton>
-              <IonButton className="vdecline-btn" fill="clear">
-                Decline
-              </IonButton>
-            </div>
-          </IonContent>
-        </IonModal>
-
-        {/* Poster Preview Modal */}
-        {/* <IonModal
-        isOpen={showPosterPreviewModal}
-        onDidDismiss={() => setShowPosterPreviewModal(false)}
-        className="vhome-modal-container"
-      >
-        <IonContent className="vhome-modal-content">
-          <div className="vhome-modal-header">
-            <IonIcon
-              icon={close}
-              size="large"
-              onClick={() => setShowPosterPreviewModal(false)}
-              className="vhome-close-icon"
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton autoHide={false}></IonMenuButton>
+          </IonButtons>
+          {/* <IonMenuButton slot="start" /> */}
+          <IonTitle>Requests</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent id="vhome-main">
+        <div className="vrequest-cards-container">
+          <IonCard className="vrequest-event-card">
+            <IonImg
+              src={IntrotoCSharp}
+              alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
+              className="vrequest-event-image"
             />
-          </div>
-          <IonImg
-            className="vhome-event-poster"
-            src={EventPoster}
-            alt="Event Poster"
-          />
-        </IonContent>
-      </IonModal> */}
-      </IonPage>
-    </>
+            <IonLabel>
+              <h2
+                className="vrequest-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                Mastering the Fundamentals: An Introduction to Visual C#
+                Programming
+              </h2>
+              <div className="vrequest-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="vrequest-event-host-img"
+                />
+                <p className="vrequest-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="vrequest-event-details">
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="vrequest-event-free">Free</p>
+              </IonLabel>
+              <div className="vrequest-event-buttons">
+                <IonButton
+                  expand="block"
+                  className="vrequest-view-details-btn"
+                  onClick={openModal}
+                >
+                  View Details
+                </IonButton>
+                <IonButton
+                  expand="block"
+                  className="vrequest-chat-btn"
+                  onClick={() => {}}
+                >
+                  Chat
+                </IonButton>
+              </div>
+            </IonLabel>
+          </IonCard>
+
+          <IonCard className="vrequest-event-card">
+            <IonImg
+              src={MetaSafety}
+              alt="Meta Safety in the Modern Age - Strategies for a Secure Digital Journey"
+              className="vrequest-event-image"
+            />
+            <IonLabel>
+              <h2
+                className="vrequest-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                Meta Safety in the Modern Age - Strategies for a Secure Digital
+                Journey
+              </h2>
+              <div className="vrequest-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="vrequest-event-host-img"
+                />
+                <p className="vrequest-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="vrequest-event-details">
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="vrequest-event-paid">₱200.00</p>
+              </IonLabel>
+              <div className="vrequest-event-buttons">
+                <IonButton
+                  expand="block"
+                  className="vrequest-view-details-btn"
+                  onClick={openModal}
+                >
+                  View Details
+                </IonButton>
+                <IonButton
+                  expand="block"
+                  className="vrequest-chat-btn"
+                  onClick={() => {}}
+                >
+                  Chat
+                </IonButton>
+              </div>
+            </IonLabel>
+          </IonCard>
+
+          <IonCard className="vrequest-event-card">
+            <IonImg
+              src={techythursdays}
+              alt="#TechyThursdays - Introduction to Web 3.0"
+              className="vrequest-event-image"
+            />
+            <IonLabel>
+              <h2
+                className="vrequest-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                #TechyThursdays - Introduction to Web 3.0
+              </h2>
+              <div className="vrequest-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="vrequest-event-host-img"
+                />
+                <p className="vrequest-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="vrequest-event-details">
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="vrequest-event-free">Free</p>
+              </IonLabel>
+              <div className="vrequest-event-buttons">
+                <IonButton
+                  expand="block"
+                  className="vrequest-view-details-btn"
+                  onClick={openModal}
+                >
+                  View Details
+                </IonButton>
+                <IonButton
+                  expand="block"
+                  className="vrequest-chat-btn"
+                  onClick={() => {}}
+                >
+                  Chat
+                </IonButton>
+              </div>
+            </IonLabel>
+          </IonCard>
+
+          {/* Modal */}
+          <IonModal
+            isOpen={showModal}
+            onDidDismiss={closeModal}
+            className="vrequest-modal-container"
+          >
+            <IonHeader>
+              <IonToolbar>
+                <IonButtons slot="end">
+                  <IonButton onClick={closeModal}>
+                    <IonIcon icon={closeCircle} />
+                  </IonButton>
+                </IonButtons>
+              </IonToolbar>
+            </IonHeader>
+
+            <IonContent className="vrequest-modal-content">
+              <div className="vrequest-modal-event-info">
+                <p className="vrequest-event-free">Free</p>
+                <h2 className="vrequest-modal-title">
+                  Mastering the Fundamentals: An Introduction to Visual C#
+                  Programming
+                </h2>
+              </div>
+              <div className="vrequest-modal-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="vrequest-modal-host-img"
+                />
+                <p className="vrequest-modal-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <div className="vrequest-modal-details">
+                <p>
+                  <span>Description:</span> This course is designed to help you
+                  master the fundamentals of Visual C# programming. It is
+                  intended for absolute beginners with no prior programming
+                  experience. The course focuses on the fundamentals of Visual
+                  C# programming and covers the following topics: Visual C#
+                  language syntax, program structure, and implementation
+                  details.
+                </p>
+                <p>
+                  <span>Venue:</span> SMX Olongapo
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+              </div>
+              <div className="vrequest-btn-container">
+                <IonButton
+                  expand="block"
+                  className="vrequest-accept-btn"
+                  onClick={() => {}}
+                >
+                  Accept
+                </IonButton>
+                <IonButton
+                  expand="block"
+                  className="vrequest-decline-btn"
+                  onClick={() => {}}
+                >
+                  Decline
+                </IonButton>
+              </div>
+            </IonContent>
+          </IonModal>
+        </div>
+      </IonContent>
+    </IonPage>
   );
 };
 

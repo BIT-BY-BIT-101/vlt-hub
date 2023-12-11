@@ -1,0 +1,401 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.hhistory-searchbar {
+   --background: #ffffff;
+   --color: var(--secondary-color);
+   --border-radius: 20px;
+   --placeholder-color: var(--secondary-color);
+   --placeholder-font-weight: bold;
+   --border-width: 2px;
+   --border-color: var(--secondary-color);
+   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   margin: 30px 15px 20px 15px;
+   border: 3px solid black;
+   border-radius: 25px;
+   width: calc(100% - 30px);
+}
+
+.hhistory-cards-container {
+   display: flex;
+   justify-content: space-between;
+   margin: 0 -10px;
+   margin-left: 20px;
+   margin-right: 20px;/
+}
+
+.hhistory-event-free {
+   background-color: green;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-top: 10px;
+}
+
+.hhistory-event-paid {
+   background-color: #b8653c;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-top: 10px;
+}
+
+.hhistory-event-card {
+   width: 30%;
+   background-color: var(--main-color);
+   padding: 20px;
+   border-radius: 15px;
+   box-shadow: 14px 14px 28px #b5b5b5,
+      -14px -14px 28px #ffffff;
+   margin: 20px 10px;
+   color: #fff;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   /* text-align: center; */
+   max-width: 450px;
+   max-height: 800px;
+   align-items: stretch;
+   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+   overflow: hidden;
+}
+
+.hhistory-event-card:hover {
+   transform: scale(1.05);
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.hhistory-event-image {
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   border-radius: 8px;
+   margin-bottom: 20px;
+   transition: transform 0.3s ease-in-out;
+}
+
+.hhistory-event-card:hover .hhistory-event-image {
+   transform: scale(1.1);
+}
+
+.hhistory-event-title {
+   display: flex;
+   flex-direction: column;
+   height: 60px;
+   font-weight: bold;
+   margin-top: 20px !important;
+   overflow: hidden;
+}
+
+.hhistory-event-host-container {
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.hhistory-event-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   object-fit: cover;
+   overflow: hidden;
+}
+
+.hhistory-event-card ion-label {
+   font-size: 1.5rem;
+   font-weight: bold;
+   caret-color: transparent;
+   margin-bottom: 10px;
+   flex-grow: 1;
+}
+
+.hhistory-event-card ion-label h2 {
+   font-size: 1.2rem;
+   font-weight: bold;
+   margin-bottom: -10px;
+}
+
+.hhistory-event-details {
+   margin-top: 10px;
+}
+
+.hhistory-event-details p {
+   color: #eae1e1;
+   margin: 5px 0;
+   font-size: 1rem;
+   text-align: left;
+}
+
+.hhistory-event-details p span {
+   color: #f46197;
+   font-weight: bold;
+   margin-right: 5px;
+}
+
+.hhistory-card-icons {
+   margin-right: 5px;
+   color: #f46197;
+}
+
+/* Modal Stylings*/
+ion-modal.hhistory-modal-container::part(content) {
+   --background: var(--main-color);
+   --border-radius: 20px;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   --height: 75%;
+   --width: 50%;
+   --max-width: 50%;
+   --max-height: 80%;
+}
+
+.hhistory-modal-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hhistory-modal-container ion-icon {
+   font-size: 28px;
+}
+
+.hhistory-modal-content:not(.hhistory-register-btn) {
+   --padding-start: 10px;
+}
+
+.hhistory-modal-event-info {
+   color: var(--main-color);
+   margin-bottom: 5px;
+}
+
+.hhistory-event-free {
+   background-color: green;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-bottom: 5px;
+}
+
+.hhistory-modal-title {
+   font-size: 1.5rem;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: var(--main-color);
+}
+
+.hhistory-modal-host-container {
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.hhistory-modal-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   object-fit: cover;
+   overflow: hidden;
+}
+
+.hhistory-modal-host {
+   color: var(--main-color);
+   font-weight: bold;
+}
+
+.hhistory-modal-details {
+   color: var(--main-color);
+   font-weight: 500;
+}
+
+.hhistory-modal-details span {
+   color: var(--secondary-color);
+   font-weight: bold;
+}
+
+.hhistory-btn-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 20px;
+}
+
+.hhistory-register-btn {
+   --background: var(--secondary-color);
+   --color: #fff;
+   font-weight: bold;
+   margin-top: 20px;
+   width: 100%;
+   padding: 0px 20px;
+}
+
+/* Media Queries */
+
+@media (min-width: 1151px) {
+   .hhistory-event-card {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .hhistory-event-image {
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+   }
+
+   .hhistory-event-title {
+      height: auto;
+      margin-bottom: 20px;
+   }
+
+   .hhistory-event-host-container {
+      margin-top: 20px;
+   }
+
+   .hhistory-event-details {
+      text-align: center;
+   }
+}
+
+@media (min-width: 769px) and (max-width: 1150px) {
+   .hhistory-event-card {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .hhistory-event-image {
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+   }
+
+   .hhistory-event-title {
+      height: auto;
+      margin-bottom: 10px;
+   }
+
+   .hhistory-event-host-container {
+      margin-top: 20px;
+   }
+
+   .hhistory-event-details {
+      text-align: center;
+   }
+}
+
+@media (max-width: 768px) {
+   .hhistory-cards-container {
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+   }
+
+   .hhistory-menu-options {
+      margin-bottom: 60px;
+   }
+
+   .hhistory-event-card {
+      width: 90%;
+      max-height: 260px;
+      margin: 20px 0;
+      flex-direction: row;
+      display: flex;
+      align-items: flex-start;
+   }
+
+   .hhistory-event-image {
+      max-width: 100px;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px 0 0 8px;
+      margin-bottom: 0;
+   }
+
+   .hhistory-event-card ion-label,
+   .hhistory-event-details {
+      text-align: left;
+      margin-left: 10px;
+   }
+
+   .hhistory-event-card ion-label h2 {
+      font-size: 1rem;
+   }
+
+   .hhistory-event-title {
+      height: 90px;
+      overflow: hidden;
+      margin: 0 !important;
+   }
+
+   .hhistory-event-host-container {
+      margin-top: 15px;
+      margin-bottom: -25px;
+   }
+
+   .hhistory-event-details p,
+   .hhistory-event-details p span {
+      font-size: 0.8rem;
+   }
+
+   ion-modal.hhistory-modal-container::part(content) {
+      --height: 80%;
+      --width: 90%;
+      --max-width: 90%;
+      --max-height: 90%;
+   }
+
+   .hhistory-modal-container ion-icon {
+      font-size: 24px;
+   }
+
+   .hhistory-modal-content {
+      --padding-start: 10px;
+      padding: 10px;
+   }
+
+   .hhistory-modal-event-info {
+      margin-bottom: 10px;
+   }
+
+   .hhistory-modal-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+   }
+
+   .hhistory-modal-host-container {
+      margin-top: 10px;
+   }
+
+   .hhistory-modal-details {
+      margin-top: 10px;
+      font-size: 0.9rem;
+   }
+
+   .hhistory-register-btn {
+      margin-top: 15px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+   }
+}

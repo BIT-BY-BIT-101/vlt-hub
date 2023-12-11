@@ -34,221 +34,219 @@ const ParticipantHomePage: React.FC = () => {
   const closeModal = () => setShowModal(false);
 
   return (
-    <>
+    <IonPage>
       <ParticipantNavMenu />
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton autoHide={false}></IonMenuButton>
-            </IonButtons>
-            {/* <IonMenuButton slot="start" /> */}
-            <IonTitle>Dashboard</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent id="phome-main">
-          <div className="phome-cards-container">
-            <IonCard className="phome-event-card" onClick={openModal}>
-              <IonImg
-                src={IntrotoCSharp}
-                alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
-                className="phome-event-image"
-              />
-              <IonLabel>
-                <h2
-                  className="phome-event-title"
-                  style={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                    lineHeight: "20px",
-                    maxHeight: "40px",
-                  }}
-                >
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton autoHide={false}></IonMenuButton>
+          </IonButtons>
+          {/* <IonMenuButton slot="start" /> */}
+          <IonTitle>Dashboard</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent id="phome-main">
+        <div className="phome-cards-container">
+          <IonCard className="phome-event-card" onClick={openModal}>
+            <IonImg
+              src={IntrotoCSharp}
+              alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
+              className="phome-event-image"
+            />
+            <IonLabel>
+              <h2
+                className="phome-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                Mastering the Fundamentals: An Introduction to Visual C#
+                Programming
+              </h2>
+              <div className="phome-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-event-host-img"
+                />
+                <p className="phome-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="phome-event-details">
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="phome-event-free">Free</p>
+              </IonLabel>
+            </IonLabel>
+          </IonCard>
+
+          <IonCard className="phome-event-card" onClick={openModal}>
+            <IonImg
+              src={MetaSafety}
+              alt="Meta Safety in the Modern Age - Strategies for a Secure Digital Journey"
+              className="phome-event-image"
+            />
+            <IonLabel>
+              <h2
+                className="phome-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                Meta Safety in the Modern Age - Strategies for a Secure Digital
+                Journey
+              </h2>
+              <div className="phome-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-event-host-img"
+                />
+                <p className="phome-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="phome-event-details">
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="phome-event-paid">₱200.00</p>
+              </IonLabel>
+            </IonLabel>
+          </IonCard>
+
+          <IonCard className="phome-event-card" onClick={openModal}>
+            <IonImg
+              src={techythursdays}
+              alt="#TechyThursdays - Introduction to Web 3.0"
+              className="phome-event-image"
+            />
+            <IonLabel>
+              <h2
+                className="phome-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                #TechyThursdays - Introduction to Web 3.0
+              </h2>
+              <div className="phome-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-event-host-img"
+                />
+                <p className="phome-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="phome-event-details">
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="phome-event-free">Free</p>
+              </IonLabel>
+            </IonLabel>
+          </IonCard>
+
+          {/* Modal */}
+          <IonModal
+            isOpen={showModal}
+            onDidDismiss={closeModal}
+            className="phome-modal-container"
+          >
+            <IonHeader>
+              <IonToolbar>
+                <IonButtons slot="end">
+                  <IonButton onClick={closeModal}>
+                    <IonIcon icon={closeCircle} />
+                  </IonButton>
+                </IonButtons>
+              </IonToolbar>
+            </IonHeader>
+
+            <IonContent className="phome-modal-content">
+              <div className="phome-modal-event-info">
+                <p className="phome-event-free">Free</p>
+                <h2 className="phome-modal-title">
                   Mastering the Fundamentals: An Introduction to Visual C#
                   Programming
                 </h2>
-                <div className="phome-event-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="phome-event-host-img"
-                  />
-                  <p className="phome-event-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <IonLabel className="phome-event-details">
-                  <p>
-                    <span>Venue:</span> Zoom
-                  </p>
-                  <p>
-                    <span>Date:</span> October 15, 2023
-                  </p>
-                  <p>
-                    <span>Time:</span> 3:00 PM - 5:00 PM
-                  </p>
-                  <p className="phome-event-free">Free</p>
-                </IonLabel>
-              </IonLabel>
-            </IonCard>
-
-            <IonCard className="phome-event-card" onClick={openModal}>
-              <IonImg
-                src={MetaSafety}
-                alt="Meta Safety in the Modern Age - Strategies for a Secure Digital Journey"
-                className="phome-event-image"
-              />
-              <IonLabel>
-                <h2
-                  className="phome-event-title"
-                  style={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                    lineHeight: "20px",
-                    maxHeight: "40px",
-                  }}
+              </div>
+              <div className="phome-modal-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phome-modal-host-img"
+                />
+                <p className="phome-modal-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <div className="phome-modal-details">
+                <p>
+                  <span>Description:</span> This course is designed to help you
+                  master the fundamentals of Visual C# programming. It is
+                  intended for absolute beginners with no prior programming
+                  experience. The course focuses on the fundamentals of Visual
+                  C# programming and covers the following topics: Visual C#
+                  language syntax, program structure, and implementation
+                  details.
+                </p>
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+              </div>
+              <div className="phome-btn-container">
+                <IonButton
+                  expand="block"
+                  className="phome-register-btn"
+                  onClick={() => {}}
                 >
-                  Meta Safety in the Modern Age - Strategies for a Secure
-                  Digital Journey
-                </h2>
-                <div className="phome-event-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="phome-event-host-img"
-                  />
-                  <p className="phome-event-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <IonLabel className="phome-event-details">
-                  <p>
-                    <span>Venue:</span> Zoom
-                  </p>
-                  <p>
-                    <span>Date:</span> October 15, 2023
-                  </p>
-                  <p>
-                    <span>Time:</span> 3:00 PM - 5:00 PM
-                  </p>
-                  <p className="phome-event-paid">₱200.00</p>
-                </IonLabel>
-              </IonLabel>
-            </IonCard>
-
-            <IonCard className="phome-event-card" onClick={openModal}>
-              <IonImg
-                src={techythursdays}
-                alt="#TechyThursdays - Introduction to Web 3.0"
-                className="phome-event-image"
-              />
-              <IonLabel>
-                <h2
-                  className="phome-event-title"
-                  style={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                    lineHeight: "20px",
-                    maxHeight: "40px",
-                  }}
-                >
-                  #TechyThursdays - Introduction to Web 3.0
-                </h2>
-                <div className="phome-event-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="phome-event-host-img"
-                  />
-                  <p className="phome-event-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <IonLabel className="phome-event-details">
-                  <p>
-                    <span>Venue:</span> Zoom
-                  </p>
-                  <p>
-                    <span>Date:</span> October 15, 2023
-                  </p>
-                  <p>
-                    <span>Time:</span> 3:00 PM - 5:00 PM
-                  </p>
-                  <p className="phome-event-free">Free</p>
-                </IonLabel>
-              </IonLabel>
-            </IonCard>
-
-            {/* Modal */}
-            <IonModal
-              isOpen={showModal}
-              onDidDismiss={closeModal}
-              className="phome-modal-container"
-            >
-              <IonHeader>
-                <IonToolbar>
-                  <IonButtons slot="end">
-                    <IonButton onClick={closeModal}>
-                      <IonIcon icon={closeCircle} />
-                    </IonButton>
-                  </IonButtons>
-                </IonToolbar>
-              </IonHeader>
-
-              <IonContent className="phome-modal-content">
-                <div className="phome-modal-event-info">
-                  <p className="phome-event-free">Free</p>
-                  <h2 className="phome-modal-title">
-                    Mastering the Fundamentals: An Introduction to Visual C#
-                    Programming
-                  </h2>
-                </div>
-                <div className="phome-modal-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="phome-modal-host-img"
-                  />
-                  <p className="phome-modal-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <div className="phome-modal-details">
-                  <p>
-                    <span>Description:</span> This course is designed to help
-                    you master the fundamentals of Visual C# programming. It is
-                    intended for absolute beginners with no prior programming
-                    experience. The course focuses on the fundamentals of Visual
-                    C# programming and covers the following topics: Visual C#
-                    language syntax, program structure, and implementation
-                    details.
-                  </p>
-                  <p>
-                    <span>Venue:</span> Zoom
-                  </p>
-                  <p>
-                    <span>Date:</span> October 15, 2023
-                  </p>
-                  <p>
-                    <span>Time:</span> 3:00 PM - 5:00 PM
-                  </p>
-                </div>
-                <div className="phome-btn-container">
-                  <IonButton
-                    expand="block"
-                    className="phome-register-btn"
-                    onClick={() => {}}
-                  >
-                    Register
-                  </IonButton>
-                </div>
-              </IonContent>
-            </IonModal>
-          </div>
-        </IonContent>
-      </IonPage>
-    </>
+                  Register
+                </IonButton>
+              </div>
+            </IonContent>
+          </IonModal>
+        </div>
+      </IonContent>
+    </IonPage>
   );
 };
 
