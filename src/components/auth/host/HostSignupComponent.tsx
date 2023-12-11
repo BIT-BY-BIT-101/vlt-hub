@@ -19,14 +19,14 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import SignUpSVG from "../../../assets/hsignup.svg";
 import Logo from "../../../assets/logo.png";
 import "./HostSignupComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const HostSignupComponent = () => {
-  const { signUp } = useFirebaseAuth();
+  const { user, signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [newFirstname, setNewFirstname] = useState<string>("");
@@ -47,7 +47,7 @@ const HostSignupComponent = () => {
         newFirstname,
         newLastnaem,
         newBirthdate,
-        "participant"
+        "host"
       );
       // Redirect or handle success as needed
       console.log("Account created successfully");
@@ -61,6 +61,10 @@ const HostSignupComponent = () => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (user) {
+    return <Redirect to="/host/home" />;
+  }
 
   return (
     <div className="hsignup-container">

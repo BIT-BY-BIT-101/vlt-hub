@@ -19,14 +19,14 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/psignup.svg";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import "./ParticipantSignupComponent.css";
 
 const ParticipantSignupComponent = () => {
-  const { signUp } = useFirebaseAuth();
+  const { user, signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [newFirstname, setNewFirstname] = useState<string>("");
@@ -62,6 +62,10 @@ const ParticipantSignupComponent = () => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (user) {
+    return <Redirect to="/participant/home" />;
+  }
 
   return (
     <div className="psignup-container">

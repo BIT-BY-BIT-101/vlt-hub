@@ -19,14 +19,14 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/vsignup.svg";
 import "./VenueSignupComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const VenueSignupComponent = () => {
-  const { signUp } = useFirebaseAuth();
+  const { user, signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [newFirstname, setNewFirstname] = useState<string>("");
@@ -47,7 +47,7 @@ const VenueSignupComponent = () => {
         newFirstname,
         newLastnaem,
         newBirthdate,
-        "participant"
+        "venue"
       );
       // Redirect or handle success as needed
       console.log("Account created successfully");
@@ -61,6 +61,10 @@ const VenueSignupComponent = () => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (user) {
+    return <Redirect to="/venue/home" />;
+  }
 
   return (
     <div className="vsignup-container">
@@ -103,6 +107,7 @@ const VenueSignupComponent = () => {
               className="vsignup-input"
               type="email"
               placeholder="Enter your email address"
+              onIonChange={(e) => setNewEmail(e.detail.value!)}
             ></IonInput>
 
             <IonInput

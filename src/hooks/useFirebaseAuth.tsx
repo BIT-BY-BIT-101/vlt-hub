@@ -66,7 +66,7 @@ const useFirebaseAuth = () => {
       email,
       password
     );
-    await setDoc(doc(db, "users", email), {
+    await setDoc(doc(db, "profiles", email), {
       email,
       fname,
       lname,

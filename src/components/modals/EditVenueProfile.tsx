@@ -13,7 +13,22 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useFirestore from "../../hooks/useFirestore";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../config/firebase";
+
+interface VenueData {
+  fname: string;
+  bio: string;
+  lname: string;
+  age: string;
+  gender: string;
+  bldg_no: string;
+  street: string;
+  city: string;
+  country: string;
+}
 
 type EditProps = {
   userData: any;
@@ -21,8 +36,50 @@ type EditProps = {
   onClose: () => void;
 };
 
-const EditVenueProfile: React.FC<any> = ({ userData, isOpen, onClose }) => {
-  const [editedData, setEditedData] = useState({ ...userData });
+const EditVenueProfile: React.FC<EditProps> = ({
+  userData,
+  isOpen,
+  onClose,
+}) => {
+  const { updateData } = useFirestore("profiles");
+  const [editedData, setEditedData] = useState<any>({ ...userData });
+
+  const handleSaveChanges = async () => {
+    try {
+      const userEmail = localStorage.getItem("session")!;
+
+      if (userEmail) {
+        await updateData(userEmail, editedData);
+
+        console.log(editedData);
+        console.log(userData);
+        onClose();
+      }
+    } catch (error) {
+      console.log(error);
+      console.error;
+    }
+  };
+
+  // const handleSaveChanges = async () => {
+  //   try {
+  //     // Update user data in Firestore
+  //     const userEmail = localStorage.getItem("session");
+  //     if (userEmail) {
+  //       const userDocRef = doc(db, "profiles", userEmail);
+  //       await updateDoc(userDocRef, editedData);
+  //       console.log("Profile updated successfully!");
+  //       onClose();
+
+  //       window.location.reload();
+
+  //       // fetchUserData();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error);
+  //   }
+  // };
+
   return (
     <>
       <IonModal isOpen={isOpen}>
@@ -41,21 +98,13 @@ const EditVenueProfile: React.FC<any> = ({ userData, isOpen, onClose }) => {
           {/* ... (other input fields) */}
           {/* <IonButton onClick={handleCapturePicture}>Capture Picture</IonButton> */}
           <IonItem>
-            <IonLabel>Bio:</IonLabel>
-            <IonInput
-              value={editedData.bio}
-              onIonChange={(e) =>
-                setEditedData((prevData) => ({
-                  ...prevData,
-                  bio: e.detail.value!,
-                }))
-              }
-            />
+            {userData?.fname} {userData?.lname}
           </IonItem>
+
           <IonItem>
             <IonLabel>First Name:</IonLabel>
             <IonInput
-              value={editedData.fname}
+              value={editedData?.fname}
               onIonChange={(e) =>
                 setEditedData((prevData) => ({
                   ...prevData,
@@ -67,7 +116,7 @@ const EditVenueProfile: React.FC<any> = ({ userData, isOpen, onClose }) => {
           <IonItem>
             <IonLabel>Last Name:</IonLabel>
             <IonInput
-              value={editedData.lname}
+              value={editedData?.lname}
               onIonChange={(e) =>
                 setEditedData((prevData) => ({
                   ...prevData,
@@ -76,19 +125,8 @@ const EditVenueProfile: React.FC<any> = ({ userData, isOpen, onClose }) => {
               }
             />
           </IonItem>
-          <IonItem>
-            <IonLabel>Age:</IonLabel>
-            <IonInput
-              value={editedData.age}
-              onIonChange={(e) =>
-                setEditedData((prevData) => ({
-                  ...prevData,
-                  age: e.detail.value!,
-                }))
-              }
-            />
-          </IonItem>
-          <IonItem>
+
+          {/* <IonItem>
             <IonLabel>Gender:</IonLabel>
             <IonSelect
               interface="action-sheet"
@@ -103,12 +141,9 @@ const EditVenueProfile: React.FC<any> = ({ userData, isOpen, onClose }) => {
               <IonSelectOption value="Male">Male</IonSelectOption>
               <IonSelectOption value="Female">Female</IonSelectOption>
             </IonSelect>
-          </IonItem>
+          </IonItem> */}
+
           {/* <IonItem>
-          <IonLabel>Gender:</IonLabel>
-          <IonInput value={editedData.gender} />
-        </IonItem> */}
-          <IonItem>
             <IonLabel>Building No.:</IonLabel>
             <IonInput
               value={editedData.bldg_no}
@@ -155,7 +190,7 @@ const EditVenueProfile: React.FC<any> = ({ userData, isOpen, onClose }) => {
                 }))
               }
             />
-          </IonItem>
+          </IonItem> */}
           <IonButton onClick={handleSaveChanges}>Save Changes</IonButton>
           {/* <IonButton onClick={handleOpenCamera}>Capture/Select Image</IonButton> */}
         </IonContent>

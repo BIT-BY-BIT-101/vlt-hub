@@ -8,6 +8,7 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 import { EventDataModel } from "../models/Model";
@@ -77,6 +78,13 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
+  const updateData = async (id: string, data: any) => {
+    const docRef = doc(db, collectionPath, id);
+    await updateDoc(docRef, data);
+    // Refresh data after update
+    // fetchUserData();
+  };
+
   useEffect(() => {
     fetchUserData();
     getData();
@@ -93,7 +101,17 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  return { addData, error, data, deleteData, loading, userData };
+  //   try {
+  //     const docRef = doc(db, collectionPath, id);
+  //     await updateDoc(docRef, data);
+  //     // getData();
+  //   } catch (err) {
+  //     setError(err);
+  //     console.log("Error Updating/n", error);
+  //   }
+  // };
+
+  return { addData, error, data, deleteData, loading, userData, updateData };
 };
 
 export default useFirestore;

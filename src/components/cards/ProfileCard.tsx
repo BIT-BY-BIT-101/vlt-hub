@@ -11,9 +11,11 @@ import {
 import React, { useState } from "react";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import EditVenueProfile from "../modals/EditVenueProfile";
+import useFirestore from "../../hooks/useFirestore";
 
 const ProfileCard = () => {
-  const { userData } = useFirebaseAuth();
+  // const { userData } = useFirebaseAuth();
+  const { userData } = useFirestore(`profiles`);
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -31,6 +33,7 @@ const ProfileCard = () => {
 
         <IonCardContent>
           <IonList>
+            {/* <IonItem>{userData?.email}</IonItem> */}
             <IonItem>
               {userData?.fname} {userData?.lname}
             </IonItem>
@@ -39,11 +42,11 @@ const ProfileCard = () => {
         <IonFooter>
           <IonButton onClick={handleOpenModal}>Edit Profile</IonButton>
         </IonFooter>
-        {/* <EditVenueProfile
+        <EditVenueProfile
           isOpen={showModal}
           onClose={handleCloseModal}
           userData={userData}
-        /> */}
+        />
       </IonCard>
     </div>
   );
