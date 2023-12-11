@@ -58,11 +58,7 @@ const useFirebaseAuth = () => {
     fname: string,
     lname: string,
     birthdate: string,
-    role: string,
-    bldg_no: string,
-    street: string,
-    city: string,
-    postalcode: string
+    role: string
   ): Promise<void> => {
     // try {
     const userCredential = await createUserWithEmailAndPassword(
