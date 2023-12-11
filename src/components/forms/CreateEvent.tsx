@@ -11,16 +11,24 @@ import {
 } from "@ionic/react";
 import React, { ChangeEvent, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
+import { useForm } from "react-hook-form";
+import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 
 function CreateEvent() {
+  const { userData } = useFirebaseAuth();
   const { addData: createEvent } = useFirestore("events");
+  const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({
-    event_name: "",
-    event_description: "",
+    title: "",
+    description: "",
     host_id: "",
-    event_date: "",
-    event_imageUrl: "",
-    event_venue: "",
+    eventDate: "",
+    imgUrl: "",
+    venueType: "",
+    venue: "",
+    platform: "",
+    startTime: "",
+    endTime: "",
   });
   const [venue, setVenue] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -78,7 +86,30 @@ function CreateEvent() {
     console.log("Selected Online Option:", selectedOnlineOption);
   };
 
-  const handleSubmit = () => {};
+  const onSubmit = async (data: any) => {
+    try {
+      const hostId = userData.email;
+
+      // Combine the state and any other data needed
+      const eventDataToSubmit = {
+        ...eventData,
+        ...data,
+        // ...register,
+        host_id: hostId,
+      };
+
+      // Call the createEvent function to add the event data to Firebase
+      await createEvent(eventDataToSubmit);
+
+      // Optionally, you can reset the form after successful submission
+      reset();
+
+      // Log success or navigate to another page
+      console.log("Event created successfully!");
+    } catch (error) {
+      console.log("Error creating event:", error);
+    }
+  };
 
   return (
     <IonCard className="hhome-card-container">
@@ -101,12 +132,22 @@ function CreateEvent() {
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Event Title:</span>
-        <IonInput className="hhome-form-input" type="text" required />
+        <IonInput
+          className="hhome-form-input"
+          type="text"
+          required
+          {...register("title")}
+        />
       </IonLabel>
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Add a description:</span>
-        <IonInput className="hhome-form-input" type="text" />
+        <IonInput
+          className="hhome-form-input"
+          type="text"
+          required
+          {...register("description")}
+        />
       </IonLabel>
 
       <IonLabel className="hhome-form-label">
@@ -116,6 +157,7 @@ function CreateEvent() {
           interface="alert"
           placeholder="Select venue type"
           value={venue}
+          {...register("venueType")}
           onIonChange={handleVenueChange}
         >
           <IonSelectOption value="online">Online</IonSelectOption>
@@ -129,6 +171,7 @@ function CreateEvent() {
           <IonSelect
             placeholder="Select One"
             interfaceOptions={customVenueOptions}
+            {...register("venue")}
           >
             <IonSelectOption value="smx-olongapo">SMX Olongapo</IonSelectOption>
             <IonSelectOption value="travelers-hotel">
@@ -145,6 +188,7 @@ function CreateEvent() {
             placeholder="Select One"
             onIonChange={handleOnlineOptionChange}
             interfaceOptions={customVenuePlatformOptions}
+            {...register("venue")}
           >
             <IonSelectOption value="zoom">Zoom</IonSelectOption>
             <IonSelectOption value="google-meet">Google Meet</IonSelectOption>
@@ -161,6 +205,8 @@ function CreateEvent() {
               <IonDatetimeButton datetime="date"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
+                  {...register("eventDate")}
+                  showDefaultButtons={true}
                   presentation="date"
                   id="date"
                   min="2023-12-01"
@@ -175,9 +221,16 @@ function CreateEvent() {
           <IonLabel className="hhome-form-label date-time-label">
             <span className="hhome-form-title">Start Time:</span>
             <div className="date-time-container">
-              <IonDatetimeButton datetime="time"></IonDatetimeButton>
+              <IonDatetimeButton datetime="start"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
-                <IonDatetime presentation="time" id="time"></IonDatetime>
+                <IonDatetime
+                  {...register("startTime")}
+                  showDefaultButtons={true}
+                  presentation="time"
+                  id="start"
+                  max="23:00"
+                  min="00:00"
+                ></IonDatetime>
               </IonModal>
             </div>
           </IonLabel>
@@ -187,9 +240,16 @@ function CreateEvent() {
           <IonLabel className="hhome-form-label date-time-label">
             <span className="hhome-form-title">End Time:</span>
             <div className="date-time-container">
-              <IonDatetimeButton datetime="time"></IonDatetimeButton>
+              <IonDatetimeButton datetime="end"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
-                <IonDatetime presentation="time" id="time"></IonDatetime>
+                <IonDatetime
+                  {...register("endTime")}
+                  showDefaultButtons={true}
+                  presentation="time"
+                  id="end"
+                  max="23:00"
+                  min="00:00"
+                ></IonDatetime>
               </IonModal>
             </div>
           </IonLabel>
@@ -200,7 +260,7 @@ function CreateEvent() {
         type="submit"
         expand="full"
         fill="clear"
-        onClick={handleSubmit}
+        onClick={handleSubmit(onSubmit)}
         className="hsubmit-btn"
       >
         <span className="hsubmit-txt">Submit</span>
