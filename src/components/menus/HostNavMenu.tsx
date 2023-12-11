@@ -12,15 +12,17 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { calendar, create, home, logOut, pencil, time } from "ionicons/icons";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import HostImg from "../../assets/host.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import LogoutModal from "../modals/LogoutModal";
 
 function HostNavMenu() {
   const { signOut } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -32,6 +34,10 @@ function HostNavMenu() {
 
   const isMenuItemActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleModalClose = () => {
+    setShowLogoutModal(false);
   };
 
   return (
@@ -96,12 +102,13 @@ function HostNavMenu() {
         </IonList>
         <IonItem
           className="hhome-menu-item hhome-logout"
-          onClick={handleSignOut}
+          onClick={() => setShowLogoutModal(true)}
         >
           <IonIcon icon={logOut} slot="start" className="hhome-menu-icon" />
           <IonLabel class="hhome-menu-label">Logout</IonLabel>
         </IonItem>
       </IonContent>
+      <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
     </IonMenu>
   );
 }

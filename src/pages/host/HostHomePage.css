@@ -22,6 +22,8 @@ body {
    height: 100%;
 }
 
+/*Nav Bar Styling*/
+
 .hhome-logocontainer {
    max-width: 50%;
    margin: 20px auto;
@@ -108,7 +110,11 @@ body {
 }
 
 .hhome-menu-options {
-   margin-bottom: 90px;
+   margin-bottom: 150px;
+}
+
+.hhome-logout {
+   margin-top: -80px;
 }
 
 .hhome-menu-item:hover,
@@ -165,12 +171,95 @@ body {
    left: 8px;
 }
 
+ion-modal.hhome-confirmation-modal-container::part(content) {
+   --background: var(--main-color);
+   --border-radius: 20px;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   --height: 20%;
+   --width: 30%;
+   --max-width: 40%;
+   --max-height: 20%;
+}
+
+.hhome-confirmation-modal-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hhome-confirmation-modal-txt {
+   color: var(--main-color);
+   text-align: center;
+   font-weight: bold;
+   font-size: 1.5rem;
+}
+
+.hhome-modal-btn-container {
+   padding: 20px 16px 0 16px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.pyes-btn {
+   width: 48%;
+   font-size: 14px;
+   font-weight: bold;
+   --background: #d0c6c6;
+   --color: var(--main-color);
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.pyes-btn:hover {
+   --background: #424242;
+   --color: #ffffff;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.pno-btn {
+   width: 48%;
+   font-size: 14px;
+   font-weight: bold;
+   --background: rgb(213, 44, 44);
+   --color: #ffffff;
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+   --padding-start: 16px;
+   --padding-end: 16px;
+}
+
+.pno-btn:hover {
+   --background: red;
+   --color: white;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/*Home Page Stylings*/
+
 .hhome-cards-container {
    display: flex;
    justify-content: space-between;
    margin: 0 -10px;
    margin-left: 20px;
-   margin-right: 20px;/
+   margin-right: 20px;
+}
+
+.hhome-event-free {
+   background-color: green;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-top: 10px;
+}
+
+.hhome-event-paid {
+   background-color: #b8653c;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-top: 10px;
 }
 
 .hhome-event-card {
@@ -214,8 +303,24 @@ body {
 .hhome-event-title {
    display: flex;
    flex-direction: column;
-   height: 80px;
+   height: 60px;
    font-weight: bold;
+   margin-top: 20px !important;
+   overflow: hidden;
+}
+
+.hhome-event-host-container {
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.hhome-event-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   object-fit: cover;
    overflow: hidden;
 }
 
@@ -255,6 +360,156 @@ body {
    color: #f46197;
 }
 
+/* Modal Stylings*/
+ion-modal.hhome-modal-container::part(content) {
+   --background: var(--main-color);
+   --border-radius: 20px;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   --height: 68%;
+   --width: 50%;
+   --max-width: 50%;
+   --max-height: 80%;
+}
+
+.hhome-modal-container {
+   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hhome-modal-container ion-icon {
+   font-size: 28px;
+}
+
+.hhome-modal-content:not(.hhome-register-btn) {
+   --padding-start: 10px;
+}
+
+.hhome-modal-event-info {
+   color: var(--main-color);
+   margin-bottom: 5px;
+}
+
+.hhome-event-free {
+   background-color: green;
+   color: white;
+   border-radius: 5px;
+   padding: 5px 10px;
+   display: inline-block;
+   margin-bottom: 5px;
+}
+
+.hhome-modal-title {
+   font-size: 1.5rem;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: var(--main-color);
+}
+
+.hhome-modal-host-container {
+   display: flex;
+   align-items: center;
+   margin-top: 5px;
+}
+
+.hhome-modal-host-img {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   object-fit: cover;
+   overflow: hidden;
+}
+
+.hhome-modal-host {
+   color: var(--main-color);
+   font-weight: bold;
+}
+
+.hhome-modal-details {
+   color: var(--main-color);
+   font-weight: 500;
+}
+
+.hhome-modal-details span {
+   color: var(--secondary-color);
+   font-weight: bold;
+}
+
+.hhome-btn-container {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 20px;
+}
+
+.hhome-register-btn {
+   --background: var(--secondary-color);
+   --color: #fff;
+   font-weight: bold;
+   margin-top: 20px;
+   width: 100%;
+   padding: 0px 20px;
+}
+
+/* Media Queries */
+
+@media (min-width: 1151px) {
+   .hhome-event-card {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .hhome-event-image {
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+   }
+
+   .hhome-event-title {
+      height: auto;
+      margin-bottom: 20px;
+   }
+
+   .hhome-event-host-container {
+      margin-top: 20px;
+   }
+
+   .hhome-event-details {
+      text-align: center;
+   }
+}
+
+@media (min-width: 769px) and (max-width: 1150px) {
+   .hhome-event-card {
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .hhome-event-image {
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      margin-bottom: 0;
+   }
+
+   .hhome-event-title {
+      height: auto;
+      margin-bottom: 10px;
+   }
+
+   .hhome-event-host-container {
+      margin-top: 20px;
+   }
+
+   .hhome-event-details {
+      text-align: center;
+   }
+
+   ion-modal.hhome-modal-container::part(content) {
+      --height: 75%;
+      --width: 50%;
+      --max-width: 50%;
+      --max-height: 80%;
+   }
+}
 
 @media (max-width: 768px) {
    .hhome-cards-container {
@@ -267,13 +522,17 @@ body {
       margin-bottom: 60px;
    }
 
+   .hhome-logout {
+      margin-top: 30px;
+   }
+
    .hhome-event-card {
       width: 90%;
-      max-height: 250px;
+      max-height: 260px;
       margin: 20px 0;
       flex-direction: row;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
    }
 
    .hhome-event-image {
@@ -297,10 +556,56 @@ body {
    .hhome-event-title {
       height: 90px;
       overflow: hidden;
+      margin: 0 !important;
+   }
+
+   .hhome-event-host-container {
+      margin-top: 15px;
+      margin-bottom: -25px;
    }
 
    .hhome-event-details p,
    .hhome-event-details p span {
       font-size: 0.8rem;
+   }
+
+   ion-modal.hhome-modal-container::part(content) {
+      --height: 65%;
+      --width: 90%;
+      --max-width: 90%;
+      --max-height: 90%;
+   }
+
+   .hhome-modal-container ion-icon {
+      font-size: 24px;
+   }
+
+   .hhome-modal-content {
+      --padding-start: 10px;
+      padding: 10px;
+   }
+
+   .hhome-modal-event-info {
+      margin-bottom: 10px;
+   }
+
+   .hhome-modal-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+   }
+
+   .hhome-modal-host-container {
+      margin-top: 10px;
+   }
+
+   .hhome-modal-details {
+      margin-top: 10px;
+      font-size: 0.9rem;
+   }
+
+   .hhome-register-btn {
+      margin-top: 15px;
+      padding: 8px 20px;
+      font-size: 0.9rem;
    }
 }
