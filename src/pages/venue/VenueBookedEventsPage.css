@@ -151,7 +151,7 @@ body {
 
 .vchat-btn:hover {
    --background: rgb(0, 140, 255);
-   --color: var(--secondary-color);
+   --color: #ffffff;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -272,9 +272,9 @@ ion-modal.vevent-modal-container::part(content) {
    padding: 0px 20px;
 }
 
-/*Confirmation Modal Styling*/
+/*Confirmation Cancel Modal Styling*/
 
-ion-modal.vevent-confirmation-modal-container::part(content) {
+ion-modal.vevent-cancel-modal-container::part(content) {
    --background: var(--main-color);
    --border-radius: 20px;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -284,11 +284,11 @@ ion-modal.vevent-confirmation-modal-container::part(content) {
    --max-height: 20%;
 }
 
-.vevent-confirmation-modal-container {
+.vevent-cancel-modal-container {
    background-color: rgba(0, 0, 0, 0.7);
 }
 
-.vevent-confirmation-modal-txt {
+.vevent-cancel-modal-txt {
    color: var(--main-color);
    text-align: center;
    font-weight: bold;
@@ -301,7 +301,7 @@ ion-modal.vevent-confirmation-modal-container::part(content) {
    justify-content: space-between;
 }
 
-.pyes-btn {
+.vyes-btn {
    width: 48%;
    font-size: 14px;
    font-weight: bold;
@@ -313,13 +313,13 @@ ion-modal.vevent-confirmation-modal-container::part(content) {
    --padding-end: 16px;
 }
 
-.pyes-btn:hover {
+.vyes-btn:hover {
    --background: #9a2666;
    --color: #ffffff;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.pno-btn {
+.vno-btn {
    width: 48%;
    font-size: 14px;
    font-weight: bold;
@@ -331,7 +331,7 @@ ion-modal.vevent-confirmation-modal-container::part(content) {
    --padding-end: 16px;
 }
 
-.pno-btn:hover {
+.vno-btn:hover {
    --background: red;
    --color: white;
    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -391,5 +391,15 @@ ion-modal.vevent-confirmation-modal-container::part(content) {
       margin-top: 15px;
       padding: 8px 20px;
       font-size: 0.9rem;
+   }
+
+   ion-modal.vevent-cancel-modal-container::part(content) {
+      --background: var(--main-color);
+      --border-radius: 20px;
+      --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      --height: 20%;
+      --width: 100%;
+      --max-width: 60%;
+      --max-height: 20%;
    }
 }

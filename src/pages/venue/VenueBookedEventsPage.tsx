@@ -29,7 +29,7 @@ const VenueBookedEventsPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [showPoster, setShowPoster] = useState(false);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showcancelModal, setShowcancelModal] = useState(false);
 
   const handleSearchChange = (e: CustomEvent) => {
     setSearchText(e.detail.value);
@@ -46,7 +46,7 @@ const VenueBookedEventsPage: React.FC = () => {
   };
 
   const handleCancelClick = () => {
-    setShowConfirmationModal(true);
+    setShowcancelModal(true);
   };
 
   const events = [
@@ -75,12 +75,12 @@ const VenueBookedEventsPage: React.FC = () => {
       )
     : events;
 
-  const handleConfirmation = (confirmed: boolean) => {
+  const handlecancel = (confirmed: boolean) => {
     if (confirmed) {
       console.log("Event canceled!");
     }
 
-    setShowConfirmationModal(false);
+    setShowcancelModal(false);
   };
   return (
     <>
@@ -228,26 +228,26 @@ const VenueBookedEventsPage: React.FC = () => {
             </IonContent>
           </IonModal>
 
-          {/* Confirmation Modal */}
+          {/* cancel Modal */}
           <IonModal
-            isOpen={showConfirmationModal}
-            onDidDismiss={() => setShowConfirmationModal(false)}
-            className="vevent-confirmation-modal-container"
+            isOpen={showcancelModal}
+            onDidDismiss={() => setShowcancelModal(false)}
+            className="vevent-cancel-modal-container"
           >
-            <IonContent className="vevent-confirmation-modal-content">
-              <h2 className="vevent-confirmation-modal-txt">Are you sure?</h2>
+            <IonContent className="vevent-cancel-modal-content">
+              <h2 className="vevent-cancel-modal-txt">Are you sure?</h2>
               <div className="vevent-modal-btn-container">
                 <IonButton
                   expand="block"
                   className="vyes-btn"
-                  onClick={() => handleConfirmation(true)}
+                  onClick={() => handlecancel(true)}
                 >
                   Yes
                 </IonButton>
                 <IonButton
                   expand="block"
                   className="vno-btn"
-                  onClick={() => handleConfirmation(false)}
+                  onClick={() => handlecancel(false)}
                 >
                   No
                 </IonButton>
