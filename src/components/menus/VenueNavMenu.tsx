@@ -48,12 +48,14 @@ function VenueNavMenu() {
             src={VenueOrgImg}
             alt="V.L.T. Hub"
             className="vhome-logocontainer"
-            onClick={() => history.push("/venue/profile")}
           />
           <div className="vhome-userinfo">
             <IonLabel class="vhome-username">SMX Olongapo</IonLabel>
             <IonButtons>
-              <IonButton className="vhome-editprofile">
+              <IonButton
+                className="vhome-editprofile"
+                onClick={() => history.push("/venue/profile")}
+              >
                 <IonIcon icon={pencil} />
                 Edit My Profile
               </IonButton>

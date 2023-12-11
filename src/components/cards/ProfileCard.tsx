@@ -1,18 +1,27 @@
 import {
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonContent,
   IonFooter,
+  IonHeader,
   IonItem,
+  IonLabel,
   IonList,
+  IonMenuButton,
+  IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
 import React, { useState } from "react";
-import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import EditVenueProfile from "../modals/EditVenueProfile";
-import useFirestore from "../../hooks/useFirestore";
 import { useHistory } from "react-router";
+import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import useFirestore from "../../hooks/useFirestore";
+import EditVenueProfile from "../modals/EditVenueProfile";
+import "./ProfileCard.css";
 
 const ProfileCard = () => {
   // const { userData } = useFirebaseAuth();
@@ -38,58 +47,67 @@ const ProfileCard = () => {
   };
   const formattedDateString = dateObject.toLocaleDateString("en-US", options);
   return (
-    <div>
-      <IonCard>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          {/* <IonButtons slot="start">
+            <IonMenuButton autoHide={false}></IonMenuButton>
+          </IonButtons> */}
+          {/* <IonMenuButton slot="start" /> */}
+          <IonTitle>Profile</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonCard className="profile-card">
         <IonCardHeader>
-          <IonCardTitle>Profile</IonCardTitle>
+          <IonCardTitle className="profile-card-title">Profile</IonCardTitle>
         </IonCardHeader>
 
-        <IonCardContent>
-          <IonList>
-            {/* <IonItem>{userData?.email}</IonItem> */}
-            <IonItem>
-              <p>
-                <strong>Name: </strong>
-                {userData?.fname} {userData?.lname}
-              </p>
-            </IonItem>
-            <IonItem>
-              <p>
-                <strong>Birthdate: </strong>
-                {/* {userData?.birthdate} */}
-                {formattedDateString}
-              </p>
-            </IonItem>
-            <IonItem>
-              <p>
-                <strong>Gender: </strong>
-                {userData?.gender}
-              </p>
-            </IonItem>
-            <IonItem>
-              <p>
-                <strong>Address: </strong>
-                {userData?.bldg_no} {userData?.street} {userData?.city}{" "}
-                {userData?.country}
-              </p>
-            </IonItem>
-          </IonList>
-        </IonCardContent>
-        <IonFooter>
-          <IonButton slot="start" onClick={handleOpenModal}>
+        {/* <IonItem>{userData?.email}</IonItem> */}
+        <IonLabel className="profile-form-label">
+          <span className="profile-form-title">Name:</span>
+          {userData?.fname} {userData?.lname}
+        </IonLabel>
+        <IonLabel className="profile-form-label">
+          <span className="profile-form-title">Birthdate:</span>
+          {/* {userData?.birthdate} */}
+          {formattedDateString}
+        </IonLabel>
+        <IonLabel className="profile-form-label">
+          <span className="profile-form-title">Gender:</span>
+          {userData?.gender}
+        </IonLabel>
+        <IonLabel className="profile-form-label">
+          <span className="profile-form-title">Address:</span>
+          {userData?.bldg_no} {userData?.street} {userData?.city}{" "}
+          {userData?.country}
+        </IonLabel>
+
+        <div className="profilecard-btn">
+          <IonButton
+            slot="start"
+            fill="clear"
+            onClick={handleOpenModal}
+            className="profile-edit-btn"
+          >
             Edit Profile
           </IonButton>
-          <IonButton fill="outline" slot="start" onClick={history.goBack}>
+          <IonButton
+            fill="clear"
+            slot="start"
+            onClick={history.goBack}
+            className="profile-back-btn"
+          >
             Back
           </IonButton>
-        </IonFooter>
+        </div>
         <EditVenueProfile
           isOpen={showModal}
           onClose={handleCloseModal}
           userData={userData}
         />
       </IonCard>
-    </div>
+    </IonPage>
   );
 };
 

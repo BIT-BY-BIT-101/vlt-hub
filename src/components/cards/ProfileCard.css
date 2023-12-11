@@ -1,0 +1,133 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.profile-card {
+   --ion-card-background: #ffff;
+   cursor: pointer;
+   max-width: 90vw;
+   width: 60%;
+   position: relative;
+   border-radius: 20px;
+   padding: 30px;
+   color: black;
+   border: 2px solid #c3c6ce;
+   transition: 0.5s ease-out;
+   margin: auto;
+
+   &:hover {
+      border-color: var(--secondary-color);
+      box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+   }
+}
+
+.profile-card:hover {
+   box-shadow: 0 0 20px var(--hover-shadow-color);
+}
+
+ion-card-header {
+   padding-inline: 0;
+}
+
+.profile-card-title {
+   font-size: 1.8rem;
+   font-weight: bold;
+   color: var(--secondary-color);
+   padding-top: 50px;
+   margin-bottom: 20px;
+}
+
+.profile-form-label {
+   display: grid;
+   margin-bottom: 30px;
+   font-weight: bold;
+   grid-template-columns: 1fr;
+   font-size: 16px;
+}
+
+.profile-form-label :not(.profile-form-title) {
+   font-size: 16px;
+   color: #747474;
+}
+
+ion-input::part(placeholder) {
+   font-size: 16px;
+   color: #747474;
+}
+
+ion-select::part(placeholder) {
+   font-size: 16px;
+   color: #1a1818;
+}
+
+.profile-form-title {
+   font-size: 18px;
+   color: var(--secondary-color);
+}
+
+.profile-edit-btn {
+   --ion-color-primary: var(--secondary-color);
+   background-color: var(--secondary-color);
+   position: absolute;
+   top: 15px;
+   right: 10px;
+   color: #ffff;
+   border-radius: 20px;
+   padding: 5px;
+   cursor: pointer;
+   /* transition: background-color 0.3s ease, transform 0.2s ease; */
+   z-index: 999;
+
+   &:hover {
+      background-color: #ae2f5e;
+      transform: scale(1.01);
+   }
+}
+
+.profile-back-btn {
+   --ion-color-primary: var(--secondary-color);
+   background-color: #ffff;
+   position: absolute;
+   top: 15px;
+   left: 10px;
+   color: var(--main-color);
+   border: var(--secondary-color) 2px solid;
+   border-radius: 20px;
+   padding: 5px;
+   cursor: pointer;
+   /* transition: background-color 0.3s ease, transform 0.2s ease; */
+   z-index: 999;
+
+   &:hover {
+      background-color: #e0e0e0;
+      transform: scale(1.01);
+   }
+
+}
+
+@media screen and (max-width: 768px) {
+   .profile-card {
+      width: 90%;
+   }
+
+}
