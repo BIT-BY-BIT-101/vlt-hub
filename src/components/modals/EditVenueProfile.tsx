@@ -17,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import { Redirect, useHistory } from "react-router";
 
 interface VenueData {
   fname: string;
@@ -43,6 +44,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
 }) => {
   const { updateData } = useFirestore("profiles");
   const [editedData, setEditedData] = useState<any>({ ...userData });
+  const history = useHistory();
 
   const handleSaveChanges = async () => {
     try {
@@ -54,6 +56,8 @@ const EditVenueProfile: React.FC<EditProps> = ({
         console.log(editedData);
         console.log(userData);
         onClose();
+
+        history.push("/venue/home");
       }
     } catch (error) {
       console.log(error);
@@ -97,16 +101,16 @@ const EditVenueProfile: React.FC<EditProps> = ({
           )} */}
           {/* ... (other input fields) */}
           {/* <IonButton onClick={handleCapturePicture}>Capture Picture</IonButton> */}
-          <IonItem>
+          {/* <IonItem>
             {userData?.fname} {userData?.lname}
-          </IonItem>
+          </IonItem> */}
 
           <IonItem>
             <IonLabel>First Name:</IonLabel>
             <IonInput
               value={editedData?.fname}
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   fname: e.detail.value!,
                 }))
@@ -118,7 +122,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
             <IonInput
               value={editedData?.lname}
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   lname: e.detail.value!,
                 }))
@@ -126,13 +130,13 @@ const EditVenueProfile: React.FC<EditProps> = ({
             />
           </IonItem>
 
-          {/* <IonItem>
+          <IonItem>
             <IonLabel>Gender:</IonLabel>
             <IonSelect
               interface="action-sheet"
               placeholder="Select Gender"
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   gender: e.detail.value!,
                 }))
@@ -141,14 +145,14 @@ const EditVenueProfile: React.FC<EditProps> = ({
               <IonSelectOption value="Male">Male</IonSelectOption>
               <IonSelectOption value="Female">Female</IonSelectOption>
             </IonSelect>
-          </IonItem> */}
+          </IonItem>
 
-          {/* <IonItem>
+          <IonItem>
             <IonLabel>Building No.:</IonLabel>
             <IonInput
               value={editedData.bldg_no}
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   bldg_no: e.detail.value!,
                 }))
@@ -160,7 +164,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
             <IonInput
               value={editedData.street}
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   street: e.detail.value!,
                 }))
@@ -172,7 +176,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
             <IonInput
               value={editedData.city}
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   city: e.detail.value!,
                 }))
@@ -184,13 +188,13 @@ const EditVenueProfile: React.FC<EditProps> = ({
             <IonInput
               value={editedData.country}
               onIonChange={(e) =>
-                setEditedData((prevData) => ({
+                setEditedData((prevData: any) => ({
                   ...prevData,
                   country: e.detail.value!,
                 }))
               }
             />
-          </IonItem> */}
+          </IonItem>
           <IonButton onClick={handleSaveChanges}>Save Changes</IonButton>
           {/* <IonButton onClick={handleOpenCamera}>Capture/Select Image</IonButton> */}
         </IonContent>
