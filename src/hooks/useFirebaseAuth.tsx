@@ -93,6 +93,7 @@ const useFirebaseAuth = () => {
     // onAuthStateChanged(auth, (currentUser) => {
     //   if (!currentUser) return;
     // try {
+    localStorage.removeItem("session");
     auth.signOut();
     // console.log(currentUser, " Has beem Logged Out Successfully");
     setUser(null);

@@ -104,6 +104,7 @@ const ProfileCard = () => {
         <EditVenueProfile
           isOpen={showModal}
           onClose={handleCloseModal}
+          onDidDismissal={handleCloseModal}
           userData={userData}
         />
       </IonCard>

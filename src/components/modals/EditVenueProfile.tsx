@@ -37,12 +37,14 @@ interface VenueData {
 type EditProps = {
   userData: any;
   isOpen: boolean;
+  onDidDismissal: () => void;
   onClose: () => void;
 };
 
 const EditVenueProfile: React.FC<EditProps> = ({
   userData,
   isOpen,
+  onDidDismissal,
   onClose,
 }) => {
   const { updateData } = useFirestore("profiles");
@@ -89,12 +91,15 @@ const EditVenueProfile: React.FC<EditProps> = ({
 
   return (
     <>
-      <IonModal isOpen={isOpen} className="veditprofile-modal">
+      <IonModal
+        isOpen={isOpen}
+        // className="veditprofile-modal"
+      >
         <IonHeader>
           <IonToolbar>
             <IonTitle>Edit Profile</IonTitle>
             <IonButtons slot="end">
-              <IonButton onClick={onClose}>
+              <IonButton onClick={onDidDismissal}>
                 <IonIcon icon={closeCircle} />
               </IonButton>
             </IonButtons>
