@@ -1,13 +1,15 @@
 export type EventDataModel = {
   id?: string;
-  event_imgUrl: string;
-  event_name: string;
-  event_description: string;
+  imgUrl: string;
+  title: string;
+  description: string;
   host_id: string;
-  event_date: string;
-  event_start_time: string;
-  event_end_time: string;
-  event_status: string;
+  eventDate: string;
+  startTime: string;
+  endTime: string;
+  status: string;
+  venue: string;
+  host_name: string;
 };
 
 export type UserDataModel = {

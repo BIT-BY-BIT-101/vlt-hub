@@ -11,13 +11,16 @@ import {
 import { closeCircle } from "ionicons/icons";
 import React from "react";
 import HostImg from "../../assets/defaultCover.jpg";
+import { EventDataModel } from "../../models/Model";
+import { formatTimeString } from "../../functions/functions";
 
 type EventModalProps = {
   isOpen: boolean;
   onDidDismiss: () => void;
+  selected?: EventDataModel;
 };
 
-const EventsModal = ({ isOpen, onDidDismiss }: EventModalProps) => {
+const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
   return (
     <IonModal
       isOpen={isOpen}
@@ -38,7 +41,8 @@ const EventsModal = ({ isOpen, onDidDismiss }: EventModalProps) => {
         <div className="phome-modal-event-info">
           <p className="phome-event-free">Free</p>
           <h2 className="phome-modal-title">
-            Mastering the Fundamentals: An Introduction to Visual C# Programming
+            {/* Mastering the Fundamentals: An Introduction to Visual C# Programming */}
+            {selected?.title || ""}
           </h2>
         </div>
         <div className="phome-modal-host-container">
@@ -47,25 +51,22 @@ const EventsModal = ({ isOpen, onDidDismiss }: EventModalProps) => {
             alt="Abdul Rauf M. Sultan"
             className="phome-modal-host-img"
           />
-          <p className="phome-modal-host">Abdul Rauf M. Sultan</p>
+          <p className="phome-modal-host">{selected?.host_name}</p>
         </div>
         <div className="phome-modal-details">
           <p>
-            <span>Description:</span> This course is designed to help you master
-            the fundamentals of Visual C# programming. It is intended for
-            absolute beginners with no prior programming experience. The course
-            focuses on the fundamentals of Visual C# programming and covers the
-            following topics: Visual C# language syntax, program structure, and
-            implementation details.
+            <span>Description:</span> {selected?.description || "NONE"}
           </p>
           <p>
-            <span>Venue:</span> Zoom
+            <span>Venue:</span>
+            {selected?.venue}
           </p>
           <p>
             <span>Date:</span> October 15, 2023
           </p>
           <p>
-            <span>Time:</span> 3:00 PM - 5:00 PM
+            <span>Time:</span> {formatTimeString(selected?.startTime!)} -
+            {formatTimeString(selected?.endTime!)}
           </p>
         </div>
         <div className="phome-btn-container">
