@@ -57,7 +57,7 @@ function VenueNavMenu() {
                 onClick={() => history.push("/venue/profile")}
               >
                 <IonIcon icon={pencil} />
-                Edit My Profile
+                My Profile
               </IonButton>
             </IonButtons>
           </div>

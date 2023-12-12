@@ -62,7 +62,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
         console.log(userData);
         onClose();
 
-        history.push("/venue/home");
+        // history.push("/venue/home");
       }
     } catch (error) {
       console.log(error);

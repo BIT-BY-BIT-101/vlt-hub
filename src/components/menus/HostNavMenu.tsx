@@ -52,9 +52,12 @@ function HostNavMenu() {
           <div className="hhome-userinfo">
             <IonLabel class="hhome-username">Abdul Rauf M. Sultan</IonLabel>
             <IonButtons>
-              <IonButton className="hhome-editprofile">
+              <IonButton
+                className="hhome-editprofile"
+                onClick={() => history.push("/host/profile")}
+              >
                 <IonIcon icon={pencil} />
-                Edit My Profile
+                My Profile
               </IonButton>
             </IonButtons>
           </div>

@@ -46,9 +46,12 @@ function ParticipantNavMenu() {
           <div className="phome-userinfo">
             <IonLabel class="phome-username">Treisha Mae Monteza</IonLabel>
             <IonButtons>
-              <IonButton className="phome-editprofile">
+              <IonButton
+                className="phome-editprofile"
+                onClick={() => history.push("/participant/profile")}
+              >
                 <IonIcon icon={pencil} />
-                Edit My Profile
+                My Profile
               </IonButton>
             </IonButtons>
           </div>

@@ -23,6 +23,8 @@ import VenueHistoryPage from "../pages/venue/VenueHistoryPage";
 import VenueHomePage from "../pages/venue/VenueHomePage";
 import { VenueProfilePage } from "../pages/venue/VenueProfilePage";
 import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
+import { ParticipantProfilePage } from "../pages/participant/ParticipantProfilePage";
+import { HostProfilePage } from "../pages/host/HostProfilePage";
 
 const RouteService = () => {
   return (
@@ -56,8 +58,27 @@ const RouteService = () => {
           {/* <Redirect to="/participant/signin" /> */}
         </Route>
 
-        {/* Participants Routes */}
+        {/* Profiles */}
+        <ProtectedRoute
+          path="/participant/profile"
+          allowedRoles={"participant"}
+          component={ParticipantProfilePage}
+          redirected="/participant/signin"
+        />
+        <ProtectedRoute
+          path="/host/profile"
+          allowedRoles={"host"}
+          component={HostProfilePage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/venue/profile"
+          allowedRoles={"venue"}
+          component={VenueProfilePage}
+          redirected="/venue/signin"
+        />
 
+        {/* Participants Routes */}
         <Route exact path="/participant">
           <Redirect to="/participant/home" />
         </Route>
@@ -114,12 +135,7 @@ const RouteService = () => {
         <Route exact path="/venue">
           <Redirect to="/venue/home" />
         </Route>
-        <ProtectedRoute
-          path="/venue/profile"
-          allowedRoles={"venue"}
-          component={VenueProfilePage}
-          redirected="/venue/signin"
-        />
+
         <ProtectedRoute
           path="/venue/home"
           allowedRoles={"venue"}
