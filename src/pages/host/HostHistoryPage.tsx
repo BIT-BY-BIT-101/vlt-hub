@@ -198,7 +198,7 @@ const HostHistoryPage: React.FC = () => {
           <IonModal
             isOpen={showModal}
             onDidDismiss={closeModal}
-            className="hhistory-modal-container"
+            // className="hhistory-modal-container"
           >
             <IonHeader>
               <IonToolbar>

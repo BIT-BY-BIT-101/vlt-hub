@@ -184,7 +184,7 @@ const HostHomePage: React.FC = () => {
           <IonModal
             isOpen={showModal}
             onDidDismiss={closeModal}
-            className="hhome-modal-container"
+            // className="hhome-modal-container"
           >
             <IonHeader>
               <IonToolbar>

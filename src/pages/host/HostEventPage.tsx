@@ -152,7 +152,7 @@ const HostEventPage: React.FC = () => {
               closeModal();
               setShowPoster(false);
             }}
-            className="hevent-modal-container"
+            // className="hevent-modal-container"
           >
             <IonHeader>
               <IonToolbar>
