@@ -25,7 +25,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
     <IonModal
       isOpen={isOpen}
       onDidDismiss={onDidDismiss}
-      className="phome-modal-container"
+      // className="phome-modal-container"
     >
       <IonHeader>
         <IonToolbar>
