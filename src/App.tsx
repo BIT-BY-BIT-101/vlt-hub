@@ -25,9 +25,9 @@ import useFirebaseAuth from "./hooks/useFirebaseAuth";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { user } = useFirebaseAuth();
+  // const { user } = useFirebaseAuth();
 
-  console.log(user);
+  // console.log(user);
   return (
     <IonApp>
       <RouteService />

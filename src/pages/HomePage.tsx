@@ -37,7 +37,7 @@ const HomePage: React.FC = () => {
             </IonCardSubtitle>
           </IonCardHeader>
 
-          <Link to="/participant">
+          <Link to="/participant/signin">
             <IonCard className="user-card">
               <div className="user-card-left">
                 <img src={Participant} alt="Participant SVG" />
@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
             </IonCard>
           </Link>
 
-          <Link to="/host">
+          <Link to="/host/signin">
             <IonCard className="host-card">
               <div className="host-card-left">
                 <img src={Host} alt="Host SVG" />
@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
             </IonCard>
           </Link>
 
-          <Link to="/venue">
+          <Link to="/venue/signin">
             <IonCard className="venue-card">
               <div className="venue-card-left">
                 <img src={Venue} alt="Venue SVG" />

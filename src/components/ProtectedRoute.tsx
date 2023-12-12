@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import { Route, Redirect, RouteProps } from "react-router-dom";
 
 import useFirebaseAuth from "../hooks/useFirebaseAuth";
@@ -19,7 +19,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   // const { userData } = useFirestore(`profiles`);
 
   if (loading) {
-    return <IonLoading isOpen={loading} message={"Please Wait"} />;
+    return <IonLoading isOpen={loading} message={"Please wait"} />;
   }
 
   if (!user || !userData?.role) {

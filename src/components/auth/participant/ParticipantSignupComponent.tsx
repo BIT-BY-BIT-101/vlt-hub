@@ -13,6 +13,7 @@ import {
   IonInput,
   IonItem,
   IonLabel,
+  IonLoading,
   IonModal,
   IonRow,
   IonText,
