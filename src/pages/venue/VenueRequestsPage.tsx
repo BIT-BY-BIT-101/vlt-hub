@@ -222,7 +222,7 @@ const VenueRequestsPage: React.FC = () => {
           <IonModal
             isOpen={showModal}
             onDidDismiss={closeModal}
-            className="vrequest-modal-container"
+            // className="vrequest-modal-container"
           >
             <IonHeader>
               <IonToolbar>

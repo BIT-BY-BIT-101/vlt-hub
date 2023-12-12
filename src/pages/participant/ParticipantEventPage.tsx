@@ -152,7 +152,7 @@ const ParticipantEventPage: React.FC = () => {
               closeModal();
               setShowPoster(false);
             }}
-            className="pevent-modal-container"
+            // className="pevent-modal-container"
           >
             <IonHeader>
               <IonToolbar>

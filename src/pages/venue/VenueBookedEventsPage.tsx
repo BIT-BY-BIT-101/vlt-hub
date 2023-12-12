@@ -232,7 +232,7 @@ const VenueBookedEventsPage: React.FC = () => {
           <IonModal
             isOpen={showcancelModal}
             onDidDismiss={() => setShowcancelModal(false)}
-            className="vevent-cancel-modal-container"
+            // className="vevent-cancel-modal-container"
           >
             <IonContent className="vevent-cancel-modal-content">
               <h2 className="vevent-cancel-modal-txt">Are you sure?</h2>

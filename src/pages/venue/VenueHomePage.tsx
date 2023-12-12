@@ -184,7 +184,7 @@ const VenueHomePage: React.FC = () => {
           <IonModal
             isOpen={showModal}
             onDidDismiss={closeModal}
-            className="vhome-modal-container"
+            // className="vhome-modal-container"
           >
             <IonHeader>
               <IonToolbar>

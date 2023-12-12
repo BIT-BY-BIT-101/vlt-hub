@@ -198,7 +198,7 @@ const VenueHistoryPage: React.FC = () => {
           <IonModal
             isOpen={showModal}
             onDidDismiss={closeModal}
-            className="vhistory-modal-container"
+            // className="vhistory-modal-container"
           >
             <IonHeader>
               <IonToolbar>

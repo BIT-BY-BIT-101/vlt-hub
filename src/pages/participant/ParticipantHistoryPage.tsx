@@ -198,7 +198,7 @@ const ParticipantHistoryPage: React.FC = () => {
           <IonModal
             isOpen={showModal}
             onDidDismiss={closeModal}
-            className="phistory-modal-container"
+            // className="phistory-modal-container"
           >
             <IonHeader>
               <IonToolbar>
