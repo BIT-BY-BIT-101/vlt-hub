@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect, RouteProps } from "react-router-dom";
+import { Route, Redirect, RouteProps, useHistory } from "react-router-dom";
 
 import useFirebaseAuth from "../hooks/useFirebaseAuth";
 import { IonLoading } from "@ionic/react";
@@ -17,16 +17,18 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { user, loading, userData, signOut } = useFirebaseAuth();
   const userEmail = localStorage.getItem("session");
   // const { userData } = useFirestore(`profiles`);
+  const history = useHistory();
 
   if (loading) {
-    return <IonLoading isOpen={loading} message={"Please wait"} />;
+    // return <IonLoading isOpen={loading} message={"Please wait"} />;
+    return <p>Loading...</p>;
   }
 
-  if (!user || !userData?.role) {
-    console.log(userData?.role);
+  if (!user || !userData) {
     console.log(user);
 
     return <Redirect to={redirected} />;
+    // return history.goBack();
   }
 
   // Check if the user's role is allowed to access the route
@@ -36,6 +38,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // signOut();
     return <p>Unauthorized</p>;
     // return <Redirect to={redirected} />;
+    // if (userData?.role === "participant") {
+    //   return <Redirect to="/participant/home" />;
+    // }
+    // if (userData?.role === "host") {
+    //   return <Redirect to="/host/home" />;
+    // }
+    // if (userData?.role === "venue") {
+    //   return <Redirect to="/venue/home" />;
+    // }
   }
 
   return <Route {...routeProps} />;

@@ -9,9 +9,10 @@ import {
   doc,
   getDoc,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 
-import { EventDataModel } from "../models/Model";
+import { EventDataModel, UserDataModel } from "../models/Model";
 import useFirebaseAuth from "./useFirebaseAuth";
 
 // type FirebaseData = {
@@ -22,7 +23,7 @@ import useFirebaseAuth from "./useFirebaseAuth";
 //   data: EventDataModel[];
 // }
 
-type FormsProps = EventDataModel;
+type FormsProps = EventDataModel | UserDataModel;
 
 const useFirestore = (collectionPath: string) => {
   const { user } = useFirebaseAuth();
@@ -63,7 +64,7 @@ const useFirestore = (collectionPath: string) => {
 
   const fetchUserData = async () => {
     try {
-      const userEmail = localStorage.getItem("session");
+      const userEmail = user?.email;
       if (userEmail) {
         const userDocRef = doc(db, "profiles", userEmail);
         const userDocSnap = await getDoc(userDocRef);
@@ -82,8 +83,20 @@ const useFirestore = (collectionPath: string) => {
     const docRef = doc(db, collectionPath, id);
     await updateDoc(docRef, data);
     // Refresh data after update
-    // fetchUserData();
+    fetchUserData();
   };
+
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, collectionPath), (doc) => {
+      const collectionData: any = [];
+      doc.forEach((doc) => {
+        collectionData.push({ id: doc.id, ...doc.data() });
+      });
+      setData(collectionData);
+      // setLoading(false);
+    });
+    return unsub;
+  }, []);
 
   useEffect(() => {
     fetchUserData();
@@ -100,16 +113,6 @@ const useFirestore = (collectionPath: string) => {
       setError(err);
     }
   };
-
-  //   try {
-  //     const docRef = doc(db, collectionPath, id);
-  //     await updateDoc(docRef, data);
-  //     // getData();
-  //   } catch (err) {
-  //     setError(err);
-  //     console.log("Error Updating/n", error);
-  //   }
-  // };
 
   return { addData, error, data, deleteData, loading, userData, updateData };
 };

@@ -19,7 +19,7 @@ import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import LogoutModal from "../modals/LogoutModal";
 
 function VenueNavMenu() {
-  const { signOut } = useFirebaseAuth();
+  const { signOut, userData } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -50,11 +50,14 @@ function VenueNavMenu() {
             className="vhome-logocontainer"
           />
           <div className="vhome-userinfo">
-            <IonLabel class="vhome-username">SMX Olongapo</IonLabel>
+            <IonLabel class="vhome-username">
+              {userData?.fname} {userData?.lname}
+            </IonLabel>
             <IonButtons>
               <IonButton
                 className="vhome-editprofile"
-                onClick={() => history.push("/venue/profile")}
+                // onClick={() => history.push("/venue/profile")}
+                routerLink="/venue/profile"
               >
                 <IonIcon icon={pencil} />
                 My Profile

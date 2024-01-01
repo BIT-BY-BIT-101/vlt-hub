@@ -144,6 +144,7 @@ const HostSignupComponent = () => {
                 <IonDatetime
                   presentation="date"
                   id="date"
+                  showDefaultButtons={true}
                   onIonChange={(e) => {
                     // const selectedDate = new Date().toString();
                     setNewBirthdate(e.detail.value!.toString());

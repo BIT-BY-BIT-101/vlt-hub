@@ -5,7 +5,13 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { setDoc, doc, collection, getDoc } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  collection,
+  getDoc,
+  onSnapshot,
+} from "firebase/firestore";
 
 export type User = {
   uid: string;
@@ -23,19 +29,31 @@ type AuthHook = {
 };
 
 const useFirebaseAuth = () => {
+  const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
+    // const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
+    //   if (authUser) {
+    //     const userObj: User = {
+    //       uid: authUser?.uid!,
+    //       email: authUser?.email || "",
+    //     };
+    //     setUser(userObj);
+    //     setIsAuth(true);
+    //     console.log("User Data: ", userObj);
+    //     setLoading(false);
+    //   }
+    // });
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         const userDoc = doc(db, "profiles", authUser?.email!);
         const userDocSnap = await getDoc(userDoc);
         if (userDocSnap.exists()) {
           setUserData(userDocSnap.data());
-          console.log("User Data: ", userData);
         }
 
         const userObj: User = {
@@ -43,13 +61,51 @@ const useFirebaseAuth = () => {
           email: authUser.email || "",
         };
         setUser(userObj);
+        setIsAuth(true);
+        // setLoading(false);
       } else {
         setUser(null);
+        setIsAuth(false);
       }
       setLoading(false);
     });
+    console.log("User", user);
 
-    // return unsubscribe();
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const docRef = doc(db, "profiles", user.uid!);
+
+        const unsubscribe = onSnapshot(docRef, (doc) => {
+          if (doc.exists()) {
+            const userData = { id: doc.id, ...doc.data() };
+            setUserData(userData);
+            console.log(userData);
+          } else {
+            // Handle the case where the document does not exist
+            console.log("Document not found");
+          }
+        });
+
+        return () => unsubscribe();
+      }
+    };
+
+    fetchData();
+    // const user = auth.currentUser;
+    // const unsubscribe = onSnapshot(collection(db, "profiles"), (doc) => {
+    //   const collectionData: any = [];
+    //   doc.forEach((doc) => {
+    //     collectionData.push({ id: doc.id, ...doc.data() });
+    //   });
+    //   setUserData(collectionData);
+    //   console.log(collectionData);
+    // });
+    // return unsubscribe;
   }, []);
 
   const signUp = async (
@@ -60,13 +116,14 @@ const useFirebaseAuth = () => {
     birthdate: string,
     role: string
   ): Promise<void> => {
-    // try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
-    await setDoc(doc(db, "profiles", email), {
+
+    const userId = auth.currentUser?.uid!;
+    await setDoc(doc(db, "profiles", userId), {
       email,
       fname,
       lname,
@@ -75,37 +132,24 @@ const useFirebaseAuth = () => {
     });
     const newUser: User = { uid: userCredential.user.uid, email };
     setUser(newUser);
-    // } catch (err) {
-    //   setError(err);
-    // }
   };
 
   const signIn = async (email: string, password: string): Promise<void> => {
-    // try {
     await signInWithEmailAndPassword(auth, email, password);
-    localStorage.setItem("session", email);
-    // } catch (err) {
-    //   setError(err);
-    // }
+    // localStorage.setItem("session", email);
   };
 
   const signOut = async (): Promise<void> => {
-    // onAuthStateChanged(auth, (currentUser) => {
-    //   if (!currentUser) return;
-    // try {
-    localStorage.removeItem("session");
+    // localStorage.removeItem("session");
     auth.signOut();
     // console.log(currentUser, " Has beem Logged Out Successfully");
+    setIsAuth(false);
     setUser(null);
+    setUserData(null);
     setLoading(false);
-    // } catch (err) {
-    //   setError(err);
-    //   console.log("Error Occured");
-    // }
-    // });
   };
 
-  return { user, loading, error, userData, signUp, signIn, signOut };
+  return { user, loading, error, userData, signUp, signIn, signOut, isAuth };
 };
 
 export default useFirebaseAuth;

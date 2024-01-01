@@ -13,6 +13,7 @@ import React, { ChangeEvent, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { useForm } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import { auth } from "../../config/firebase";
 
 function CreateEvent() {
   const { userData } = useFirebaseAuth();
@@ -89,7 +90,7 @@ function CreateEvent() {
 
   const onSubmit = async (data: any) => {
     try {
-      const hostId = userData.email;
+      const hostId = auth.currentUser?.uid!;
       const hostName = `${userData?.fname} ${userData?.lname}`;
 
       // Combine the state and any other data needed

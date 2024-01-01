@@ -15,12 +15,9 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
-import { IonApp, IonContent, setupIonicReact } from "@ionic/react";
+import { IonApp, setupIonicReact } from "@ionic/react";
 import RouteService from "./router/RouteService";
-import TestRoutes from "./router/TestRoutes";
 import "./theme/variables.css";
-import useFirebaseStorage from "./hooks/useFirestorage";
-import useFirebaseAuth from "./hooks/useFirebaseAuth";
 
 setupIonicReact();
 
@@ -31,6 +28,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <RouteService />
+
       {/* <TestRoutes /> */}
       {/* <Home /> */}
     </IonApp>

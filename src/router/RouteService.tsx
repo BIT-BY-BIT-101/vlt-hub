@@ -71,12 +71,13 @@ const RouteService = () => {
           component={HostProfilePage}
           redirected="/host/signin"
         />
-        <ProtectedRoute
+        {/* <ProtectedRoute
           path="/venue/profile"
           allowedRoles={"venue"}
           component={VenueProfilePage}
           redirected="/venue/signin"
-        />
+        /> */}
+        <Route path="/venue/profile" component={VenueProfilePage} />
 
         {/* Participants Routes */}
         <Route exact path="/participant">

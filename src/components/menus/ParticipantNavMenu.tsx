@@ -19,9 +19,10 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import LogoutModal from "../modals/LogoutModal";
+import useFirestore from "../../hooks/useFirestore";
 
 function ParticipantNavMenu() {
-  const { signOut } = useFirebaseAuth();
+  const { signOut, userData } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -44,7 +45,9 @@ function ParticipantNavMenu() {
             className="phome-logocontainer"
           />
           <div className="phome-userinfo">
-            <IonLabel class="phome-username">Treisha Mae Monteza</IonLabel>
+            <IonLabel class="phome-username">
+              {userData?.fname} {userData?.lname}
+            </IonLabel>
             <IonButtons>
               <IonButton
                 className="phome-editprofile"
@@ -98,8 +101,8 @@ function ParticipantNavMenu() {
           <IonIcon icon={logOut} slot="start" className="phome-menu-icon" />
           <IonLabel class="phome-menu-label">Logout</IonLabel>
         </IonItem>
+        <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
       </IonContent>
-      <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
     </IonMenu>
   );
 }

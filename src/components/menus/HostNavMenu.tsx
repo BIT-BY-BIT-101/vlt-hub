@@ -13,13 +13,13 @@ import {
 } from "@ionic/react";
 import { calendar, create, home, logOut, pencil, time } from "ionicons/icons";
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import HostImg from "../../assets/host.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import LogoutModal from "../modals/LogoutModal";
 
 function HostNavMenu() {
-  const { signOut } = useFirebaseAuth();
+  const { signOut, userData } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -50,11 +50,14 @@ function HostNavMenu() {
             className="hhome-logocontainer"
           />
           <div className="hhome-userinfo">
-            <IonLabel class="hhome-username">Abdul Rauf M. Sultan</IonLabel>
+            <IonLabel class="hhome-username">
+              {userData?.fname} {userData?.lname}
+            </IonLabel>
             <IonButtons>
               <IonButton
                 className="hhome-editprofile"
-                onClick={() => history.push("/host/profile")}
+                // onClick={() => history.push("/host/profile")}
+                routerLink="/host/profile"
               >
                 <IonIcon icon={pencil} />
                 My Profile

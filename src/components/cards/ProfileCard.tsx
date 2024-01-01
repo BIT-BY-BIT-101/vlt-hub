@@ -24,8 +24,8 @@ import EditVenueProfile from "../modals/EditVenueProfile";
 import "./ProfileCard.css";
 
 const ProfileCard = () => {
-  // const { userData } = useFirebaseAuth();
-  const { userData } = useFirestore(`profiles`);
+  const { userData } = useFirebaseAuth();
+  // const { userData } = useFirestore(`profiles`);
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
 
@@ -36,7 +36,7 @@ const ProfileCard = () => {
     setShowModal(false);
   };
 
-  const originalDateString = "1992-12-11T21:32:00";
+  const originalDateString = userData?.birthdate;
   const dateObject = new Date(originalDateString);
 
   // const options = { year: "numeric", month: "long", day: "numeric" };

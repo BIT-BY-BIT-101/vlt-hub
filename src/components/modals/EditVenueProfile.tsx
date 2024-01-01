@@ -18,9 +18,10 @@ import { doc, updateDoc } from "firebase/firestore";
 import { closeCircle } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router";
-import { db } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import useFirestore from "../../hooks/useFirestore";
 import "./EditVenueProfile.css";
+import { updateCurrentUser } from "firebase/auth";
 
 interface VenueData {
   fname: string;
@@ -51,12 +52,14 @@ const EditVenueProfile: React.FC<EditProps> = ({
   const [editedData, setEditedData] = useState<any>({ ...userData });
   const history = useHistory();
 
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (e: any) => {
+    e.preventDefault();
     try {
-      const userEmail = localStorage.getItem("session")!;
+      // const userEmail = localStorage.getItem("session")!;
+      const user = auth.currentUser?.uid;
 
-      if (userEmail) {
-        await updateData(userEmail, editedData);
+      if (user) {
+        await updateData(user, editedData);
 
         console.log(editedData);
         console.log(userData);
@@ -69,25 +72,6 @@ const EditVenueProfile: React.FC<EditProps> = ({
       console.error;
     }
   };
-
-  // const handleSaveChanges = async () => {
-  //   try {
-  //     // Update user data in Firestore
-  //     const userEmail = localStorage.getItem("session");
-  //     if (userEmail) {
-  //       const userDocRef = doc(db, "profiles", userEmail);
-  //       await updateDoc(userDocRef, editedData);
-  //       console.log("Profile updated successfully!");
-  //       onClose();
-
-  //       window.location.reload();
-
-  //       // fetchUserData();
-  //     }
-  //   } catch (error) {
-  //     console.error("Error updating profile:", error);
-  //   }
-  // };
 
   return (
     <>
@@ -212,14 +196,14 @@ const EditVenueProfile: React.FC<EditProps> = ({
               }
             />
           </IonLabel>
-          <IonButton
-            onClick={handleSaveChanges}
-            className="veditprofile-save-btn"
-          >
-            Save Changes
-          </IonButton>
-          {/* <IonButton onClick={handleOpenCamera}>Capture/Select Image</IonButton> */}
         </IonContent>
+        <IonButton
+          onClick={handleSaveChanges}
+          className="veditprofile-save-btn"
+        >
+          Save Changes
+        </IonButton>
+        {/* <IonButton onClick={handleOpenCamera}>Capture/Select Image</IonButton> */}
       </IonModal>
     </>
   );

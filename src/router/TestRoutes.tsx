@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from "react-router";
 import Home from "../pages/Test";
 
 import ProtectedRoute from "../components/ProtectedRoute";
-import Signin from "../pages/auth/Signin";
+
 import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
 import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
 import HostHomePage from "../pages/host/HostHomePage";
@@ -15,13 +15,14 @@ import Test1 from "../pages/test/Test1";
 import Test2 from "../pages/test/Test2";
 import Test3 from "../pages/test/Test3";
 import VenueHomePage from "../pages/venue/VenueHomePage";
+import Test from "../pages/Test";
 
 const TestRoutes = () => {
   return (
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home">
-          <Home />
+          <Test />
         </Route>
         <Route exact path="/signin">
           <ParticipantSigninPage />
@@ -60,9 +61,6 @@ const TestRoutes = () => {
         <Route exact path="/auth">
           <Redirect to="/auth/signin" />
         </Route>
-        <Route exact path="/auth/signin">
-          <Signin />
-        </Route>
 
         <Route exact path="/test">
           <Redirect to="/test/auth" />
@@ -70,27 +68,6 @@ const TestRoutes = () => {
         <Route exact path="/test/auth">
           <AuthPage />
         </Route>
-
-        <Switch>
-          <ProtectedRoute
-            path="/test/host"
-            allowedRoles={["host"]}
-            component={Test1}
-            redirected="/test/auth"
-          />
-          <ProtectedRoute
-            path="/test/participant"
-            allowedRoles={["participant"]}
-            component={Test2}
-            redirected="/test/auth"
-          />
-          <ProtectedRoute
-            path="/test/venue"
-            allowedRoles={["venue"]}
-            component={Test3}
-            redirected="/test/auth"
-          />
-        </Switch>
       </IonRouterOutlet>
     </IonReactRouter>
   );

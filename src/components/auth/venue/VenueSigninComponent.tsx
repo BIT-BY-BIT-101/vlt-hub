@@ -21,11 +21,15 @@ import "./VenueSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const VenueSigninComponent: React.FC = () => {
-  const { user, signIn, error } = useFirebaseAuth();
+  const { user, signIn, error, isAuth } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  if (user) {
+    return <Redirect to="/venue/home" />;
+  }
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -34,18 +38,14 @@ const VenueSigninComponent: React.FC = () => {
   const handleSignin = async () => {
     try {
       await signIn(email, password);
-      localStorage.setItem("session", email);
-      console.log("Your Signin Successfully with an email", user?.email);
+      // localStorage.setItem("session", email);
+      console.log("Your Signin Successfully with an email");
       // history.push("/participant/home");
     } catch (err) {
       console.log(error.message);
       setShowAlert(true);
     }
   };
-
-  if (user) {
-    return <Redirect to="/venue/home" />;
-  }
 
   return (
     <div className="vsignin-container">
