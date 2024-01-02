@@ -81,6 +81,20 @@ function VenueNavMenu() {
 
           <IonItem
             className={`vhome-menu-item ${
+              isMenuItemActive("/venue/list-venue") ? "activated" : ""
+            }`}
+            onClick={() => history.push("/venue/list-venue")}
+          >
+            <IonIcon
+              icon={alertCircle}
+              slot="start"
+              className="vhome-menu-icon"
+            />
+            <IonLabel class="vhome-menu-label">Venues</IonLabel>
+          </IonItem>
+
+          <IonItem
+            className={`vhome-menu-item ${
               isMenuItemActive("/venue/requests") ? "activated" : ""
             }`}
             onClick={() => history.push("/venue/requests")}

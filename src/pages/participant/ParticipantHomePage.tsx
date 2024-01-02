@@ -48,8 +48,6 @@ const ParticipantHomePage: React.FC = () => {
         <IonContent id="phome-main">
           <div className="phome-cards-container">
             <EventsCard />
-
-            {/* Modal */}
           </div>
         </IonContent>
       </IonPage>

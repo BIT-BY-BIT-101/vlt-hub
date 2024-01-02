@@ -37,16 +37,27 @@ const ParticipantSigninComponent: React.FC = () => {
   };
 
   const handleSignin = async () => {
-    try {
-      await signIn(email, password);
-      localStorage.setItem("session", email);
-      console.log("Your Signin Successfully with an email", user?.email);
-      // history.push("/participant/home");
-    } catch (err) {
+    await signIn(email, password);
+    if (error) {
       console.log(error.message);
       setShowAlert(true);
+    } else {
+      console.log("Your Signin Successfully with an email", user?.email);
     }
+
+    // history.push("/participant/home");
   };
+  // const handleSignin = async () => {
+  //   try {
+  //     await signIn(email, password);
+  //     // localStorage.setItem("session", email);
+  //     console.log("Your Signin Successfully with an email", user?.email);
+  //     // history.push("/participant/home");
+  //   } catch (err) {
+  //     console.log(error);
+  //     setShowAlert(true);
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (user) {

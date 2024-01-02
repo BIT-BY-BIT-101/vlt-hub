@@ -25,6 +25,7 @@ import { VenueProfilePage } from "../pages/venue/VenueProfilePage";
 import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
 import { ParticipantProfilePage } from "../pages/participant/ParticipantProfilePage";
 import { HostProfilePage } from "../pages/host/HostProfilePage";
+import VenueListPage from "../pages/venue/VenueListPage";
 
 const RouteService = () => {
   return (
@@ -71,13 +72,12 @@ const RouteService = () => {
           component={HostProfilePage}
           redirected="/host/signin"
         />
-        {/* <ProtectedRoute
+        <ProtectedRoute
           path="/venue/profile"
           allowedRoles={"venue"}
           component={VenueProfilePage}
           redirected="/venue/signin"
-        /> */}
-        <Route path="/venue/profile" component={VenueProfilePage} />
+        />
 
         {/* Participants Routes */}
         <Route exact path="/participant">
@@ -159,6 +159,12 @@ const RouteService = () => {
           path="/venue/booked-events"
           allowedRoles={"venue"}
           component={VenueBookedEventsPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/list-venue"
+          allowedRoles={"venue"}
+          component={VenueListPage}
           redirected="/venue/signin"
         />
       </IonRouterOutlet>

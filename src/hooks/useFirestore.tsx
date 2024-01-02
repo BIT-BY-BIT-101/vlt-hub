@@ -1,6 +1,6 @@
 // useFirebaseData.js
 import { useState, useEffect } from "react";
-import { db } from "../config/firebase"; // Assuming you have a Firebase configuration file
+import { auth, db } from "../config/firebase"; // Assuming you have a Firebase configuration file
 import {
   collection,
   addDoc,
@@ -23,10 +23,9 @@ import useFirebaseAuth from "./useFirebaseAuth";
 //   data: EventDataModel[];
 // }
 
-type FormsProps = EventDataModel | UserDataModel;
+type FormsProps = EventDataModel;
 
 const useFirestore = (collectionPath: string) => {
-  const { user } = useFirebaseAuth();
   const [data, setData] = useState<FormsProps[]>([]);
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(true);
@@ -56,6 +55,7 @@ const useFirestore = (collectionPath: string) => {
 
       setData(collectionData);
     } catch (err) {
+      console.error("Error fetching data:", err);
       setError(err);
     } finally {
       setLoading(false);
@@ -64,12 +64,14 @@ const useFirestore = (collectionPath: string) => {
 
   const fetchUserData = async () => {
     try {
-      const userEmail = user?.email;
-      if (userEmail) {
-        const userDocRef = doc(db, "profiles", userEmail);
+      const uid = auth.currentUser?.uid;
+      if (uid) {
+        const userDocRef = doc(db, "profiles", uid);
         const userDocSnap = await getDoc(userDocRef);
         if (userDocSnap.exists()) {
-          setUserData(userDocSnap.data());
+          const data = userDocSnap.data();
+          console.log(data);
+          setUserData(data);
         }
       }
     } catch (error) {
@@ -83,7 +85,8 @@ const useFirestore = (collectionPath: string) => {
     const docRef = doc(db, collectionPath, id);
     await updateDoc(docRef, data);
     // Refresh data after update
-    fetchUserData();
+    // fetchUserData();
+    getData();
   };
 
   useEffect(() => {
@@ -93,7 +96,8 @@ const useFirestore = (collectionPath: string) => {
         collectionData.push({ id: doc.id, ...doc.data() });
       });
       setData(collectionData);
-      // setLoading(false);
+      setLoading(false);
+      console.log("Data Refreshed");
     });
     return unsub;
   }, []);

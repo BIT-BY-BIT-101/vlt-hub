@@ -7,6 +7,7 @@ export const HostProfilePage = () => {
     <IonPage>
       <IonContent>
         <ProfileCard />
+        Hello
       </IonContent>
     </IonPage>
   );

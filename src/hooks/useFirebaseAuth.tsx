@@ -86,9 +86,11 @@ const useFirebaseAuth = () => {
               const userData = { id: doc.id, ...doc.data() };
               setUserData(userData);
               console.log(userData);
+            } else {
+              console.log("No such document!");
             }
-          } catch (err) {
-            setError(err);
+          } catch (error) {
+            setError(error);
           }
         });
 
@@ -126,8 +128,11 @@ const useFirebaseAuth = () => {
   };
 
   const signIn = async (email: string, password: string): Promise<void> => {
-    await signInWithEmailAndPassword(auth, email, password);
-    // localStorage.setItem("session", email);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const signOut = async (): Promise<void> => {
