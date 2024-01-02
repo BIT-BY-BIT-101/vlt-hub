@@ -45,7 +45,7 @@ const VenueHistoryPage: React.FC = () => {
   return (
     <>
       <VenueNavMenu />
-      <IonPage>
+      <IonPage id="main">
         <IonHeader>
           <IonToolbar>
             <IonMenuButton slot="start" />

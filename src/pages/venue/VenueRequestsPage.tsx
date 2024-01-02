@@ -34,7 +34,7 @@ const VenueRequestsPage: React.FC = () => {
   return (
     <>
       <VenueNavMenu />
-      <IonPage>
+      <IonPage id="main">
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">

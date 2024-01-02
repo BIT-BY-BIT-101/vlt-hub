@@ -26,6 +26,7 @@ import VenueRequestsPage from "../pages/venue/VenueRequestsPage";
 import { ParticipantProfilePage } from "../pages/participant/ParticipantProfilePage";
 import { HostProfilePage } from "../pages/host/HostProfilePage";
 import VenueListPage from "../pages/venue/VenueListPage";
+import VenueAddVenuePage from "../pages/venue/VenueAddVenuePage";
 
 const RouteService = () => {
   return (
@@ -165,6 +166,12 @@ const RouteService = () => {
           path="/venue/list-venue"
           allowedRoles={"venue"}
           component={VenueListPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/add-venue"
+          allowedRoles={"venue"}
+          component={VenueAddVenuePage}
           redirected="/venue/signin"
         />
       </IonRouterOutlet>

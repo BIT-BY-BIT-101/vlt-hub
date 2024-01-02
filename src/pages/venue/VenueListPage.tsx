@@ -13,12 +13,13 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import VenueCard from "../../components/cards/VenueCard";
 
 const VenueListPage = () => {
   return (
     <>
       <VenueNavMenu />
-      <IonPage>
+      <IonPage id="main">
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
@@ -29,12 +30,8 @@ const VenueListPage = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonButton>Add Venue</IonButton>
-          <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>SMX Convention Center</IonCardTitle>
-            </IonCardHeader>
-          </IonCard>
+          <IonButton routerLink="/venue/add-venue">Add Venue</IonButton>
+          <VenueCard />
         </IonContent>
       </IonPage>
     </>

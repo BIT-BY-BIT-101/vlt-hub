@@ -41,7 +41,7 @@ function VenueNavMenu() {
   };
 
   return (
-    <IonMenu contentId="vhome-main" type="overlay">
+    <IonMenu contentId="main" type="overlay">
       <IonHeader>
         <IonToolbar class="vhome-menu-header">
           <IonImg
