@@ -50,7 +50,7 @@ const useFirebaseAuth = () => {
     // });
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
-        const userDoc = doc(db, "profiles", authUser?.email!);
+        const userDoc = doc(db, "profiles", authUser?.uid!);
         const userDocSnap = await getDoc(userDoc);
         if (userDocSnap.exists()) {
           setUserData(userDocSnap.data());
@@ -62,7 +62,7 @@ const useFirebaseAuth = () => {
         };
         setUser(userObj);
         setIsAuth(true);
-        // setLoading(false);
+        setLoading(false);
       } else {
         setUser(null);
         setIsAuth(false);
@@ -81,13 +81,14 @@ const useFirebaseAuth = () => {
         const docRef = doc(db, "profiles", user.uid!);
 
         const unsubscribe = onSnapshot(docRef, (doc) => {
-          if (doc.exists()) {
-            const userData = { id: doc.id, ...doc.data() };
-            setUserData(userData);
-            console.log(userData);
-          } else {
-            // Handle the case where the document does not exist
-            console.log("Document not found");
+          try {
+            if (doc.exists()) {
+              const userData = { id: doc.id, ...doc.data() };
+              setUserData(userData);
+              console.log(userData);
+            }
+          } catch (err) {
+            setError(err);
           }
         });
 
@@ -96,16 +97,6 @@ const useFirebaseAuth = () => {
     };
 
     fetchData();
-    // const user = auth.currentUser;
-    // const unsubscribe = onSnapshot(collection(db, "profiles"), (doc) => {
-    //   const collectionData: any = [];
-    //   doc.forEach((doc) => {
-    //     collectionData.push({ id: doc.id, ...doc.data() });
-    //   });
-    //   setUserData(collectionData);
-    //   console.log(collectionData);
-    // });
-    // return unsubscribe;
   }, []);
 
   const signUp = async (

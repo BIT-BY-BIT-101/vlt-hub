@@ -10,6 +10,7 @@ import {
   IonImg,
   IonInput,
   IonItem,
+  IonLoading,
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
@@ -21,15 +22,11 @@ import "./VenueSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
 const VenueSigninComponent: React.FC = () => {
-  const { user, signIn, error, isAuth } = useFirebaseAuth();
+  const { user, signIn, error, isAuth, loading } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  if (user) {
-    return <Redirect to="/venue/home" />;
-  }
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -46,6 +43,10 @@ const VenueSigninComponent: React.FC = () => {
       setShowAlert(true);
     }
   };
+
+  if (user) {
+    return <Redirect to="/venue/home" />;
+  }
 
   return (
     <div className="vsignin-container">

@@ -14,7 +14,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   redirected,
   ...routeProps
 }) => {
-  const { user, loading, userData, signOut } = useFirebaseAuth();
+  const { user, loading, userData } = useFirebaseAuth();
   const userEmail = localStorage.getItem("session");
   // const { userData } = useFirestore(`profiles`);
   const history = useHistory();
@@ -37,16 +37,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // return <Redirect to="/unauthorized" />;
     // signOut();
     return <p>Unauthorized</p>;
-    // return <Redirect to={redirected} />;
-    // if (userData?.role === "participant") {
-    //   return <Redirect to="/participant/home" />;
-    // }
-    // if (userData?.role === "host") {
-    //   return <Redirect to="/host/home" />;
-    // }
-    // if (userData?.role === "venue") {
-    //   return <Redirect to="/venue/home" />;
-    // }
   }
 
   return <Route {...routeProps} />;
