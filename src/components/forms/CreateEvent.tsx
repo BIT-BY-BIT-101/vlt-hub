@@ -8,6 +8,7 @@ import {
   IonModal,
   IonDatetime,
   IonButton,
+  IonTextarea,
 } from "@ionic/react";
 import React, { ChangeEvent, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
@@ -146,9 +147,15 @@ function CreateEvent() {
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Add a description:</span>
-        <IonInput
+        {/* <IonInput
           className="hhome-form-input"
           type="text"
+          required
+          {...register("description")}
+        /> */}
+        <IonTextarea
+          className="hhome-form-input"
+          autoGrow={true}
           required
           {...register("description")}
         />

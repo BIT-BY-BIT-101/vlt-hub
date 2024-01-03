@@ -40,7 +40,7 @@ const EventsCard = () => {
 
   return (
     <>
-      {data.map((event) => (
+      {data.map((event: EventDataModel) => (
         <IonCard
           key={event.id}
           className="phome-event-card"

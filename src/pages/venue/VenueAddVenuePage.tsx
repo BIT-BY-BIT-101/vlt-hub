@@ -10,6 +10,7 @@ import {
 } from "@ionic/react";
 import React from "react";
 import { useHistory } from "react-router";
+import AddVenue from "../../components/forms/AddVenue";
 
 const VenueAddVenuePage = () => {
   const history = useHistory();
@@ -20,10 +21,12 @@ const VenueAddVenuePage = () => {
           <IonButtons slot="start">
             <IonButton onClick={history.goBack}>Back</IonButton>
           </IonButtons>
-          <IonTitle>Add Venue</IonTitle>
+          <IonTitle slot="end">Add Venue</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent></IonContent>
+      <IonContent>
+        <AddVenue />
+      </IonContent>
     </IonPage>
   );
 };

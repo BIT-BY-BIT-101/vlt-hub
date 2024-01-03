@@ -26,11 +26,11 @@ export type UserEventDataModel = {
 
 export type VenueDataModel = {
   id?: string;
-  venue_imgUrl: string;
-  venue_name: string;
-  venue_bldg_no: string;
-  venue_street: string;
-  venue_city: string;
-  venue_capacity: number;
-  venue_isAvailable: boolean;
+  description: string;
+  imgUrl: string;
+  name: string;
+  bldg_no: string;
+  street: string;
+  city: string;
+  maxCapacity: number;
 };

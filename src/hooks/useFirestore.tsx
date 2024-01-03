@@ -23,10 +23,11 @@ import useFirebaseAuth from "./useFirebaseAuth";
 //   data: EventDataModel[];
 // }
 
-type FormsProps = EventDataModel;
+// type FormsProps = EventDataModel;
 
 const useFirestore = (collectionPath: string) => {
-  const [data, setData] = useState<FormsProps[]>([]);
+  const [data, setData] = useState<any>([]);
+  // const [data, setData] = useState<FormsProps[]>([]);
   const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
