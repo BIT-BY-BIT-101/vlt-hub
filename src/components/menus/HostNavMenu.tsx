@@ -41,7 +41,7 @@ function HostNavMenu() {
   };
 
   return (
-    <IonMenu contentId="hhome-main" type="overlay">
+    <IonMenu contentId="main" type="overlay">
       <IonHeader>
         <IonToolbar class="hhome-menu-header">
           <IonImg

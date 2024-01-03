@@ -22,7 +22,7 @@ const HostCreatePage = () => {
           </IonToolbar>
         </IonHeader>
 
-        <IonContent id="hhome-main">
+        <IonContent id="main">
           <div className="hhome-form-container">
             <CreateEvent />
           </div>

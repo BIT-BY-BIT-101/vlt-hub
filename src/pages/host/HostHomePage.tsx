@@ -45,7 +45,7 @@ const HostHomePage: React.FC = () => {
             <IonTitle>Dashboard</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent id="hhome-main">
+        <IonContent id="main">
           <div className="hhome-cards-container">
             <IonCard className="hhome-event-card" onClick={openModal}>
               <IonImg
