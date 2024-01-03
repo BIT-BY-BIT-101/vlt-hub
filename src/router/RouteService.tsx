@@ -54,6 +54,7 @@ const RouteService = () => {
         <Route exact path="/home">
           <HomePage />
         </Route>
+        <Route render={() => <p>Error 404</p>} />
 
         <Route exact path="/">
           <Redirect to="/home" />
