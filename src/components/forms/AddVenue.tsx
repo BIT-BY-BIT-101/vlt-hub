@@ -1,20 +1,20 @@
 import {
+  IonButton,
   IonCard,
-  IonLabel,
+  IonDatetime,
+  IonDatetimeButton,
   IonInput,
+  IonLabel,
+  IonModal,
   IonSelect,
   IonSelectOption,
-  IonDatetimeButton,
-  IonModal,
-  IonDatetime,
-  IonButton,
   IonTextarea,
 } from "@ionic/react";
 import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { auth } from "../../config/firebase";
-import useFirestore from "../../hooks/useFirestore";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import useFirestore from "../../hooks/useFirestore";
 
 const AddVenue = () => {
   const { userData } = useFirebaseAuth();
@@ -75,7 +75,7 @@ const AddVenue = () => {
     }
   };
   return (
-    <IonCard className="hhome-card-container">
+    <IonCard className="addevent-card-container">
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
         <input

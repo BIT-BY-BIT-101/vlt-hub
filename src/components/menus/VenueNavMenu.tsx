@@ -11,7 +11,15 @@ import {
   IonMenu,
   IonToolbar,
 } from "@ionic/react";
-import { alertCircle, book, home, logOut, pencil, time } from "ionicons/icons";
+import {
+  alertCircle,
+  book,
+  business,
+  home,
+  logOut,
+  pencil,
+  time,
+} from "ionicons/icons";
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import VenueOrgImg from "../../assets/venueorg.jpg";
@@ -85,11 +93,7 @@ function VenueNavMenu() {
             }`}
             onClick={() => history.push("/venue/list-venue")}
           >
-            <IonIcon
-              icon={alertCircle}
-              slot="start"
-              className="vhome-menu-icon"
-            />
+            <IonIcon icon={business} slot="start" className="vhome-menu-icon" />
             <IonLabel class="vhome-menu-label">Venues</IonLabel>
           </IonItem>
 
