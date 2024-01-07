@@ -1,0 +1,43 @@
+:root {
+   --main-color: #282a2a;
+   --secondary-color: #f46197;
+   --shadow-color: rgba(0, 0, 0, 0.2);
+   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+ion-app {
+   --ion-background-color: #ffffff;
+   --ion-item-background: #282a2a;
+   --ion-item-background-color: #282a2a;
+}
+
+html,
+body {
+   --ion-dynamic-font: var(--ion-default-dynamic-font);
+   --ion-font-family: Poppins, sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   background-color: var(--main-color);
+   height: 100%;
+}
+
+.vlistpage-btn {
+   width: 50%;
+   display: flex;
+   justify-content: center;
+   margin-top: 10px;
+   font-size: 15px;
+   font-weight: bold;
+   margin: 10px auto;
+   --background: var(--secondary-color);
+   --color: #fff;
+   --border: 1px solid var(--secondary-color);
+   --border-radius: 8px;
+}
+
+.vlistpage-btn:hover {
+   --background: #bc4d75;
+   --color: white;
+   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
