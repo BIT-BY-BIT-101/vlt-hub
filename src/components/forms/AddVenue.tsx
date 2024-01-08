@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { auth } from "../../config/firebase";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
+import "./AddVenue.css";
 
 const AddVenue = () => {
   const { userData } = useFirebaseAuth();
@@ -75,7 +76,7 @@ const AddVenue = () => {
     }
   };
   return (
-    <IonCard className="addevent-card-container">
+    <IonCard className="addvenue-card-container">
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
         <input
@@ -167,7 +168,7 @@ const AddVenue = () => {
         expand="full"
         fill="clear"
         onClick={handleSubmit(onSubmit)}
-        className="hsubmit-btn"
+        className="addevent-submit-btn"
       >
         <span className="hsubmit-txt">Submit</span>
       </IonButton>
