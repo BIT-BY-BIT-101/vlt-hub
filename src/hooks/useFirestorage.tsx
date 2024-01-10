@@ -8,13 +8,13 @@ type StorageHook = {
   uploadImage: (file: File, path: string) => void;
 };
 
-const useFirebaseStorage = (): StorageHook => {
+const useFirebaseStorage = (path: string): StorageHook => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [error, setError] = useState<any>(null);
 
-  const uploadImage = async (file: File, path: string) => {
+  const uploadImage = async () => {
     const storageRef = ref(storage, path);
-    const imageRef = ref(storage, `${path}/${file.name}`);
+    const imageRef = ref(storage, `${path}/${imageUrl.name}`);
 
     await uploadBytes(storageRef, file).then((snapshot) => {
       console.log("Uploaded a blob or file!");

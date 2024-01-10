@@ -15,10 +15,13 @@ import useFirestore from "../../hooks/useFirestore";
 import { useForm } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { auth } from "../../config/firebase";
+import useCamera from "../../hooks/useCamera";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 function CreateEvent() {
   const { userData } = useFirebaseAuth();
   const { addData: createEvent } = useFirestore("events");
+  const { photos, takePhoto } = useCamera();
   const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({
     title: "",
@@ -37,7 +40,8 @@ function CreateEvent() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
   const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<any>(null);
+  // const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
   const customVenueFormatOptions = {
     header: "Venue Format",
@@ -73,6 +77,28 @@ function CreateEvent() {
     } else {
       setImagePreviewUrl(null);
     }
+  };
+
+  // const handleCameera = () => {
+  //   takePhoto();
+  //   setImagePreviewUrl(photos[0].webviewPath);
+
+  //   // if (photos.length > 0) {
+  //   //   setImagePreviewUrl(photos[0].webviewPath);
+  //   // }
+  // };
+  const handleCameera = async () => {
+    const photo = await Camera.getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Photos,
+      allowEditing: false,
+      quality: 90,
+    });
+
+    const fileName = Date.now() + ".jpeg";
+    const newPhotos = photo.webPath;
+    setImagePreviewUrl(newPhotos);
+    console.log(newPhotos);
   };
 
   const handleVenueChange = (event: CustomEvent) => {
@@ -118,7 +144,7 @@ function CreateEvent() {
 
   return (
     <IonCard className="hhome-card-container">
-      <IonLabel className="hhome-form-label">
+      {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
         <input
           type="file"
@@ -133,6 +159,17 @@ function CreateEvent() {
             className="hhome-image-preview"
           />
         )}
+      </IonLabel> */}
+      <IonLabel className="hhome-form-label">
+        <span className="hhome-form-title">Upload your poster:</span>
+        {imagePreviewUrl && (
+          <img
+            src={imagePreviewUrl}
+            alt="Preview"
+            className="hhome-image-preview"
+          />
+        )}
+        <IonButton onClick={handleCameera}>Upload Photo</IonButton>
       </IonLabel>
 
       <IonLabel className="hhome-form-label">
