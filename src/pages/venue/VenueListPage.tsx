@@ -1,5 +1,3 @@
-import React from "react";
-import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import {
   IonButton,
   IonButtons,
@@ -13,7 +11,10 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import React from "react";
 import VenueCard from "../../components/cards/VenueCard";
+import VenueNavMenu from "../../components/menus/VenueNavMenu";
+import "./VenueListPage.css";
 
 const VenueListPage = () => {
   return (
@@ -30,7 +31,9 @@ const VenueListPage = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          <IonButton routerLink="/venue/add-venue">Add Venue</IonButton>
+          <IonButton className="vlistpage-btn" routerLink="/venue/add-venue">
+            Add Venue
+          </IonButton>
           <VenueCard />
         </IonContent>
       </IonPage>
