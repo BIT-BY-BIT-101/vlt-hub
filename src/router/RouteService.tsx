@@ -27,6 +27,7 @@ import { ParticipantProfilePage } from "../pages/participant/ParticipantProfileP
 import { HostProfilePage } from "../pages/host/HostProfilePage";
 import VenueListPage from "../pages/venue/VenueListPage";
 import VenueAddVenuePage from "../pages/venue/VenueAddVenuePage";
+import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
 
 const RouteService = () => {
   return (
@@ -96,6 +97,12 @@ const RouteService = () => {
           path="/participant/event"
           allowedRoles={"participant"}
           component={ParticipantEventPage}
+          redirected="/participant/signin"
+        />
+        <ProtectedRoute
+          path="/participant/event/details/:id"
+          allowedRoles={"participant"}
+          component={ParticipantEventDetailPage}
           redirected="/participant/signin"
         />
         <ProtectedRoute

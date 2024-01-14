@@ -5,6 +5,7 @@ import Default from "../../assets/defaultCover.jpg";
 import HostImg from "../../assets/host.jpg";
 import EventsModal from "../modals/EventsModal";
 import { EventDataModel } from "../../models/Model";
+import { useHistory } from "react-router";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
@@ -15,6 +16,7 @@ const EventsCard = () => {
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selected, setSelected] = useState({});
+  const history = useHistory();
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -45,10 +47,11 @@ const EventsCard = () => {
           key={event.id}
           className="phome-event-card"
           // onClick={openModal}
-          onClick={() => {
-            setShowModal(true);
-            setSelected(event);
-          }}
+          onClick={() => history.push(`/participant/event/details/${event.id}`)}
+          // onClick={() => {
+          //   setShowModal(true);
+          //   setSelected(event);
+          // }}
         >
           <IonImg
             src={Default}
@@ -95,11 +98,11 @@ const EventsCard = () => {
           </IonLabel>
         </IonCard>
       ))}
-      <EventsModal
+      {/* <EventsModal
         isOpen={showModal}
         onDidDismiss={closeModal}
         selected={selected}
-      />
+      /> */}
     </>
   );
 };
