@@ -62,24 +62,6 @@ const useFirestore = (collectionPath: string) => {
       setLoading(false);
     }
   };
-  const getQuery = async () => {
-    try {
-      const colRef = collection(db, collectionPath);
-      const querySnapshot = await getDocs(colRef);
-
-      const collectionData: any = [];
-      querySnapshot.forEach((doc) => {
-        collectionData.push({ id: doc.id, ...doc.data() });
-      });
-
-      setData(collectionData);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchUserData = async () => {
     try {

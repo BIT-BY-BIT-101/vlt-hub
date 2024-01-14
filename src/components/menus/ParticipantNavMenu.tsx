@@ -74,9 +74,9 @@ function ParticipantNavMenu() {
             <IonLabel class="phome-menu-label">Home</IonLabel>
           </IonItem>
           <IonItem
-            routerLink="/participant/event"
+            routerLink="/participant/events"
             className={`phome-menu-item ${
-              isMenuItemActive("/participant/event") ? "activated" : ""
+              isMenuItemActive("/participant/events") ? "activated" : ""
             }`}
             // onClick={() => history.push("/participant/event")}
           >

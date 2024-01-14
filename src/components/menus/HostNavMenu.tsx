@@ -80,9 +80,9 @@ function HostNavMenu() {
           </IonItem>
           <IonItem
             className={`hhome-menu-item ${
-              isMenuItemActive("/host/create") ? "activated" : ""
+              isMenuItemActive("/host/event-list") ? "activated" : ""
             }`}
-            onClick={() => history.push("/host/create")}
+            onClick={() => history.push("/host/event-list")}
           >
             <IonIcon icon={home} slot="start" className="hhome-menu-icon" />
             <IonLabel class="hhome-menu-label">Create</IonLabel>

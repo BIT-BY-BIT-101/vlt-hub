@@ -28,6 +28,8 @@ import { HostProfilePage } from "../pages/host/HostProfilePage";
 import VenueListPage from "../pages/venue/VenueListPage";
 import VenueAddVenuePage from "../pages/venue/VenueAddVenuePage";
 import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
+import HostEventListPage from "../pages/host/HostEventListPage";
+import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
 
 const RouteService = () => {
   return (
@@ -94,7 +96,7 @@ const RouteService = () => {
           redirected="/participant/signin"
         />
         <ProtectedRoute
-          path="/participant/event"
+          path="/participant/events"
           allowedRoles={"participant"}
           component={ParticipantEventPage}
           redirected="/participant/signin"
@@ -120,6 +122,18 @@ const RouteService = () => {
           path="/host/home"
           allowedRoles={"host"}
           component={HostHomePage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/event-list"
+          allowedRoles={"host"}
+          component={HostEventListPage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/venue-list"
+          allowedRoles={"host"}
+          component={HostVenueSelectionPage}
           redirected="/host/signin"
         />
         <ProtectedRoute
