@@ -14,6 +14,7 @@ import {
 import React from "react";
 import VenueCard from "../../components/cards/VenueCard";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
+import "./../../components/cards/VenueCard.css";
 import "./VenueListPage.css";
 
 const VenueListPage = () => {
