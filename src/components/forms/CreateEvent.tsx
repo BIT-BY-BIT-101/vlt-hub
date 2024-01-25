@@ -14,13 +14,20 @@ import React, { ChangeEvent, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { useForm } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
 import useCamera from "../../hooks/useCamera";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import { addDoc, collection, doc } from "firebase/firestore";
+import { useParams } from "react-router";
+
+type RouteParams = {
+  id: string;
+};
 
 function CreateEvent() {
+  const { id } = useParams<RouteParams>();
   const { userData } = useFirebaseAuth();
-  const { addData: createEvent } = useFirestore("events");
+  const { addData: createEvent } = useFirestore(`venues/${id}/events`);
   const { photos, takePhoto } = useCamera();
   const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({
@@ -119,6 +126,7 @@ function CreateEvent() {
     try {
       const hostId = auth.currentUser?.uid!;
       const hostName = `${userData?.fname} ${userData?.lname}`;
+      const status = "unpublish";
 
       // Combine the state and any other data needed
       const eventDataToSubmit = {
@@ -127,10 +135,17 @@ function CreateEvent() {
         // ...register,
         host_id: hostId,
         host_name: hostName,
+        status: status,
+        isArchived: false,
       };
+      console.log(id);
 
       // Call the createEvent function to add the event data to Firebase
       await createEvent(eventDataToSubmit);
+
+      // const docRef = doc(db, `venues`, id);
+      // const colRef = collection(docRef, "events");
+      // await addDoc(colRef, eventDataToSubmit);
 
       // Optionally, you can reset the form after successful submission
       reset();
@@ -198,7 +213,7 @@ function CreateEvent() {
         />
       </IonLabel>
 
-      <IonLabel className="hhome-form-label">
+      {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Venue Format:</span>
         <IonSelect
           interfaceOptions={customVenueFormatOptions}
@@ -243,7 +258,7 @@ function CreateEvent() {
             <IonSelectOption value="ms-teams">MS Teams</IonSelectOption>
           </IonSelect>
         </IonLabel>
-      )}
+      )} */}
 
       <div className="date-time-row">
         <div className="date-time-item">

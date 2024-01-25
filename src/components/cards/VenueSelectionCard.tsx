@@ -32,7 +32,11 @@ const VenueSelectionCard = () => {
     <>
       {venueData &&
         venueData.map((venue: VenueDataModel) => (
-          <IonCard key={venue.id} className="addvenue-card">
+          <IonCard
+            routerLink={`${venue.id}/create`}
+            key={venue.id}
+            className="addvenue-card"
+          >
             <IonCardHeader>
               <IonCardTitle className="addvenue-title">
                 {venue.name}

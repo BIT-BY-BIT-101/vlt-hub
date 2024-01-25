@@ -11,15 +11,20 @@ import {
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostCreatePage.css";
 import CreateEvent from "../../components/forms/CreateEvent";
+import { useHistory } from "react-router-dom";
 
 const HostCreatePage = () => {
+  const history = useHistory();
   return (
     <>
-      <HostNavMenu />
+      {/* <HostNavMenu /> */}
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonMenuButton autoHide={false} slot="start" />
+            {/* <IonMenuButton autoHide={false} slot="start" /> */}
+            <IonButtons slot="start">
+              <IonButton onClick={history.goBack}>Back</IonButton>
+            </IonButtons>
             <IonTitle>Create</IonTitle>
           </IonToolbar>
         </IonHeader>

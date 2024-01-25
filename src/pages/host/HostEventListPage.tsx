@@ -10,6 +10,7 @@ import {
 import React from "react";
 import CreateEvent from "../../components/forms/CreateEvent";
 import HostNavMenu from "../../components/menus/HostNavMenu";
+import { UnpubEventCard } from "../../components/cards/UnpubEventCard";
 
 const HostEventListPage = () => {
   return (
@@ -28,6 +29,7 @@ const HostEventListPage = () => {
           {/* <div className="hhome-form-container">
             <CreateEvent />
           </div> */}
+          <UnpubEventCard />
         </IonContent>
       </IonPage>
     </>
