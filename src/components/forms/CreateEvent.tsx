@@ -27,7 +27,9 @@ type RouteParams = {
 function CreateEvent() {
   const { id } = useParams<RouteParams>();
   const { userData } = useFirebaseAuth();
-  const { addData: createEvent } = useFirestore(`venues/${id}/events`);
+  // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
+  const { addData: createEvent } = useFirestore("events");
+  const { data: venueData } = useFirestore("venue");
   const { photos, takePhoto } = useCamera();
   const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({

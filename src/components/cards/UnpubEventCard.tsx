@@ -5,27 +5,47 @@ import {
   IonCardTitle,
   IonItem,
 } from "@ionic/react";
-import React from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import React, { useEffect } from "react";
+import { db } from "../../config/firebase";
+import { EventDataModel } from "../../models/Model";
 
 export const UnpubEventCard = () => {
+  console.log(events);
+
   return (
     <>
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>Event Name</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>
-          <IonItem>
-            <strong>Date:</strong>
-          </IonItem>
-          <IonItem>
-            <strong>Start Time:</strong>
-          </IonItem>
-          <IonItem>
-            <strong>End Time:</strong>
-          </IonItem>
-        </IonCardContent>
-      </IonCard>
+      {events.map((event: EventDataModel) => (
+        <IonCard key={event.id}>
+          <IonCardHeader>
+            <IonCardTitle>
+              <h1>{event.title}</h1>
+            </IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonItem>
+              <strong>
+                Venue: <p>{event.venue}</p>
+              </strong>
+            </IonItem>
+            <IonItem>
+              <strong>
+                Date: <p>{event.eventDate}</p>
+              </strong>
+            </IonItem>
+            <IonItem>
+              <strong>
+                Start Time: <p>{event.startTime}</p>
+              </strong>
+            </IonItem>
+            <IonItem>
+              <strong>
+                End Time: <p>{event.endTime}</p>
+              </strong>
+            </IonItem>
+          </IonCardContent>
+        </IonCard>
+      ))}
     </>
   );
 };
