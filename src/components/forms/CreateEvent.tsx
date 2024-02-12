@@ -19,6 +19,10 @@ import useCamera from "../../hooks/useCamera";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { useParams } from "react-router";
+import { EventDecorator } from "ionicons/dist/types/stencil-public-runtime";
+import { EventDataModel } from "../../models/Model";
+import useQuery from "../../hooks/useQuery";
+import useQueryDoc from "../../hooks/useQueryDoc";
 
 type RouteParams = {
   id: string;
@@ -26,10 +30,11 @@ type RouteParams = {
 
 function CreateEvent() {
   const { id } = useParams<RouteParams>();
+  const { data: venueData } = useQueryDoc("venues", id);
+  // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
   // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
   const { addData: createEvent } = useFirestore("events");
-  const { data: venueData } = useFirestore("venue");
   const { photos, takePhoto } = useCamera();
   const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({
@@ -39,7 +44,8 @@ function CreateEvent() {
     host_name: "",
     eventDate: "",
     imgUrl: "",
-    venueType: "",
+    venueType: "On-site",
+    venue_Id: "",
     venue: "",
     platform: "",
     startTime: "",
@@ -124,23 +130,30 @@ function CreateEvent() {
     console.log("Selected Online Option:", selectedOnlineOption);
   };
 
+  console.log(venueData);
+
   const onSubmit = async (data: any) => {
     try {
       const hostId = auth.currentUser?.uid!;
       const hostName = `${userData?.fname} ${userData?.lname}`;
-      const status = "unpublish";
+      const venueId = id;
+      const status = "unpublished";
+      const venueName = venueData.name;
 
       // Combine the state and any other data needed
       const eventDataToSubmit = {
         ...eventData,
         ...data,
         // ...register,
+        venue: venueName,
+        venue_id: venueId,
         host_id: hostId,
         host_name: hostName,
         status: status,
         isArchived: false,
       };
       console.log(id);
+      console.log(venueData.name);
 
       // Call the createEvent function to add the event data to Firebase
       await createEvent(eventDataToSubmit);

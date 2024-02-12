@@ -63,24 +63,24 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  const fetchUserData = async () => {
-    try {
-      const uid = auth.currentUser?.uid;
-      if (uid) {
-        const userDocRef = doc(db, "profiles", uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          const data = userDocSnap.data();
-          console.log(data);
-          setUserData(data);
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const fetchUserData = async () => {
+  //   try {
+  //     const uid = auth.currentUser?.uid;
+  //     if (uid) {
+  //       const userDocRef = doc(db, "profiles", uid);
+  //       const userDocSnap = await getDoc(userDocRef);
+  //       if (userDocSnap.exists()) {
+  //         const data = userDocSnap.data();
+  //         console.log(data);
+  //         setUserData(data);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user data:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const updateData = async (id: string, data: any) => {
     const docRef = doc(db, collectionPath, id);
@@ -104,7 +104,7 @@ const useFirestore = (collectionPath: string) => {
   }, []);
 
   useEffect(() => {
-    fetchUserData();
+    // fetchUserData();
     getData();
   }, []);
 

@@ -1,14 +1,31 @@
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  WhereFilterOp,
+  FieldPath,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 
-const useQuery = (collectionPath: string) => {
-  const [data, setData] = useState([]);
+/**
+ * @param collectionPath - path to the collection
+ * @param operatingStr - The operation string (e.g "<", "<=", "==", "<", "<=", "!=").
+ * @param value — The value for comparison
+ */
+const useQuery = (
+  collectionPath: string,
+  fieldPath: string | FieldPath,
+  operatorStr: WhereFilterOp,
+  value: string
+) => {
+  const [data, setData] = useState<any>([]);
   async function queryData() {
-    const eventRef = collection(db, collectionPath);
+    const colRef = collection(db, collectionPath);
 
     // Create a query against the collection.
-    const q = query(eventRef, where("status", "==", "unpublish"));
+    const q = query(colRef, where(fieldPath, operatorStr, value));
     const querySnapshot = await getDocs(q);
     const collectionData: any = [];
     querySnapshot.forEach((doc) => {
