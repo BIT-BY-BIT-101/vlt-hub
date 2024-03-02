@@ -30,6 +30,8 @@ import VenueAddVenuePage from "../pages/venue/VenueAddVenuePage";
 import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
 import HostEventListPage from "../pages/host/HostEventListPage";
 import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
+import ConferenceForm from "../pages/Tests/TestPage";
+import Forms from "../components/experiment/Forms";
 
 const RouteService = () => {
   return (
@@ -62,6 +64,14 @@ const RouteService = () => {
         <Route exact path="/">
           <Redirect to="/home" />
           {/* <Redirect to="/participant/signin" /> */}
+        </Route>
+
+        {/* Testing */}
+        {/* <Route exact path="/test">
+          <ConferenceForm />
+        </Route> */}
+        <Route exact path="/test">
+          <Forms />
         </Route>
 
         {/* Profiles */}

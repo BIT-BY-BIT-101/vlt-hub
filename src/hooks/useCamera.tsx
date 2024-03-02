@@ -1,38 +1,48 @@
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import React, { useState } from "react";
+import useFirebaseStorage from "./useFirestorage";
 
-type UserPhoto = {
-  filepath: string;
-  webviewPath?: string;
+export type PhotoProps = {
+  filepath?: string;
+  dataUrl?: string;
 };
 
-const useCamera = (eventCoverName?: string) => {
-  const [photos, setPhotos] = useState<UserPhoto[]>([]);
-  const takePhoto = async () => {
-    const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Photos,
-      allowEditing: false,
-      quality: 90,
-    });
-    // const fileName = eventCoverName + ".jpeg";
-    const fileName = Date.now() + ".jpeg";
-    // const newPhotos = photo.webPath;
-    const newPhotos = [
-      {
+const useCamera = () => {
+  const [photos, setPhotos] = useState<PhotoProps>();
+  // const [photos, setPhotos] = useState<string>();
+  const [error, setError] = useState();
+  const [uploading, setUploading] = useState(false);
+  async function takePhoto() {
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Photos,
+        allowEditing: false,
+        quality: 90,
+      });
+      const fileName = Date.now() + ".jpeg";
+      // const newPhotos = photo.dataUrl;
+      const newPhotos = {
         filepath: fileName,
-        webviewPath: photo.webPath,
-      },
-    ];
+        dataUrl: photo.dataUrl,
+        // webviewPath: photo.webPath,
+      };
+      setUploading(true);
+      setPhotos(newPhotos);
 
-    setPhotos(newPhotos);
-    console.log(newPhotos);
-  };
-  console.log(photos);
+      console.log("Uploading image: ", newPhotos);
+    } catch (err) {
+      console.log("Error", err);
+    } finally {
+      setUploading(false);
+    }
+  }
 
   return {
     photos,
     takePhoto,
+    uploading,
+    error,
   };
 };
 

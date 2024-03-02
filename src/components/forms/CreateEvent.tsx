@@ -23,6 +23,7 @@ import { EventDecorator } from "ionicons/dist/types/stencil-public-runtime";
 import { EventDataModel } from "../../models/Model";
 import useQuery from "../../hooks/useQuery";
 import useQueryDoc from "../../hooks/useQueryDoc";
+import useFirebaseStorage from "../../hooks/useFirestorage";
 
 type RouteParams = {
   id: string;
@@ -30,12 +31,17 @@ type RouteParams = {
 
 function CreateEvent() {
   const { id } = useParams<RouteParams>();
+  const {
+    uploadImage,
+    imageUrl,
+    error: uploadError,
+  } = useFirebaseStorage("events/image");
   const { data: venueData } = useQueryDoc("venues", id);
   // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
   // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
   const { addData: createEvent } = useFirestore("events");
-  const { photos, takePhoto } = useCamera();
+  const { photos, takePhoto, uploading } = useCamera();
   const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({
     title: "",
@@ -55,7 +61,7 @@ function CreateEvent() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
   const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<any>(null);
+  // const [imagePreviewUrl, setImagePreviewUrl] = useState<any>(photos);
   // const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
   const customVenueFormatOptions = {
@@ -82,39 +88,45 @@ function CreateEvent() {
     }));
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    setSelectedFile(file || null);
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   setSelectedFile(file || null);
 
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImagePreviewUrl(imageUrl);
-    } else {
-      setImagePreviewUrl(null);
-    }
-  };
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setImagePreviewUrl(imageUrl);
+  //   } else {
+  //     setImagePreviewUrl(null);
+  //   }
+  // };
 
-  // const handleCameera = () => {
-  //   takePhoto();
-  //   setImagePreviewUrl(photos[0].webviewPath);
-
+  // async function handleCamera() {
+  //   try {
+  //     await takePhoto();
+  //     console.log("photos: ", photos);
+  //     setImagePreviewUrl(photos);
+  //   } catch (err) {
+  //     console.error("Error getting photo: ", err);
+  //   }
+  //   console.log(photos);
   //   // if (photos.length > 0) {
   //   //   setImagePreviewUrl(photos[0].webviewPath);
   //   // }
-  // };
-  const handleCameera = async () => {
-    const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Photos,
-      allowEditing: false,
-      quality: 90,
-    });
+  // }
 
-    const fileName = Date.now() + ".jpeg";
-    const newPhotos = photo.webPath;
-    setImagePreviewUrl(newPhotos);
-    console.log(newPhotos);
-  };
+  // const handleCamera = async () => {
+  //   const photo = await Camera.getPhoto({
+  //     resultType: CameraResultType.Uri,
+  //     source: CameraSource.Photos,
+  //     allowEditing: false,
+  //     quality: 90,
+  //   });
+
+  //   const fileName = Date.now() + ".jpeg";
+  //   const newPhotos = photo.webPath;
+  //   setImagePreviewUrl(newPhotos);
+  //   console.log(newPhotos);
+  // };
 
   const handleVenueChange = (event: CustomEvent) => {
     const selectedVenue = event.detail.value;
@@ -134,6 +146,9 @@ function CreateEvent() {
 
   const onSubmit = async (data: any) => {
     try {
+      await uploadImage(photos?.dataUrl, photos?.filepath);
+      console.log(imageUrl);
+
       const hostId = auth.currentUser?.uid!;
       const hostName = `${userData?.fname} ${userData?.lname}`;
       const venueId = id;
@@ -151,6 +166,7 @@ function CreateEvent() {
         host_name: hostName,
         status: status,
         isArchived: false,
+        image: imageUrl,
       };
       console.log(id);
       console.log(venueData.name);
@@ -172,6 +188,8 @@ function CreateEvent() {
     }
   };
 
+  console.log("Photot: ", photos);
+
   return (
     <IonCard className="hhome-card-container">
       {/* <IonLabel className="hhome-form-label">
@@ -192,14 +210,26 @@ function CreateEvent() {
       </IonLabel> */}
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
-        {imagePreviewUrl && (
+        {/* {imagePreviewUrl && (
           <img
             src={imagePreviewUrl}
             alt="Preview"
             className="hhome-image-preview"
           />
+        )} */}
+        {photos && (
+          <img
+            src={photos?.dataUrl}
+            alt="Preview"
+            className="hhome-image-preview"
+          />
         )}
-        <IonButton onClick={handleCameera}>Upload Photo</IonButton>
+        {uploading ? (
+          <IonButton disabled>...Upoloading</IonButton>
+        ) : (
+          <IonButton onClick={takePhoto}>Upload Photo</IonButton>
+          // <IonButton onClick={handleCamera}>Upload Photo</IonButton>
+        )}
       </IonLabel>
 
       <IonLabel className="hhome-form-label">

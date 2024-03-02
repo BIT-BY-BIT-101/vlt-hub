@@ -112,6 +112,7 @@ function Forms() {
             <input
               type="file"
               onChange={(event) => {
+                console.log(event.target.files?.[0] || null);
                 setImageUpload(event.target.files?.[0] || null);
               }}
             />
