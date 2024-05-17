@@ -32,6 +32,8 @@ import HostEventListPage from "../pages/host/HostEventListPage";
 import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
 import ConferenceForm from "../pages/Tests/TestPage";
 import Forms from "../components/experiment/Forms";
+import PageNotFound from "../pages/error_pages/PageNotFound";
+import { ChatPage } from "../pages/chat/ChatPage";
 
 const RouteService = () => {
   return (
@@ -59,7 +61,7 @@ const RouteService = () => {
         <Route exact path="/home">
           <HomePage />
         </Route>
-        <Route render={() => <p>Error 404</p>} />
+        <Route render={() => <PageNotFound />} />
 
         <Route exact path="/">
           <Redirect to="/home" />
@@ -67,9 +69,6 @@ const RouteService = () => {
         </Route>
 
         {/* Testing */}
-        {/* <Route exact path="/test">
-          <ConferenceForm />
-        </Route> */}
         <Route exact path="/test">
           <Forms />
         </Route>
@@ -153,6 +152,12 @@ const RouteService = () => {
           redirected="/host/signin"
         />
         <ProtectedRoute
+          path="/host/:id/edit"
+          allowedRoles={"host"}
+          component={HostCreatePage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
           path="/host/event"
           allowedRoles={"host"}
           component={HostEventPage}
@@ -205,6 +210,26 @@ const RouteService = () => {
           allowedRoles={"venue"}
           component={VenueAddVenuePage}
           redirected="/venue/signin"
+        />
+
+        {/* Chat */}
+        <ProtectedRoute
+          path="/venue/chat/:id/messages"
+          allowedRoles={"venue"}
+          component={ChatPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/participant/chat/:id/messages"
+          allowedRoles={"participant"}
+          component={ChatPage}
+          redirected="/participant/signin"
+        />
+        <ProtectedRoute
+          path="/host/chat/:id/messages"
+          allowedRoles={"host"}
+          component={ChatPage}
+          redirected="/host/signin"
         />
       </IonRouterOutlet>
     </IonReactRouter>

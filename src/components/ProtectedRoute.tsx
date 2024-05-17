@@ -3,6 +3,7 @@ import { Route, Redirect, RouteProps, useHistory } from "react-router-dom";
 
 import useFirebaseAuth from "../hooks/useFirebaseAuth";
 import { IonLoading } from "@ionic/react";
+import Unauthorized from "../pages/error_pages/Unauthorized";
 
 interface ProtectedRouteProps extends RouteProps {
   allowedRoles: "host" | "participant" | "venue";
@@ -36,7 +37,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     console.log(user);
     // return <Redirect to="/unauthorized" />;
     // signOut();
-    return <p>Unauthorized</p>;
+    return <Unauthorized />;
   }
 
   return <Route {...routeProps} />;

@@ -24,13 +24,15 @@ function HostNavMenu() {
   const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      console.log("Logout clicked");
-      // history.push("/host/signin");
-    } catch (error) {}
-  };
+  // const handleSignOut = async () => {
+  //   try {
+  //     await signOut();
+  //     console.log("Logout clicked");
+  //     // history.push("/host/signin");
+  //   } catch (error) {
+  //     console.log("logout Faild:", error);
+  //   }
+  // };
 
   const isMenuItemActive = (path: string) => {
     return location.pathname === path;

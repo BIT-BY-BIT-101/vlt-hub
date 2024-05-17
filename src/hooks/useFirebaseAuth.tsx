@@ -71,7 +71,7 @@ const useFirebaseAuth = () => {
     });
     console.log("User", user);
 
-    return unsubscribe;
+    return () => unsubscribe;
   }, []);
 
   useEffect(() => {
@@ -128,11 +128,19 @@ const useFirebaseAuth = () => {
   };
 
   const signIn = async (email: string, password: string): Promise<void> => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      setError(error);
-    }
+    // try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    // .then(() => {
+    //   setLoading(false);
+    // })
+    // .catch((err) => {
+    //   setError(err);
+    // });
+    // } catch (err) {
+    //   console.log(err);
+    //   setError(err);
+    // }
   };
 
   const signOut = async (): Promise<void> => {

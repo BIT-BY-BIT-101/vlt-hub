@@ -1,25 +1,25 @@
 import { IonCard, IonImg, IonLabel } from "@ionic/react";
-import React, { useState } from "react";
-import useFirestore from "../../hooks/useFirestore";
+import { useState } from "react";
 import Default from "../../assets/defaultCover.jpg";
 import HostImg from "../../assets/host.jpg";
-import EventsModal from "../modals/EventsModal";
 import { EventDataModel } from "../../models/Model";
 import { useHistory } from "react-router";
+import useQuery from "../../hooks/useQuery";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
 // };
 
 const EventsCard = () => {
-  const { data } = useFirestore("events");
+  // const { data } = useFirestore("events");
+  const { data } = useQuery("events", "status", "==", "published");
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selected, setSelected] = useState({});
   const history = useHistory();
 
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  // const openModal = () => setShowModal(true);
+  // const closeModal = () => setShowModal(false);
 
   function formatDateString(originalDateString: string) {
     const dateObject = new Date(originalDateString);
@@ -54,8 +54,8 @@ const EventsCard = () => {
           // }}
         >
           <IonImg
-            src={Default}
-            alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
+            src={event.image ? event.image : Default}
+            alt={event.title}
             className="phome-event-image"
           />
           <IonLabel>

@@ -1,6 +1,7 @@
 export type EventDataModel = {
   id?: string;
   imgUrl: string;
+  image: string;
   title: string;
   description: string;
   host_id: string;
@@ -33,4 +34,11 @@ export type VenueDataModel = {
   street: string;
   city: string;
   maxCapacity: number;
+};
+
+export type MessageModel = {
+  message: string;
+  createdAt: Date;
+  uid: string;
+  status: string;
 };

@@ -2,26 +2,18 @@ import {
   IonCard,
   IonLabel,
   IonInput,
-  IonSelect,
-  IonSelectOption,
   IonDatetimeButton,
   IonModal,
   IonDatetime,
   IonButton,
   IonTextarea,
 } from "@ionic/react";
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { useForm } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import { auth, db } from "../../config/firebase";
-import useCamera from "../../hooks/useCamera";
-import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { auth } from "../../config/firebase";
 import { useParams } from "react-router";
-import { EventDecorator } from "ionicons/dist/types/stencil-public-runtime";
-import { EventDataModel } from "../../models/Model";
-import useQuery from "../../hooks/useQuery";
 import useQueryDoc from "../../hooks/useQueryDoc";
 import useFirebaseStorage from "../../hooks/useFirestorage";
 
@@ -35,13 +27,15 @@ function CreateEvent() {
     uploadImage,
     imageUrl,
     error: uploadError,
+    imageName,
   } = useFirebaseStorage("events/image");
   const { data: venueData } = useQueryDoc("venues", id);
   // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
-  // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
-  const { addData: createEvent } = useFirestore("events");
-  const { photos, takePhoto, uploading } = useCamera();
+  const { addData: createEvent } = useFirestore(`venues/${id}/events`);
+  // const { addData: createEvent } = useFirestore("events");
+  // const { photos, takePhoto, uploading, imageUrl } =
+  //   usePhotoUpload("events/image");
   const { register, handleSubmit, reset } = useForm();
   const [eventData, setEventData] = useState({
     title: "",
@@ -49,7 +43,6 @@ function CreateEvent() {
     host_id: "",
     host_name: "",
     eventDate: "",
-    imgUrl: "",
     venueType: "On-site",
     venue_Id: "",
     venue: "",
@@ -61,8 +54,9 @@ function CreateEvent() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
   const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
-  // const [imagePreviewUrl, setImagePreviewUrl] = useState<any>(photos);
-  // const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
+  // const [imagePreviewUrl, setImagePreviewUrl] = useState<File | null>(null);
+  const [imgUrl, setImgUrl] = useState<File | null>(null);
 
   const customVenueFormatOptions = {
     header: "Venue Format",
@@ -88,45 +82,26 @@ function CreateEvent() {
     }));
   };
 
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   setSelectedFile(file || null);
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setSelectedFile(file || null);
 
-  //   if (file) {
-  //     const imageUrl = URL.createObjectURL(file);
-  //     setImagePreviewUrl(imageUrl);
-  //   } else {
-  //     setImagePreviewUrl(null);
-  //   }
-  // };
+    if (file) {
+      const img = file;
+      const imageUrl = URL.createObjectURL(file);
+      console.log("image: ", img);
+      console.log("url: ", imageUrl);
+      setImgUrl(img);
+      setImagePreviewUrl(imageUrl);
+    } else {
+      setImagePreviewUrl(null);
+      setImgUrl(null);
+    }
+  };
 
-  // async function handleCamera() {
-  //   try {
-  //     await takePhoto();
-  //     console.log("photos: ", photos);
-  //     setImagePreviewUrl(photos);
-  //   } catch (err) {
-  //     console.error("Error getting photo: ", err);
-  //   }
-  //   console.log(photos);
-  //   // if (photos.length > 0) {
-  //   //   setImagePreviewUrl(photos[0].webviewPath);
-  //   // }
-  // }
-
-  // const handleCamera = async () => {
-  //   const photo = await Camera.getPhoto({
-  //     resultType: CameraResultType.Uri,
-  //     source: CameraSource.Photos,
-  //     allowEditing: false,
-  //     quality: 90,
-  //   });
-
-  //   const fileName = Date.now() + ".jpeg";
-  //   const newPhotos = photo.webPath;
-  //   setImagePreviewUrl(newPhotos);
-  //   console.log(newPhotos);
-  // };
+  const handleUpload = async () => {
+    await uploadImage(imgUrl, Date.now());
+  };
 
   const handleVenueChange = (event: CustomEvent) => {
     const selectedVenue = event.detail.value;
@@ -146,9 +121,6 @@ function CreateEvent() {
 
   const onSubmit = async (data: any) => {
     try {
-      await uploadImage(photos?.dataUrl, photos?.filepath);
-      console.log(imageUrl);
-
       const hostId = auth.currentUser?.uid!;
       const hostName = `${userData?.fname} ${userData?.lname}`;
       const venueId = id;
@@ -166,13 +138,18 @@ function CreateEvent() {
         host_name: hostName,
         status: status,
         isArchived: false,
-        image: imageUrl,
+        imgUrl: imageUrl,
+        imageName: imageName,
       };
       console.log(id);
       console.log(venueData.name);
 
       // Call the createEvent function to add the event data to Firebase
+      if (!imageUrl) {
+        console.log("There is no URL");
+      }
       await createEvent(eventDataToSubmit);
+      console.log("Event created successfully!");
 
       // const docRef = doc(db, `venues`, id);
       // const colRef = collection(docRef, "events");
@@ -182,17 +159,16 @@ function CreateEvent() {
       reset();
 
       // Log success or navigate to another page
-      console.log("Event created successfully!");
     } catch (error) {
       console.log("Error creating event:", error);
     }
   };
 
-  console.log("Photot: ", photos);
+  // console.log("Photot: ", photos);
 
   return (
     <IonCard className="hhome-card-container">
-      {/* <IonLabel className="hhome-form-label">
+      <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
         <input
           type="file"
@@ -207,16 +183,16 @@ function CreateEvent() {
             className="hhome-image-preview"
           />
         )}
-      </IonLabel> */}
-      <IonLabel className="hhome-form-label">
+      </IonLabel>
+      {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
-        {/* {imagePreviewUrl && (
+        {imagePreviewUrl && (
           <img
             src={imagePreviewUrl}
             alt="Preview"
             className="hhome-image-preview"
           />
-        )} */}
+        )}
         {photos && (
           <img
             src={photos?.dataUrl}
@@ -230,7 +206,7 @@ function CreateEvent() {
           <IonButton onClick={takePhoto}>Upload Photo</IonButton>
           // <IonButton onClick={handleCamera}>Upload Photo</IonButton>
         )}
-      </IonLabel>
+      </IonLabel> */}
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Event Title:</span>
@@ -370,8 +346,18 @@ function CreateEvent() {
         fill="clear"
         onClick={handleSubmit(onSubmit)}
         className="hsubmit-btn"
+        disabled={!imageName}
       >
         <span className="hsubmit-txt">Submit</span>
+      </IonButton>
+      <IonButton
+        type="submit"
+        expand="full"
+        fill="clear"
+        onClick={handleUpload}
+        className="hsubmit-btn"
+      >
+        <span className="hsubmit-txt">Upload</span>
       </IonButton>
     </IonCard>
   );

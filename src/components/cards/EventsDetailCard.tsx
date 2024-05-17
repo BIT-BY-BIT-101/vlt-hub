@@ -44,51 +44,49 @@ const EventsDetailCard = () => {
   }, []);
 
   return (
-    <>
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>{selected?.title || ""}</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>
-          <div>
-            <h2>
-              {/* Mastering the Fundamentals: An Introduction to Visual C# Programming */}
-              {selected?.title || ""}
-            </h2>
-          </div>
-          <div>
-            <IonImg
-              src={HostImg}
-              alt="HostImg"
-              className="phome-modal-host-img"
-            />
-            <p>{selected?.host_name}</p>
-          </div>
-          <div>
-            <p>
-              <span>Description:</span> {selected?.description || "NONE"}
-            </p>
-            <p>
-              <span>Venue:</span>
-              {selected?.venue}
-            </p>
-            <p>
-              <span>Date:</span>
-              {formatDateString(selected?.eventDate)}
-            </p>
-            <p>
-              <span>Time:</span> {formatTimeString(selected?.startTime!)} -
-              {formatTimeString(selected?.endTime!)}
-            </p>
-          </div>
-          <div className="phome-btn-container">
-            <IonButton expand="block" className="phome-register-btn">
-              Register
-            </IonButton>
-          </div>
-        </IonCardContent>
-      </IonCard>
-    </>
+    <IonCard>
+      <IonCardHeader>
+        <IonCardTitle>{selected?.title || ""}</IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        <div>
+          <h2>
+            {/* Mastering the Fundamentals: An Introduction to Visual C# Programming */}
+            {selected?.title || ""}
+          </h2>
+        </div>
+        <div>
+          <IonImg
+            src={HostImg}
+            alt="HostImg"
+            className="phome-modal-host-img"
+          />
+          <p>{selected?.host_name}</p>
+        </div>
+        <div>
+          <p>
+            <span>Description:</span> {selected?.description || "NONE"}
+          </p>
+          <p>
+            <span>Venue:</span>
+            {selected?.venue}
+          </p>
+          <p>
+            <span>Date:</span>
+            {formatDateString(selected?.eventDate)}
+          </p>
+          <p>
+            <span>Time:</span> {formatTimeString(selected?.startTime!)} -
+            {formatTimeString(selected?.endTime!)}
+          </p>
+        </div>
+        <div className="phome-btn-container">
+          <IonButton expand="block" className="phome-register-btn">
+            Register
+          </IonButton>
+        </div>
+      </IonCardContent>
+    </IonCard>
   );
 };
 

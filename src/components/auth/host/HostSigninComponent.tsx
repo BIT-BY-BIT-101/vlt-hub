@@ -20,10 +20,16 @@ import Logo from "../../../assets/logo.png";
 import "./HostSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 
+type errorProps = {
+  message: string;
+  code: string;
+};
+
 const HostSigninComponent: React.FC = () => {
-  const { user, signIn, error } = useFirebaseAuth();
+  const { user, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<errorProps>();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,13 +42,23 @@ const HostSigninComponent: React.FC = () => {
       await signIn(email, password);
       localStorage.setItem("session", email);
       console.log("Your Signin Successfully with an email", user?.email);
-      // history.push("/participant/home");
-    } catch (err) {
-      console.log(error.message);
+    } catch (err: any) {
+      console.log("message: ", err.message);
+      console.log("code: ", err.code);
+      const errObj: errorProps = {
+        message: err.message,
+        code: err.code,
+      };
+      setError(errObj);
       setShowAlert(true);
     }
   };
-
+  const errorMessageMap: Record<string, string> = {
+    "auth/invalid-credential": "Invalid credentials. Please try again.",
+    "auth/wrong-password": "Wrong Password",
+    "auth/too-many-requests":
+      "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
+  };
   if (user) {
     return <Redirect to="/host/home" />;
   }
@@ -114,7 +130,7 @@ const HostSigninComponent: React.FC = () => {
               isOpen={showAlert}
               onDidDismiss={() => setShowAlert(false)}
               header="Authentication Error"
-              message="An Error Occurred"
+              message={errorMessageMap[error!?.code] || "An Error Occurred."}
               buttons={["Close"]}
             />
           </IonCardContent>

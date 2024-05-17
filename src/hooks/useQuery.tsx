@@ -5,6 +5,7 @@ import {
   getDocs,
   WhereFilterOp,
   FieldPath,
+  onSnapshot,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -21,6 +22,24 @@ const useQuery = (
   value: string
 ) => {
   const [data, setData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const colRef = collection(db, collectionPath);
+    const q = query(colRef, where(fieldPath, operatorStr, value));
+
+    const unsub = onSnapshot(q, (doc) => {
+      // const unsub = onSnapshot(collection(db, collectionPath), (doc) => {
+      const collectionData: any = [];
+      doc.forEach((doc) => {
+        collectionData.push({ id: doc.id, ...doc.data() });
+      });
+      setData(collectionData);
+      setIsLoading(false);
+      console.log("Data Refreshed");
+    });
+    return unsub;
+  }, []);
+
   async function queryData() {
     const colRef = collection(db, collectionPath);
 

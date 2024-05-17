@@ -1,24 +1,30 @@
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import React, { useState } from "react";
 import useFirebaseStorage from "./useFirestorage";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
+import { storage } from "../config/firebase";
 
 export type PhotoProps = {
   filepath?: string;
   dataUrl?: string;
 };
 
-const useCamera = () => {
+const usePhotoUpload = (path: string) => {
   const [photos, setPhotos] = useState<PhotoProps>();
   // const [photos, setPhotos] = useState<string>();
   const [error, setError] = useState();
   const [uploading, setUploading] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const [isUploading, setIsUploading] = useState<boolean>(true);
   async function takePhoto() {
     try {
       const photo = await Camera.getPhoto({
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Photos,
         allowEditing: false,
-        quality: 90,
+        quality: 70,
       });
       const fileName = Date.now() + ".jpeg";
       // const newPhotos = photo.dataUrl;
@@ -30,6 +36,19 @@ const useCamera = () => {
       setUploading(true);
       setPhotos(newPhotos);
 
+      const storageRef = ref(storage, path);
+      const imageRef = ref(storageRef, fileName);
+
+      const snapshot = await uploadString(
+        imageRef,
+        newPhotos?.dataUrl!,
+        "data_url"
+      );
+      console.log("Uploaded a blob or file! ", snapshot);
+      // Upload completed successfully, get download URL
+      const downloadUrl = await getDownloadURL(snapshot.ref);
+      setImageUrl(downloadUrl);
+
       console.log("Uploading image: ", newPhotos);
     } catch (err) {
       console.log("Error", err);
@@ -39,6 +58,7 @@ const useCamera = () => {
   }
 
   return {
+    imageUrl,
     photos,
     takePhoto,
     uploading,
@@ -46,4 +66,4 @@ const useCamera = () => {
   };
 };
 
-export default useCamera;
+export default usePhotoUpload;

@@ -1,0 +1,40 @@
+{
+    "restoreTerminals.terminals": [
+        {
+            "splitTerminals": [
+                {
+                    "name": "server",
+                    "commands": [
+                        "npm run dev"
+                    ]
+                },
+            ],
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "ngrok",
+                    "commands": [
+                        "ngrok http --domain=steady-hopelessly-grub.ngrok-free.app 8080"
+                    ]
+                },
+            ],
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "npm",
+                    "shouldRunCommands": false
+                },
+            ],
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "git",
+                    "shouldRunCommands": false
+                },
+            ]
+        }
+    ],
+}
