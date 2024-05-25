@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { auth, db, storage } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import {
-  setDoc,
-  doc,
-  collection,
-  getDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { setDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
 
 export type User = {
   uid: string;
@@ -36,18 +29,18 @@ const useFirebaseAuth = () => {
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
-    // const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
-    //   if (authUser) {
-    //     const userObj: User = {
-    //       uid: authUser?.uid!,
-    //       email: authUser?.email || "",
-    //     };
-    //     setUser(userObj);
-    //     setIsAuth(true);
-    //     console.log("User Data: ", userObj);
-    //     setLoading(false);
-    //   }
-    // });
+    //   const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
+    //     if (authUser) {
+    //       const userObj: User = {
+    //         uid: authUser?.uid!,
+    //         email: authUser?.email || "",
+    //       };
+    //       setUser(userObj);
+    //       setIsAuth(true);
+    //       console.log("User Data: ", userObj);
+    //       setLoading(false);
+    //     }
+    //   });
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         const userDoc = doc(db, "profiles", authUser?.uid!);

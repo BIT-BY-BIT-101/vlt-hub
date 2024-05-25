@@ -1,0 +1,29 @@
+.sent,
+.received {
+  color: white;
+  /* display: flex; */
+  /* width: auto; */
+  max-width: 50%;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.sent {
+  background-color: rgb(86, 86, 166);
+  margin-left: auto;
+}
+
+.received {
+  background-color: rgb(83, 80, 77);
+  float: left;
+}
+
+.message-style {
+  /* font-size: 40px; */
+  color: white;
+}
+
+.messagfe-bubble {
+  white-space: pre-line;
+}

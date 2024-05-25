@@ -6,6 +6,7 @@ import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { serverTimestamp } from "firebase/firestore";
 import {
   IonButton,
+  IonButtons,
   IonInput,
   IonItem,
   IonLabel,
@@ -19,48 +20,77 @@ type RouteParams = {
 };
 
 const ChatInput = () => {
-  const dummy = useRef();
   const { id } = useParams<RouteParams>();
-  const { user } = useFirebaseAuth();
-  const { data: messages } = useFirestore(`chats/${id}/messages`);
-  const { addData: newMessage } = useFirestore(`chats/${id}/message`);
+  // const { data: messages } = useFirestore(`chats/${id}/messages`);
+  const { addData: newMessage } = useFirestore(`chats/${id}/messages`);
   const { register, handleSubmit, reset } = useForm();
+  // const formValue = watch("message", "");
+  const latestMessageRef = useRef<HTMLIonContentElement | null>(null);
 
   const [formValue, setFormValue] = useState("");
 
-  const sendMessage = async () => {
+  const handleInputChange = (e: CustomEvent) => {
+    const value = (e.target as HTMLIonTextareaElement).value!;
+    setFormValue(value);
+  };
+
+  const sendMessage = async (data: any) => {
     // e.preventDefault();
 
     const messageToSend = {
       // message: formValue,
+      ...data,
       createdAt: serverTimestamp(),
       uid: auth.currentUser?.uid,
       status: "sent",
     };
 
-    console.log(formValue);
-
     await newMessage(messageToSend);
-    console.log(newMessage);
 
+    latestMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+
+    // reset();
     setFormValue("");
-    dummy?.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  const handleKeyPress = (
+    event: React.KeyboardEvent<HTMLIonTextareaElement>
+  ) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit(sendMessage)();
+    }
+  };
+  console.log(formValue);
   return (
     <div className="d-flex">
-      <IonItem className="textarea-item">
+      <IonItem
+        // className="textarea-item"
+        className=""
+      >
         <IonTextarea
           aria-label="message"
-          className="message-input"
+          // className="message-input"
+          className="form-input"
           // onIonChange={(e) => setFormValue(e.target.value!)}
           {...register("message")}
+          value={formValue}
+          onIonInput={handleInputChange}
+          onKeyPress={handleKeyPress}
         ></IonTextarea>
+        <IonButtons>
+          <IonButton
+            className="form-input"
+            // className="send-button"
+            onClick={handleSubmit(sendMessage)}
+            disabled={!formValue.trim()}
+          >
+            Send
+          </IonButton>
+        </IonButtons>
       </IonItem>
-      <IonItem className="button-item">
-        <IonButton className="send-button" onClick={handleSubmit(sendMessage)}>
-          Send
-        </IonButton>
-      </IonItem>
+      {/* <div ref={latestMessageRef}></div> */}
+      {/* <IonItem className="button-item"></IonItem> */}
     </div>
   );
 };

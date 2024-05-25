@@ -32,8 +32,8 @@ function CreateEvent() {
   const { data: venueData } = useQueryDoc("venues", id);
   // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
-  const { addData: createEvent } = useFirestore(`venues/${id}/events`);
-  // const { addData: createEvent } = useFirestore("events");
+  // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
+  const { addData: createEvent } = useFirestore("events");
   // const { photos, takePhoto, uploading, imageUrl } =
   //   usePhotoUpload("events/image");
   const { register, handleSubmit, reset } = useForm();

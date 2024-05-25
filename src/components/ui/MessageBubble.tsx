@@ -1,9 +1,12 @@
-import React from "react";
+import { auth } from "../../config/firebase";
+import { MessageModel } from "../../models/Model";
+import "./MessageBubble.css";
 
-const MessageBubble = () => {
+const MessageBubble: React.FC<{ data: MessageModel }> = ({ data }) => {
+  const messageClass = data.uid === auth.currentUser?.uid ? "sent" : "received";
   return (
-    <div>
-      <p>Lorem ipsum ipsum</p>
+    <div className={`message-bubble ${messageClass}`}>
+      <p className="message-style">{data.message}</p>
     </div>
   );
 };

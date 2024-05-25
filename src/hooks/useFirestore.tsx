@@ -55,6 +55,7 @@ const useFirestore = (collectionPath: string) => {
       });
 
       setData(collectionData);
+      console.log(collectionData);
     } catch (err) {
       console.error("Error fetching data:", err);
       setError(err);

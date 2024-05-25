@@ -5,6 +5,7 @@ import HostImg from "../../assets/host.jpg";
 import { EventDataModel } from "../../models/Model";
 import { useHistory } from "react-router";
 import useQuery from "../../hooks/useQuery";
+import useFirestore from "../../hooks/useFirestore";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;

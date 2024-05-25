@@ -1,15 +1,47 @@
 {
   "hosting": {
     "public": "dist",
-    "rewrites": [ {
-    "source": "**",
-    "destination": "/index.html"
-   } ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-    
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099,
+      "data": "./firebase-emulator-data/auth"
+    },
+    "firestore": {
+      "port": 8080,
+      "data": "./firebase-emulator-data/firestore"
+    },
+    "database": {
+      "port": 9000,
+      "data": "./firebase-emulator-data/database"
+    },
+    "storage": {
+      "port": 9199,
+      "data": "./firebase-emulator-data/storage"
+    },
+    "ui": {
+      "enabled": true,
+      "port": 8010
+    },
+    "singleProjectMode": true,
+
+    "importExport": {
+      "exportOnExit": true,
+      "importPath": "./firebase-emulator-data"
+    }
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

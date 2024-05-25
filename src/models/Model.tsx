@@ -37,6 +37,7 @@ export type VenueDataModel = {
 };
 
 export type MessageModel = {
+  id: string;
   message: string;
   createdAt: Date;
   uid: string;
