@@ -1,9 +1,6 @@
 import {
   IonButton,
   IonButtons,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonContent,
   IonHeader,
   IonMenuButton,
@@ -11,10 +8,8 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React from "react";
-import VenueCard from "../../components/cards/VenueCard";
+import VenueCard from "../../components/venue/VenueCard";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
-import "./../../components/cards/VenueCard.css";
 import "./VenueListPage.css";
 
 const VenueListPage = () => {

@@ -18,7 +18,7 @@
   width: 100%;
   align-items: center;
 }
-.item {
+.input-item {
   width: 100%;
   --ion-item-background: var(--ion-item-background);
   --border-color: var(--border-color);

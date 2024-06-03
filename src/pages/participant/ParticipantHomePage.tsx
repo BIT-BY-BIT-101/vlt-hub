@@ -26,7 +26,7 @@ import Logo from "../../assets/user.jpg";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import "./ParticipantHomePage.css";
-import EventsCard from "../../components/cards/EventsCard";
+import EventsCard from "../../components/participant/EventsCard";
 import EventsModal from "../../components/modals/EventsModal";
 import useFirebaseStorage from "../../hooks/useFirestorage";
 import useFirestore from "../../hooks/useFirestore";

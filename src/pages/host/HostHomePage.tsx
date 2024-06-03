@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostHomePage.css";
-import EventsCard from "../../components/cards/EventsCard";
+import EventsCard from "../../components/participant/EventsCard";
 
 const HostHomePage: React.FC = () => {
   // const [showModal, setShowModal] = useState(false);

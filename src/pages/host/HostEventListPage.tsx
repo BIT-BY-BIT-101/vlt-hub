@@ -7,10 +7,8 @@ import {
   IonContent,
   IonButton,
 } from "@ionic/react";
-import React from "react";
-import CreateEvent from "../../components/forms/CreateEvent";
 import HostNavMenu from "../../components/menus/HostNavMenu";
-import { UnpubEventCard } from "../../components/cards/UnpubEventCard";
+import { UnpubEventCard } from "../../components/host/UnpubEventCard";
 
 const HostEventListPage = () => {
   return (

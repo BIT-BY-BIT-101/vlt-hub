@@ -1,0 +1,12 @@
+.ct-card {
+  /* height: 100%; */
+  padding: 12px;
+  /* max-height: 4vb; */
+  /* width: 200px; */
+}
+
+.messeage-item {
+  height: 100%;
+  --ion-item-background: var(--ion-item-background);
+  --border-color: var(--border-color);
+}

@@ -15,7 +15,7 @@ import { EventDataModel } from "../../models/Model";
 import useQuery from "../../hooks/useQuery";
 import { formatDateString, formatTimeString } from "../../functions/functions";
 import defaultImage from "../../assets/defaultCover.jpg";
-import "../cards/UnpubEventCard.css";
+import "./UnpubEventCard.css";
 import useFirestore from "../../hooks/useFirestore";
 export const UnpubEventCard = () => {
   const [imageLoadError, setImageLoadError] = useState(false);

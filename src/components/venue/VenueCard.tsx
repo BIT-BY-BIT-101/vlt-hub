@@ -13,6 +13,7 @@ import {
 import React, { useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { VenueDataModel } from "../../models/Model";
+import "./VenueCard.css";
 
 const VenueCard = () => {
   const { data: venueData } = useFirestore("venues");

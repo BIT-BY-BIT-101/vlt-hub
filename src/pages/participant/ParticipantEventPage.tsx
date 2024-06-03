@@ -23,8 +23,17 @@ import HostImg2 from "../../assets/host2.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import "./ParticipantEventPage.css";
+import useFirestore from "../../hooks/useFirestore";
+import useQuery from "../../hooks/useQuery";
+import { auth } from "../../config/firebase";
 
 const ParticipantEventPage: React.FC = () => {
+  const { data: events } = useQuery(
+    "events",
+    "participants",
+    "array-contains",
+    auth.currentUser?.uid!
+  );
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
@@ -49,25 +58,25 @@ const ParticipantEventPage: React.FC = () => {
     setShowConfirmationModal(true);
   };
 
-  const events = [
-    {
-      date: "Wednesday, November 29, 2023",
-      title:
-        "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
-      hostname: "Abdul Rauf M. Sultan",
-      hostImg: HostImg,
-      venue: "Zoom",
-      time: "1:00PM - 3:00PM",
-    },
-    {
-      date: "Friday, December 1, 2023",
-      title: "#TechyThursdays - Introduction to Web 3.0",
-      hostname: "Jean Irish Mer",
-      hostImg: HostImg2,
-      venue: "Zoom",
-      time: "3:00PM - 5:00PM",
-    },
-  ];
+  // const events = [
+  //   {
+  //     date: "Wednesday, November 29, 2023",
+  //     title:
+  //       "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
+  //     hostname: "Abdul Rauf M. Sultan",
+  //     hostImg: HostImg,
+  //     venue: "Zoom",
+  //     time: "1:00PM - 3:00PM",
+  //   },
+  //   {
+  //     date: "Friday, December 1, 2023",
+  //     title: "#TechyThursdays - Introduction to Web 3.0",
+  //     hostname: "Jean Irish Mer",
+  //     hostImg: HostImg2,
+  //     venue: "Zoom",
+  //     time: "3:00PM - 5:00PM",
+  //   },
+  // ];
 
   const filteredEvents = searchText
     ? events.filter((event) =>
@@ -113,10 +122,10 @@ const ParticipantEventPage: React.FC = () => {
                   <div className="pevent-host-info">
                     <img
                       src={event.hostImg}
-                      alt={`Host: ${event.hostname}`}
+                      alt={`Host: ${event.host_name}`}
                       className="pevent-host-img"
                     />
-                    <div className="pevent-host-name">{event.hostname}</div>
+                    <div className="pevent-host-name">{event.host_name}</div>
                   </div>
                   <div className="pevent-venue">
                     <span>Venue: </span>

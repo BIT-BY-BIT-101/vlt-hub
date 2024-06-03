@@ -6,6 +6,7 @@ import { EventDataModel } from "../../models/Model";
 import { useHistory } from "react-router";
 import useQuery from "../../hooks/useQuery";
 import useFirestore from "../../hooks/useFirestore";
+import EventsModal from "../modals/EventsModal";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
@@ -19,8 +20,8 @@ const EventsCard = () => {
   const [selected, setSelected] = useState({});
   const history = useHistory();
 
-  // const openModal = () => setShowModal(true);
-  // const closeModal = () => setShowModal(false);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   function formatDateString(originalDateString: string) {
     const dateObject = new Date(originalDateString);
@@ -48,14 +49,14 @@ const EventsCard = () => {
           key={event.id}
           className="phome-event-card"
           // onClick={openModal}
-          onClick={() => history.push(`/participant/event/details/${event.id}`)}
-          // onClick={() => {
-          //   setShowModal(true);
-          //   setSelected(event);
-          // }}
+          // onClick={() => history.push(`/participant/event/details/${event.id}`)}
+          onClick={() => {
+            setShowModal(true);
+            setSelected(event);
+          }}
         >
           <IonImg
-            src={event.image ? event.image : Default}
+            src={event.imgUrl ? event.imgUrl : Default}
             alt={event.title}
             className="phome-event-image"
           />
@@ -99,11 +100,11 @@ const EventsCard = () => {
           </IonLabel>
         </IonCard>
       ))}
-      {/* <EventsModal
+      <EventsModal
         isOpen={showModal}
         onDidDismiss={closeModal}
         selected={selected}
-      /> */}
+      />
     </>
   );
 };

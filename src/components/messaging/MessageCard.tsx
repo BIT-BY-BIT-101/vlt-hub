@@ -1,7 +1,4 @@
 import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
   IonContent,
   IonFooter,
   IonHeader,
@@ -11,9 +8,8 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useEffect, useRef, useState } from "react";
-import MessageBubble from "../ui/MessageBubble";
-import useFirestore from "../../hooks/useFirestore";
+import { useEffect, useRef, useState } from "react";
+import MessageBubble from "./MessageBubble";
 import { MessageModel } from "../../models/Model";
 import { useParams } from "react-router-dom";
 import {
@@ -170,18 +166,19 @@ const MessageCard = () => {
         {/* <IonCard className="ct-card">
         <IonCardHeader>Chat</IonCardHeader>
       <IonCardContent> */}
-        {messages?.map((message: MessageModel) => (
-          <IonItem key={message.id}>
-            <MessageBubble data={message} />
-            <div ref={latestMessageRef}></div>
-          </IonItem>
-        ))}
+        <div className="message-item">
+          {messages?.map((message: MessageModel) => (
+            <IonItem key={message.id} className="messeage-item">
+              <MessageBubble data={message} />
+              <div ref={latestMessageRef}></div>
+            </IonItem>
+          ))}
+        </div>
         {/* <div ref={scrollToBottom}></div> */}
 
         {/* </IonCardContent>
       </IonCard> */}
       </IonContent>
-      <IonFooter>Hello</IonFooter>
     </>
   );
 };

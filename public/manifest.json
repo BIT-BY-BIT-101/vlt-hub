@@ -1,21 +1,21 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "name": "VLT-Hub",
+  "short_name": "vlt-hub",
+  "start_url": "/",
+  "background_color": "#6777ef",
+  "description": "VLT-Hub",
+  "display": "standalone",
+  "theme_color": "#6777ef",
   "icons": [
     {
-      "src": "assets/icon/favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/icon/icon.png",
-      "type": "image/png",
+      "src": "logo.png",
       "sizes": "512x512",
-      "purpose": "maskable"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff"
+  "scope": "/",
+  "dir": "ltr",
+  "id": "54dasd4das",
+  "orientation": "any"
 }

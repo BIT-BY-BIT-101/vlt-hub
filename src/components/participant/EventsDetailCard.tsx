@@ -1,29 +1,31 @@
 import {
-  IonHeader,
-  IonToolbar,
-  IonButtons,
   IonButton,
-  IonIcon,
-  IonContent,
   IonImg,
-  IonTitle,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
 } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { formatDateString, formatTimeString } from "../../functions/functions";
 import { useParams } from "react-router";
 import { EventDataModel } from "../../models/Model";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { arrayUnion, doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../config/firebase";
 import HostImg from "../../assets/host.jpg";
+import useFirestore from "../../hooks/useFirestore";
+
+type RouteParams = {
+  id: string;
+};
 
 const EventsDetailCard = () => {
   const [selected, setSelected] = useState<any>({});
-  const { id } = useParams<EventDataModel>();
+  const { id } = useParams<RouteParams>();
+  // const { id } = useParams<EventDataModel>();
+  const { updateData: updateEnrolled } = useFirestore("profiles");
+  const { updateData: updateParticipants } = useFirestore("events");
+  const { addData } = useFirestore("event_enrolled");
 
   async function getData() {
     const docRef = doc(db, `events/${id}`);
@@ -42,6 +44,24 @@ const EventsDetailCard = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  const handleRegister = async () => {
+    const userId = auth.currentUser?.uid!;
+    const newData = {
+      host_id: selected?.host_id,
+      user_id: userId,
+      event_id: id,
+    };
+    await addData(newData);
+    console.log(newData);
+
+    await updateParticipants(id, {
+      participants: arrayUnion(userId),
+    });
+    await updateEnrolled(userId, {
+      registered_events: arrayUnion(id),
+    });
+  };
 
   return (
     <IonCard>
@@ -65,23 +85,29 @@ const EventsDetailCard = () => {
         </div>
         <div>
           <p>
-            <span>Description:</span> {selected?.description || "NONE"}
+            <span className="labels">Description:</span>{" "}
+            {selected?.description || "NONE"}
           </p>
           <p>
-            <span>Venue:</span>
+            <span className="labels">Venue:</span>
             {selected?.venue}
           </p>
           <p>
-            <span>Date:</span>
+            <span className="labels">Date:</span>
             {formatDateString(selected?.eventDate)}
           </p>
           <p>
-            <span>Time:</span> {formatTimeString(selected?.startTime!)} -
+            <span className="labels">Time:</span>{" "}
+            {formatTimeString(selected?.startTime!)} -
             {formatTimeString(selected?.endTime!)}
           </p>
         </div>
         <div className="phome-btn-container">
-          <IonButton expand="block" className="phome-register-btn">
+          <IonButton
+            expand="block"
+            className="phome-register-btn"
+            onClick={handleRegister}
+          >
             Register
           </IonButton>
         </div>

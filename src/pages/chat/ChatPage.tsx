@@ -1,6 +1,5 @@
-import React from "react";
-import ChatInput from "../../components/forms/ChatInput";
-import MessageCard from "../../components/cards/MessageCard";
+import ChatInput from "../../components/messaging/ChatInput";
+import MessageCard from "../../components/messaging/MessageCard";
 import { IonPage } from "@ionic/react";
 
 export const ChatPage = () => {

@@ -19,7 +19,6 @@ import {
 import { closeCircle } from "ionicons/icons";
 import React, { useState } from "react";
 import HostImg from "../../assets/host.jpg";
-import HostImg2 from "../../assets/host2.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostEventPage.css";

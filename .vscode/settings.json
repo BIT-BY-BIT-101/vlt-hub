@@ -23,17 +23,6 @@
         {
             "splitTerminals": [
                 {
-                    "name": "emulator server",
-                    "commands": [
-                        "firebase emulators:start"
-                    ],
-                    "shouldRunCommands": false
-                },
-            ],
-        },
-        {
-            "splitTerminals": [
-                {
                     "name": "npm",
                     "shouldRunCommands": false
                 },

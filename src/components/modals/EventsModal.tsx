@@ -13,6 +13,9 @@ import React from "react";
 import HostImg from "../../assets/defaultCover.jpg";
 import { EventDataModel } from "../../models/Model";
 import { formatTimeString } from "../../functions/functions";
+import { arrayUnion } from "firebase/firestore";
+import { auth } from "../../config/firebase";
+import useFirestore from "../../hooks/useFirestore";
 
 type EventModalProps = {
   isOpen: boolean;
@@ -21,6 +24,27 @@ type EventModalProps = {
 };
 
 const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
+  const { updateData: updateEnrolled } = useFirestore("profiles");
+  const { updateData: updateParticipants } = useFirestore("events");
+  const { addData } = useFirestore("event_enrolled");
+
+  const handleRegister = async () => {
+    const userId = auth.currentUser?.uid!;
+    const newData = {
+      host_id: selected?.host_id,
+      user_id: userId,
+      event_id: selected?.id,
+    };
+    await addData(newData);
+    console.log(newData);
+
+    await updateParticipants(selected?.id!, {
+      participants: arrayUnion(userId),
+    });
+    await updateEnrolled(userId, {
+      registered_events: arrayUnion(selected?.id),
+    });
+  };
   return (
     <IonModal
       isOpen={isOpen}
@@ -73,7 +97,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
           <IonButton
             expand="block"
             className="phome-register-btn"
-            onClick={() => {}}
+            onClick={handleRegister}
           >
             Register
           </IonButton>

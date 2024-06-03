@@ -12,29 +12,38 @@
   "emulators": {
     "auth": {
       "port": 9099,
-      "data": "./firebase-emulator-data/auth"
+      "data": "./firebase-emulator-data/auth",
+      "expoert": true
     },
     "firestore": {
       "port": 8080,
-      "data": "./firebase-emulator-data/firestore"
+      "data": "./firebase-emulator-data/firestore",
+      "expoert": true
     },
     "database": {
       "port": 9000,
-      "data": "./firebase-emulator-data/database"
+      "data": "./firebase-emulator-data/database",
+      "expoert": true
     },
     "storage": {
       "port": 9199,
-      "data": "./firebase-emulator-data/storage"
+      "data": "./firebase-emulator-data/storage",
+      "expoert": true
     },
     "ui": {
       "enabled": true,
       "port": 8010
     },
     "singleProjectMode": true,
-
     "importExport": {
       "exportOnExit": true,
       "importPath": "./firebase-emulator-data"
+    },
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 5000
     }
   },
   "storage": {

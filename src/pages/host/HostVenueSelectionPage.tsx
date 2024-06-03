@@ -12,8 +12,8 @@ import {
 import React from "react";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import { useHistory } from "react-router";
-import VenueCard from "../../components/cards/VenueCard";
-import VenueSelectionCard from "../../components/cards/VenueSelectionCard";
+import VenueCard from "../../components/venue/VenueCard";
+import VenueSelectionCard from "../../components/venue/VenueSelectionCard";
 
 const HostVenueSelectionPage = () => {
   const history = useHistory();

@@ -1,29 +1,14 @@
 import {
   IonButton,
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
   IonContent,
   IonHeader,
-  IonIcon,
-  IonImg,
-  IonMenuButton,
-  IonModal,
   IonPage,
-  IonSearchbar,
-  IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
-import React, { useState } from "react";
-import HostImg from "../../assets/host.jpg";
-import HostImg2 from "../../assets/host2.jpg";
-import MetaSafety from "../../assets/metasafety.jpg";
-import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
+import React from "react";
 import "./ParticipantEventPage.css";
-import EventsDetailCard from "../../components/cards/EventsDetailCard";
+import EventsDetailCard from "../../components/participant/EventsDetailCard";
 import { useHistory } from "react-router";
 
 const ParticipantEventDetailPage: React.FC = () => {
@@ -34,9 +19,16 @@ const ParticipantEventDetailPage: React.FC = () => {
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonButtons slot="start" onClick={history.goBack}>
-              Back
-            </IonButtons>
+            <div className="back-button">
+              <IonButton
+                color={"dark"}
+                fill="clear"
+                slot="start"
+                onClick={history.goBack}
+              >
+                Back
+              </IonButton>
+            </div>
           </IonToolbar>
         </IonHeader>
         <IonContent>

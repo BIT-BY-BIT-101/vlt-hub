@@ -64,10 +64,7 @@ const ChatInput = () => {
   console.log(formValue);
   return (
     <div className="d-flex">
-      <IonItem
-        // className="textarea-item"
-        className=""
-      >
+      <IonItem className="input-item">
         <IonTextarea
           aria-label="message"
           // className="message-input"
