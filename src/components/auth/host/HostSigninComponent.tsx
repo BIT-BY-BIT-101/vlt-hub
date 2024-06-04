@@ -55,6 +55,7 @@ const HostSigninComponent: React.FC = () => {
   };
   const errorMessageMap: Record<string, string> = {
     "auth/invalid-credential": "Invalid credentials. Please try again.",
+    "auth/invalid-email": "Invalid email. Please try again with a valid email.",
     "auth/wrong-password": "Wrong Password",
     "auth/too-many-requests":
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed

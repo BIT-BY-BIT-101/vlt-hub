@@ -17,7 +17,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HostImg from "../../assets/host.jpg";
 import HostImg2 from "../../assets/host2.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
@@ -25,7 +25,10 @@ import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import "./ParticipantEventPage.css";
 import useFirestore from "../../hooks/useFirestore";
 import useQuery from "../../hooks/useQuery";
-import { auth } from "../../config/firebase";
+import { auth, db } from "../../config/firebase";
+import { EventDataModel } from "../../models/Model";
+import { formatDateString, formatTimeString } from "../../functions/functions";
+import { doc, getDoc } from "firebase/firestore";
 
 const ParticipantEventPage: React.FC = () => {
   const { data: events } = useQuery(
@@ -111,7 +114,7 @@ const ParticipantEventPage: React.FC = () => {
             placeholder="Search events"
             onIonChange={handleSearchChange}
           ></IonSearchbar>
-          {filteredEvents.map((event, index) => (
+          {filteredEvents.map((event: EventDataModel, index) => (
             <React.Fragment key={index}>
               <h1 className="pevent-date">{event.date}</h1>
               <IonCard className="pevent-card">
@@ -133,7 +136,8 @@ const ParticipantEventPage: React.FC = () => {
                   </div>
                   <div className="pevent-time">
                     <span>Time: </span>
-                    {event.time}
+                    {formatTimeString(event.startTime)} -{" "}
+                    {formatTimeString(event.endTime)}
                   </div>
                   <div className="peventcard-btn">
                     <IonButton
@@ -187,7 +191,7 @@ const ParticipantEventPage: React.FC = () => {
                   </div>
                   {showPoster && (
                     <IonImg
-                      src={MetaSafety}
+                      src={selectedEvent.imgUrl}
                       alt="Poster"
                       className="pevent-poster-img"
                     />
@@ -200,20 +204,17 @@ const ParticipantEventPage: React.FC = () => {
                       alt="Abdul Rauf M. Sultan"
                       className="pevent-modal-host-img"
                     />
-                    <p className="pevent-modal-host">Abdul Rauf M. Sultan</p>
+                    <p className="pevent-modal-host">
+                      {selectedEvent.host_name}
+                    </p>
                   </div>
                   <div className="pevent-modal-details">
                     <p>
-                      <span>Description:</span> This course is designed to help
-                      you master the fundamentals of Visual C# programming. It
-                      is intended for absolute beginners with no prior
-                      programming experience. The course focuses on the
-                      fundamentals of Visual C# programming and covers the
-                      following topics: Visual C# language syntax, program
-                      structure, and implementation details.
+                      <span>Description:</span> {selectedEvent.description}
                     </p>
                     <p className="pevent-modal-date">
-                      <span>Date:</span> {selectedEvent.date}
+                      <span>Date:</span>
+                      {formatDateString(selectedEvent.eventDate)}
                     </p>
                     <p>
                       <span>Host:</span> {selectedEvent.hostname}
@@ -222,7 +223,9 @@ const ParticipantEventPage: React.FC = () => {
                       <span>Venue:</span> {selectedEvent.venue}
                     </p>
                     <p>
-                      <span>Time:</span> {selectedEvent.time}
+                      <span>Time:</span>{" "}
+                      {formatTimeString(selectedEvent.startTime)}{" "}
+                      {formatTimeString(selectedEvent.endTime)}
                     </p>
                   </div>
                 </div>
