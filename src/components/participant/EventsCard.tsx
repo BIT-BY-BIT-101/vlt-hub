@@ -1,4 +1,4 @@
-import { IonCard, IonImg, IonLabel } from "@ionic/react";
+import { IonCard, IonCol, IonImg, IonLabel } from "@ionic/react";
 import { useState } from "react";
 import Default from "../../assets/defaultCover.jpg";
 import HostImg from "../../assets/host.jpg";
@@ -45,6 +45,7 @@ const EventsCard = () => {
   return (
     <>
       {data.map((event: EventDataModel) => (
+        // <IonCol size="12" size-sm="3">
         <IonCard
           key={event.id}
           className="phome-event-card"
@@ -99,6 +100,7 @@ const EventsCard = () => {
             </IonLabel>
           </IonLabel>
         </IonCard>
+        // </IonCol>
       ))}
       <EventsModal
         isOpen={showModal}

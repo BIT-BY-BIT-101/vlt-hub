@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -20,7 +21,7 @@ import useFirestore from "../../hooks/useFirestore";
 export const UnpubEventCard = () => {
   const [imageLoadError, setImageLoadError] = useState(false);
   const { data: events } = useQuery("events", "status", "==", "unpublished");
-  // const { data: events } = useFirestore("events");
+  const { updateData: updateStatus } = useFirestore("events");
   console.log(events);
 
   const handleImageError = () => {
@@ -28,6 +29,12 @@ export const UnpubEventCard = () => {
     if (imageLoadError) {
       console.log("Error loading the image");
     }
+  };
+
+  const handlePublishBtn = async (data) => {
+    await updateStatus(data.id!, {
+      status: "published",
+    });
   };
 
   return (
@@ -81,6 +88,12 @@ export const UnpubEventCard = () => {
                     </strong>
                   </IonItem>
                 </IonCardContent>
+                <IonButton
+                  className="publish-btn"
+                  onClick={() => handlePublishBtn(event)}
+                >
+                  Published
+                </IonButton>
               </IonCard>
             </IonCol>
           ))

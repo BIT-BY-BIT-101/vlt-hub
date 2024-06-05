@@ -1,9 +1,11 @@
 import {
   IonButtons,
   IonContent,
+  IonGrid,
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -33,7 +35,11 @@ const HostHomePage: React.FC = () => {
         </IonHeader>
         <IonContent id="main">
           <div className="hhome-cards-container">
+            {/* <IonGrid>
+              <IonRow> */}
             <EventsCard />
+            {/* </IonRow>
+            </IonGrid> */}
           </div>
         </IonContent>
       </IonPage>
