@@ -16,6 +16,8 @@ import { formatTimeString } from "../../functions/functions";
 import { arrayUnion } from "firebase/firestore";
 import { auth } from "../../config/firebase";
 import useFirestore from "../../hooks/useFirestore";
+import paymongo from "../../config/paymongo";
+import { useHistory } from "react-router-dom";
 
 type EventModalProps = {
   isOpen: boolean;
@@ -27,6 +29,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
   const { updateData: updateEnrolled } = useFirestore("profiles");
   const { updateData: updateParticipants } = useFirestore("events");
   const { addData } = useFirestore("event_enrolled");
+  const { addData: addPayment } = useFirestore("payments");
+  const history = useHistory();
 
   const handleRegister = async () => {
     const userId = auth.currentUser?.uid!;
@@ -44,6 +48,45 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
     await updateEnrolled(userId, {
       registered_events: arrayUnion(selected?.id),
     });
+  };
+
+  const payload = {
+    data: {
+      attributes: {
+        send_email_receipt: true,
+        show_description: true,
+        show_line_items: true,
+        cancel_url: "http://localhost:8100",
+        line_items: [
+          {
+            currency: "PHP",
+            images: [selected?.imgUrl],
+            amount: selected?.event_fee,
+            description: selected?.title,
+            name: selected?.title,
+            quantity: 1,
+          },
+        ],
+        description: selected?.title,
+        payment_method_types: ["gcash", "card"],
+        reference_number: "n45a4s",
+        success_url: "http://localhost:8100",
+      },
+    },
+  };
+
+  const handleCheckout = async () => {
+    paymongo
+      .post(`/checkout_sessions`, payload)
+      .then((res) => {
+        // const checkoutId = res;
+        console.log(res.data);
+        // addPayment(res.data.data.id);
+        window.location.href = res.data.data.attributes.checkout_url;
+      })
+      .catch((err) => {
+        console.log("messeges: ", err.response.data.errors);
+      });
   };
   return (
     <IonModal
@@ -97,9 +140,9 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
           <IonButton
             expand="block"
             className="phome-register-btn"
-            onClick={handleRegister}
+            onClick={selected?.event_fee ? handleCheckout : handleRegister}
           >
-            Register
+            {selected?.event_fee ? "Pay Now" : "Register"}
           </IonButton>
         </div>
       </IonContent>

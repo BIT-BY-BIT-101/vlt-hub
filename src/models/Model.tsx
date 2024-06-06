@@ -11,6 +11,7 @@ export type EventDataModel = {
   status: string;
   venue: string;
   host_name: string;
+  event_fee: number;
 };
 
 export type UserDataModel = {

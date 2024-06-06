@@ -7,6 +7,11 @@ import { useHistory } from "react-router";
 import useQuery from "../../hooks/useQuery";
 import useFirestore from "../../hooks/useFirestore";
 import EventsModal from "../modals/EventsModal";
+import {
+  convertToCurrency,
+  formatDateString,
+  formatTimeString,
+} from "../../functions/functions";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
@@ -23,24 +28,24 @@ const EventsCard = () => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  function formatDateString(originalDateString: string) {
-    const dateObject = new Date(originalDateString);
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return dateObject.toLocaleDateString("en-US", options);
-  }
+  // function formatDateString(originalDateString: string) {
+  //   const dateObject = new Date(originalDateString);
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   };
+  //   return dateObject.toLocaleDateString("en-US", options);
+  // }
 
-  function formatTimeString(originalTimeString: string) {
-    const timeObject = new Date(originalTimeString);
-    const options: Intl.DateTimeFormatOptions = {
-      hour: "numeric",
-      minute: "numeric",
-    };
-    return timeObject.toLocaleTimeString("en-US", options);
-  }
+  // function formatTimeString(originalTimeString: string) {
+  //   const timeObject = new Date(originalTimeString);
+  //   const options: Intl.DateTimeFormatOptions = {
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //   };
+  //   return timeObject.toLocaleTimeString("en-US", options);
+  // }
 
   return (
     <>
@@ -96,7 +101,14 @@ const EventsCard = () => {
                 <span>Time:</span> {formatTimeString(event.startTime)} -{" "}
                 {formatTimeString(event.endTime)}
               </p>
-              <p className="phome-event-free">Free</p>
+              {/* <p className="phome-event-free">Free</p> */}
+              <p
+                className={
+                  event.event_fee ? "phome-event-paid" : "phome-event-free"
+                }
+              >
+                {event.event_fee ? convertToCurrency(event.event_fee) : "Free"}
+              </p>
             </IonLabel>
           </IonLabel>
         </IonCard>
