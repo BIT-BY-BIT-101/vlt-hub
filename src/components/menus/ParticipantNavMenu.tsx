@@ -10,6 +10,7 @@ import {
   IonList,
   IonMenu,
   IonMenuButton,
+  IonSearchbar,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -18,8 +19,8 @@ import React, { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import LogoutModal from "../modals/LogoutModal";
 import useFirestore from "../../hooks/useFirestore";
+import LogoutModal from "../modals/LogoutModal";
 
 function ParticipantNavMenu() {
   const { signOut, userData } = useFirebaseAuth();

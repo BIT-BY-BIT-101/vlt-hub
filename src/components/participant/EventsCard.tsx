@@ -1,17 +1,17 @@
 import { IonCard, IonCol, IonImg, IonLabel } from "@ionic/react";
 import { useState } from "react";
+import { useHistory } from "react-router";
 import Default from "../../assets/defaultCover.jpg";
 import HostImg from "../../assets/host.jpg";
-import { EventDataModel } from "../../models/Model";
-import { useHistory } from "react-router";
-import useQuery from "../../hooks/useQuery";
-import useFirestore from "../../hooks/useFirestore";
-import EventsModal from "../modals/EventsModal";
 import {
   convertToCurrency,
   formatDateString,
   formatTimeString,
 } from "../../functions/functions";
+import useFirestore from "../../hooks/useFirestore";
+import useQuery from "../../hooks/useQuery";
+import { EventDataModel } from "../../models/Model";
+import EventsModal from "../modals/EventsModal";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
@@ -69,24 +69,26 @@ const EventsCard = () => {
           <IonLabel>
             <h2
               className="phome-event-title"
-              style={{
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 2,
-                lineHeight: "20px",
-                maxHeight: "40px",
-              }}
+              style={
+                {
+                  // overflow: "hidden",
+                  // textOverflow: "ellipsis",
+                  // display: "-webkit-box",
+                  // WebkitBoxOrient: "vertical",
+                  // WebkitLineClamp: 2,
+                  // lineHeight: "20px",
+                  // maxHeight: "40px",
+                }
+              }
             >
               {event.title}
             </h2>
             <div className="phome-event-host-container">
-              <IonImg
+              {/* <IonImg
                 src={HostImg}
                 alt="Abdul Rauf M. Sultan"
                 className="phome-event-host-img"
-              />
+              /> */}
               <p className="phome-event-host">{event.host_name}</p>
             </div>
             <IonLabel className="phome-event-details">
