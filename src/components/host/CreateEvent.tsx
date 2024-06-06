@@ -225,7 +225,7 @@ function CreateEvent() {
           type="text"
           required
           {...register("description")}
-        /> */}
+          /> */}
         <IonTextarea
           className="hhome-form-input"
           autoGrow={true}
@@ -234,17 +234,27 @@ function CreateEvent() {
         />
       </IonLabel>
 
+      <IonLabel className="hhome-form-label">
+        <span className="hhome-form-title">Fee:</span>
+        <IonInput
+          className="hhome-form-input"
+          type="number"
+          required
+          {...register("event_fee")}
+        />
+      </IonLabel>
+
       {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Venue Format:</span>
         <IonSelect
-          interfaceOptions={customVenueFormatOptions}
-          interface="alert"
-          placeholder="Select venue type"
-          value={venue}
-          {...register("venueType")}
-          onIonChange={handleVenueChange}
+        interfaceOptions={customVenueFormatOptions}
+        interface="alert"
+        placeholder="Select venue type"
+        value={venue}
+        {...register("venueType")}
+        onIonChange={handleVenueChange}
         >
-          <IonSelectOption value="online">Online</IonSelectOption>
+        <IonSelectOption value="online">Online</IonSelectOption>
           <IonSelectOption value="on-site">On Site</IonSelectOption>
         </IonSelect>
       </IonLabel>

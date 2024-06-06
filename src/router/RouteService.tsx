@@ -34,6 +34,7 @@ import ConferenceForm from "../pages/Tests/TestPage";
 import Forms from "../components/experiment/Forms";
 import PageNotFound from "../pages/error_pages/PageNotFound";
 import { ChatPage } from "../pages/chat/ChatPage";
+import SuccessPage from "../pages/payment/SuccessPage";
 
 const RouteService = () => {
   return (
@@ -231,6 +232,16 @@ const RouteService = () => {
           component={ChatPage}
           redirected="/host/signin"
         />
+
+        {/* Payments */}
+        <ProtectedRoute
+          path="/payments/:id/success"
+          allowedRoles={"participant"}
+          component={SuccessPage}
+          redirected="/participant/signin"
+        />
+
+        {/* <Route path="*" component={PageNotFound} /> */}
       </IonRouterOutlet>
     </IonReactRouter>
   );

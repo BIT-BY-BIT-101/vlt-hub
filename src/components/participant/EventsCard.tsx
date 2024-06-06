@@ -50,71 +50,76 @@ const EventsCard = () => {
   return (
     <>
       {data.map((event: EventDataModel) => (
-        // <IonCol size="12" size-sm="3">
-        <IonCard
+        <IonCol
+          size="10"
+          size-sm="4"
           key={event.id}
-          className="phome-event-card"
-          // onClick={openModal}
-          // onClick={() => history.push(`/participant/event/details/${event.id}`)}
-          onClick={() => {
-            setShowModal(true);
-            setSelected(event);
-          }}
+          className="phome-event-col"
         >
-          <IonImg
-            src={event.imgUrl ? event.imgUrl : Default}
-            alt={event.title}
-            className="phome-event-image"
-          />
-          <IonLabel>
-            <h2
-              className="phome-event-title"
-              style={
-                {
-                  // overflow: "hidden",
-                  // textOverflow: "ellipsis",
-                  // display: "-webkit-box",
-                  // WebkitBoxOrient: "vertical",
-                  // WebkitLineClamp: 2,
-                  // lineHeight: "20px",
-                  // maxHeight: "40px",
+          <IonCard
+            className="phome-event-card"
+            // onClick={openModal}
+            // onClick={() => history.push(`/participant/event/details/${event.id}`)}
+            onClick={() => {
+              setShowModal(true);
+              setSelected(event);
+            }}
+          >
+            <IonImg
+              src={event.imgUrl ? event.imgUrl : Default}
+              alt={event.title}
+              // className="phome-event-image"
+              className="cover-img"
+            />
+            <IonLabel>
+              <h2
+                className="phome-event-title"
+                style={
+                  {
+                    // overflow: "hidden",
+                    // textOverflow: "ellipsis",
+                    // display: "-webkit-box",
+                    // WebkitBoxOrient: "vertical",
+                    // WebkitLineClamp: 2,
+                    // lineHeight: "20px",
+                    // maxHeight: "40px",
+                  }
                 }
-              }
-            >
-              {event.title}
-            </h2>
-            <div className="phome-event-host-container">
-              {/* <IonImg
+              >
+                {event.title}
+              </h2>
+              <div className="phome-event-host-container">
+                {/* <IonImg
                 src={HostImg}
                 alt="Abdul Rauf M. Sultan"
                 className="phome-event-host-img"
               /> */}
-              <p className="phome-event-host">{event.host_name}</p>
-            </div>
-            <IonLabel className="phome-event-details">
-              <p>
-                <span>Venue:</span> {event.venue}
-              </p>
-              <p>
-                <span>Date:</span>
-                {formatDateString(event.eventDate)}
-              </p>
-              <p>
-                <span>Time:</span> {formatTimeString(event.startTime)} -{" "}
-                {formatTimeString(event.endTime)}
-              </p>
-              {/* <p className="phome-event-free">Free</p> */}
-              <p
-                className={
-                  event.event_fee ? "phome-event-paid" : "phome-event-free"
-                }
-              >
-                {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
-              </p>
+                <p className="phome-event-host">{event.host_name}</p>
+              </div>
+              <IonLabel className="phome-event-details">
+                <p>
+                  <span>Venue:</span> {event.venue}
+                </p>
+                <p>
+                  <span>Date:</span>
+                  {formatDateString(event.eventDate)}
+                </p>
+                <p>
+                  <span>Time:</span> {formatTimeString(event.startTime)} -{" "}
+                  {formatTimeString(event.endTime)}
+                </p>
+                {/* <p className="phome-event-free">Free</p> */}
+                <p
+                  className={
+                    event.event_fee ? "phome-event-paid" : "phome-event-free"
+                  }
+                >
+                  {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
+                </p>
+              </IonLabel>
             </IonLabel>
-          </IonLabel>
-        </IonCard>
-        // </IonCol>
+          </IonCard>
+        </IonCol>
       ))}
       <EventsModal
         isOpen={showModal}

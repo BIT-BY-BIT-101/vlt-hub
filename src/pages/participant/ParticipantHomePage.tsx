@@ -3,6 +3,7 @@ import {
   IonButtons,
   IonCard,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
@@ -13,6 +14,7 @@ import {
   IonMenuButton,
   IonModal,
   IonPage,
+  IonRow,
   IonSearchbar,
   IonTitle,
   IonToolbar,
@@ -71,8 +73,14 @@ const ParticipantHomePage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent id="phome-main">
-          <div className="phome-cards-container">
-            <EventsCard />
+          <div
+          // className="phome-cards-container"
+          >
+            <IonGrid>
+              <IonRow>
+                <EventsCard />
+              </IonRow>
+            </IonGrid>
           </div>
         </IonContent>
       </IonPage>

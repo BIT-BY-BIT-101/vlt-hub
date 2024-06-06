@@ -94,6 +94,7 @@ export const UnpubEventCard = () => {
                 >
                   Published
                 </IonButton>
+                <IonButton className="publish-btn">Chat</IonButton>
               </IonCard>
             </IonCol>
           ))

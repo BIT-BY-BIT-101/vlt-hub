@@ -32,8 +32,9 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
   const { addData: addPayment } = useFirestore("payments");
   const history = useHistory();
 
+  const userId = auth.currentUser?.uid!;
+
   const handleRegister = async () => {
-    const userId = auth.currentUser?.uid!;
     const newData = {
       host_id: selected?.host_id,
       user_id: userId,
@@ -70,7 +71,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         description: selected?.title,
         payment_method_types: ["gcash", "card", "paymaya"],
         reference_number: "n45a4s",
-        success_url: "http://localhost:8080/participant/",
+        success_url: `http://localhost:8080/payments/${selected?.id}/success`,
       },
     },
   };
@@ -80,8 +81,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
       .post(`/checkout_sessions`, payload)
       .then((res) => {
         // const checkoutId = res;
-        console.log(res.data);
-        console.log(res.data.data.id);
+        // console.log(res.data);
+        // console.log(res.data.data.id);
 
         const paymentDetails = {
           amount: selected?.event_fee!,
@@ -92,7 +93,11 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         };
 
         addPayment(paymentDetails);
-        // window.location.href = res.data.data.attributes.checkout_url;
+        window.location.href = res.data.data.attributes.checkout_url;
+
+        // updateEnrolled(userId, {
+        //   registered_events: arrayUnion(selected?.id),
+        // });
       })
       .catch((err) => {
         console.log("messeges: ", err.response.data.errors);
