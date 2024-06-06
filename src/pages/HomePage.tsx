@@ -4,17 +4,23 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
+  IonIcon,
   IonItem,
   IonList,
   IonMenu,
   IonMenuButton,
+  IonMenuToggle,
   IonPage,
+  IonRow,
   IonSearchbar,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { search } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HomeSVG from "../assets/home.svg";
@@ -30,6 +36,7 @@ const HomePage: React.FC = () => {
   const handleSearchChange = (event: CustomEvent) => {
     setSearchText(event.detail.value);
   };
+
   return (
     <IonPage>
       <IonMenu side="start" contentId="main-content" className="main-menu">
@@ -56,23 +63,41 @@ const HomePage: React.FC = () => {
       <IonContent id="main-content">
         <IonHeader>
           <IonToolbar className="custom-toolbar">
-            <IonMenuButton slot="start" className="menu-button" />
-            {/* <div className="logo-container">
-              <img src={Logo} alt="V.L.T. Logo" className="vlt-logo" />
-            </div> */}
-            <div className="title-search-container">
-              <div className="title-container">
-                <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
-              </div>
-              <IonSearchbar
-                className="navsearch-bar"
-                placeholder="Search events"
-                onIonChange={handleSearchChange}
-              ></IonSearchbar>
-            </div>
-            <IonButton slot="end" className="login-button">
-              Login/Signup
-            </IonButton>
+            <IonGrid>
+              <IonRow className="ion-align-items-center ion-justify-content-between">
+                <IonCol size="auto">
+                  <IonMenuToggle>
+                    <IonMenuButton className="menu-button" />
+                  </IonMenuToggle>
+                </IonCol>
+                <IonCol size="auto">
+                  <div className="title-container">
+                    <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
+                  </div>
+                </IonCol>
+                <IonCol size="auto">
+                  <IonSearchbar
+                    className="navsearch-bar"
+                    placeholder="Search events"
+                    onIonChange={handleSearchChange}
+                  ></IonSearchbar>
+                  {/* Show search icon for screens <= 800px */}
+                  <IonIcon icon={search} className="search-icon"></IonIcon>
+                </IonCol>
+                {/* Hide "Host An Event" on screens <= 920px */}
+                <IonCol size="auto" className="header-link-host-event">
+                  <span className="header-link">Host an event</span>
+                </IonCol>
+                {/* Hide "My Events" on screens <= 1080px */}
+                <IonCol size="auto" className="header-link-my-events">
+                  <span className="header-link">My events</span>
+                </IonCol>
+                {/* Hide "Login/Signup" on screens <= 800px */}
+                <IonCol size="auto" className="login-button">
+                  <IonButton>Login/Signup</IonButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </IonToolbar>
         </IonHeader>
 

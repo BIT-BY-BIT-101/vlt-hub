@@ -219,11 +219,8 @@ a {
    padding-top: 20px;
    padding-bottom: 20px;
    height: auto;
-   display: flex;
-   align-items: center;
-   --ion-toolbar-background: #FEFFFE;
+   --ion-toolbar-background: #fefffe;
    --ion-text-color: #000000;
-   justify-content: space-between;
 }
 
 .login-button {
@@ -248,7 +245,7 @@ a {
    /* Adjust margin to separate title and search bar */
    border: 3px solid black;
    border-radius: 25px;
-   width: calc(50% - 50px);
+   width: 100%;
 }
 
 .navsearch-bar:focus-within {
@@ -256,12 +253,29 @@ a {
    --border-color: var(--hover-shadow-color);
 }
 
+.header-links {
+   display: flex;
+   gap: 20px;
+}
+
+.header-link {
+   font-size: 16px;
+   font-weight: bold;
+   color: var(--main-color);
+   cursor: pointer;
+}
+
+.header-link:hover {
+   color: var(--secondary-color);
+}
+
 ion-header ion-toolbar:first-of-type {
    padding-top: var(--ion-safe-area-top, 0);
 }
 
 /* Media query for hiding menu button and menu on larger screens */
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 1080px) {
+
    .menu-button {
       display: none;
    }
@@ -270,6 +284,68 @@ ion-header ion-toolbar:first-of-type {
       display: none;
    }
 }
+
+@media screen and (max-width: 1080px) {
+   .header-link-my-events {
+      display: none;
+   }
+
+   .menu-button {
+      display: none;
+   }
+
+   .main-menu {
+      display: none;
+   }
+}
+
+
+@media screen and (max-width: 920px) {
+   .header-link-host-event {
+      display: none;
+   }
+
+}
+
+@media screen and (max-width: 800px) {
+   .login-button {
+      display: none;
+   }
+
+   .navsearch-bar {
+      width: auto;
+      margin-left: 10px;
+   }
+}
+
+.search-icon {
+   display: none;
+}
+
+@media screen and (max-width: 800px) {
+
+   .navsearch-bar {
+      display: none;
+   }
+
+   .search-icon {
+      display: block;
+      font-size: 24px;
+      margin-right: 10px;
+   }
+
+}
+
+@media screen and (min-width: 601px) {
+   /* .menu-button {
+      display: none;
+   }
+
+   .main-menu {
+      display: none;
+   } */
+}
+
 
 @media screen and (max-width: 600px) {
    .home-container {
@@ -307,4 +383,14 @@ ion-header ion-toolbar:first-of-type {
       font-size: 14px;
       margin: 10px 0;
    }
+}
+
+@media screen and (max-width: 800px) {
+   .menu-button {
+      display: block;
+   }
+
+   /* .main-menu {
+      display: block;
+   } */
 }
