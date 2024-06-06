@@ -107,7 +107,7 @@ const EventsCard = () => {
                   event.event_fee ? "phome-event-paid" : "phome-event-free"
                 }
               >
-                {event.event_fee ? convertToCurrency(event.event_fee) : "Free"}
+                {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
               </p>
             </IonLabel>
           </IonLabel>

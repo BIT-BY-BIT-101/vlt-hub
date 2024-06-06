@@ -56,33 +56,43 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         send_email_receipt: true,
         show_description: true,
         show_line_items: true,
-        cancel_url: "http://localhost:8100",
+        cancel_url: "http://localhost:8080/participant/",
         line_items: [
           {
             currency: "PHP",
             images: [selected?.imgUrl],
-            amount: selected?.event_fee,
+            amount: selected?.event_fee! * 100,
             description: selected?.title,
             name: selected?.title,
             quantity: 1,
           },
         ],
         description: selected?.title,
-        payment_method_types: ["gcash", "card"],
+        payment_method_types: ["gcash", "card", "paymaya"],
         reference_number: "n45a4s",
-        success_url: "http://localhost:8100",
+        success_url: "http://localhost:8080/participant/",
       },
     },
   };
 
   const handleCheckout = async () => {
-    paymongo
+    await paymongo
       .post(`/checkout_sessions`, payload)
       .then((res) => {
         // const checkoutId = res;
         console.log(res.data);
-        // addPayment(res.data.data.id);
-        window.location.href = res.data.data.attributes.checkout_url;
+        console.log(res.data.data.id);
+
+        const paymentDetails = {
+          amount: selected?.event_fee!,
+          currency: "PHP",
+          userId: auth.currentUser?.uid!,
+          eventId: selected?.id!,
+          checkout_id: res.data.data.id,
+        };
+
+        addPayment(paymentDetails);
+        // window.location.href = res.data.data.attributes.checkout_url;
       })
       .catch((err) => {
         console.log("messeges: ", err.response.data.errors);
