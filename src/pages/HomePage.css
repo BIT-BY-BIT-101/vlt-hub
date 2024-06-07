@@ -280,6 +280,17 @@ a {
    font-size: 16px;
 }
 
+.notification-icon {
+   font-size: 24px;
+   margin-left: 10px;
+   cursor: pointer;
+   color: var(--main-color);
+}
+
+.notification-icon:hover {
+   color: var(--secondary-color);
+}
+
 ion-header ion-toolbar:first-of-type {
    padding-top: var(--ion-safe-area-top, 0);
 }

@@ -20,7 +20,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { search } from "ionicons/icons";
+import { notificationsOutline, search } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HomeSVG from "../assets/home.svg";
@@ -81,20 +81,22 @@ const HomePage: React.FC = () => {
                     placeholder="Search events"
                     onIonChange={handleSearchChange}
                   ></IonSearchbar>
-                  {/* Show search icon for screens <= 800px */}
                   <IonIcon icon={search} className="search-icon"></IonIcon>
                 </IonCol>
-                {/* Hide "Host An Event" on screens <= 920px */}
                 <IonCol size="auto" className="header-link-host-event">
                   <Link to="/host/signin" className="header-link">
                     Host an event
                   </Link>
                 </IonCol>
-                {/* Hide "My Events" on screens <= 1080px */}
                 <IonCol size="auto" className="header-link-my-events">
                   <span className="header-link">My events</span>
                 </IonCol>
-                {/* Hide "Login/Signup" on screens <= 800px */}
+                <IonCol offset="1" size="auto">
+                  <IonIcon
+                    icon={notificationsOutline}
+                    className="notification-icon"
+                  ></IonIcon>
+                </IonCol>
                 <IonCol size="auto" className="login-button">
                   <IonButton className="nav-login-signup-button">
                     Login/Signup
