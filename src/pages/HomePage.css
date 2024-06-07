@@ -263,10 +263,21 @@ a {
    font-weight: bold;
    color: var(--main-color);
    cursor: pointer;
+   text-decoration: none;
 }
 
 .header-link:hover {
    color: var(--secondary-color);
+}
+
+.nav-login-signup-button {
+   --background: var(--secondary-color);
+   --background-hover: #e7508b;
+   --background-activated: #d63f7f;
+   --box-shadow: none !important;
+   --border-radius: 10px;
+   padding: 5px;
+   font-size: 16px;
 }
 
 ion-header ion-toolbar:first-of-type {
@@ -280,9 +291,9 @@ ion-header ion-toolbar:first-of-type {
       display: none;
    }
 
-   .main-menu {
+   /* .main-menu {
       display: none;
-   }
+   } */
 }
 
 @media screen and (max-width: 1080px) {
@@ -294,9 +305,9 @@ ion-header ion-toolbar:first-of-type {
       display: none;
    }
 
-   .main-menu {
+   /* .main-menu {
       display: none;
-   }
+   } */
 }
 
 
