@@ -86,7 +86,9 @@ const HomePage: React.FC = () => {
                 </IonCol>
                 {/* Hide "Host An Event" on screens <= 920px */}
                 <IonCol size="auto" className="header-link-host-event">
-                  <span className="header-link">Host an event</span>
+                  <Link to="/host/signin" className="header-link">
+                    Host an event
+                  </Link>
                 </IonCol>
                 {/* Hide "My Events" on screens <= 1080px */}
                 <IonCol size="auto" className="header-link-my-events">
@@ -94,7 +96,9 @@ const HomePage: React.FC = () => {
                 </IonCol>
                 {/* Hide "Login/Signup" on screens <= 800px */}
                 <IonCol size="auto" className="login-button">
-                  <IonButton>Login/Signup</IonButton>
+                  <IonButton className="nav-login-signup-button">
+                    Login/Signup
+                  </IonButton>
                 </IonCol>
               </IonRow>
             </IonGrid>
