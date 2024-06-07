@@ -73,9 +73,7 @@ const ParticipantHomePage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent id="phome-main">
-          <div
-          // className="phome-cards-container"
-          >
+          <div className="phome-cards-container">
             <IonGrid>
               <IonRow>
                 <EventsCard />

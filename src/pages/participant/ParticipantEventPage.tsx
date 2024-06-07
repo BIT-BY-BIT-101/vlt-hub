@@ -5,13 +5,16 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
   IonMenuButton,
   IonModal,
   IonPage,
+  IonRow,
   IonSearchbar,
   IonTitle,
   IonToolbar,
@@ -114,49 +117,59 @@ const ParticipantEventPage: React.FC = () => {
             placeholder="Search events"
             onIonChange={handleSearchChange}
           ></IonSearchbar>
-          {filteredEvents.map((event: EventDataModel, index) => (
-            <React.Fragment key={index}>
-              <h1 className="pevent-date">{event.date}</h1>
-              <IonCard className="pevent-card">
-                <IonCardHeader>
-                  <IonCardTitle>{event.title}</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <div className="pevent-host-info">
-                    <img
-                      src={event.hostImg}
-                      alt={`Host: ${event.host_name}`}
-                      className="pevent-host-img"
-                    />
-                    <div className="pevent-host-name">{event.host_name}</div>
-                  </div>
-                  <div className="pevent-venue">
-                    <span>Venue: </span>
-                    {event.venue}
-                  </div>
-                  <div className="pevent-time">
-                    <span>Time: </span>
-                    {formatTimeString(event.startTime)} -{" "}
-                    {formatTimeString(event.endTime)}
-                  </div>
-                  <div className="peventcard-btn">
-                    <IonButton
-                      className="pview-btn"
-                      onClick={() => openModal(event)}
-                    >
-                      View
-                    </IonButton>
-                    <IonButton
-                      className="pcancel-btn"
-                      onClick={handleCancelClick}
-                    >
-                      Cancel
-                    </IonButton>
-                  </div>
-                </IonCardContent>
-              </IonCard>
-            </React.Fragment>
-          ))}
+          <IonGrid>
+            <IonRow>
+              {filteredEvents.map((event: EventDataModel, index) => (
+                <IonCol size="12" size-md="6">
+                  <React.Fragment key={index}>
+                    {/* <h1 className="pevent-date">
+                      {formatDateString(event.eventDate)}
+                    </h1> */}
+                    <IonCard className="pevent-card">
+                      <IonCardHeader>
+                        <IonCardTitle>{event.title}</IonCardTitle>
+                      </IonCardHeader>
+                      <IonCardContent>
+                        <div className="pevent-host-info">
+                          <img
+                            src={event.hostImg}
+                            alt={`Host: ${event.host_name}`}
+                            className="pevent-host-img"
+                          />
+                          <div className="pevent-host-name">
+                            {event.host_name}
+                          </div>
+                        </div>
+                        <div className="pevent-venue">
+                          <span>Venue: </span>
+                          {event.venue}
+                        </div>
+                        <div className="pevent-time">
+                          <span>Time: </span>
+                          {formatTimeString(event.startTime)} -{" "}
+                          {formatTimeString(event.endTime)}
+                        </div>
+                        <div className="peventcard-btn">
+                          <IonButton
+                            className="pview-btn"
+                            onClick={() => openModal(event)}
+                          >
+                            View
+                          </IonButton>
+                          {/* <IonButton
+                            className="pcancel-btn"
+                            onClick={handleCancelClick}
+                          >
+                            Cancel
+                          </IonButton> */}
+                        </div>
+                      </IonCardContent>
+                    </IonCard>
+                  </React.Fragment>
+                </IonCol>
+              ))}
+            </IonRow>
+          </IonGrid>
 
           {/* Modal */}
           <IonModal

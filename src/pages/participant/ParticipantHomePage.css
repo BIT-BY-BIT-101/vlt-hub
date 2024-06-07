@@ -267,8 +267,10 @@ ion-modal.phome-confirmation-modal-container::part(content) {
   height: 100%;
   background-color: white;
   padding: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 15px;
   box-shadow: 14px 14px 28px #b5b5b5, -14px -14px 28px #ffffff;
   margin: 20px 10px;
