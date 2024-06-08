@@ -2,6 +2,7 @@ import {
   IonButton,
   IonButtons,
   IonCard,
+  IonCol,
   IonContent,
   IonGrid,
   IonHeader,
@@ -12,6 +13,7 @@ import {
   IonList,
   IonMenu,
   IonMenuButton,
+  IonMenuToggle,
   IonModal,
   IonPage,
   IonRow,
@@ -19,8 +21,9 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { closeCircle } from "ionicons/icons";
+import { closeCircle, notificationsOutline, search } from "ionicons/icons";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import HostImg from "../../assets/host.jpg";
 import IntrotoCSharp from "../../assets/introtocsharp.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
@@ -53,23 +56,47 @@ const ParticipantHomePage: React.FC = () => {
         </IonHeader> */}
         <IonHeader>
           <IonToolbar className="custom-toolbar">
-            <IonMenuButton slot="start" className="menu-button" />
-            {/* <div className="logo-container">
-              <img src={Logo} alt="V.L.T. Logo" className="vlt-logo" />
-            </div> */}
-            <div className="title-search-container">
-              <div className="title-container">
-                <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
-              </div>
-              <IonSearchbar
-                className="navsearch-bar"
-                placeholder="Search events"
-                onIonChange={handleSearchChange}
-              ></IonSearchbar>
-            </div>
-            <IonButton slot="end" className="login-button">
-              Login/Signup
-            </IonButton>
+            <IonGrid>
+              <IonRow className="ion-align-items-center ion-justify-content-between">
+                <IonCol size="auto">
+                  <IonMenuToggle>
+                    <IonMenuButton className="menu-button" />
+                  </IonMenuToggle>
+                </IonCol>
+                <IonCol size="auto">
+                  <div className="title-container">
+                    <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
+                  </div>
+                </IonCol>
+                <IonCol size="auto">
+                  <IonSearchbar
+                    className="navsearch-bar"
+                    placeholder="Search events"
+                    onIonChange={handleSearchChange}
+                  ></IonSearchbar>
+                  <IonIcon icon={search} className="search-icon"></IonIcon>
+                </IonCol>
+                <IonCol size="auto" className="header-link-host-event">
+                  <Link to="/host/signin" className="header-link">
+                    Host an event
+                  </Link>
+                </IonCol>
+                <IonCol size="auto" className="header-link-my-events">
+                  <span className="header-link">My events</span>
+                </IonCol>
+                {/* <IonCol offset="1" size="auto">
+                  <IonIcon
+                    icon={notificationsOutline}
+                    className="notification-icon"
+                  ></IonIcon>
+                </IonCol> */}
+                <IonCol size="auto" className="login-button">
+                  <IonButton className="nav-login-signup-button">
+                    Login/Signup
+                  </IonButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </IonToolbar>
         </IonHeader>
         <IonContent id="phome-main">

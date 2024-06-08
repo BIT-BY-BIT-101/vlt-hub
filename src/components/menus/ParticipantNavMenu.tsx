@@ -18,6 +18,7 @@ import { calendar, home, logOut, pencil, time } from "ionicons/icons";
 import React, { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
+import { auth } from "../../config/firebase";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 import LogoutModal from "../modals/LogoutModal";
