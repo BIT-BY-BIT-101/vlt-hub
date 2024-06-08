@@ -91,12 +91,12 @@ const HomePage: React.FC = () => {
                 <IonCol size="auto" className="header-link-my-events">
                   <span className="header-link">My events</span>
                 </IonCol>
-                <IonCol offset="1" size="auto">
+                {/* <IonCol offset="1" size="auto">
                   <IonIcon
                     icon={notificationsOutline}
                     className="notification-icon"
                   ></IonIcon>
-                </IonCol>
+                </IonCol> */}
                 <IonCol size="auto" className="login-button">
                   <IonButton className="nav-login-signup-button">
                     Login/Signup

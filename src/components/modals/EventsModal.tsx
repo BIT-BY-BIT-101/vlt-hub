@@ -1,23 +1,24 @@
 import {
-  IonModal,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
   IonButton,
-  IonIcon,
+  IonButtons,
   IonContent,
+  IonHeader,
+  IonIcon,
   IonImg,
+  IonModal,
+  IonToolbar,
 } from "@ionic/react";
+import { arrayUnion } from "firebase/firestore";
 import { closeCircle } from "ionicons/icons";
 import React from "react";
-import HostImg from "../../assets/defaultCover.jpg";
-import { EventDataModel } from "../../models/Model";
-import { formatTimeString } from "../../functions/functions";
-import { arrayUnion } from "firebase/firestore";
-import { auth } from "../../config/firebase";
-import useFirestore from "../../hooks/useFirestore";
-import paymongo from "../../config/paymongo";
 import { useHistory } from "react-router-dom";
+import HostImg from "../../assets/defaultCover.jpg";
+import { auth } from "../../config/firebase";
+import paymongo from "../../config/paymongo";
+import { formatTimeString } from "../../functions/functions";
+import useFirestore from "../../hooks/useFirestore";
+import useQuery from "../../hooks/useQuery";
+import { EventDataModel } from "../../models/Model";
 
 type EventModalProps = {
   isOpen: boolean;
@@ -30,6 +31,12 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
   const { updateData: updateParticipants } = useFirestore("events");
   const { addData } = useFirestore("event_enrolled");
   const { addData: addPayment } = useFirestore("payments");
+  const { data: participants } = useQuery(
+    "events",
+    "status",
+    "array-contains",
+    auth.currentUser?.uid!
+  );
   const history = useHistory();
 
   const userId = auth.currentUser?.uid!;
