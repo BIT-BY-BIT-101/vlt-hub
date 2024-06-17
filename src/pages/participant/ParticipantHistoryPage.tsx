@@ -30,146 +30,50 @@ import techythursdays from "../../assets/techythursdays.jpg";
 import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import "./ParticipantHistoryPage.css";
+import ParticipantHeader from "../../components/participant/ParticipantHeader";
+import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
+import HistoryCard from "../../components/participant/HistoryCard";
 
 const ParticipantHistoryPage: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
   const [searchText, setSearchText] = useState("");
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
-
-  const handleSearchInputChange = (e: CustomEvent) => {
-    setSearchText(e.detail.value);
-  };
 
   return (
     <>
-      <ParticipantNavMenu />
+      {/* <ParticipantNavMenu /> */}
       <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonMenuButton slot="start" />
-            <IonTitle>History</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <ParticipantHeader />
 
         <IonContent id="phome-main">
-          <IonSearchbar
+          {/* <IonSearchbar
             className="phistory-searchbar"
             value={searchText}
             onIonChange={handleSearchInputChange}
             placeholder="Search events..."
-          />
-          <div className="phistory-cards-container">
-            <IonCard className="phistory-event-card" onClick={openModal}>
-              <IonImg
-                src={IntrotoCSharp}
-                alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
-                className="phistory-event-image"
-              />
-              <IonLabel>
-                <h2
-                  className="phistory-event-title"
-                  style={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                    lineHeight: "20px",
-                    maxHeight: "40px",
-                  }}
-                >
-                  Mastering the Fundamentals: An Introduction to Visual C#
-                  Programming
-                </h2>
-                <div className="phistory-event-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="phistory-event-host-img"
-                  />
-                  <p className="phistory-event-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <IonLabel className="phistory-event-details">
-                  <p>
-                    <span>Venue:</span> Zoom
-                  </p>
-                  <p>
-                    <span>Date:</span> October 15, 2023
-                  </p>
-                  <p>
-                    <span>Time:</span> 3:00 PM - 5:00 PM
-                  </p>
-                  <p className="phistory-event-free">Free</p>
-                </IonLabel>
-              </IonLabel>
-            </IonCard>
-
-            {/* Modal */}
-            <IonModal
-              isOpen={showModal}
-              onDidDismiss={closeModal}
-              // className="phistory-modal-container"
-            >
-              <IonHeader>
-                <IonToolbar>
-                  <IonButtons slot="end">
-                    <IonButton onClick={closeModal}>
-                      <IonIcon icon={closeCircle} />
-                    </IonButton>
-                  </IonButtons>
-                </IonToolbar>
-              </IonHeader>
-
-              <IonContent className="phistory-modal-content">
-                <div className="phistory-modal-event-info">
-                  <p className="phistory-event-free">Free</p>
-                  <h2 className="phistory-modal-title">
-                    Mastering the Fundamentals: An Introduction to Visual C#
-                    Programming
-                  </h2>
-                </div>
-                <div className="phistory-modal-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="phistory-modal-host-img"
-                  />
-                  <p className="phistory-modal-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <div className="phistory-modal-details">
-                  <p>
-                    <span>Description:</span> This course is designed to help
-                    you master the fundamentals of Visual C# programming. It is
-                    intended for absolute beginners with no prior programming
-                    experience. The course focuses on the fundamentals of Visual
-                    C# programming and covers the following topics: Visual C#
-                    language syntax, program structure, and implementation
-                    details.
-                  </p>
-                  <p>
-                    <span>Venue:</span> Zoom
-                  </p>
-                  <p>
-                    <span>Date:</span> October 15, 2023
-                  </p>
-                  <p>
-                    <span>Time:</span> 3:00 PM - 5:00 PM
-                  </p>
-                </div>
-                <div className="phistory-btn-container">
-                  <IonButton
-                    expand="block"
-                    className="phistory-register-btn"
-                    onClick={() => {}}
-                  >
-                    Rate this event
-                  </IonButton>
-                </div>
-              </IonContent>
-            </IonModal>
-          </div>
+          /> */}
+          <IonGrid>
+            <IonRow>
+              <ParticipantSidePane />
+              <IonCol size="10">
+                <IonRow>
+                  <IonCol size="10" size-sm="6">
+                    <HistoryCard />
+                  </IonCol>
+                  <IonCol size="10" size-sm="6">
+                    <HistoryCard />
+                  </IonCol>
+                  <IonCol size="10" size-sm="6">
+                    <HistoryCard />
+                  </IonCol>
+                  <IonCol size="10" size-sm="6">
+                    <HistoryCard />
+                  </IonCol>
+                  <IonCol size="10" size-sm="6">
+                    <HistoryCard />
+                  </IonCol>
+                </IonRow>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </IonContent>
       </IonPage>
     </>

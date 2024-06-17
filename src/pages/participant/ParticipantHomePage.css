@@ -263,7 +263,6 @@ ion-modal.phome-confirmation-modal-container::part(content) {
 }
 
 .phome-event-card {
-  /* width: 30%; */
   height: 100%;
   background-color: white;
   padding: 20px;
@@ -543,7 +542,7 @@ ion-modal.phome-modal-container::part(content) {
   }
 
   .phome-event-card {
-    width: 90%;
+    /* width: 90%; */
     max-height: 260px;
     margin: 20px 0;
     flex-direction: row;
@@ -552,6 +551,7 @@ ion-modal.phome-modal-container::part(content) {
   }
 
   .phome-event-image {
+    width: 100%;
     max-width: 100px;
     height: 100%;
     object-fit: cover;
@@ -634,4 +634,9 @@ ion-modal.phome-modal-container::part(content) {
     --max-width: 60%;
     --max-height: 20%;
   }
+}
+
+.nav-items {
+  --ion-item-background: var(--ion-item-background);
+  --color: black;
 }

@@ -7,10 +7,12 @@ import {
 } from "@ionic/react";
 import React from "react";
 import ParticipantSignupComponent from "../../../components/auth/participant/ParticipantSignupComponent";
+import ParticipantHeader from "../../../components/participant/ParticipantHeader";
 
 function ParticipantSignupPage() {
   return (
     <IonPage>
+      <ParticipantHeader />
       <IonContent fullscreen className="ion-padding">
         <ParticipantSignupComponent />
       </IonContent>

@@ -22,6 +22,7 @@ import { auth } from "../../config/firebase";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 import LogoutModal from "../modals/LogoutModal";
+import MenuHeader from "../header/MenuHeader";
 
 function ParticipantNavMenu() {
   const { signOut, userData } = useFirebaseAuth();
@@ -37,72 +38,52 @@ function ParticipantNavMenu() {
     return location.pathname === path;
   };
 
+  const items = [
+    {
+      title: "Home",
+      path: "/participant/home",
+      icon: home,
+    },
+    {
+      title: "My Event",
+      path: "/participant/events",
+      icon: calendar,
+    },
+    {
+      title: "History",
+      path: "/participant/history",
+      icon: time,
+    },
+  ];
+
   return (
     <IonMenu contentId="phome-main" type="overlay">
-      <IonHeader>
-        <IonToolbar class="phome-menu-header">
-          <IonImg
-            src={UserImg}
-            alt="V.L.T. Hub"
-            className="phome-logocontainer"
-          />
-          <div className="phome-userinfo">
-            <IonLabel class="phome-username">
-              {userData?.fname} {userData?.lname}
-            </IonLabel>
-            <IonButtons>
-              <IonButton
-                className="phome-editprofile"
-                onClick={() => history.push("/participant/profile")}
-              >
-                <IonIcon icon={pencil} />
-                My Profile
-              </IonButton>
-            </IonButtons>
-          </div>
-        </IonToolbar>
-      </IonHeader>
-
-      <IonContent className="phome-menu-content">
-        <IonList className="phome-menu-options">
+      <MenuHeader />
+      <IonContent className="container-space-between" fullscreen={true}>
+        <IonList className="flex-item bg-color-secondary">
+          {items.map((item) => (
+            <IonItem
+              key={item.title}
+              routerLink={item.path}
+              className={`item-color ${
+                isMenuItemActive(item.path) ? "activated" : ""
+              }`}
+              // onClick={() => history.push("/participant/home")}
+            >
+              <IonIcon icon={item.icon} slot="start" className="item-color" />
+              <IonLabel>{item.title}</IonLabel>
+            </IonItem>
+          ))}
+        </IonList>
+        <IonList className="flex-item bg-color-secondary">
           <IonItem
-            routerLink="/participant/home"
-            className={`phome-menu-item ${
-              isMenuItemActive("/participant/home") ? "activated" : ""
-            }`}
-            // onClick={() => history.push("/participant/home")}
+            className="item-color"
+            onClick={() => setShowLogoutModal(true)}
           >
-            <IonIcon icon={home} slot="start" className="phome-menu-icon" />
-            <IonLabel class="phome-menu-label">Home</IonLabel>
-          </IonItem>
-          <IonItem
-            routerLink="/participant/events"
-            className={`phome-menu-item ${
-              isMenuItemActive("/participant/events") ? "activated" : ""
-            }`}
-            // onClick={() => history.push("/participant/event")}
-          >
-            <IonIcon icon={calendar} slot="start" className="phome-menu-icon" />
-            <IonLabel class="phome-menu-label">My Events</IonLabel>
-          </IonItem>
-          <IonItem
-            routerLink="/participant/history"
-            className={`phome-menu-item ${
-              isMenuItemActive("/participant/history") ? "activated" : ""
-            }`}
-            // onClick={() => history.push("/participant/history")}
-          >
-            <IonIcon icon={time} slot="start" className="phome-menu-icon" />
-            <IonLabel class="phome-menu-label">History</IonLabel>
+            <IonIcon icon={logOut} slot="start" className="item-color" />
+            <IonLabel>Logout</IonLabel>
           </IonItem>
         </IonList>
-        <IonItem
-          className="phome-menu-item phome-logout"
-          onClick={() => setShowLogoutModal(true)}
-        >
-          <IonIcon icon={logOut} slot="start" className="phome-menu-icon" />
-          <IonLabel class="phome-menu-label">Logout</IonLabel>
-        </IonItem>
         <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
       </IonContent>
     </IonMenu>

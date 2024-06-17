@@ -14,7 +14,7 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/psignin.svg";
@@ -22,6 +22,7 @@ import "./ParticipantSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import { auth } from "../../../config/firebase";
 import useFirestore from "../../../hooks/useFirestore";
+import { AuthContext } from "../../../context/AuthContext";
 
 type errorProps = {
   message: string;
@@ -29,7 +30,8 @@ type errorProps = {
 };
 
 const ParticipantSigninComponent: React.FC = () => {
-  const { user, signIn } = useFirebaseAuth();
+  const { currentUser, loading } = useContext(AuthContext);
+  const { signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<errorProps>();
@@ -47,7 +49,7 @@ const ParticipantSigninComponent: React.FC = () => {
     try {
       await signIn(email, password);
       localStorage.setItem("session", email);
-      console.log("Your Signin Successfully with an email", user?.email);
+      console.log("Your Signin Successfully with an email", currentUser?.email);
     } catch (err: any) {
       console.log("message: ", err.message);
       console.log("code: ", err.code);
@@ -68,7 +70,7 @@ const ParticipantSigninComponent: React.FC = () => {
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
   };
 
-  if (user) {
+  if (currentUser) {
     return <Redirect to="/participant/home" />;
   }
   // if (loading) {

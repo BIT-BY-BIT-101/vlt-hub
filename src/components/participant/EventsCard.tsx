@@ -1,4 +1,13 @@
-import { IonCard, IonCol, IonImg, IonLabel } from "@ionic/react";
+import {
+  IonCard,
+  IonCol,
+  IonIcon,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonTab,
+  IonText,
+} from "@ionic/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import Default from "../../assets/defaultCover.jpg";
@@ -12,6 +21,8 @@ import useFirestore from "../../hooks/useFirestore";
 import useQuery from "../../hooks/useQuery";
 import { EventDataModel } from "../../models/Model";
 import EventsModal from "../modals/EventsModal";
+import "./EventsCard.css";
+import { addCircleOutline, homeOutline, timeOutline } from "ionicons/icons";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
@@ -28,36 +39,12 @@ const EventsCard = () => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  // function formatDateString(originalDateString: string) {
-  //   const dateObject = new Date(originalDateString);
-  //   const options: Intl.DateTimeFormatOptions = {
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   };
-  //   return dateObject.toLocaleDateString("en-US", options);
-  // }
-
-  // function formatTimeString(originalTimeString: string) {
-  //   const timeObject = new Date(originalTimeString);
-  //   const options: Intl.DateTimeFormatOptions = {
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //   };
-  //   return timeObject.toLocaleTimeString("en-US", options);
-  // }
-
   return (
     <>
       {data.map((event: EventDataModel) => (
-        <IonCol
-          size="10"
-          size-sm="4"
-          key={event.id}
-          className="phome-event-col"
-        >
+        <IonCol size="auto" size-md="6" size-lg="3" sizeXs="10" key={event.id}>
           <IonCard
-            className="phome-event-card"
+            className="event-card bg-color-main"
             // onClick={openModal}
             // onClick={() => history.push(`/participant/event/details/${event.id}`)}
             onClick={() => {
@@ -65,50 +52,40 @@ const EventsCard = () => {
               setSelected(event);
             }}
           >
-            <IonImg
-              src={event.imgUrl ? event.imgUrl : Default}
-              alt={event.title}
-              // className="phome-event-image"
-              className="cover-img"
-            />
-            <IonLabel>
-              <h2
-                className="phome-event-title"
-                style={
-                  {
-                    // overflow: "hidden",
-                    // textOverflow: "ellipsis",
-                    // display: "-webkit-box",
-                    // WebkitBoxOrient: "vertical",
-                    // WebkitLineClamp: 2,
-                    // lineHeight: "20px",
-                    // maxHeight: "40px",
-                  }
-                }
-              >
-                {event.title}
-              </h2>
-              <div className="phome-event-host-container">
-                {/* <IonImg
-                src={HostImg}
-                alt="Abdul Rauf M. Sultan"
-                className="phome-event-host-img"
-              /> */}
-                <p className="phome-event-host">{event.host_name}</p>
-              </div>
-              <IonLabel className="phome-event-details">
-                <p>
-                  <span>Venue:</span> {event.venue}
-                </p>
-                <p>
-                  <span>Date:</span>
-                  {formatDateString(event.eventDate)}
-                </p>
-                <p>
-                  <span>Time:</span> {formatTimeString(event.startTime)} -{" "}
-                  {formatTimeString(event.endTime)}
-                </p>
-                {/* <p className="phome-event-free">Free</p> */}
+            <IonItem className="item-color">
+              <IonImg
+                src={event.imgUrl ? event.imgUrl : Default}
+                alt={event.title}
+                className="event-card-image"
+              />
+            </IonItem>
+            <IonItem className="item-color">
+              <IonLabel>
+                <h2>{event.title}</h2>
+                <div>
+                  <p>{event.host_name}</p>
+                </div>
+              </IonLabel>
+            </IonItem>
+
+            <IonItem className="item-color-dark">
+              <IonIcon
+                className="text-color-dark"
+                icon={homeOutline}
+                slot="start"
+              />
+              <IonText>{event.venue}</IonText>
+            </IonItem>
+            <IonItem className="item-color-dark">
+              <IonIcon
+                className="text-color-dark"
+                icon={timeOutline}
+                slot="start"
+              />
+              <IonText>{formatDateString(event.startTime)}</IonText>
+            </IonItem>
+            <IonItem className="item-color">
+              <IonLabel>
                 <p
                   className={
                     event.event_fee ? "phome-event-paid" : "phome-event-free"
@@ -117,7 +94,7 @@ const EventsCard = () => {
                   {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
                 </p>
               </IonLabel>
-            </IonLabel>
+            </IonItem>
           </IonCard>
         </IonCol>
       ))}

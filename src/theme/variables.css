@@ -3,8 +3,19 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 
-
 :root {
+  /* Custom Colors */
+  --text-color-light: #ffffff;
+  --text-color-dark: #000000;
+  --text-color-rgb: #f46197;
+  --main--color: #eeeffe;
+  --secondary--color: #ffffff;
+  --tertiary--color: #f46197;
+  --main--color--dark: #000000;
+  --secondary--color--dark: #000000;
+  --main--color--light: #ffffff;
+  --secondary--color--light: #ffffff;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -191,7 +202,6 @@ http://ionicframework.com/docs/theming/ */
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
-
 
   /*
    * Material Design Dark Theme

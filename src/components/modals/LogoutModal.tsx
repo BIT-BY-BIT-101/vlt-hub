@@ -1,17 +1,20 @@
 import { IonModal, IonContent, IonButton } from "@ionic/react";
 import React from "react";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
+import { useHistory } from "react-router-dom";
 type LogoutModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, onClose }) => {
+  const history = useHistory();
   const { signOut } = useFirebaseAuth();
   const handleSignOut = async () => {
     try {
       await signOut();
       console.log("Logout clicked");
       // history.push("/participant/signin");
+      window.location.href = "/participant/signin";
     } catch (error) {}
   };
   return (

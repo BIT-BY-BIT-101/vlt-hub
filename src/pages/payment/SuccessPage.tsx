@@ -14,24 +14,27 @@ const SuccessPage = () => {
   const userId = auth.currentUser?.uid;
   const history = useHistory();
 
-  useEffect(() => {
-    console.log(id);
+  const handleUpdates = async () => {
+    if (!id || !userId) return;
 
-    const handleUpdates = async () => {
-      await updateParticipants(id!, {
+    try {
+      await updateParticipants(id, {
         participants: arrayUnion(userId),
       });
       await updateEnrolled(userId, {
         registered_events: arrayUnion(id),
       });
-    };
+      console.log("Registration status updated successfully!");
+      history.push("/participant");
+      window.location.href = "/participant";
+    } catch (error) {
+      console.error("Error updating registration status:", error);
+    }
+  };
 
-    history.push("/participant");
-    window.location.href = "/participant";
-
-    return () => handleUpdates();
-  }, [id]);
-
+  useEffect(() => {
+    handleUpdates();
+  }, []);
   return (
     <IonPage>
       <IonContent>

@@ -18,6 +18,7 @@ import "@ionic/react/css/text-transformation.css";
 import { IonApp, setupIonicReact } from "@ionic/react";
 import RouteService from "./router/RouteService";
 import "./theme/variables.css";
+import "./App.css";
 
 setupIonicReact();
 
@@ -26,11 +27,8 @@ const App: React.FC = () => {
 
   // console.log(user);
   return (
-    <IonApp>
+    <IonApp className="container">
       <RouteService />
-
-      {/* <TestRoutes /> */}
-      {/* <Home /> */}
     </IonApp>
   );
 };

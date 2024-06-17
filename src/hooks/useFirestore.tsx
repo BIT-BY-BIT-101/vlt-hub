@@ -86,8 +86,6 @@ const useFirestore = (collectionPath: string) => {
   const updateData = async (id: string, data: any) => {
     const docRef = doc(db, collectionPath, id);
     await updateDoc(docRef, data);
-    // Refresh data after update
-    // fetchUserData();
     getData();
   };
 

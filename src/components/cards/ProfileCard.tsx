@@ -22,6 +22,7 @@ import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 import EditVenueProfile from "../modals/EditVenueProfile";
 import "./ProfileCard.css";
+import { formatDateString } from "../../functions/functions";
 
 const ProfileCard = () => {
   const { userData } = useFirebaseAuth();
@@ -36,28 +37,8 @@ const ProfileCard = () => {
     setShowModal(false);
   };
 
-  const originalDateString = userData?.birthdate;
-  const dateObject = new Date(originalDateString);
-
-  // const options = { year: "numeric", month: "long", day: "numeric" };
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const formattedDateString = dateObject.toLocaleDateString("en-US", options);
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          {/* <IonButtons slot="start">
-            <IonMenuButton autoHide={false}></IonMenuButton>
-          </IonButtons> */}
-          {/* <IonMenuButton slot="start" /> */}
-          <IonTitle>Profile</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
+    <>
       <IonCard className="profile-card">
         <IonCardHeader>
           <IonCardTitle className="profile-card-title">Profile</IonCardTitle>
@@ -71,7 +52,7 @@ const ProfileCard = () => {
         <IonLabel className="profile-form-label">
           <span className="profile-form-title">Birthdate:</span>
           {/* {userData?.birthdate} */}
-          {formattedDateString}
+          {formatDateString(userData?.birthdate)}
         </IonLabel>
         <IonLabel className="profile-form-label">
           <span className="profile-form-title">Gender:</span>
@@ -108,7 +89,7 @@ const ProfileCard = () => {
           userData={userData}
         />
       </IonCard>
-    </IonPage>
+    </>
   );
 };
 

@@ -1,0 +1,23 @@
+.pevent-card {
+  /* width: 50%; */
+  padding: 10px;
+  height: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pevent-card:hover {
+  transform: scale(1.02);
+}
+
+.pevent-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .pevent-card {
+    width: 100%;
+    padding: 5px;
+  }
+}
