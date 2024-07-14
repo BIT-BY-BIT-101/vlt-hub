@@ -6,28 +6,39 @@ import {
   IonTitle,
   IonContent,
   IonButton,
+  IonGrid,
+  IonRow,
 } from "@ionic/react";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import { UnpubEventCard } from "../../components/host/UnpubEventCard";
+import Header from "../../components/header/Header";
+import Menus from "../../components/menus/Menus";
+import SidePanel from "../../components/SidePanel";
 
 const HostEventListPage = () => {
   return (
     <>
-      <HostNavMenu />
+      {/* <HostNavMenu /> */}
+      <Menus />
       <IonPage>
-        <IonHeader>
+        <Header />
+        {/* <IonHeader>
           <IonToolbar>
             <IonMenuButton autoHide={false} slot="start" />
             <IonTitle>List of Events</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <IonContent id="main">
-          <IonButton routerLink={`/host/venue-list`}>Create Event</IonButton>
           {/* <div className="hhome-form-container">
             <CreateEvent />
           </div> */}
-          <UnpubEventCard />
+          <IonGrid>
+            <IonRow>
+              <SidePanel />
+              <UnpubEventCard />
+            </IonRow>
+          </IonGrid>
         </IonContent>
       </IonPage>
     </>

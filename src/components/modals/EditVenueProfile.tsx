@@ -22,8 +22,9 @@ import { auth, db } from "../../config/firebase";
 import useFirestore from "../../hooks/useFirestore";
 import "./EditVenueProfile.css";
 import { updateCurrentUser } from "firebase/auth";
+import useUpdateProfile from "../../hooks/useUpdateProfile";
 
-interface VenueData {
+interface userData {
   fname: string;
   bio: string;
   lname: string;
@@ -49,6 +50,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
   onClose,
 }) => {
   const { updateData } = useFirestore("profiles");
+
   const [editedData, setEditedData] = useState<any>({ ...userData });
   const history = useHistory();
 
@@ -77,6 +79,7 @@ const EditVenueProfile: React.FC<EditProps> = ({
     <>
       <IonModal
         isOpen={isOpen}
+        onDidDismiss={onDidDismissal}
         // className="veditprofile-modal"
       >
         <IonHeader>
@@ -90,15 +93,6 @@ const EditVenueProfile: React.FC<EditProps> = ({
           </IonToolbar>
         </IonHeader>
         <IonContent className="veditprofile-modal-content">
-          {/* {profilePicture && (
-            <IonImg id="profile-image" src={profilePicture} alt="Profile" />
-          )} */}
-          {/* ... (other input fields) */}
-          {/* <IonButton onClick={handleCapturePicture}>Capture Picture</IonButton> */}
-          {/* <IonItem>
-            {userData?.fname} {userData?.lname}
-          </IonItem> */}
-
           <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">Name:</span>
             <IonInput

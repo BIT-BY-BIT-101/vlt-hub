@@ -89,15 +89,12 @@ ion-select::part(placeholder) {
 .profile-edit-btn {
   --ion-color-primary: var(--secondary-color);
   background-color: var(--secondary-color);
-  position: absolute;
-  top: 15px;
-  right: 10px;
+
   color: #ffff;
   border-radius: 20px;
   padding: 5px;
   cursor: pointer;
   /* transition: background-color 0.3s ease, transform 0.2s ease; */
-  z-index: 999;
 
   &:hover {
     background-color: #ae2f5e;
@@ -108,16 +105,12 @@ ion-select::part(placeholder) {
 .profile-back-btn {
   --ion-color-primary: var(--secondary-color);
   background-color: #ffff;
-  position: absolute;
-  top: 15px;
-  left: 10px;
+
   color: var(--main-color);
   border: var(--secondary-color) 2px solid;
   border-radius: 20px;
   padding: 5px;
   cursor: pointer;
-  /* transition: background-color 0.3s ease, transform 0.2s ease; */
-  z-index: 999;
 
   &:hover {
     background-color: #e0e0e0;

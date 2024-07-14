@@ -10,18 +10,30 @@ import {
   IonSearchbar,
   IonIcon,
   IonButton,
+  IonItem,
+  IonThumbnail,
+  IonButtons,
 } from "@ionic/react";
-import { search } from "ionicons/icons";
+import { power, search } from "ionicons/icons";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import LogoutModal from "../modals/LogoutModal";
 
 const ParticipantHeader = (search: any) => {
   const { currentUser } = useContext(AuthContext);
   const [searchText, setSearchText] = useState("");
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleModalClose = () => {
+    setShowLogoutModal(false);
+  };
   const handleSearchChange = (event: CustomEvent) => {
     setSearchText(event.detail.value);
   };
+
+  console.log(currentUser);
+
   return (
     <>
       <IonHeader>
@@ -46,11 +58,19 @@ const ParticipantHeader = (search: any) => {
                 ></IonSearchbar>
                 <IonIcon icon={search} className="search-icon"></IonIcon>
               </IonCol>
-              <IonCol size="auto" className="header-link-host-event">
-                <Link to="/host/signin" className="header-link">
-                  Host an event
-                </Link>
-              </IonCol>
+              {currentUser ? (
+                <IonCol size="auto" className="header-link-host-event">
+                  <Link to="/host/signin" className="header-link">
+                    Host an event
+                  </Link>
+                </IonCol>
+              ) : (
+                <IonCol size="auto" className="header-link-host-event">
+                  <Link to="/host/signin" className="header-link">
+                    Host an event
+                  </Link>
+                </IonCol>
+              )}
               <IonCol size="auto" className="header-link-my-events">
                 <Link to="/participant/events" className="header-link">
                   My Events
@@ -64,7 +84,25 @@ const ParticipantHeader = (search: any) => {
                 </IonCol> */}
               <IonCol size="2" className="login-button">
                 {currentUser ? (
-                  <span>Hello {currentUser?.data.fname}</span>
+                  <IonItem className="item-color-dark">
+                    <IonThumbnail slot="start">
+                      <img
+                        src={
+                          currentUser?.data.photoURL
+                            ? currentUser?.data.photoURL
+                            : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                        }
+                      />
+                    </IonThumbnail>
+                    <span className="hide-element">
+                      Hello, {currentUser?.data.fname}
+                    </span>
+                    <IonButtons slot="end" className="hide-element">
+                      <IonButton onClick={() => setShowLogoutModal(true)}>
+                        <IonIcon icon={power} slot="end"></IonIcon>
+                      </IonButton>
+                    </IonButtons>
+                  </IonItem>
                 ) : (
                   <IonButton className="nav-login-signup-button" href="">
                     Login/Signup
@@ -75,6 +113,8 @@ const ParticipantHeader = (search: any) => {
           </IonGrid>
         </IonToolbar>
       </IonHeader>
+
+      <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
     </>
   );
 };

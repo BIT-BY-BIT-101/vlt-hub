@@ -29,6 +29,7 @@ import Logo from "../assets/logo.png";
 import Participant from "../assets/participant.svg";
 import Venue from "../assets/venue.svg";
 import "./HomePage.css";
+import Header from "../components/header/Header";
 
 const HomePage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -61,51 +62,7 @@ const HomePage: React.FC = () => {
       </IonMenu>
 
       <IonContent id="main-content">
-        <IonHeader>
-          <IonToolbar className="custom-toolbar">
-            <IonGrid>
-              <IonRow className="ion-align-items-center ion-justify-content-between">
-                <IonCol size="auto">
-                  <IonMenuToggle>
-                    <IonMenuButton className="menu-button" />
-                  </IonMenuToggle>
-                </IonCol>
-                <IonCol size="auto">
-                  <div className="title-container">
-                    <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
-                  </div>
-                </IonCol>
-                <IonCol size="auto">
-                  <IonSearchbar
-                    className="navsearch-bar"
-                    placeholder="Search events"
-                    onIonChange={handleSearchChange}
-                  ></IonSearchbar>
-                  <IonIcon icon={search} className="search-icon"></IonIcon>
-                </IonCol>
-                <IonCol size="auto" className="header-link-host-event">
-                  <Link to="/host/signin" className="header-link">
-                    Host an event
-                  </Link>
-                </IonCol>
-                <IonCol size="auto" className="header-link-my-events">
-                  <span className="header-link">My events</span>
-                </IonCol>
-                {/* <IonCol offset="1" size="auto">
-                  <IonIcon
-                    icon={notificationsOutline}
-                    className="notification-icon"
-                  ></IonIcon>
-                </IonCol> */}
-                <IonCol size="auto" className="login-button">
-                  <IonButton className="nav-login-signup-button">
-                    Login/Signup
-                  </IonButton>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
 
         <div className="home-container">
           <div className="left-section">

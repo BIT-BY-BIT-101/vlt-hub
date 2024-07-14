@@ -25,6 +25,7 @@ import techythursdays from "../../assets/techythursdays.jpg";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import "./VenueHomePage.css";
+import Header from "../../components/header/Header";
 
 const VenueHomePage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -36,15 +37,7 @@ const VenueHomePage: React.FC = () => {
     <>
       <VenueNavMenu />
       <IonPage id="main">
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton autoHide={false}></IonMenuButton>
-            </IonButtons>
-            {/* <IonMenuButton slot="start" /> */}
-            <IonTitle>Dashboard</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
         <IonContent id="vhome-main">
           <div className="vhome-cards-container">
             <IonCard className="vhome-event-card" onClick={openModal}>

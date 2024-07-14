@@ -14,12 +14,13 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/vsignin.svg";
 import "./VenueSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
+import { AuthContext } from "../../../context/AuthContext";
 
 type errorProps = {
   message: string;
@@ -27,6 +28,7 @@ type errorProps = {
 };
 
 const VenueSigninComponent: React.FC = () => {
+  const { currentUser } = useContext(AuthContext);
   const { user, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -64,7 +66,7 @@ const VenueSigninComponent: React.FC = () => {
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
   };
 
-  if (user) {
+  if (currentUser?.data.role === "venue") {
     return <Redirect to="/venue/home" />;
   }
 

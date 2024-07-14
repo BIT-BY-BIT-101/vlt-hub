@@ -13,6 +13,7 @@ import {
   IonList,
   IonMenuButton,
   IonPage,
+  IonThumbnail,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -22,71 +23,108 @@ import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 import EditVenueProfile from "../modals/EditVenueProfile";
 import "./ProfileCard.css";
-import { formatDateString } from "../../functions/functions";
+import { formatDateString } from "../../helpers/DateTimeFunctions";
+import UploadProfileImg from "../modals/UploadProfileImg";
 
 const ProfileCard = () => {
   const { userData } = useFirebaseAuth();
   // const { userData } = useFirestore(`profiles`);
-  const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showUploadImg, setShowUploadImg] = useState(false);
   const history = useHistory();
 
-  const handleOpenModal = () => {
-    setShowModal(true);
+  const handleOpenEditProfile = () => {
+    setShowEditModal(true);
   };
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleOpenUploadImg = () => {
+    setShowUploadImg(true);
+  };
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
+  const handleCloseUploadImg = () => {
+    setShowUploadImg(false);
   };
 
   return (
     <>
       <IonCard className="profile-card">
         <IonCardHeader>
-          <IonCardTitle className="profile-card-title">Profile</IonCardTitle>
+          <IonItem className="item-color-dark">
+            <IonButtons slot="end">
+              <IonButton
+                slot="start"
+                fill="clear"
+                onClick={handleOpenEditProfile}
+                className="profile-edit-btn"
+              >
+                Edit Profile
+              </IonButton>
+            </IonButtons>
+            {/* <IonButtons slot="start">
+              <IonButton
+                fill="clear"
+                slot="start"
+                onClick={history.goBack}
+                className="profile-back-btn"
+              >
+                Back
+              </IonButton>
+            </IonButtons> */}
+          </IonItem>
         </IonCardHeader>
 
         {/* <IonItem>{userData?.email}</IonItem> */}
-        <IonLabel className="profile-form-label">
-          <span className="profile-form-title">Name:</span>
-          {userData?.fname} {userData?.lname}
-        </IonLabel>
-        <IonLabel className="profile-form-label">
-          <span className="profile-form-title">Birthdate:</span>
-          {/* {userData?.birthdate} */}
-          {formatDateString(userData?.birthdate)}
-        </IonLabel>
-        <IonLabel className="profile-form-label">
-          <span className="profile-form-title">Gender:</span>
-          {userData?.gender}
-        </IonLabel>
-        <IonLabel className="profile-form-label">
-          <span className="profile-form-title">Address:</span>
-          {userData?.bldg_no} {userData?.street} {userData?.city}{" "}
-          {userData?.country}
-        </IonLabel>
+        <IonList className="item-color-dark">
+          <IonItem className="item-color-dark">
+            <IonThumbnail slot="start" onClick={handleOpenUploadImg}>
+              <img
+                alt="Silhouette of mountains"
+                src={
+                  userData?.photoURL
+                    ? userData?.photoURL
+                    : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                }
+              />
+            </IonThumbnail>
+            <IonLabel className="profile-form-label">
+              {userData?.fname} {userData?.lname}
+            </IonLabel>
+          </IonItem>
 
-        <div className="profilecard-btn">
-          <IonButton
-            slot="start"
-            fill="clear"
-            onClick={handleOpenModal}
-            className="profile-edit-btn"
-          >
-            Edit Profile
-          </IonButton>
-          <IonButton
-            fill="clear"
-            slot="start"
-            onClick={history.goBack}
-            className="profile-back-btn"
-          >
-            Back
-          </IonButton>
-        </div>
+          <IonItem className="item-color-dark">
+            <IonLabel className="profile-form-label">
+              <span className="profile-form-title">Birthdate:</span>
+              {/* {userData?.birthdate} */}
+              {formatDateString(userData?.birthdate)}
+            </IonLabel>
+          </IonItem>
+          <IonItem className="item-color-dark">
+            <IonLabel className="profile-form-label">
+              <span className="profile-form-title">Gender:</span>
+              {userData?.gender}
+            </IonLabel>
+          </IonItem>
+          <IonItem className="item-color-dark">
+            <IonLabel className="profile-form-label">
+              <span className="profile-form-title">Address:</span>
+              {userData?.bldg_no} {userData?.street} {userData?.city}{" "}
+              {userData?.country}
+            </IonLabel>
+          </IonItem>
+        </IonList>
+
         <EditVenueProfile
-          isOpen={showModal}
-          onClose={handleCloseModal}
-          onDidDismissal={handleCloseModal}
+          isOpen={showEditModal}
+          onClose={handleCloseEditModal}
+          onDidDismissal={handleCloseEditModal}
           userData={userData}
+        />
+        <UploadProfileImg
+          isOpen={showUploadImg}
+          onClose={handleCloseUploadImg}
+          userData={userData}
+          onDidDismissal={handleCloseUploadImg}
         />
       </IonCard>
     </>

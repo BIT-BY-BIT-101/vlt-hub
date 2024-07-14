@@ -13,10 +13,10 @@ import { useHistory } from "react-router";
 import Default from "../../assets/defaultCover.jpg";
 import HostImg from "../../assets/host.jpg";
 import {
-  convertToCurrency,
   formatDateString,
+  // formatFibaseTimestamp,
   formatTimeString,
-} from "../../functions/functions";
+} from "../../helpers/DateTimeFunctions";
 import useFirestore from "../../hooks/useFirestore";
 import useQuery from "../../hooks/useQuery";
 import { EventDataModel } from "../../models/Model";
@@ -38,7 +38,6 @@ const EventsCard = () => {
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-
   return (
     <>
       {data.map((event: EventDataModel) => (
@@ -82,14 +81,14 @@ const EventsCard = () => {
                 icon={timeOutline}
                 slot="start"
               />
-              <IonText>{formatDateString(event.startTime)}</IonText>
+              <IonText>{formatTimeString(event.eventDate)}</IonText>
             </IonItem>
             <IonItem className="item-color">
               <IonLabel>
                 <p
-                  className={
+                  className={`${
                     event.event_fee ? "phome-event-paid" : "phome-event-free"
-                  }
+                  }`}
                 >
                   {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
                 </p>

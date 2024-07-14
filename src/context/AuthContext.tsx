@@ -29,18 +29,20 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
-      const userDoc = doc(db, "profiles", user?.uid!);
-      const userDocSnap = await getDoc(userDoc);
-      if (userDocSnap.exists()) {
-        // setUserData(userDocSnap.data());
-        const userObj: User = {
-          uid: user?.uid!,
-          email: user?.email!,
-          data: userDocSnap?.data(),
-        };
-        setCurrentUser(userObj);
-        setLoading(false);
-        console.log(userObj);
+      if (user) {
+        const userDoc = doc(db, "profiles", user?.uid);
+        const userDocSnap = await getDoc(userDoc);
+        if (userDocSnap.exists()) {
+          // setUserData(userDocSnap.data());
+          const userObj: User = {
+            uid: user?.uid!,
+            email: user?.email!,
+            data: userDocSnap?.data(),
+          };
+          setCurrentUser(userObj);
+          setLoading(false);
+          console.log(userObj);
+        }
       }
     });
 

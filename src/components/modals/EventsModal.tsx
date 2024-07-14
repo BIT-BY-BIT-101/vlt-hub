@@ -10,15 +10,19 @@ import {
 } from "@ionic/react";
 import { arrayUnion } from "firebase/firestore";
 import { closeCircle } from "ionicons/icons";
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import HostImg from "../../assets/defaultCover.jpg";
 import { auth } from "../../config/firebase";
 import paymongo from "../../config/paymongo";
-import { formatTimeString } from "../../functions/functions";
+import {
+  formatDateString,
+  formatTimeString,
+} from "../../helpers/DateTimeFunctions";
 import useFirestore from "../../hooks/useFirestore";
 import useQuery from "../../hooks/useQuery";
 import { EventDataModel } from "../../models/Model";
+import { AuthContext } from "../../context/AuthContext";
 
 type EventModalProps = {
   isOpen: boolean;
@@ -27,17 +31,22 @@ type EventModalProps = {
 };
 
 const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
+  const { currentUser } = useContext(AuthContext);
   const { updateData: updateEnrolled } = useFirestore("profiles");
   const { updateData: updateParticipants } = useFirestore("events");
   const { addData } = useFirestore("event_enrolled");
   const { addData: addPayment } = useFirestore("payments");
-  const { data: participants } = useQuery(
-    "events",
-    "status",
-    "array-contains",
-    auth.currentUser?.uid!
-  );
+  // const { data: participants } = useQuery(
+  //   "events",
+  //   "status",
+  //   "array-contains",
+  //   auth.currentUser?.uid!
+  // );
   const history = useHistory();
+
+  function handleSignin() {
+    return (window.location.href = "/participant/signin");
+  }
 
   const userId = auth.currentUser?.uid!;
 
@@ -76,7 +85,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
           },
         ],
         description: selected?.title,
-        payment_method_types: ["gcash", "card", "paymaya"],
+        payment_method_types: ["gcash", "card", "paymaya", "grab_pay"],
         reference_number: "n45a4s",
         success_url: `http://localhost:8080/payments/${selected?.id}/success`,
       },
@@ -151,22 +160,35 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
             {selected?.venue}
           </p>
           <p>
-            <span>Date:</span> October 15, 2023
+            <span>Date:</span> {formatDateString(selected?.eventDate!)}
           </p>
           <p>
             <span>Time:</span> {formatTimeString(selected?.startTime!)} -
             {formatTimeString(selected?.endTime!)}
           </p>
         </div>
-        <div className="phome-btn-container">
-          <IonButton
-            expand="block"
-            className="phome-register-btn"
-            onClick={selected?.event_fee ? handleCheckout : handleRegister}
-          >
-            {selected?.event_fee ? "Pay Now" : "Register"}
-          </IonButton>
-        </div>
+        {currentUser ? (
+          <div className="phome-btn-container">
+            <IonButton
+              expand="block"
+              className="phome-register-btn"
+              onClick={selected?.event_fee ? handleCheckout : handleRegister}
+            >
+              {selected?.event_fee ? "Pay Now" : "Register"}
+            </IonButton>
+          </div>
+        ) : (
+          <div className="phome-btn-container">
+            <IonButton
+              expand="block"
+              className="phome-register-btn"
+              // routerLink="/participant/signin"
+              onClick={handleSignin}
+            >
+              Please Login
+            </IonButton>
+          </div>
+        )}
       </IonContent>
     </IonModal>
   );

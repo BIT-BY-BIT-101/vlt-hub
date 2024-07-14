@@ -5,13 +5,15 @@ export type EventDataModel = {
   title: string;
   description: string;
   host_id: string;
-  eventDate: string;
+  eventDate: Date;
   startTime: string;
   endTime: string;
   status: string;
   venue: string;
   host_name: string;
   event_fee: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type UserDataModel = {

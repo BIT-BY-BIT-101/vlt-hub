@@ -39,19 +39,25 @@ import "./ParticipantHomePage.css";
 import ParticipantHeader from "../../components/participant/ParticipantHeader";
 import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
 import { AuthContext } from "../../context/AuthContext";
+import Header from "../../components/header/Header";
+import Menus from "../../components/menus/Menus";
+import SidePanel from "../../components/SidePanel";
 
 const ParticipantHomePage = () => {
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
 
-  if (!currentUser) {
-    return history.push("/participant/signin");
+  if (currentUser?.data.role === "host" || currentUser?.data.role === "venue") {
+    // return history.push("/participant/signin");
+    return (window.location.href = "/participant/signin");
   }
   return (
     <>
       <ParticipantNavMenu />
+      {/* <Menus /> */}
       <IonPage>
-        <ParticipantHeader />
+        {/* <ParticipantHeader /> */}
+        <Header />
         {/* <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
@@ -64,7 +70,8 @@ const ParticipantHomePage = () => {
         <IonContent id="phome-main">
           <IonGrid>
             <IonRow>
-              <ParticipantSidePane />
+              {/* <ParticipantSidePane /> */}
+              <SidePanel />
 
               <IonCol size="10">
                 <IonRow>

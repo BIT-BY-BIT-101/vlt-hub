@@ -25,6 +25,7 @@ body {
 /*Nav Bar Styling*/
 
 .phome-logocontainer {
+  object-fit: cover;
   max-width: 50%;
   margin: 20px auto;
   border-radius: 50%;
@@ -247,6 +248,7 @@ ion-modal.phome-confirmation-modal-container::part(content) {
 .phome-event-free {
   background-color: green;
   color: white;
+  --ion-color-step-600: white;
   border-radius: 5px;
   padding: 5px 10px;
   display: inline-block;
@@ -256,6 +258,7 @@ ion-modal.phome-confirmation-modal-container::part(content) {
 .phome-event-paid {
   background-color: #b8653c;
   color: white;
+  --ion-color-step-600: white;
   border-radius: 5px;
   padding: 5px 10px;
   display: inline-block;

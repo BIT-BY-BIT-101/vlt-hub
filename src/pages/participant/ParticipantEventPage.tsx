@@ -5,33 +5,17 @@ import "./ParticipantEventPage.css";
 import ParticipantHeader from "../../components/participant/ParticipantHeader";
 import RegisteredEventsCard from "../../components/participant/RegisteredEventsCard";
 import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
+import Header from "../../components/header/Header";
+import Menus from "../../components/menus/Menus";
 
 const ParticipantEventPage: React.FC = () => {
-  // const events = [
-  //   {
-  //     date: "Wednesday, November 29, 2023",
-  //     title:
-  //       "Meta Safety in the Modern Age - Strategies for a Secure Digital Journey",
-  //     hostname: "Abdul Rauf M. Sultan",
-  //     hostImg: HostImg,
-  //     venue: "Zoom",
-  //     time: "1:00PM - 3:00PM",
-  //   },
-  //   {
-  //     date: "Friday, December 1, 2023",
-  //     title: "#TechyThursdays - Introduction to Web 3.0",
-  //     hostname: "Jean Irish Mer",
-  //     hostImg: HostImg2,
-  //     venue: "Zoom",
-  //     time: "3:00PM - 5:00PM",
-  //   },
-  // ];
-
   return (
     <>
-      <ParticipantNavMenu />
+      {/* <ParticipantNavMenu /> */}
+      <Menus />
       <IonPage>
-        <ParticipantHeader />
+        {/* <ParticipantHeader /> */}
+        <Header />
 
         <IonContent id="phome-main">
           <IonGrid>

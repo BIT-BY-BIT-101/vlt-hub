@@ -18,7 +18,10 @@ import {
   IonLabel,
 } from "@ionic/react";
 import React, { useState } from "react";
-import { formatDateString, formatTimeString } from "../../functions/functions";
+import {
+  formatDateString,
+  formatTimeString,
+} from "../../helpers/DateTimeFunctions";
 import { EventDataModel } from "../../models/Model";
 import { closeCircle } from "ionicons/icons";
 import { auth } from "../../config/firebase";
@@ -72,11 +75,11 @@ const RegisteredEventsCard = () => {
   };
   return (
     <>
-      <IonSearchbar
+      {/* <IonSearchbar
         className="psearch-bar"
         placeholder="Search events"
         onIonChange={handleSearchChange}
-      ></IonSearchbar>
+      ></IonSearchbar> */}
       {filteredEvents.map((event: EventDataModel, index: number) => (
         <IonCol size="12" size-sm="6" key={index}>
           <React.Fragment>
@@ -107,14 +110,6 @@ const RegisteredEventsCard = () => {
                     <p>
                       <span className=" text-color-rgb">Date: </span>
                       {formatDateString(event.eventDate)}
-                    </p>
-                  </IonLabel>
-                </IonItem>
-                <IonItem className="item-color">
-                  <IonLabel>
-                    <p>
-                      <span className=" text-color-rgb">Host: </span>
-                      {event.host_name}
                     </p>
                   </IonLabel>
                 </IonItem>

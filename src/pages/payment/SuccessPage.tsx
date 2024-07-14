@@ -25,8 +25,8 @@ const SuccessPage = () => {
         registered_events: arrayUnion(id),
       });
       console.log("Registration status updated successfully!");
-      history.push("/participant");
-      window.location.href = "/participant";
+      history.push("/participant/events");
+      window.location.href = "/participant/events";
     } catch (error) {
       console.error("Error updating registration status:", error);
     }

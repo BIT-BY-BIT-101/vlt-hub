@@ -10,6 +10,7 @@ import {
   getDoc,
   updateDoc,
   onSnapshot,
+  serverTimestamp,
 } from "firebase/firestore";
 
 import { EventDataModel, UserDataModel } from "../models/Model";
@@ -37,9 +38,10 @@ const useFirestore = (collectionPath: string) => {
       const collectionRef = collection(db, collectionPath);
       await addDoc(collectionRef, newData);
       console.log("Data added successfully!", collectionRef.id);
-      getData();
+      // getData();
     } catch (err) {
       setError(err);
+      setLoading(false);
       console.error("Error adding event:", err);
     }
   };
@@ -64,29 +66,10 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  // const fetchUserData = async () => {
-  //   try {
-  //     const uid = auth.currentUser?.uid;
-  //     if (uid) {
-  //       const userDocRef = doc(db, "profiles", uid);
-  //       const userDocSnap = await getDoc(userDocRef);
-  //       if (userDocSnap.exists()) {
-  //         const data = userDocSnap.data();
-  //         console.log(data);
-  //         setUserData(data);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching user data:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const updateData = async (id: string, data: any) => {
     const docRef = doc(db, collectionPath, id);
-    await updateDoc(docRef, data);
-    getData();
+    await updateDoc(docRef, { ...data, updatedAt: serverTimestamp() });
+    // getData();
   };
 
   useEffect(() => {
@@ -99,7 +82,7 @@ const useFirestore = (collectionPath: string) => {
       setLoading(false);
       console.log("Data Refreshed");
     });
-    return unsub;
+    return () => unsub();
   }, []);
 
   useEffect(() => {

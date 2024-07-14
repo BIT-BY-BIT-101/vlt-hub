@@ -23,6 +23,7 @@ import HostImg2 from "../../assets/host2.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueBookedEventsPage.css";
+import Header from "../../components/header/Header";
 
 const VenueBookedEventsPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -86,22 +87,14 @@ const VenueBookedEventsPage: React.FC = () => {
     <>
       <VenueNavMenu />
       <IonPage id="main">
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton autoHide={false}></IonMenuButton>
-            </IonButtons>
-            {/* <IonMenuButton slot="start" /> */}
-            <IonTitle>My Events</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
 
         <IonContent id="vhome-main">
-          <IonSearchbar
+          {/* <IonSearchbar
             className="vsearch-bar"
             placeholder="Search events"
             onIonChange={handleSearchChange}
-          ></IonSearchbar>
+          ></IonSearchbar> */}
           {filteredEvents.map((event, index) => (
             <React.Fragment key={index}>
               <h1 className="vevent-date">{event.date}</h1>

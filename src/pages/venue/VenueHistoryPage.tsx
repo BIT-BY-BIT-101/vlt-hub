@@ -30,6 +30,8 @@ import techythursdays from "../../assets/techythursdays.jpg";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import "./VenueHistoryPage.css";
+import Menus from "../../components/menus/Menus";
+import Header from "../../components/header/Header";
 
 const VenueHistoryPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -44,22 +46,18 @@ const VenueHistoryPage: React.FC = () => {
 
   return (
     <>
-      <VenueNavMenu />
+      {/* <VenueNavMenu /> */}
+      <Menus />
       <IonPage id="main">
-        <IonHeader>
-          <IonToolbar>
-            <IonMenuButton slot="start" />
-            <IonTitle>History</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
 
         <IonContent id="vhome-main">
-          <IonSearchbar
+          {/* <IonSearchbar
             className="vhistory-searchbar"
             value={searchText}
             onIonChange={handleSearchInputChange}
             placeholder="Search events..."
-          />
+          /> */}
           <div className="vhistory-cards-container">
             <IonCard className="vhistory-event-card" onClick={openModal}>
               <IonImg

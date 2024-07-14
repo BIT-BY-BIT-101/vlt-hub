@@ -13,6 +13,9 @@ import React, { useState } from "react";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostHomePage.css";
 import EventsCard from "../../components/participant/EventsCard";
+import Header from "../../components/header/Header";
+import SidePanel from "../../components/SidePanel";
+import Menus from "../../components/menus/Menus";
 
 const HostHomePage: React.FC = () => {
   // const [showModal, setShowModal] = useState(false);
@@ -22,21 +25,24 @@ const HostHomePage: React.FC = () => {
 
   return (
     <>
-      <HostNavMenu />
+      {/* <HostNavMenu /> */}
+      <Menus />
       <IonPage>
-        <IonHeader>
+        <Header />
+        {/* <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
               <IonMenuButton autoHide={false}></IonMenuButton>
             </IonButtons>
-            {/* <IonMenuButton slot="start" /> */}
+
             <IonTitle>Dashboard</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonContent id="main">
           <div className="hhome-cards-container">
             {/* <IonGrid>
               <IonRow> */}
+            <SidePanel />
             <EventsCard />
             {/* </IonRow>
             </IonGrid> */}

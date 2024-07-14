@@ -40,6 +40,8 @@
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "simple-peer": "^9.11.1",
+    "sweetalert2": "^11.12.2",
+    "sweetalert2-react-content": "^5.0.7",
     "uuid": "^9.0.1",
     "v4": "^0.0.1"
   },

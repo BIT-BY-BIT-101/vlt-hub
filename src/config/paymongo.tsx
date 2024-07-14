@@ -8,7 +8,7 @@ const paymongo = axios.create({
     // Authorization: `Basic `,
   },
   auth: {
-    username: "sk_test_qMQKQJZmFWoj37eQFX9kuvwN",
+    username: import.meta.env.VITE_PAYMONGO_SK,
     password: "",
   },
 });

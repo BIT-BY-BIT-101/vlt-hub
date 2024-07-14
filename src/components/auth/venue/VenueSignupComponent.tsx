@@ -18,14 +18,16 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/vsignup.svg";
 import "./VenueSignupComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
+import { AuthContext } from "../../../context/AuthContext";
 
 const VenueSignupComponent = () => {
+  const { currentUser } = useContext(AuthContext);
   const { user, signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
@@ -38,8 +40,6 @@ const VenueSignupComponent = () => {
   // const [year, setYear] = useState("");
 
   const handleSignup = async () => {
-    // const formattedBirthdate = `${month}/${date}/${year}`;
-    // await setNewBirthdate(formattedBirthdate);
     try {
       await signUp(
         newEmail,
@@ -62,7 +62,7 @@ const VenueSignupComponent = () => {
     setShowPassword(!showPassword);
   };
 
-  if (user) {
+  if (currentUser?.data.role === "venue") {
     return <Redirect to="/venue/home" />;
   }
 

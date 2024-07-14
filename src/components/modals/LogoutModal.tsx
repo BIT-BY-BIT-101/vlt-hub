@@ -14,7 +14,7 @@ const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, onClose }) => {
       await signOut();
       console.log("Logout clicked");
       // history.push("/participant/signin");
-      window.location.href = "/participant/signin";
+      window.location.href = "/participant/home";
     } catch (error) {}
   };
   return (

@@ -5,13 +5,16 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
   IonMenuButton,
   IonModal,
   IonPage,
+  IonRow,
   IonSearchbar,
   IonTitle,
   IonToolbar,
@@ -22,6 +25,9 @@ import HostImg from "../../assets/host.jpg";
 import MetaSafety from "../../assets/metasafety.jpg";
 import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostEventPage.css";
+import Header from "../../components/header/Header";
+import Menus from "../../components/menus/Menus";
+import SidePanel from "../../components/SidePanel";
 
 const HostEventPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -83,66 +89,77 @@ const HostEventPage: React.FC = () => {
   };
   return (
     <>
-      <HostNavMenu />
+      {/* <HostNavMenu /> */}
+      <Menus />
       <IonPage>
-        <IonHeader>
+        <Header />
+        {/* <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
               <IonMenuButton autoHide={false}></IonMenuButton>
             </IonButtons>
-            {/* <IonMenuButton slot="start" /> */}
             <IonTitle>My Events</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <IonContent id="main">
-          <IonSearchbar
+          {/* <IonSearchbar
             className="hsearch-bar"
             placeholder="Search events"
             onIonChange={handleSearchChange}
-          ></IonSearchbar>
-          {filteredEvents.map((event, index) => (
-            <React.Fragment key={index}>
-              <h1 className="hevent-date">{event.date}</h1>
-              <IonCard className="hevent-card">
-                <IonCardHeader>
-                  <IonCardTitle>{event.title}</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <div className="hevent-host-info">
-                    <img
-                      src={event.hostImg}
-                      alt={`Host: ${event.hostname}`}
-                      className="hevent-host-img"
-                    />
-                    <div className="hevent-host-name">{event.hostname}</div>
-                  </div>
-                  <div className="hevent-venue">
-                    <span>Venue: </span>
-                    {event.venue}
-                  </div>
-                  <div className="hevent-time">
-                    <span>Time: </span>
-                    {event.time}
-                  </div>
-                  <div className="heventcard-btn">
-                    <IonButton
-                      className="hview-btn"
-                      onClick={() => openModal(event)}
-                    >
-                      View
-                    </IonButton>
-                    <IonButton
-                      className="hcancel-btn"
-                      onClick={handleCancelClick}
-                    >
-                      Cancel
-                    </IonButton>
-                  </div>
-                </IonCardContent>
-              </IonCard>
-            </React.Fragment>
-          ))}
+          ></IonSearchbar> */}
+          <SidePanel />
+
+          <IonGrid>
+            <IonRow>
+              {filteredEvents.map((event, index) => (
+                <React.Fragment key={index}>
+                  {/* <h1 className="hevent-date">{event.date}</h1> */}
+                  <IonCol>
+                    <IonCard className="hevent-card">
+                      <IonCardHeader>
+                        <IonCardTitle>{event.title}</IonCardTitle>
+                      </IonCardHeader>
+                      <IonCardContent>
+                        <div className="hevent-host-info">
+                          <img
+                            src={event.hostImg}
+                            alt={`Host: ${event.hostname}`}
+                            className="hevent-host-img"
+                          />
+                          <div className="hevent-host-name">
+                            {event.hostname}
+                          </div>
+                        </div>
+                        <div className="hevent-venue">
+                          <span>Venue: </span>
+                          {event.venue}
+                        </div>
+                        <div className="hevent-time">
+                          <span>Time: </span>
+                          {event.time}
+                        </div>
+                        <div className="heventcard-btn">
+                          <IonButton
+                            className="hview-btn"
+                            onClick={() => openModal(event)}
+                          >
+                            View
+                          </IonButton>
+                          <IonButton
+                            className="hcancel-btn"
+                            onClick={handleCancelClick}
+                          >
+                            Cancel
+                          </IonButton>
+                        </div>
+                      </IonCardContent>
+                    </IonCard>
+                  </IonCol>
+                </React.Fragment>
+              ))}
+            </IonRow>
+          </IonGrid>
 
           {/* Modal */}
           <IonModal

@@ -13,12 +13,13 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import SignInSVG from "../../../assets/hsignin.svg";
 import Logo from "../../../assets/logo.png";
 import "./HostSigninComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
+import { AuthContext } from "../../../context/AuthContext";
 
 type errorProps = {
   message: string;
@@ -26,6 +27,7 @@ type errorProps = {
 };
 
 const HostSigninComponent: React.FC = () => {
+  const { currentUser } = useContext(AuthContext);
   const { user, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -60,7 +62,7 @@ const HostSigninComponent: React.FC = () => {
     "auth/too-many-requests":
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
   };
-  if (user) {
+  if (currentUser?.data.role === "host") {
     return <Redirect to="/host/home" />;
   }
 

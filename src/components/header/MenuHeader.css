@@ -1,0 +1,12 @@
+.thumbnail-size-100 {
+  --size: 100%;
+}
+.thumbnail-size-75 {
+  --size: 75%;
+}
+.thumbnail-size-50 {
+  --size: 50%;
+}
+.thumbnail-size-25 {
+  --size: 25%;
+}

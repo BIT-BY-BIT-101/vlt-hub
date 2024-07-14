@@ -16,17 +16,22 @@ import {
   book,
   business,
   home,
+  logIn,
   logOut,
   pencil,
   time,
 } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import VenueOrgImg from "../../assets/venueorg.jpg";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import LogoutModal from "../modals/LogoutModal";
+import MenuHeader from "../header/MenuHeader";
+import { AuthContext } from "../../context/AuthContext";
+import { auth } from "../../config/firebase";
 
 function VenueNavMenu() {
+  const { currentUser } = useContext(AuthContext);
   const { signOut, userData } = useFirebaseAuth();
   const history = useHistory();
   const location = useLocation();
@@ -48,97 +53,87 @@ function VenueNavMenu() {
     setShowLogoutModal(false);
   };
 
+  const items = [
+    {
+      title: "Home",
+      path: "/venue/home",
+      icon: home,
+    },
+    {
+      title: "Venues",
+      path: "/venue/list-venue",
+      icon: business,
+    },
+    {
+      title: "Requests",
+      path: "/venue/requests",
+      icon: alertCircle,
+    },
+    {
+      title: "Booked Events",
+      path: "/venue/booked-events",
+      icon: book,
+    },
+    {
+      title: "History",
+      path: "/venue/history",
+      icon: time,
+    },
+  ];
+
   return (
     <IonMenu contentId="main" type="overlay">
-      <IonHeader>
-        <IonToolbar class="vhome-menu-header">
-          <IonImg
-            src={VenueOrgImg}
-            alt="V.L.T. Hub"
-            className="vhome-logocontainer"
-          />
-          <div className="vhome-userinfo">
-            <IonLabel class="vhome-username">
-              {userData?.fname} {userData?.lname}
-            </IonLabel>
-            <IonButtons>
-              <IonButton
-                className="vhome-editprofile"
-                // onClick={() => history.push("/venue/profile")}
-                routerLink="/venue/profile"
+      <MenuHeader />
+
+      <IonContent className="container-space-between" fullscreen={true}>
+        {auth.currentUser ? (
+          <>
+            <IonList className="flex-item bg-color-secondary">
+              {items.map((item) => (
+                <IonItem
+                  key={item.title}
+                  routerLink={item.path}
+                  className={`item-color ${
+                    isMenuItemActive(item.path) ? "activated" : ""
+                  }`}
+                  // onClick={() => history.push("/participant/home")}
+                >
+                  <IonIcon
+                    icon={item.icon}
+                    slot="start"
+                    className="item-color-dark"
+                  />
+                  <IonLabel>{item.title}</IonLabel>
+                </IonItem>
+              ))}
+            </IonList>
+            <IonList className="flex-item bg-color-secondary">
+              <IonItem
+                className="item-color"
+                onClick={() => setShowLogoutModal(true)}
               >
-                <IonIcon icon={pencil} />
-                My Profile
-              </IonButton>
-            </IonButtons>
-          </div>
-        </IonToolbar>
-      </IonHeader>
-
-      <IonContent className="vhome-menu-content">
-        <IonList className="vhome-menu-options">
-          <IonItem
-            className={`vhome-menu-item ${
-              isMenuItemActive("/venue/home") ? "activated" : ""
-            }`}
-            onClick={() => history.push("/venue/home")}
-          >
-            <IonIcon icon={home} slot="start" className="vhome-menu-icon" />
-            <IonLabel class="vhome-menu-label">Home</IonLabel>
-          </IonItem>
-
-          <IonItem
-            className={`vhome-menu-item ${
-              isMenuItemActive("/venue/list-venue") ? "activated" : ""
-            }`}
-            onClick={() => history.push("/venue/list-venue")}
-          >
-            <IonIcon icon={business} slot="start" className="vhome-menu-icon" />
-            <IonLabel class="vhome-menu-label">Venues</IonLabel>
-          </IonItem>
-
-          <IonItem
-            className={`vhome-menu-item ${
-              isMenuItemActive("/venue/requests") ? "activated" : ""
-            }`}
-            onClick={() => history.push("/venue/requests")}
-          >
-            <IonIcon
-              icon={alertCircle}
-              slot="start"
-              className="vhome-menu-icon"
-            />
-            <IonLabel class="vhome-menu-label">Requests</IonLabel>
-          </IonItem>
-
-          <IonItem
-            className={`vhome-menu-item ${
-              isMenuItemActive("/venue/booked-events") ? "activated" : ""
-            }`}
-            onClick={() => history.push("/venue/booked-events")}
-          >
-            <IonIcon icon={book} slot="start" className="vhome-menu-icon" />
-            <IonLabel class="vhome-menu-label">Booked Events</IonLabel>
-          </IonItem>
-
-          <IonItem
-            className={`vhome-menu-item ${
-              isMenuItemActive("/venue/history") ? "activated" : ""
-            }`}
-            onClick={() => history.push("/venue/history")}
-          >
-            <IonIcon icon={time} slot="start" className="vhome-menu-icon" />
-            <IonLabel class="vhome-menu-label">History</IonLabel>
-          </IonItem>
-        </IonList>
-
-        <IonItem
-          className="vhome-menu-item vhome-logout"
-          onClick={() => setShowLogoutModal(true)}
-        >
-          <IonIcon icon={logOut} slot="start" className="vhome-menu-icon" />
-          <IonLabel class="vhome-menu-label">Logout</IonLabel>
-        </IonItem>
+                <IonIcon
+                  icon={logOut}
+                  slot="start"
+                  className="item-color-dark"
+                />
+                <IonLabel>Logout</IonLabel>
+              </IonItem>
+            </IonList>
+          </>
+        ) : (
+          <IonList className="flex-item bg-color-secondary">
+            <IonItem
+              className="item-color"
+              routerLink="/participant/signin"
+              // onClick={() => setShowLogoutModal(true)}
+            >
+              <IonIcon icon={logIn} slot="start" className="item-color" />
+              <IonLabel>Signin</IonLabel>
+            </IonItem>
+          </IonList>
+        )}
+        <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
       </IonContent>
       <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
     </IonMenu>

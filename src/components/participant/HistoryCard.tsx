@@ -2,6 +2,7 @@ import {
   IonButton,
   IonButtons,
   IonCard,
+  IonCol,
   IonContent,
   IonHeader,
   IonIcon,
@@ -14,8 +15,14 @@ import React, { useState } from "react";
 import HostImg from "../../assets/host.jpg";
 import IntrotoCSharp from "../../assets/introtocsharp.jpg";
 import { closeCircle } from "ionicons/icons";
+import useFirestore from "../../hooks/useFirestore";
+import useQuery from "../../hooks/useQuery";
+import { serverTimestamp } from "firebase/firestore";
+import useEventHistory from "../../hooks/useEventHistory";
+import { EventDataModel } from "../../models/Model";
 
 const HistoryCard = () => {
+  const { data } = useEventHistory();
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -24,49 +31,55 @@ const HistoryCard = () => {
     setSearchText(e.detail.value);
   };
   return (
-    <IonCard className="phistory-event-card" onClick={openModal}>
-      <IonImg
-        src={IntrotoCSharp}
-        alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
-        className="phistory-event-image"
-      />
-      <IonLabel>
-        <h2
-          className="phistory-event-title"
-          style={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            display: "-webkit-box",
-            WebkitBoxOrient: "vertical",
-            WebkitLineClamp: 2,
-            lineHeight: "20px",
-            maxHeight: "40px",
-          }}
-        >
-          Mastering the Fundamentals: An Introduction to Visual C# Programming
-        </h2>
-        <div className="phistory-event-host-container">
-          <IonImg
-            src={HostImg}
-            alt="Abdul Rauf M. Sultan"
-            className="phistory-event-host-img"
-          />
-          <p className="phistory-event-host">Abdul Rauf M. Sultan</p>
-        </div>
-        <IonLabel className="phistory-event-details">
-          <p>
-            <span>Venue:</span> Zoom
-          </p>
-          <p>
-            <span>Date:</span> October 15, 2023
-          </p>
-          <p>
-            <span>Time:</span> 3:00 PM - 5:00 PM
-          </p>
-          <p className="phistory-event-free">Free</p>
-        </IonLabel>
-      </IonLabel>
-
+    <>
+      {data.map((event: EventDataModel) => (
+        <IonCol size="10" size-sm="6">
+          <IonCard className="phistory-event-card" onClick={openModal}>
+            <IonImg
+              src={IntrotoCSharp}
+              alt="Mastering the Fundamentals: An Introduction to Visual C# Programming."
+              className="phistory-event-image"
+            />
+            <IonLabel>
+              <h2
+                className="phistory-event-title"
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  lineHeight: "20px",
+                  maxHeight: "40px",
+                }}
+              >
+                Mastering the Fundamentals: An Introduction to Visual C#
+                Programming
+              </h2>
+              <div className="phistory-event-host-container">
+                <IonImg
+                  src={HostImg}
+                  alt="Abdul Rauf M. Sultan"
+                  className="phistory-event-host-img"
+                />
+                <p className="phistory-event-host">Abdul Rauf M. Sultan</p>
+              </div>
+              <IonLabel className="phistory-event-details">
+                <p>
+                  <span>Venue:</span> Zoom
+                </p>
+                <p>
+                  <span>Date:</span> October 15, 2023
+                </p>
+                <p>
+                  <span>Time:</span> 3:00 PM - 5:00 PM
+                </p>
+                <p className="phistory-event-free">Free</p>
+              </IonLabel>
+            </IonLabel>
+          </IonCard>
+        </IonCol>
+      ))}
       {/* Modal */}
       <IonModal
         isOpen={showModal}
@@ -129,7 +142,7 @@ const HistoryCard = () => {
           </div>
         </IonContent>
       </IonModal>
-    </IonCard>
+    </>
   );
 };
 

@@ -70,7 +70,7 @@ const ParticipantSigninComponent: React.FC = () => {
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
   };
 
-  if (currentUser) {
+  if (currentUser?.data.role === "participant") {
     return <Redirect to="/participant/home" />;
   }
   // if (loading) {

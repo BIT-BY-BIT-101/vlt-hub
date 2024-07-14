@@ -3,15 +3,21 @@ import React from "react";
 import ProfileCard from "../../components/cards/ProfileCard";
 import ParticipantHeader from "../../components/participant/ParticipantHeader";
 import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
+import Header from "../../components/header/Header";
+import Menus from "../../components/menus/Menus";
+import SidePanel from "../../components/SidePanel";
 
 export const ParticipantProfilePage = () => {
   return (
     <IonPage>
-      <ParticipantHeader />
+      <Menus />
+      {/* <ParticipantHeader /> */}
+      <Header />
       <IonContent>
         <IonGrid>
           <IonRow>
-            <ParticipantSidePane />
+            {/* <ParticipantSidePane /> */}
+            <SidePanel />
             <IonCol size="10">
               <ProfileCard />
             </IonCol>

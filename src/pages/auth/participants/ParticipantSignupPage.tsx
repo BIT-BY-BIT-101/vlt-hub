@@ -8,11 +8,12 @@ import {
 import React from "react";
 import ParticipantSignupComponent from "../../../components/auth/participant/ParticipantSignupComponent";
 import ParticipantHeader from "../../../components/participant/ParticipantHeader";
+import Header from "../../../components/header/Header";
 
 function ParticipantSignupPage() {
   return (
     <IonPage>
-      <ParticipantHeader />
+      <Header />
       <IonContent fullscreen className="ion-padding">
         <ParticipantSignupComponent />
       </IonContent>

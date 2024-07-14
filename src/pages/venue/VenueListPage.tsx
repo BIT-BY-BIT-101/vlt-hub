@@ -11,21 +11,14 @@ import {
 import VenueCard from "../../components/venue/VenueCard";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueListPage.css";
+import Header from "../../components/header/Header";
 
 const VenueListPage = () => {
   return (
     <>
       <VenueNavMenu />
       <IonPage id="main">
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton autoHide={false}></IonMenuButton>
-            </IonButtons>
-
-            <IonTitle>Venues</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
         <IonContent>
           <IonButton className="vlistpage-btn" routerLink="/venue/add-venue">
             Add Venue

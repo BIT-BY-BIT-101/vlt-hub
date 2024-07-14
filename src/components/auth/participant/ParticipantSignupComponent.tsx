@@ -19,14 +19,17 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/psignup.svg";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import "./ParticipantSignupComponent.css";
+import { AuthContext } from "../../../context/AuthContext";
 
 const ParticipantSignupComponent = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const { user, signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
@@ -64,7 +67,7 @@ const ParticipantSignupComponent = () => {
     setShowPassword(!showPassword);
   };
 
-  if (user) {
+  if (currentUser?.data.role === "participant") {
     return <Redirect to="/participant/home" />;
   }
 

@@ -7,7 +7,10 @@ import {
   IonCardContent,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
-import { formatDateString, formatTimeString } from "../../functions/functions";
+import {
+  formatDateString,
+  formatTimeString,
+} from "../../helpers/DateTimeFunctions";
 import { useParams } from "react-router";
 import { EventDataModel } from "../../models/Model";
 import { arrayUnion, doc, getDoc } from "firebase/firestore";

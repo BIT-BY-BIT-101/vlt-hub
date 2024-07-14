@@ -18,19 +18,33 @@ service cloud.firestore {
     }
    
     
-      allow read, write: if request.time < timestamp.date(2025, 1, 10);
-      allow read: if authed()
+      // allow read, write: if request.time < timestamp.date(2025, 1, 10);
+      // allow read, write: if false
+      allow read: if true;
+      // allow write: if authed();
+      // allow write: if false
       
     match /profiles/{profile} {
-     function matchedUser(data){
-    		return true
-     }
-    	allow read: if true
+    	allow read: if authed()
+      allow write: if authed()
     }
     
-    match /events {
+    match /events/{eventId} {
     	allow read: if true
+      allow write: if authed()
     }
+    
+    match /venues/{venueId} {
+    	allow write: if authed()
+    }
+    
+    match /chats/{chatId}{
+    	match /messages/{messagesId}{
+      	allow write, read: if authed()
+      }
+    }
+    
+
     
     
       

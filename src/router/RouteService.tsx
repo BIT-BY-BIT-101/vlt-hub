@@ -62,6 +62,10 @@ const RouteService = () => {
         <Route exact path="/home">
           <HomePage />
         </Route>
+        <Route exact path="/home/events">
+          <ParticipantHomePage />
+        </Route>
+
         <Route render={() => <PageNotFound />} />
 
         <Route exact path="/">
@@ -99,12 +103,16 @@ const RouteService = () => {
           <Redirect to="/participant/home" />
         </Route>
 
-        <ProtectedRoute
+        <Route exact path={"/participant/home"}>
+          <ParticipantHomePage />
+        </Route>
+
+        {/* <ProtectedRoute
           path="/participant/home"
           allowedRoles={"participant"}
           component={ParticipantHomePage}
           redirected="/participant/signin"
-        />
+        /> */}
         <ProtectedRoute
           path="/participant/events"
           allowedRoles={"participant"}

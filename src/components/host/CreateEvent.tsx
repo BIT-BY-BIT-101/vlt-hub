@@ -8,14 +8,17 @@ import {
   IonButton,
   IonTextarea,
 } from "@ionic/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { useForm } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { auth } from "../../config/firebase";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import useQueryDoc from "../../hooks/useQueryDoc";
 import useFirebaseStorage from "../../hooks/useFirestorage";
+import { serverTimestamp, Timestamp } from "firebase/firestore";
+import Swal from "sweetalert2";
+import useCreateEvent from "../../hooks/useCreateEvent";
 
 type RouteParams = {
   id: string;
@@ -23,20 +26,31 @@ type RouteParams = {
 
 function CreateEvent() {
   const { id } = useParams<RouteParams>();
-  const {
-    uploadImage,
-    imageUrl,
-    error: uploadError,
-    imageName,
-  } = useFirebaseStorage("events/image");
+  // const {
+  //   uploadImage,
+  //   imageUrl,
+  //   error: uploadError,
+  //   imageName,
+  // } = useFirebaseStorage("events/image");
   const { data: venueData } = useQueryDoc("venues", id);
   // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
   // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
-  const { addData: createEvent } = useFirestore("events");
+  // const { addData: createEvent, error: eventError } = useFirestore("events");
+  const {
+    createEvent,
+    error: eventError,
+    imageUrl,
+    imagePath,
+  } = useCreateEvent();
   // const { photos, takePhoto, uploading, imageUrl } =
   //   usePhotoUpload("events/image");
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors: formError },
+  } = useForm();
   const [eventData, setEventData] = useState({
     title: "",
     description: "",
@@ -50,6 +64,7 @@ function CreateEvent() {
     startTime: "",
     endTime: "",
   });
+  const [eventDate, setEventDate] = useState<string>("");
   const [venue, setVenue] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
@@ -57,6 +72,12 @@ function CreateEvent() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
   // const [imagePreviewUrl, setImagePreviewUrl] = useState<File | null>(null);
   const [imgUrl, setImgUrl] = useState<File | null>(null);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(eventDate);
+  }, [eventDate]);
 
   const customVenueFormatOptions = {
     header: "Venue Format",
@@ -98,10 +119,46 @@ function CreateEvent() {
       setImgUrl(null);
     }
   };
+  // const handleUpload = async () => {
+  //   await uploadImage(imgUrl, Date.now()).then((res) => {
+  //     Swal.fire({
+  //       heightAuto: false,
+  //       position: "top-right",
+  //       title: "Uploading..",
+  //       timer: 2000,
+  //       timerProgressBar: true,
+  //       didOpen: () => {
+  //         Swal.showLoading();
+  //       },
+  //     }).then((result) => {
+  //       /* Read more about handling dismissals below */
+  //       // console.log(uploadError);
 
-  const handleUpload = async () => {
-    await uploadImage(imgUrl, Date.now());
-  };
+  //       if (uploadError) {
+  //         Swal.fire({
+  //           heightAuto: false,
+  //           title: "Oops!, something went wrong while uploading image",
+  //           icon: "error",
+  //           timer: 1000,
+  //           position: "top-right",
+  //           showConfirmButton: false,
+  //         });
+  //       } else {
+  //         Swal.fire({
+  //           icon: "success",
+  //           heightAuto: false,
+  //           timer: 1000,
+  //           position: "top-right",
+  //           showConfirmButton: false,
+  //         });
+  //       }
+
+  //       if (result.dismiss === Swal.DismissReason.timer) {
+  //         console.log("I was closed by the timer");
+  //       }
+  //     });
+  //   });
+  // };
 
   const handleVenueChange = (event: CustomEvent) => {
     const selectedVenue = event.detail.value;
@@ -120,48 +177,91 @@ function CreateEvent() {
   console.log(venueData);
 
   const onSubmit = async (data: any) => {
-    try {
-      const hostId = auth.currentUser?.uid!;
-      const hostName = `${userData?.fname} ${userData?.lname}`;
-      const venueId = id;
-      const status = "unpublished";
-      const venueName = venueData.name;
+    const hostId = auth.currentUser?.uid!;
+    const hostName = `${userData?.fname} ${userData?.lname}`;
+    const venueId = id;
+    const status = "unpublished";
+    const venueName = venueData.name;
 
-      // Combine the state and any other data needed
-      const eventDataToSubmit = {
-        ...eventData,
-        ...data,
-        // ...register,
-        venue: venueName,
-        venue_id: venueId,
-        host_id: hostId,
-        host_name: hostName,
-        status: status,
-        isArchived: false,
-        imgUrl: imageUrl,
-        imageName: imageName,
-      };
-      console.log(id);
-      console.log(venueData.name);
+    // const convertDate = Timestamp.fromDate(eventDate);
+    // const convertDate = new Date(eventDate!);
 
-      // Call the createEvent function to add the event data to Firebase
-      if (!imageUrl) {
-        console.log("There is no URL");
+    // Combine the state and any other data needed
+    const eventDataToSubmit = {
+      // ...eventData,
+      ...data,
+      // ...register,
+      // eventDate: convertDate,
+      venue: venueName,
+      venue_id: venueId,
+      host_id: hostId,
+      host_name: hostName,
+      status: status,
+      isArchived: false,
+      imgUrl: imageUrl,
+      imagePath: imagePath,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    };
+    console.log(id);
+    console.log(venueData.name);
+
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      heightAuto: false,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire({
+          heightAuto: false,
+          position: "top-right",
+          title: "Uploading..",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        }).then(async (result) => {
+          /* Read more about handling dismissals below */
+          await createEvent(imgUrl, Date.now(), eventDataToSubmit).then(
+            async () => {
+              console.log(eventError);
+
+              if (eventError === null) {
+                Swal.fire({
+                  title: "Success!",
+                  text: "Event created successfully",
+                  icon: "success",
+                  confirmButtonText: "ok",
+                  heightAuto: false,
+                }).then(() => {
+                  history.push("/host/event-list");
+                });
+              } else {
+                Swal.fire({
+                  title: "Error!",
+                  text: "Something went wrong, please try again",
+                  icon: "error",
+                  confirmButtonText: "ok",
+                  heightAuto: false,
+                });
+              }
+            }
+          );
+        });
       }
-      await createEvent(eventDataToSubmit);
-      console.log("Event created successfully!");
+    });
 
-      // const docRef = doc(db, `venues`, id);
-      // const colRef = collection(docRef, "events");
-      // await addDoc(colRef, eventDataToSubmit);
+    // const docRef = doc(db, `venues`, id);
+    // const colRef = collection(docRef, "events");
+    // await addDoc(colRef, eventDataToSubmit);
 
-      // Optionally, you can reset the form after successful submission
-      reset();
+    // Optionally, you can reset the form after successful submission
+    reset();
 
-      // Log success or navigate to another page
-    } catch (error) {
-      console.log("Error creating event:", error);
-    }
+    // Log success or navigate to another page
   };
 
   // console.log("Photot: ", photos);
@@ -214,9 +314,14 @@ function CreateEvent() {
           className="hhome-form-input"
           type="text"
           required
-          {...register("title")}
+          {...register("title", { required: true })}
         />
       </IonLabel>
+      {formError.title?.type === "required" && (
+        <p role="alert" className="text-color-danger">
+          Please enter a title
+        </p>
+      )}
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Add a description:</span>
@@ -230,11 +335,16 @@ function CreateEvent() {
           className="hhome-form-input"
           autoGrow={true}
           required
-          {...register("description")}
+          {...register("description", { required: true })}
         />
       </IonLabel>
+      {formError.description?.type === "required" && (
+        <p role="alert" className="text-color-danger">
+          Please enter a title
+        </p>
+      )}
 
-      <IonLabel className="hhome-form-label">
+      {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Fee:</span>
         <IonInput
           className="hhome-form-input"
@@ -242,54 +352,7 @@ function CreateEvent() {
           required
           {...register("event_fee")}
         />
-      </IonLabel>
-
-      {/* <IonLabel className="hhome-form-label">
-        <span className="hhome-form-title">Venue Format:</span>
-        <IonSelect
-        interfaceOptions={customVenueFormatOptions}
-        interface="alert"
-        placeholder="Select venue type"
-        value={venue}
-        {...register("venueType")}
-        onIonChange={handleVenueChange}
-        >
-        <IonSelectOption value="online">Online</IonSelectOption>
-          <IonSelectOption value="on-site">On Site</IonSelectOption>
-        </IonSelect>
-      </IonLabel>
-
-      {additionalVenueOptions && (
-        <IonLabel className="hhome-form-label">
-          <span className="hhome-form-title">Choose a venue:</span>
-          <IonSelect
-            placeholder="Select One"
-            interfaceOptions={customVenueOptions}
-            {...register("venue")}
-          >
-            <IonSelectOption value="smx-olongapo">SMX Olongapo</IonSelectOption>
-            <IonSelectOption value="travelers-hotel">
-              Travelers Hotel
-            </IonSelectOption>
-          </IonSelect>
-        </IonLabel>
-      )}
-
-      {additionalOnlineOptions && (
-        <IonLabel className="hhome-form-label">
-          <span className="hhome-form-title">Choose a platform:</span>
-          <IonSelect
-            placeholder="Select One"
-            onIonChange={handleOnlineOptionChange}
-            interfaceOptions={customVenuePlatformOptions}
-            {...register("venue")}
-          >
-            <IonSelectOption value="zoom">Zoom</IonSelectOption>
-            <IonSelectOption value="google-meet">Google Meet</IonSelectOption>
-            <IonSelectOption value="ms-teams">MS Teams</IonSelectOption>
-          </IonSelect>
-        </IonLabel>
-      )} */}
+      </IonLabel> */}
 
       <div className="date-time-row">
         <div className="date-time-item">
@@ -299,7 +362,8 @@ function CreateEvent() {
               <IonDatetimeButton datetime="date"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("eventDate")}
+                  {...register("eventDate", { required: true })}
+                  // onIonChange={(e) => setEventDate(e.detail.value)}
                   showDefaultButtons={true}
                   presentation="date"
                   id="date"
@@ -309,8 +373,12 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
+          {formError.eventDate?.type === "required" && (
+            <p role="alert" className="text-color-danger">
+              Please enter a date
+            </p>
+          )}
         </div>
-
         <div className="date-time-item">
           <IonLabel className="hhome-form-label date-time-label">
             <span className="hhome-form-title">Start Time:</span>
@@ -318,18 +386,23 @@ function CreateEvent() {
               <IonDatetimeButton datetime="start"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("startTime")}
+                  {...register("startTime", { required: true })}
+                  // onIonChange={(e) => setEventDate(e.detail.value)}
                   showDefaultButtons={true}
                   presentation="time"
                   id="start"
-                  max="23:00"
-                  min="00:00"
+                  min="2023-12-01"
+                  max="2025-12-31"
                 ></IonDatetime>
               </IonModal>
             </div>
           </IonLabel>
+          {formError.startTime?.type === "required" && (
+            <p role="alert" className="text-color-danger">
+              Please enter a start time
+            </p>
+          )}
         </div>
-
         <div className="date-time-item">
           <IonLabel className="hhome-form-label date-time-label">
             <span className="hhome-form-title">End Time:</span>
@@ -337,16 +410,22 @@ function CreateEvent() {
               <IonDatetimeButton datetime="end"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("endTime")}
+                  {...register("endTime", { required: true })}
+                  // onIonChange={(e) => setEventDate(e.detail.value)}
                   showDefaultButtons={true}
                   presentation="time"
                   id="end"
-                  max="23:00"
-                  min="00:00"
+                  min="2023-12-01"
+                  max="2025-12-31"
                 ></IonDatetime>
               </IonModal>
             </div>
           </IonLabel>
+          {formError.endTime?.type === "required" && (
+            <p role="alert" className="text-color-danger">
+              Please enter an end time
+            </p>
+          )}
         </div>
       </div>
 
@@ -356,11 +435,11 @@ function CreateEvent() {
         fill="clear"
         onClick={handleSubmit(onSubmit)}
         className="hsubmit-btn"
-        disabled={!imageName}
+        // disabled={!imageName}
       >
         <span className="hsubmit-txt">Submit</span>
       </IonButton>
-      <IonButton
+      {/* <IonButton
         type="submit"
         expand="full"
         fill="clear"
@@ -368,7 +447,7 @@ function CreateEvent() {
         className="hsubmit-btn"
       >
         <span className="hsubmit-txt">Upload</span>
-      </IonButton>
+      </IonButton> */}
     </IonCard>
   );
 }

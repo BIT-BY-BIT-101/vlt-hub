@@ -28,10 +28,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   }
 
   if (!currentUser) {
-    console.log(currentUser);
-
     return <Redirect to={redirected} />;
-    // return history.goBack();
   }
 
   // Check if the user's role is allowed to access the route

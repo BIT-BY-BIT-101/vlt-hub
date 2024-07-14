@@ -1,10 +1,13 @@
 import {
   IonButton,
   IonButtons,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -12,6 +15,8 @@ import HostNavMenu from "../../components/menus/HostNavMenu";
 import "./HostCreatePage.css";
 import CreateEvent from "../../components/host/CreateEvent";
 import { useHistory } from "react-router-dom";
+import Header from "../../components/header/Header";
+import SidePanel from "../../components/SidePanel";
 
 const HostCreatePage = () => {
   const history = useHistory();
@@ -19,20 +24,26 @@ const HostCreatePage = () => {
     <>
       {/* <HostNavMenu /> */}
       <IonPage>
-        <IonHeader>
+        <Header />
+        {/* <IonHeader>
           <IonToolbar>
-            {/* <IonMenuButton autoHide={false} slot="start" /> */}
             <IonButtons slot="start">
               <IonButton onClick={history.goBack}>Back</IonButton>
             </IonButtons>
             <IonTitle>Create</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
 
         <IonContent id="main">
-          <div className="hhome-form-container">
-            <CreateEvent />
-          </div>
+          <IonGrid>
+            <IonRow>
+              <SidePanel />
+              <IonCol>
+                <CreateEvent />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          {/* <div className="hhome-form-container"></div> */}
         </IonContent>
       </IonPage>
     </>

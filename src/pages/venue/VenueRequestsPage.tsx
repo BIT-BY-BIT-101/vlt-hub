@@ -24,6 +24,8 @@ import MetaSafety from "../../assets/metasafety.jpg";
 import techythursdays from "../../assets/techythursdays.jpg";
 import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueRequestsPage.css";
+import Header from "../../components/header/Header";
+import Menus from "../../components/menus/Menus";
 
 const VenueRequestsPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -33,17 +35,10 @@ const VenueRequestsPage: React.FC = () => {
 
   return (
     <>
-      <VenueNavMenu />
+      {/* <VenueNavMenu /> */}
+      <Menus />
       <IonPage id="main">
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton autoHide={false}></IonMenuButton>
-            </IonButtons>
-            {/* <IonMenuButton slot="start" /> */}
-            <IonTitle>Requests</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
         <IonContent id="vhome-main">
           <div className="vrequest-cards-container">
             <IonCard className="vrequest-event-card">

@@ -18,14 +18,16 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import SignUpSVG from "../../../assets/hsignup.svg";
 import Logo from "../../../assets/logo.png";
 import "./HostSignupComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
+import { AuthContext } from "../../../context/AuthContext";
 
 const HostSignupComponent = () => {
+  const { currentUser } = useContext(AuthContext);
   const { user, signUp } = useFirebaseAuth();
   const [newEmail, setNewEmail] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
@@ -33,13 +35,7 @@ const HostSignupComponent = () => {
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
 
-  // const [month, setMonth] = useState("");
-  // const [date, setDate] = useState("");
-  // const [year, setYear] = useState("");
-
   const handleSignup = async () => {
-    // const formattedBirthdate = `${month}/${date}/${year}`;
-    // await setNewBirthdate(formattedBirthdate);
     try {
       await signUp(
         newEmail,
@@ -62,7 +58,7 @@ const HostSignupComponent = () => {
     setShowPassword(!showPassword);
   };
 
-  if (user) {
+  if (currentUser?.data.role === "host") {
     return <Redirect to="/host/home" />;
   }
 

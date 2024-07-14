@@ -7,10 +7,15 @@ import {
 } from "@ionic/react";
 import React from "react";
 import HostSigninComponent from "../../../components/auth/host/HostSigninComponent";
+import Header from "../../../components/header/Header";
+import Menus from "../../../components/menus/Menus";
+import ParticipantNavMenu from "../../../components/menus/ParticipantNavMenu";
 
 function HostSigninPage() {
   return (
     <IonPage>
+      {/* <ParticipantNavMenu /> */}
+      <Header />
       <IonContent fullscreen className="ion-padding">
         <HostSigninComponent />
       </IonContent>

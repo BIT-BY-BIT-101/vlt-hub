@@ -10,19 +10,21 @@ import {
 import { useHistory } from "react-router";
 import AddVenue from "../../components/venue/AddVenue";
 import "./../../components/venue/AddVenue.css";
+import Header from "../../components/header/Header";
 
 const VenueAddVenuePage = () => {
   const history = useHistory();
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={history.goBack}>Back</IonButton>
           </IonButtons>
           <IonTitle slot="end">Add Venue</IonTitle>
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
+      <Header />
       <IonContent>
         <AddVenue />
       </IonContent>

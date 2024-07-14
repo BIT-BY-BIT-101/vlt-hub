@@ -12,7 +12,7 @@ import imageCompression from "browser-image-compression";
 type StorageHook = {
   imageUrl: string | null;
   error: any; // Update this type based on your error handling
-  uploadImage: (file: File, filename: string) => void;
+  uploadImage: (file: File, filename: string) => Promise<void>;
   isUploading: boolean;
   imageName: string;
 };
@@ -71,35 +71,35 @@ const useFirebaseStorage = (path: string): StorageHook => {
     }
   };
 
-  const deleteImage = async () => {
-    if (imageName) {
-      try {
-        const imageRef = ref(storage, imageName);
-        await deleteObject(imageRef);
-        setImageUrl(null);
-        setImageName(null);
-        console.log("Image deleted successfully");
-      } catch (err) {
-        console.error("Error deleting image:", err);
-      }
-    }
-  };
+  // const deleteImage = async () => {
+  //   if (imageName) {
+  //     try {
+  //       const imageRef = ref(storage, imageName);
+  //       await deleteObject(imageRef);
+  //       setImageUrl(null);
+  //       setImageName(null);
+  //       console.log("Image deleted successfully");
+  //     } catch (err) {
+  //       console.error("Error deleting image:", err);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (imageName) {
-        deleteImage();
-        event.preventDefault();
-        event.returnValue = "";
-      }
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+  //     if (imageName) {
+  //       deleteImage();
+  //       event.preventDefault();
+  //       event.returnValue = "";
+  //     }
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [imageName]);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, [imageName]);
 
   return { imageUrl, error, uploadImage, isUploading, imageName };
 };

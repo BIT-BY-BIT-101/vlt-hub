@@ -14,13 +14,18 @@ import {
 import React, { useState } from "react";
 import { EventDataModel } from "../../models/Model";
 import useQuery from "../../hooks/useQuery";
-import { formatDateString, formatTimeString } from "../../functions/functions";
+import {
+  formatDateString,
+  formatTimeString,
+} from "../../helpers/DateTimeFunctions";
 import defaultImage from "../../assets/defaultCover.jpg";
 import "./UnpubEventCard.css";
 import useFirestore from "../../hooks/useFirestore";
+import useFetchUnpublishedEvent from "../../hooks/useFetchUnpublishedEvent";
 export const UnpubEventCard = () => {
   const [imageLoadError, setImageLoadError] = useState(false);
-  const { data: events } = useQuery("events", "status", "==", "unpublished");
+  // const { data: events } = useQuery("events", "status", "==", "unpublished");
+  const { data: events } = useFetchUnpublishedEvent();
   const { updateData: updateStatus } = useFirestore("events");
   console.log(events);
 
@@ -39,6 +44,9 @@ export const UnpubEventCard = () => {
 
   return (
     <IonGrid>
+      <div className="w-100 ion-margin">
+        <IonButton routerLink={`/host/venue-list`}>Create Event</IonButton>
+      </div>
       <IonRow>
         {events?.length === 0 ? (
           <IonCard>
@@ -53,7 +61,9 @@ export const UnpubEventCard = () => {
                 <IonImg
                   className="cover-img"
                   src={
-                    imageLoadError ? defaultImage : event.imgUrl || defaultImage
+                    imageLoadError
+                      ? defaultImage
+                      : event.imgUrl || event.imageUrl
                   }
                   onError={handleImageError}
                 />
@@ -92,7 +102,7 @@ export const UnpubEventCard = () => {
                   className="publish-btn"
                   onClick={() => handlePublishBtn(event)}
                 >
-                  Published
+                  Publish
                 </IonButton>
                 <IonButton className="publish-btn">Chat</IonButton>
               </IonCard>
