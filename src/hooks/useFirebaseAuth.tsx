@@ -4,7 +4,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { setDoc, doc, getDoc, onSnapshot } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
 
 export type User = {
   uid: string;
@@ -28,44 +34,32 @@ const useFirebaseAuth = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
-  useEffect(() => {
-    //   const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
-    //     if (authUser) {
-    //       const userObj: User = {
-    //         uid: authUser?.uid!,
-    //         email: authUser?.email || "",
-    //       };
-    //       setUser(userObj);
-    //       setIsAuth(true);
-    //       console.log("User Data: ", userObj);
-    //       setLoading(false);
-    //     }
-    //   });
-    const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
-      if (authUser) {
-        const userDoc = doc(db, "profiles", authUser?.uid!);
-        const userDocSnap = await getDoc(userDoc);
-        if (userDocSnap.exists()) {
-          setUserData(userDocSnap.data());
-        }
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
+  //     if (authUser) {
+  //       const userDoc = doc(db, "profiles", authUser?.uid!);
+  //       const userDocSnap = await getDoc(userDoc);
+  //       if (userDocSnap.exists()) {
+  //         setUserData(userDocSnap.data());
+  //       }
 
-        const userObj: User = {
-          uid: authUser.uid,
-          email: authUser.email || "",
-        };
-        setUser(userObj);
-        setIsAuth(true);
-        setLoading(false);
-      } else {
-        setUser(null);
-        setIsAuth(false);
-      }
-      setLoading(false);
-    });
-    console.log("User", user);
+  //       const userObj: User = {
+  //         uid: authUser.uid,
+  //         email: authUser.email || "",
+  //       };
+  //       setUser(userObj);
+  //       setIsAuth(true);
+  //       setLoading(false);
+  //     } else {
+  //       setUser(null);
+  //       setIsAuth(false);
+  //     }
+  //     setLoading(false);
+  //   });
+  //   console.log("User", user);
 
-    return () => unsubscribe;
-  }, []);
+  //   return () => unsubscribe;
+  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,12 +103,15 @@ const useFirebaseAuth = () => {
     );
 
     const userId = auth.currentUser?.uid!;
-    await setDoc(doc(db, "profiles", userId), {
+    const userRef = doc(db, "profiles", userId);
+    await setDoc(userRef, {
       email,
       fname,
       lname,
       birthdate,
       role,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
     });
     const newUser: User = { uid: userCredential.user.uid, email };
     setUser(newUser);

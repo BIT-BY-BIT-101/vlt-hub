@@ -89,7 +89,7 @@ const VenueBookedEventsPage: React.FC = () => {
       <IonPage id="main">
         <Header />
 
-        <IonContent id="vhome-main">
+        <IonContent id="main">
           {/* <IonSearchbar
             className="vsearch-bar"
             placeholder="Search events"

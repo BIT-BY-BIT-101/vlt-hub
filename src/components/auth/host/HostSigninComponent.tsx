@@ -44,6 +44,7 @@ const HostSigninComponent: React.FC = () => {
       await signIn(email, password);
       localStorage.setItem("session", email);
       console.log("Your Signin Successfully with an email", user?.email);
+      window.location.href = "/host/home";
     } catch (err: any) {
       console.log("message: ", err.message);
       console.log("code: ", err.code);

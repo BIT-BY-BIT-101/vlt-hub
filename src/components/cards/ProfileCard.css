@@ -24,10 +24,10 @@ body {
 
 .profile-card {
   --ion-card-background: #ffff;
-  cursor: pointer;
-  max-width: 90vw;
-  /* width: 60%; */
-  position: relative;
+  /* cursor: pointer; */
+  /* max-width: 90vw; */
+  /* width: 100%; */
+  /* position: relative; */
   border-radius: 20px;
   padding: 30px;
   color: black;
@@ -39,16 +39,13 @@ body {
   &:hover {
     border-color: var(--secondary-color);
     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 20px var(--hover-shadow-color);
   }
 }
 
-.profile-card:hover {
-  box-shadow: 0 0 20px var(--hover-shadow-color);
-}
-
-ion-card-header {
+/* ion-card-header {
   padding-inline: 0;
-}
+} */
 
 .profile-card-title {
   font-size: 1.8rem;
@@ -121,5 +118,11 @@ ion-select::part(placeholder) {
 @media screen and (max-width: 768px) {
   .profile-card {
     width: 90%;
+  }
+}
+@media screen and (min-width: 425px) {
+  .profile-card {
+    width: auto;
+    margin: 0;
   }
 }

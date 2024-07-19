@@ -50,6 +50,7 @@ const ParticipantSigninComponent: React.FC = () => {
       await signIn(email, password);
       localStorage.setItem("session", email);
       console.log("Your Signin Successfully with an email", currentUser?.email);
+      window.location.href = "/participant/home";
     } catch (err: any) {
       console.log("message: ", err.message);
       console.log("code: ", err.code);

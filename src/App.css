@@ -1,3 +1,15 @@
+.content-center {
+  background-color: #ae2f5e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20000px;
+}
+
+.h-full {
+  height: 100vh;
+}
+
 .item-color {
   --ion-item-background: none;
   --inner-border-width: 0;
@@ -67,12 +79,21 @@
 .w-100 {
   width: 100%;
 }
+.w-auto {
+  width: auto;
+}
+
+/* Cursor */
+.cursor-pointer {
+  cursor: pointer;
+}
 
 /* Bottom */
 .btn-primary {
   --background: var(--tertiary--color);
   /* --ion-color-primary: var(--secondary-color); */
   background-color: var(--secondary-color);
+  color: var(--text-color-light);
   border-radius: 20px;
   padding: 5px;
   cursor: pointer;
@@ -126,6 +147,28 @@
 ion-thumbnail {
   /* --size: 140px; */
   --border-radius: 14px;
+}
+
+/* Cards */
+
+.card {
+  --ion-card-background: #ffff;
+  /* cursor: pointer; */
+  /* max-width: 90vw; */
+  /* width: 100%; */
+  /* position: relative; */
+  border-radius: 20px;
+  padding: 30px;
+  color: black;
+  border: 2px solid #c3c6ce;
+  transition: 0.5s ease-out;
+  margin-top: 20px;
+
+  &:hover {
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 20px var(--hover-shadow-color);
+  }
 }
 
 @media (min-width: 320px) and (max-width: 1150px) {

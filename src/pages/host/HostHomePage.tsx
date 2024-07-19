@@ -27,6 +27,7 @@ const HostHomePage: React.FC = () => {
     <>
       {/* <HostNavMenu /> */}
       <Menus />
+
       <IonPage>
         <Header />
         {/* <IonHeader>

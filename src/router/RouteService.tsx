@@ -35,6 +35,7 @@ import Forms from "../components/experiment/Forms";
 import PageNotFound from "../pages/error_pages/PageNotFound";
 import { ChatPage } from "../pages/chat/ChatPage";
 import SuccessPage from "../pages/payment/SuccessPage";
+import Loader from "../components/loaders/Loader";
 
 const RouteService = () => {
   return (
@@ -76,6 +77,9 @@ const RouteService = () => {
         {/* Testing */}
         <Route exact path="/test">
           <Forms />
+        </Route>
+        <Route exact path="/loading">
+          <Loader />
         </Route>
 
         {/* Profiles */}

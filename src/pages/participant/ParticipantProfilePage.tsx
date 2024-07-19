@@ -15,7 +15,7 @@ export const ParticipantProfilePage = () => {
       <Header />
       <IonContent>
         <IonGrid>
-          <IonRow>
+          <IonRow className="ion-justify-content-center">
             {/* <ParticipantSidePane /> */}
             <SidePanel />
             <IonCol size="10">

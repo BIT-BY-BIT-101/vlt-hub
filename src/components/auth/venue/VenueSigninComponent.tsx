@@ -15,7 +15,7 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useContext, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignInSVG from "../../../assets/vsignin.svg";
 import "./VenueSigninComponent.css";
@@ -28,7 +28,7 @@ type errorProps = {
 };
 
 const VenueSigninComponent: React.FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, loading } = useContext(AuthContext);
   const { user, signIn } = useFirebaseAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -36,6 +36,8 @@ const VenueSigninComponent: React.FC = () => {
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const history = useHistory();
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -46,6 +48,7 @@ const VenueSigninComponent: React.FC = () => {
       await signIn(email, password);
       localStorage.setItem("session", email);
       console.log("Your Signin Successfully with an email", user?.email);
+      window.location.href = "/venue/home";
     } catch (err: any) {
       console.log("message: ", err.message);
       console.log("code: ", err.code);
@@ -66,7 +69,7 @@ const VenueSigninComponent: React.FC = () => {
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
   };
 
-  if (currentUser?.data.role === "venue") {
+  if (currentUser && currentUser?.data.role === "venue") {
     return <Redirect to="/venue/home" />;
   }
 

@@ -6,21 +6,22 @@ import Menus from "../../components/menus/Menus";
 
 export const VenueProfilePage = () => {
   return (
-    <IonPage>
-      <Menus />
-      {/* <ParticipantHeader /> */}
-      <Header />
-      <IonContent>
-        <IonGrid>
-          <IonRow>
-            {/* <ParticipantSidePane /> */}
-            <SidePanel />
-            <IonCol size="10">
-              <ProfileCard />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
+    <>
+      <IonPage>
+        <Menus />
+        <Header />
+        <IonContent id="main">
+          <IonGrid>
+            <IonRow className="ion-justify-content-center">
+              {/* <ParticipantSidePane /> */}
+              <SidePanel />
+              <IonCol size="10">
+                <ProfileCard />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonContent>
+      </IonPage>
+    </>
   );
 };
