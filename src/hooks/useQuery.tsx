@@ -19,7 +19,7 @@ const useQuery = (
   collectionPath: string,
   fieldPath: string | FieldPath,
   operatorStr: WhereFilterOp,
-  value: string
+  value: string | null
 ) => {
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);

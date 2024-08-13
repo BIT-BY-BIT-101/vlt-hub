@@ -34,6 +34,7 @@ import ParticipantHeader from "../../components/participant/ParticipantHeader";
 import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
 import HistoryCard from "../../components/participant/HistoryCard";
 import Header from "../../components/header/Header";
+import SidePanel from "../../components/SidePanel";
 
 const ParticipantHistoryPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -54,7 +55,8 @@ const ParticipantHistoryPage: React.FC = () => {
           /> */}
           <IonGrid>
             <IonRow>
-              <ParticipantSidePane />
+              {/* <ParticipantSidePane /> */}
+              <SidePanel />
               <IonCol size="10">
                 <IonRow>
                   <HistoryCard />

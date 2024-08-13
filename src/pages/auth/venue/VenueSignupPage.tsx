@@ -11,7 +11,7 @@ import Header from "../../../components/header/Header";
 
 export default function VenueSignupPage() {
   return (
-    <IonPage>
+    <IonPage id="main">
       <Header />
       <IonContent fullscreen className="ion-padding">
         <VenueSignupComponent />

@@ -12,12 +12,14 @@ import Menus from "../../../components/menus/Menus";
 
 export default function VenueSigninPage() {
   return (
-    <IonPage>
+    <>
       <Menus />
-      <Header />
-      <IonContent fullscreen className="ion-padding" id="main">
-        <VenueSigninComponent />
-      </IonContent>
-    </IonPage>
+      <IonPage id="main">
+        <Header />
+        <IonContent fullscreen className="ion-padding">
+          <VenueSigninComponent />
+        </IonContent>
+      </IonPage>
+    </>
   );
 }

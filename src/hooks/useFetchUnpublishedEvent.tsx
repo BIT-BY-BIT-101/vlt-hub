@@ -4,7 +4,9 @@ import {
   collection,
   getDocs,
   onSnapshot,
+  or,
   query,
+  QueryFieldFilterConstraint,
   where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
@@ -16,7 +18,14 @@ const useFetchUnpublishedEvent = () => {
 
   useEffect(() => {
     const colRef = collection(db, "events");
-    const q = query(colRef, where("status", "==", "unpublished"));
+    const q = query(
+      colRef,
+      or(
+        where("status", "==", "unpublished"),
+        where("status", "==", "confirming"),
+        where("status", "==", "paying")
+      )
+    );
 
     const unsub = onSnapshot(q, (doc) => {
       // const unsub = onSnapshot(collection(db, collectionPath), (doc) => {

@@ -30,6 +30,7 @@ import "./VenueRequestsPage.css";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import RequestItems from "../../components/venue/RequestItems";
 
 const VenueRequestsPage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -48,16 +49,7 @@ const VenueRequestsPage: React.FC = () => {
             <IonRow>
               <SidePanel />
               <IonCol>
-                <IonList className="bg-color-main ion-margin-top">
-                  <IonItem className="item-color">
-                    <IonIcon
-                      icon={closeCircle}
-                      slot="end"
-                      className="text-color-dark cursor-pointer"
-                    />
-                    <IonLabel>Request 1</IonLabel>
-                  </IonItem>
-                </IonList>
+                <RequestItems />
               </IonCol>
             </IonRow>
           </IonGrid>

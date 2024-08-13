@@ -17,6 +17,7 @@ import "./VenueListPage.css";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import FacilityCard from "../../components/venue/FacilityCard";
 
 const VenueListPage = () => {
   return (
@@ -31,11 +32,11 @@ const VenueListPage = () => {
               <IonCol>
                 <IonButton
                   className="vlistpage-btn"
-                  routerLink="/venue/add-venue"
+                  routerLink="/venue/add-room"
                 >
                   Add Venue
                 </IonButton>
-                <VenueCard />
+                <FacilityCard />
               </IonCol>
             </IonRow>
           </IonGrid>

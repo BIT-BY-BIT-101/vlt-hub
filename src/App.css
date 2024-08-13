@@ -10,6 +10,14 @@
   height: 100vh;
 }
 
+.item-label {
+  display: grid;
+  /* margin-bottom: 30px; */
+  font-weight: bold;
+  grid-template-columns: 1fr;
+  font-size: 16px;
+}
+
 .item-color {
   --ion-item-background: none;
   --inner-border-width: 0;
@@ -103,6 +111,10 @@
   }
 }
 
+.f-weight-bold {
+  font-weight: bold;
+}
+
 .btn-secondary {
   --ion-color-primary: var(--secondary-color);
   background-color: #ffff;
@@ -116,6 +128,15 @@
   &:hover {
     background-color: #e0e0e0;
   }
+}
+
+ion-button.ct-btn {
+  width: 100%;
+
+  --ripple-color: deeppink;
+
+  --padding-top: 10px;
+  --padding-bottom: 10px;
 }
 
 /* Nav Menu */
@@ -168,6 +189,68 @@ ion-thumbnail {
     border-color: var(--secondary-color);
     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
     box-shadow: 0 0 20px var(--hover-shadow-color);
+  }
+}
+
+.card-title {
+  font-size: 18px;
+  color: var(--secondary-color);
+}
+
+.card-label {
+  display: grid;
+  margin-bottom: 30px;
+  font-weight: bold;
+  grid-template-columns: 1fr;
+  font-size: 16px;
+}
+
+.card-label :not(.card-title) {
+  font-size: 16px;
+  color: #747474;
+}
+
+.form-input {
+  width: 100%;
+  --padding-start: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: black;
+  --highlight-color: var(--secondary-color);
+  --webkit-appearance: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:hover,
+.form-input:focus,
+.form-select:hover,
+.form-select:focus {
+  border-color: var(--highlight-color);
+}
+
+ion-modal.modal-container::part(content) {
+  --background: var(--main-color);
+  --border-radius: 20px;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  --height: 400px;
+  --width: 50%;
+  --max-width: 50%;
+  --max-height: 80%;
+}
+
+.modal-container {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 425px) {
+  ion-modal.modal-container::part(content) {
+    --background: var(--main-color);
+    --border-radius: 20px;
+    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* --width: 50%; */
+    /* --max-width: 50%;
+    --max-height: 80%; */
   }
 }
 

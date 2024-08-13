@@ -35,7 +35,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
   const { updateData: updateEnrolled } = useFirestore("profiles");
   const { updateData: updateParticipants } = useFirestore("events");
   const { addData } = useFirestore("event_enrolled");
-  const { addData: addPayment } = useFirestore("payments");
+  const { addData: addPayment } = useFirestore("transactions");
   // const { data: participants } = useQuery(
   //   "events",
   //   "status",
@@ -103,8 +103,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         const paymentDetails = {
           amount: selected?.event_fee!,
           currency: "PHP",
-          userId: auth.currentUser?.uid!,
-          eventId: selected?.id!,
+          user_id: auth.currentUser?.uid!,
+          event_id: selected?.id!,
           checkout_id: res.data.data.id,
         };
 

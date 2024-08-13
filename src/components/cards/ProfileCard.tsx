@@ -66,9 +66,9 @@ const ProfileCard = () => {
               Edit Profile
             </PrimaryButton>
           </IonButtons>
-          <IonButtons slot="start">
+          {/* <IonButtons slot="start">
             <SecondaryButton slot="start">Back</SecondaryButton>
-          </IonButtons>
+          </IonButtons> */}
         </IonItem>
       </IonCardHeader>
 
@@ -99,7 +99,7 @@ const ProfileCard = () => {
         </IonItem>
         <IonItem className="item-color-dark">
           <IonLabel className="profile-form-label">
-            <span className="profile-form-title">Gender: </span>
+            <span className="profile-form-title">Sex: </span>
             {userData?.gender}
           </IonLabel>
         </IonItem>

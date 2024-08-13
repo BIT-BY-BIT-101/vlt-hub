@@ -1,48 +1,33 @@
 import {
-  IonButton,
   IonCard,
-  IonDatetime,
-  IonDatetimeButton,
-  IonInput,
   IonLabel,
-  IonModal,
-  IonSelect,
-  IonSelectOption,
+  IonInput,
   IonTextarea,
+  IonButton,
 } from "@ionic/react";
 import React, { ChangeEvent, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import { auth } from "../../config/firebase";
+import { AuthContext } from "../../context/AuthContext";
+import { handleWindowRoute } from "../../helpers/helpers";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
-import "./AddVenue.css";
-import { AuthContext } from "../../context/AuthContext";
-import Swal from "sweetalert2";
-import { handleWindowRoute } from "../../helpers/helpers";
+import { serverTimestamp } from "@firebase/firestore";
+import useFetchVenueDetails from "../../hooks/useFetchVenueDetails";
 
-const AddVenue = () => {
+const EditVenue = () => {
   const { currentUser } = useContext(AuthContext);
+  const { data: venueDetails } = useFetchVenueDetails();
   const { userData } = useFirebaseAuth();
-  const { addData: addVenue, error: addError } = useFirestore("venues");
   const { updateData: updateProfile, error: updateError } =
-    useFirestore("profiles");
+    useFirestore("venues");
+  const [editedData, setEditedData] = useState<any>({ ...venueDetails });
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
-  const { register, handleSubmit, reset } = useForm();
-  const [venueData, setvenueData] = useState({
-    name: "",
-    description: "",
-    user_id: "",
-    venue_manager: "",
-    imgUrl: "",
-    // address
-    bldg_no: "",
-    street: "",
-    baranggay: "",
-    city: "",
-    maxCapacity: 0,
-  });
+  // const { register, handleSubmit, reset } = useForm();
+  const [venueData, setvenueData] = useState({});
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -56,7 +41,8 @@ const AddVenue = () => {
     }
   };
 
-  const onSubmit = async (data: any) => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     try {
       Swal.fire({
         title: "Do you want to save?",
@@ -64,6 +50,8 @@ const AddVenue = () => {
         confirmButtonText: "Save",
         heightAuto: false,
       }).then(async (result) => {
+        console.log(editedData);
+
         if (result.isConfirmed) {
           Swal.fire({
             heightAuto: false,
@@ -80,41 +68,16 @@ const AddVenue = () => {
               const userName = `${userData?.fname} ${userData?.lname}`;
 
               // Combine the state and any other data needed
-              const venueDataToSubmit = {
-                ...venueData,
-                ...data,
-                // ...register,
-                user_id: userId,
-                venue_manager: userName,
-              };
 
               // Call the createEvent function to add the event data to Firebase
-              await addVenue(venueDataToSubmit)
-                .then(async (res) => {
-                  if (updateError === null) {
-                    await updateProfile(currentUser?.uid!, {
-                      venueId: res,
-                    });
-                  } else {
-                    Swal.fire({
-                      heightAuto: false,
-                      icon: "error",
-                      title: "Oops...",
-                      text: "Something went wrong, please try again.",
-                    });
-                  }
-                })
-                .catch((err) => {
-                  Swal.fire({
-                    heightAuto: false,
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Something went wrong, please try again.",
-                  });
-                });
+
+              await updateProfile(currentUser?.data.venueId!, {
+                ...editedData,
+                updatedAt: serverTimestamp(),
+              });
 
               // Optionally, you can reset the form after successful submission
-              reset();
+              // reset();
 
               // Log success or navigate to another page
               console.log("Venue Added successfully!");
@@ -132,8 +95,22 @@ const AddVenue = () => {
       });
     } catch (err) {
       console.log("Error adding venue:", err);
+      Swal.fire({
+        heightAuto: false,
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   };
+
+  // const handleInputChange = (e: CustomEvent) => {
+  //   const { name, value } = e.detail;
+  //   setEditedData((prevData: any) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
   return (
     <IonCard className="addvenue-card-container">
       {/* <IonLabel className="hhome-form-label">
@@ -159,7 +136,15 @@ const AddVenue = () => {
           className="hhome-form-input"
           type="text"
           required
-          {...register("name")}
+          name="name"
+          value={editedData?.name}
+          // {...register("name")}
+          onIonChange={(e) =>
+            setEditedData((prevData: any) => ({
+              ...prevData,
+              name: e.detail.value!,
+            }))
+          }
         />
       </IonLabel>
 
@@ -169,7 +154,15 @@ const AddVenue = () => {
           className="hhome-form-input"
           autoGrow={true}
           required
-          {...register("description")}
+          name="description"
+          value={editedData?.description}
+          // {...register("description")}
+          onIonChange={(e) =>
+            setEditedData((prevData: any) => ({
+              ...prevData,
+              description: e.detail.value!,
+            }))
+          }
         />
       </IonLabel>
 
@@ -180,9 +173,17 @@ const AddVenue = () => {
           type="text"
           // inputMode="numeric"
           // pattern="[0-9]"
-          placeholder="e.g., 1A, 234, etc."
+          // placeholder={venueDetails?.bldg_no}
+          name="bldg_no"
+          value={editedData?.bldg_no}
           required
-          {...register("bldg_no")}
+          // {...register("bldg_no")}
+          onIonChange={(e) =>
+            setEditedData((prevData: any) => ({
+              ...prevData,
+              bldg_no: e.detail.value!,
+            }))
+          }
         />
       </IonLabel>
       <IonLabel className="hhome-form-label">
@@ -191,7 +192,16 @@ const AddVenue = () => {
           className="hhome-form-input"
           type="text"
           required
-          {...register("street")}
+          name="street"
+          value={editedData?.street}
+          // placeholder={venueDetails?.street}
+          // {...register("street")}
+          onIonChange={(e) =>
+            setEditedData((prevData: any) => ({
+              ...prevData,
+              street: e.detail.value!,
+            }))
+          }
         />
       </IonLabel>
       <IonLabel className="hhome-form-label">
@@ -200,7 +210,15 @@ const AddVenue = () => {
           className="hhome-form-input"
           type="text"
           required
-          {...register("baranggay")}
+          name="baranggay"
+          value={editedData?.baranggay}
+          // {...register("baranggay")}
+          onIonChange={(e) =>
+            setEditedData((prevData: any) => ({
+              ...prevData,
+              baranggay: e.detail.value!,
+            }))
+          }
         />
       </IonLabel>
       <IonLabel className="hhome-form-label">
@@ -209,7 +227,15 @@ const AddVenue = () => {
           className="hhome-form-input"
           type="text"
           required
-          {...register("city")}
+          name="city"
+          value={editedData?.city}
+          // {...register("city")}
+          onIonChange={(e) =>
+            setEditedData((prevData: any) => ({
+              ...prevData,
+              city: e.detail.value!,
+            }))
+          }
         />
       </IonLabel>
       {/* <IonLabel className="hhome-form-label">
@@ -226,7 +252,7 @@ const AddVenue = () => {
         type="submit"
         expand="full"
         fill="clear"
-        onClick={handleSubmit(onSubmit)}
+        onClick={handleSubmit}
         className="addevent-submit-btn"
       >
         <span className="hsubmit-txt">Submit</span>
@@ -235,4 +261,4 @@ const AddVenue = () => {
   );
 };
 
-export default AddVenue;
+export default EditVenue;

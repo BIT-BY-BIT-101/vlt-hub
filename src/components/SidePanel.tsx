@@ -14,6 +14,9 @@ const SidePanel = () => {
           <IonItem className="item-color" routerLink="/participant/profile">
             <IonLabel>Account</IonLabel>
           </IonItem>
+          <IonItem className="item-color" routerLink="/participant/events">
+            <IonLabel>My Events</IonLabel>
+          </IonItem>
           <IonItem className="item-color" routerLink="/participant/history">
             <IonLabel>History</IonLabel>
           </IonItem>
@@ -54,17 +57,20 @@ const SidePanel = () => {
             <IonLabel>Account</IonLabel>
           </IonItem>
           <IonItem className="item-color " routerLink="/venue/list-venue">
-            <IonLabel>Venues</IonLabel>
+            <IonLabel>Facilities</IonLabel>
           </IonItem>
           <IonItem className="item-color" routerLink="/venue/requests">
             <IonLabel>Requests</IonLabel>
           </IonItem>
+          <IonItem className="item-color" routerLink="/venue/transactions">
+            <IonLabel>Transactions</IonLabel>
+          </IonItem>
           <IonItem className="item-color" routerLink="/venue/booked-events">
             <IonLabel>Booked Events</IonLabel>
           </IonItem>
-          <IonItem className="item-color" routerLink="/venue/history">
+          {/* <IonItem className="item-color" routerLink="/venue/history">
             <IonLabel>History</IonLabel>
-          </IonItem>
+          </IonItem> */}
         </div>
       </IonCol>
     );

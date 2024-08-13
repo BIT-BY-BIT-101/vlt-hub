@@ -19,6 +19,7 @@ import { IonApp, setupIonicReact } from "@ionic/react";
 import RouteService from "./router/RouteService";
 import "./theme/variables.css";
 import "./App.css";
+import ChatBox from "./components/messaging/ChatBox";
 
 setupIonicReact();
 
@@ -29,6 +30,7 @@ const App: React.FC = () => {
   return (
     <IonApp className="container">
       <RouteService />
+      {/* <ChatBox /> */}
     </IonApp>
   );
 };

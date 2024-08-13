@@ -53,14 +53,15 @@ const ChatInput = () => {
     setFormValue("");
   };
 
-  const handleKeyPress = (
-    event: React.KeyboardEvent<HTMLIonTextareaElement>
-  ) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      handleSubmit(sendMessage)();
-    }
-  };
+  // const handleKeyPress = (
+  //   event: React.KeyboardEvent<HTMLIonTextareaElement>
+  // ) => {
+  //   if (event.key === "Enter" && !event.shiftKey) {
+  //     event.preventDefault();
+  //     handleSubmit(sendMessage)();
+  //   }
+  // };
+
   console.log(formValue);
   return (
     <div className="d-flex">
@@ -73,7 +74,7 @@ const ChatInput = () => {
           {...register("message")}
           value={formValue}
           onIonInput={handleInputChange}
-          onKeyPress={handleKeyPress}
+          // onKeyPress={handleKeyPress}
         ></IonTextarea>
         <IonButtons>
           <IonButton

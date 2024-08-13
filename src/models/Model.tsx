@@ -5,13 +5,14 @@ export type EventDataModel = {
   title: string;
   description: string;
   host_id: string;
-  eventDate: Date;
-  startTime: string;
-  endTime: string;
+  event_date: Date;
+  start_time: string;
+  end_time: string;
   status: string;
   venue: string;
   host_name: string;
   event_fee: number;
+  is_confirmed: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -37,6 +38,8 @@ export type VenueDataModel = {
   street: string;
   city: string;
   maxCapacity: number;
+  updatedAt: Date;
+  createdAt: Date;
 };
 
 export type MessageModel = {

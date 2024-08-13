@@ -7,6 +7,7 @@ import RegisteredEventsCard from "../../components/participant/RegisteredEventsC
 import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
+import SidePanel from "../../components/SidePanel";
 
 const ParticipantEventPage: React.FC = () => {
   return (
@@ -20,7 +21,8 @@ const ParticipantEventPage: React.FC = () => {
         <IonContent id="phome-main">
           <IonGrid>
             <IonRow>
-              <ParticipantSidePane />
+              {/* <ParticipantSidePane /> */}
+              <SidePanel />
               <IonCol size="10">
                 <IonRow>
                   <RegisteredEventsCard />

@@ -3,20 +3,23 @@ import ProfileCard from "../../components/cards/ProfileCard";
 import Header from "../../components/header/Header";
 import SidePanel from "../../components/SidePanel";
 import Menus from "../../components/menus/Menus";
+import VenueAddressCard from "../../components/venue/VenueAddressCard";
 
 export const VenueProfilePage = () => {
   return (
     <>
-      <IonPage>
-        <Menus />
+      <Menus />
+      <IonPage id="main">
         <Header />
-        <IonContent id="main">
+        <IonContent>
           <IonGrid>
             <IonRow className="ion-justify-content-center">
               {/* <ParticipantSidePane /> */}
               <SidePanel />
               <IonCol size="10">
                 <ProfileCard />
+                <br />
+                <VenueAddressCard />
               </IonCol>
             </IonRow>
           </IonGrid>

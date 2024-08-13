@@ -1,23 +1,14 @@
-import {
-  IonButton,
-  IonButtons,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonPage,
-  IonRow,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonPage, IonContent, IonGrid, IonRow, IonCol } from "@ionic/react";
+import React from "react";
 import { useHistory } from "react-router";
-import AddVenue from "../../components/venue/AddVenue";
-import "./../../components/venue/AddVenue.css";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import AddVenue from "../../components/venue/AddVenue";
+import AddRoom from "../../components/venue/AddFacility";
+import AddFacility from "../../components/venue/AddFacility";
 
-const VenueAddVenuePage = () => {
+const VenueAddFacilityPage = () => {
   const history = useHistory();
   return (
     <>
@@ -29,7 +20,7 @@ const VenueAddVenuePage = () => {
             <IonRow>
               <SidePanel />
               <IonCol>
-                <AddVenue />
+                <AddFacility />
               </IonCol>
             </IonRow>
           </IonGrid>
@@ -39,4 +30,4 @@ const VenueAddVenuePage = () => {
   );
 };
 
-export default VenueAddVenuePage;
+export default VenueAddFacilityPage;

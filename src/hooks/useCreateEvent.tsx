@@ -56,11 +56,13 @@ const useCreateEvent = () => {
       const imagePath = snapshot.metadata.fullPath;
       console.log("path: ", imagePath);
       const collectionRef = collection(db, "events");
-      await addDoc(collectionRef, {
+      const dataSnapshot = await addDoc(collectionRef, {
         ...newData,
         imagePath: imagePath,
         imageUrl: downloadUrl,
       });
+
+      return dataSnapshot;
     } catch (err) {
       console.log("Error: ", err);
       deleteImage();

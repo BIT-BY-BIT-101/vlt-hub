@@ -36,7 +36,8 @@ function CreateEvent() {
   // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
   // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
-  // const { addData: createEvent, error: eventError } = useFirestore("events");
+  const { addData: createRequest, error: requestError } =
+    useFirestore("requests");
   const {
     createEvent,
     error: eventError,
@@ -75,9 +76,9 @@ function CreateEvent() {
 
   const history = useHistory();
 
-  useEffect(() => {
-    console.log(eventDate);
-  }, [eventDate]);
+  // useEffect(() => {
+  //   console.log(eventDate);
+  // }, [eventDate]);
 
   const customVenueFormatOptions = {
     header: "Venue Format",
@@ -182,6 +183,7 @@ function CreateEvent() {
     const venueId = id;
     const status = "unpublished";
     const venueName = venueData.name;
+    const venueOwnerId = venueData.user_id;
 
     // const convertDate = Timestamp.fromDate(eventDate);
     // const convertDate = new Date(eventDate!);
@@ -198,16 +200,19 @@ function CreateEvent() {
       host_name: hostName,
       status: status,
       isArchived: false,
-      imgUrl: imageUrl,
-      imagePath: imagePath,
+      img_url: imageUrl,
+      img_path: imagePath,
+      is_confirmed: false,
+      venue_owner_id: venueOwnerId,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
     console.log(id);
     console.log(venueData.name);
+    console.log(data);
 
     Swal.fire({
-      title: "Do you want to save the changes?",
+      title: "Do you want to save?",
       showCancelButton: true,
       confirmButtonText: "Save",
       heightAuto: false,
@@ -226,10 +231,23 @@ function CreateEvent() {
         }).then(async (result) => {
           /* Read more about handling dismissals below */
           await createEvent(imgUrl, Date.now(), eventDataToSubmit).then(
-            async () => {
+            async (res) => {
+              console.log("response: ", res);
               console.log(eventError);
 
               if (eventError === null) {
+                await createRequest({
+                  event_title: data.title,
+                  event_id: res.id,
+                  event_date: data.event_date,
+
+                  host_id: hostId,
+                  host_name: hostName,
+                  venue_id: venueId,
+                  venue_owner_id: venueOwnerId,
+                  createdAt: serverTimestamp(),
+                  updatedAt: serverTimestamp(),
+                });
                 Swal.fire({
                   title: "Success!",
                   text: "Event created successfully",
@@ -362,7 +380,7 @@ function CreateEvent() {
               <IonDatetimeButton datetime="date"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("eventDate", { required: true })}
+                  {...register("event_date", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   showDefaultButtons={true}
                   presentation="date"
@@ -386,7 +404,7 @@ function CreateEvent() {
               <IonDatetimeButton datetime="start"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("startTime", { required: true })}
+                  {...register("start_time", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   showDefaultButtons={true}
                   presentation="time"
@@ -410,7 +428,7 @@ function CreateEvent() {
               <IonDatetimeButton datetime="end"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("endTime", { required: true })}
+                  {...register("end_time", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   showDefaultButtons={true}
                   presentation="time"

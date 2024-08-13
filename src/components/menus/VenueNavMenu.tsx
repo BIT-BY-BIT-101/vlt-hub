@@ -60,7 +60,7 @@ function VenueNavMenu() {
       icon: home,
     },
     {
-      title: "Venues",
+      title: "Facilities",
       path: "/venue/list-venue",
       icon: business,
     },
@@ -74,11 +74,11 @@ function VenueNavMenu() {
       path: "/venue/booked-events",
       icon: book,
     },
-    {
-      title: "History",
-      path: "/venue/history",
-      icon: time,
-    },
+    // {
+    //   title: "History",
+    //   path: "/venue/history",
+    //   icon: time,
+    // },
   ];
 
   return (

@@ -12,6 +12,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import {
+  addCircle,
   calendar,
   create,
   home,
@@ -51,12 +52,12 @@ function HostNavMenu() {
     {
       title: "Create",
       path: "/host/event-list",
-      icon: calendar,
+      icon: addCircle,
     },
     {
       title: "My Events",
       path: "/host/event",
-      icon: time,
+      icon: calendar,
     },
     {
       title: "History",
@@ -84,7 +85,7 @@ function HostNavMenu() {
                   <IonIcon
                     icon={item.icon}
                     slot="start"
-                    className="item-color"
+                    className="item-color-dark"
                   />
                   <IonLabel>{item.title}</IonLabel>
                 </IonItem>
@@ -95,7 +96,11 @@ function HostNavMenu() {
                 className="item-color"
                 onClick={() => setShowLogoutModal(true)}
               >
-                <IonIcon icon={logOut} slot="start" className="item-color" />
+                <IonIcon
+                  icon={logOut}
+                  slot="start"
+                  className="item-color-dark"
+                />
                 <IonLabel>Logout</IonLabel>
               </IonItem>
             </IonList>
@@ -107,7 +112,7 @@ function HostNavMenu() {
               routerLink="/host/signin"
               // onClick={() => setShowLogoutModal(true)}
             >
-              <IonIcon icon={logIn} slot="start" className="item-color" />
+              <IonIcon icon={logIn} slot="start" className="item-color-dark" />
               <IonLabel>Signin</IonLabel>
             </IonItem>
           </IonList>

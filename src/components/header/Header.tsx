@@ -26,7 +26,15 @@ const Header = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleClick = () => {
-    window.location.href = "/participant/home";
+    if (currentUser?.data.role === "host") {
+      window.location.href = "/host/home";
+    }
+    if (currentUser?.data.role === "venue") {
+      window.location.href = "/venue/home";
+    }
+    if (currentUser?.data.role === "participant") {
+      window.location.href = "/participant/home";
+    }
   };
 
   const handleModalClose = () => {
@@ -235,14 +243,14 @@ const Header = () => {
                   <IonTitle className="title-with-logo ">V.L.T. Hub</IonTitle>
                 </div>
               </IonCol>
-              <IonCol size="auto">
+              {/* <IonCol size="auto">
                 <IonSearchbar
                   className="navsearch-bar"
                   placeholder="Search events"
                   onIonChange={handleSearchChange}
                 ></IonSearchbar>
                 <IonIcon icon={search} className="search-icon"></IonIcon>
-              </IonCol>
+              </IonCol> */}
               {currentUser ? (
                 <IonCol size="auto" className="header-link-host-event">
                   <Link to="/host/signin" className="header-link">

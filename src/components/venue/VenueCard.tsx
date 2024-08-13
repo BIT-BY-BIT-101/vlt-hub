@@ -10,51 +10,101 @@ import {
   IonList,
   IonModal,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { VenueDataModel } from "../../models/Model";
 import "./VenueCard.css";
+import useQuery from "../../hooks/useQuery";
+import { AuthContext } from "../../context/AuthContext";
+import useQueryDoc from "../../hooks/useQueryDoc";
 
 const VenueCard = () => {
-  const { data: venueData } = useFirestore("venues");
+  const { currentUser } = useContext(AuthContext);
+  // const { data: venueData } = useFirestore("venues");
+  const { data: venueData } = useQuery(
+    "venues",
+    "user_id",
+    "==",
+    currentUser?.uid
+  );
+  // const { data: venueData } = useQueryDoc("venues", "fuKYymMoAdXNFZRMWbY7");
   const [showcancelModal, setShowcancelModal] = useState(false);
 
   const handleCancelClick = () => {
     setShowcancelModal(true);
   };
 
-  const handlecancel = (confirmed: boolean) => {
-    if (confirmed) {
-      console.log("Venue removed!");
-    }
-    setShowcancelModal(false);
-  };
+  // console.log(venueData);
+  // console.log(currentUser?.uid);
+
+  // const handlecancel = (confirmed: boolean) => {
+  //   if (confirmed) {
+  //     console.log("Venue removed!");
+  //   }
+  //   setShowcancelModal(false);
+  // };
   return (
     <>
       {venueData &&
         venueData.map((venue: VenueDataModel) => (
-          <IonCard key={venue.id} className="addvenue-card">
+          <IonCard key={venue.id} className="card">
             <IonCardHeader>
               <IonCardTitle className="addvenue-title">
                 {venue.name}
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              <IonList>
-                <IonLabel>Description</IonLabel>
-                <IonItem>{venue.description}</IonItem>
-              </IonList>
-              <IonList>
-                <IonLabel>Address</IonLabel>
-                <IonItem>
+              {/* <IonList className="item-color-dark">
+                <IonLabel className="card-label">Description</IonLabel>
+                <IonItem className="item-color-dark">
+                  {venue.description}
+                </IonItem>
+              </IonList> */}
+              <IonList className="item-color-dark">
+                <IonLabel className="card-label ion-margin-start">
+                  {/* <IonItem className="item-color-dark"> */}
                   {venue.bldg_no} {venue.street} {venue.city}
+                  {/* </IonItem> */}
+                </IonLabel>
+              </IonList>
+              <IonList className="item-color-dark">
+                <IonItem className="item-color-dark">
+                  <IonButton
+                    className="ct-btn"
+                    shape="round"
+                    color={"tertiary"}
+                    fill="outline"
+                    // slot="start"
+                  >
+                    Facilities
+                  </IonButton>
+                  <IonButton
+                    className="ct-btn"
+                    shape="round"
+                    color={"tertiary"}
+                    fill="outline"
+                    // slot="start"
+                  >
+                    Calendar of Events
+                  </IonButton>
+                  <IonButton
+                    className="ct-btn"
+                    shape="round"
+                    color={"tertiary"}
+                    fill="outline"
+                    // slot="start"
+                  >
+                    Requests
+                  </IonButton>
                 </IonItem>
               </IonList>
-              <IonList>
+              {/* <IonList className="item-color-dark">
                 <IonLabel>Maximum Capacity</IonLabel>
-                <IonItem>{venue.maxCapacity}</IonItem>
-              </IonList>
-              <div className="addvenue-btns">
+                <IonItem className="item-color-dark">
+                  {venue.maxCapacity}
+                </IonItem>
+              </IonList> */}
+              {/* <div className="addvenue-btns">
                 <IonButton className="addvenue-editbtn">Edit</IonButton>
                 <IonButton
                   className="addvenue-rmvbtn"
@@ -62,13 +112,13 @@ const VenueCard = () => {
                 >
                   Remove
                 </IonButton>
-              </div>
+              </div> */}
             </IonCardContent>
           </IonCard>
         ))}
 
       {/* cancel Modal */}
-      <IonModal
+      {/* <IonModal
         isOpen={showcancelModal}
         onDidDismiss={() => setShowcancelModal(false)}
         className="vevent-cancel-modal-container"
@@ -92,7 +142,7 @@ const VenueCard = () => {
             </IonButton>
           </div>
         </IonContent>
-      </IonModal>
+      </IonModal> */}
     </>
   );
 };

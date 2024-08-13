@@ -2,6 +2,7 @@ import {
   IonButton,
   IonButtons,
   IonCard,
+  IonCol,
   IonContent,
   IonGrid,
   IonHeader,
@@ -30,6 +31,7 @@ import "./VenueHomePage.css";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import VenueCard from "../../components/venue/VenueCard";
 
 const VenueHomePage: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -47,6 +49,9 @@ const VenueHomePage: React.FC = () => {
           <IonGrid>
             <IonRow>
               <SidePanel />
+              <IonCol>
+                <VenueCard />
+              </IonCol>
             </IonRow>
           </IonGrid>
         </IonContent>

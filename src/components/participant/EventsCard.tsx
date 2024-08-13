@@ -53,7 +53,7 @@ const EventsCard = () => {
           >
             <IonItem className="item-color">
               <IonImg
-                src={event.imgUrl ? event.imgUrl : Default}
+                src={event.imageUrl ? event.imageUrl : Default}
                 alt={event.title}
                 className="event-card-image"
               />
@@ -81,7 +81,7 @@ const EventsCard = () => {
                 icon={timeOutline}
                 slot="start"
               />
-              <IonText>{formatTimeString(event.eventDate)}</IonText>
+              <IonText>{formatDateString(event.event_date)}</IonText>
             </IonItem>
             <IonItem className="item-color">
               <IonLabel>

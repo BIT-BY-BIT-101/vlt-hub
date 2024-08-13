@@ -116,7 +116,7 @@ const EditProfile: React.FC<EditProps> = ({
           </IonLabel>
 
           <IonLabel className="veditprofile-form-label">
-            <span className="veditprofile-form-title">Gender:</span>
+            <span className="veditprofile-form-title">Sex:</span>
             <IonSelect
               className="veditprofile-form-select"
               interface="action-sheet"

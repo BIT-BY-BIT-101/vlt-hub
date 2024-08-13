@@ -36,8 +36,10 @@ const useFirestore = (collectionPath: string) => {
   const addData = async (newData: any) => {
     try {
       const collectionRef = collection(db, collectionPath);
-      await addDoc(collectionRef, newData);
-      console.log("Data added successfully!", collectionRef.id);
+      const snapshot = await addDoc(collectionRef, newData);
+      console.log("Data added successfully!", snapshot.id);
+      const newDocId = snapshot.id;
+      return newDocId;
       // getData();
     } catch (err) {
       setError(err);
@@ -67,8 +69,12 @@ const useFirestore = (collectionPath: string) => {
   };
 
   const updateData = async (id: string, data: any) => {
-    const docRef = doc(db, collectionPath, id);
-    await updateDoc(docRef, { ...data, updatedAt: serverTimestamp() });
+    try {
+      const docRef = doc(db, collectionPath, id);
+      await updateDoc(docRef, { ...data, updatedAt: serverTimestamp() });
+    } catch (err) {
+      console.log("Error updating data:", err);
+    }
     // getData();
   };
 

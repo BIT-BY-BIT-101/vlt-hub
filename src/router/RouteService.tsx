@@ -36,6 +36,10 @@ import PageNotFound from "../pages/error_pages/PageNotFound";
 import { ChatPage } from "../pages/chat/ChatPage";
 import SuccessPage from "../pages/payment/SuccessPage";
 import Loader from "../components/loaders/Loader";
+import VenueEditVenuePage from "../pages/venue/VenueEditVenuePage";
+import VenueAddRoomPage from "../pages/venue/VenueAddFacilityPage";
+import VenueAddFacilityPage from "../pages/venue/VenueAddFacilityPage";
+import TransactionPage from "../pages/payment/TransactionPage";
 
 const RouteService = () => {
   return (
@@ -207,6 +211,12 @@ const RouteService = () => {
           redirected="/venue/signin"
         />
         <ProtectedRoute
+          path="/venue/transactions"
+          allowedRoles={"venue"}
+          component={TransactionPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
           path="/venue/booked-events"
           allowedRoles={"venue"}
           component={VenueBookedEventsPage}
@@ -222,6 +232,18 @@ const RouteService = () => {
           path="/venue/add-venue"
           allowedRoles={"venue"}
           component={VenueAddVenuePage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/add-room"
+          allowedRoles={"venue"}
+          component={VenueAddFacilityPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/profile/venue-details/edit"
+          allowedRoles={"venue"}
+          component={VenueEditVenuePage}
           redirected="/venue/signin"
         />
 
@@ -246,9 +268,24 @@ const RouteService = () => {
         />
 
         {/* Payments */}
+        {/* Participant */}
         <ProtectedRoute
           path="/payments/:id/success"
           allowedRoles={"participant"}
+          component={SuccessPage}
+          redirected="/participant/signin"
+        />
+        {/* Host */}
+        <ProtectedRoute
+          path="/payments/:id/success"
+          allowedRoles={"host"}
+          component={SuccessPage}
+          redirected="/participant/signin"
+        />
+        {/* Venue */}
+        <ProtectedRoute
+          path="/payments/:id/success"
+          allowedRoles={"venue"}
           component={SuccessPage}
           redirected="/participant/signin"
         />
