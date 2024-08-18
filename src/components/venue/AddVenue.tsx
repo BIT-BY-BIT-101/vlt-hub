@@ -18,7 +18,7 @@ import useFirestore from "../../hooks/useFirestore";
 import "./AddVenue.css";
 import { AuthContext } from "../../context/AuthContext";
 import Swal from "sweetalert2";
-import { handleWindowRoute } from "../../helpers/helpers";
+import { handleWindowRoute } from "../../helpers/Helpers";
 
 const AddVenue = () => {
   const { currentUser } = useContext(AuthContext);

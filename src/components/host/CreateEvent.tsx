@@ -17,7 +17,7 @@ import { useHistory, useParams } from "react-router";
 import useQueryDoc from "../../hooks/useQueryDoc";
 import useFirebaseStorage from "../../hooks/useFirestorage";
 import { serverTimestamp, Timestamp } from "firebase/firestore";
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"
 import useCreateEvent from "../../hooks/useCreateEvent";
 
 type RouteParams = {

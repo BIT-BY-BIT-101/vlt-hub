@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { auth } from "../../config/firebase";
 import { AuthContext } from "../../context/AuthContext";
-import { handleWindowRoute } from "../../helpers/helpers";
+import { handleWindowRoute } from "../../helpers/Helpers";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 import { serverTimestamp } from "@firebase/firestore";

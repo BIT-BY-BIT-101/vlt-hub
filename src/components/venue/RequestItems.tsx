@@ -16,7 +16,7 @@ import PrimaryButton from "../PrimaryButton";
 import useGetDoc from "../../hooks/useGetDoc";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { handleWindowRoute } from "../../helpers/helpers";
+import { handleWindowRoute } from "../../helpers/Helpers";
 import ChatBox from "../messaging/ChatBox";
 import RequestModal from "../modals/RequestModal";
 

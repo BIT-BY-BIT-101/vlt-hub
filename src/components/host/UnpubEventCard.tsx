@@ -25,7 +25,7 @@ import useFetchUnpublishedEvent from "../../hooks/useFetchUnpublishedEvent";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { AuthContext } from "../../context/AuthContext";
-import { handleWindowRoute } from "../../helpers/helpers";
+import { handleWindowRoute } from "../../helpers/Helpers";
 export const UnpubEventCard = () => {
   const { currentUser } = useContext(AuthContext);
   const [imageLoadError, setImageLoadError] = useState(false);

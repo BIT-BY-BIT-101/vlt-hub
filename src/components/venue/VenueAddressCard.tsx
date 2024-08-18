@@ -14,7 +14,7 @@ import PrimaryButton from "../PrimaryButton";
 import { AuthContext } from "../../context/AuthContext";
 import useQueryDoc from "../../hooks/useQueryDoc";
 import useFetchVenueDetails from "../../hooks/useFetchVenueDetails";
-import { handleWindowRoute } from "../../helpers/helpers";
+import { handleWindowRoute } from "../../helpers/Helpers";
 
 const VenueAddressCard = () => {
   const { currentUser } = useContext(AuthContext);
