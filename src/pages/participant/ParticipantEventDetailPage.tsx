@@ -10,13 +10,15 @@ import React from "react";
 import "./ParticipantEventPage.css";
 import EventsDetailCard from "../../components/participant/EventsDetailCard";
 import { useHistory } from "react-router";
+import Menus from '../../components/menus/Menus';
 
 const ParticipantEventDetailPage: React.FC = () => {
   const history = useHistory();
   return (
     <>
+    <Menus/>
       {/* <ParticipantNavMenu /> */}
-      <IonPage>
+      <IonPage id="main">
         <IonHeader>
           <IonToolbar>
             <div className="back-button">

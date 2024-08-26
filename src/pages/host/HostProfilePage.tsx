@@ -10,7 +10,7 @@ export const HostProfilePage = () => {
   return (
     <>
       <Menus />
-      <IonPage>
+      <IonPage id="main">
         <Header />
         <IonContent>
           <IonGrid>

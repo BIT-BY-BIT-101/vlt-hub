@@ -20,12 +20,14 @@ import VenueSelectionCard from "../../components/venue/VenueSelectionCard";
 import Header from "../../components/header/Header";
 import CreateEvent from "../../components/host/CreateEvent";
 import SidePanel from "../../components/SidePanel";
+import Menus from "../../components/menus/Menus";
 
 const HostVenueSelectionPage = () => {
   const history = useHistory();
   return (
     <>
-      <IonPage>
+      <Menus />
+      <IonPage id="main">
         <Header />
         {/* <IonHeader>
           <IonToolbar>
@@ -36,7 +38,7 @@ const HostVenueSelectionPage = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent id="main">
+        <IonContent>
           <IonGrid>
             <IonRow>
               <SidePanel />

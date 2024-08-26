@@ -35,18 +35,20 @@ import ParticipantSidePane from "../../components/participant/ParticipantSidePan
 import HistoryCard from "../../components/participant/HistoryCard";
 import Header from "../../components/header/Header";
 import SidePanel from "../../components/SidePanel";
+import Menus from '../../components/menus/Menus';
 
 const ParticipantHistoryPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
     <>
-      {/* <ParticipantNavMenu /> */}
-      <IonPage>
-        {/* <ParticipantHeader /> */}
+    <Menus/>
+ 
+      <IonPage id="main">
+
         <Header />
 
-        <IonContent id="phome-main">
+        <IonContent>
           {/* <IonSearchbar
             className="phistory-searchbar"
             value={searchText}
@@ -55,7 +57,7 @@ const ParticipantHistoryPage: React.FC = () => {
           /> */}
           <IonGrid>
             <IonRow>
-              {/* <ParticipantSidePane /> */}
+
               <SidePanel />
               <IonCol size="10">
                 <IonRow>

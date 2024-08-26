@@ -9,21 +9,23 @@ import SidePanel from "../../components/SidePanel";
 
 export const ParticipantProfilePage = () => {
   return (
-    <IonPage>
+    <>
       <Menus />
-      {/* <ParticipantHeader /> */}
-      <Header />
-      <IonContent>
-        <IonGrid>
-          <IonRow className="ion-justify-content-center">
-            {/* <ParticipantSidePane /> */}
-            <SidePanel />
-            <IonCol size="10">
-              <ProfileCard />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
+      <IonPage>
+        {/* <ParticipantHeader /> */}
+        <Header />
+        <IonContent>
+          <IonGrid>
+            <IonRow className="ion-justify-content-center">
+              {/* <ParticipantSidePane /> */}
+              <SidePanel />
+              <IonCol size="10">
+                <ProfileCard />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonContent>
+      </IonPage>
+    </>
   );
 };

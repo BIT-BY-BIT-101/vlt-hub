@@ -53,9 +53,9 @@ const ParticipantHomePage = () => {
   }
   return (
     <>
-      <ParticipantNavMenu />
-      {/* <Menus /> */}
-      <IonPage>
+      {/*<ParticipantNavMenu />*/}
+       <Menus /> 
+      <IonPage id="main">
         {/* <ParticipantHeader /> */}
         <Header />
         {/* <IonHeader>
@@ -67,7 +67,7 @@ const ParticipantHomePage = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent id="phome-main">
+        <IonContent>
           <IonGrid>
             <IonRow>
               {/* <ParticipantSidePane /> */}

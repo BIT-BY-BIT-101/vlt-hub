@@ -91,7 +91,7 @@ const HostEventPage: React.FC = () => {
     <>
       {/* <HostNavMenu /> */}
       <Menus />
-      <IonPage>
+      <IonPage id="main">
         <Header />
         {/* <IonHeader>
           <IonToolbar>
@@ -102,7 +102,7 @@ const HostEventPage: React.FC = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent id="main">
+        <IonContent>
           {/* <IonSearchbar
             className="hsearch-bar"
             placeholder="Search events"

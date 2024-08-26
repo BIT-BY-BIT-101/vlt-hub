@@ -28,6 +28,7 @@ import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueBookedEventsPage.css";
 import Header from "../../components/header/Header";
 import SidePanel from "../../components/SidePanel";
+import Menus from '../../components/menus/Menus';
 
 const VenueBookedEventsPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -89,7 +90,7 @@ const VenueBookedEventsPage: React.FC = () => {
   };
   return (
     <>
-      <VenueNavMenu />
+      <Menus />
       <IonPage id="main">
         <Header />
 

@@ -14,11 +14,11 @@ const ParticipantEventPage: React.FC = () => {
     <>
       {/* <ParticipantNavMenu /> */}
       <Menus />
-      <IonPage>
+      <IonPage id="main">
         {/* <ParticipantHeader /> */}
         <Header />
 
-        <IonContent id="phome-main">
+        <IonContent >
           <IonGrid>
             <IonRow>
               {/* <ParticipantSidePane /> */}

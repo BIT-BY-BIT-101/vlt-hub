@@ -20,7 +20,7 @@ const HostEventListPage = () => {
     <>
       {/* <HostNavMenu /> */}
       <Menus />
-      <IonPage>
+      <IonPage id="main">
         <Header />
         {/* <IonHeader>
           <IonToolbar>
@@ -29,7 +29,7 @@ const HostEventListPage = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent id="main">
+        <IonContent>
           {/* <div className="hhome-form-container">
             <CreateEvent />
           </div> */}

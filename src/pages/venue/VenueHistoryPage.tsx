@@ -51,7 +51,7 @@ const VenueHistoryPage: React.FC = () => {
       <IonPage id="main">
         <Header />
 
-        <IonContent id="main">
+        <IonContent>
           {/* <IonSearchbar
             className="vhistory-searchbar"
             value={searchText}

@@ -28,7 +28,7 @@ const HostHomePage: React.FC = () => {
       {/* <HostNavMenu /> */}
       <Menus />
 
-      <IonPage>
+      <IonPage id="main">
         <Header />
         {/* <IonHeader>
           <IonToolbar>
@@ -39,17 +39,16 @@ const HostHomePage: React.FC = () => {
             <IonTitle>Dashboard</IonTitle>
           </IonToolbar>
         </IonHeader> */}
-        <IonContent id="main">
-          <div className="hhome-cards-container">
-            {/* <IonGrid>
-              <IonRow> */}
-            <SidePanel />
+        <IonContent>
+          <IonGrid>
+            <IonRow>
+              <SidePanel />
             <EventsCard />
-            {/* </IonRow>
-            </IonGrid> */}
-          </div>
+            </IonRow>
+          </IonGrid>
         </IonContent>
       </IonPage>
+
     </>
   );
 };

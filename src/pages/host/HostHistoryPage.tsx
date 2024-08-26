@@ -49,7 +49,7 @@ const HostHistoryPage: React.FC = () => {
     <>
       {/* <HostNavMenu /> */}
       <Menus />
-      <IonPage>
+      <IonPage id="main">
         <Header />
         {/* <IonHeader>
           <IonToolbar>
@@ -58,7 +58,7 @@ const HostHistoryPage: React.FC = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent id="main">
+        <IonContent>
           {/* <IonSearchbar
             className="hhistory-searchbar"
             value={searchText}

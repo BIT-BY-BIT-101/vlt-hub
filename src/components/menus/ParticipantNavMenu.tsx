@@ -57,7 +57,7 @@ function ParticipantNavMenu() {
   ];
 
   return (
-    <IonMenu contentId="phome-main" type="overlay">
+    <IonMenu contentId="main" type="overlay">
       <MenuHeader />
       <IonContent className="container-space-between" fullscreen={true}>
         {auth.currentUser ? (

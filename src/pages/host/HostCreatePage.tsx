@@ -17,13 +17,15 @@ import CreateEvent from "../../components/host/CreateEvent";
 import { useHistory } from "react-router-dom";
 import Header from "../../components/header/Header";
 import SidePanel from "../../components/SidePanel";
+import Menus from "../../components/menus/Menus";
 
 const HostCreatePage = () => {
   const history = useHistory();
   return (
     <>
       {/* <HostNavMenu /> */}
-      <IonPage>
+      <Menus />
+      <IonPage id="main">
         <Header />
         {/* <IonHeader>
           <IonToolbar>
@@ -34,7 +36,7 @@ const HostCreatePage = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent id="main">
+        <IonContent>
           <IonGrid>
             <IonRow>
               <SidePanel />
