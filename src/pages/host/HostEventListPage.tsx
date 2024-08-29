@@ -1,15 +1,4 @@
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonMenuButton,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonGrid,
-  IonRow,
-} from "@ionic/react";
-import HostNavMenu from "../../components/menus/HostNavMenu";
+import { IonPage, IonContent, IonGrid, IonRow } from "@ionic/react";
 import { UnpubEventCard } from "../../components/host/UnpubEventCard";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";

@@ -19,6 +19,19 @@ export function formatTimeString(originalTimeString: string) {
   return timeObject.toLocaleTimeString("en-US", options);
 }
 
+export function formatDateOnly(originalDateString: string) {
+  // Create a Date object from the input string
+  const date = new Date(originalDateString);
+
+  // Extract year, month, and day
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed, so add 1
+  const day = String(date.getDate()).padStart(2, "0");
+
+  // Format the date as YYYY-MM-DD
+  return `${year}-${month}-${day}`;
+}
+
 // export function formatFibaseTimestamp(dateString: string): string {
 //   const datePattern = /^(.*? \d{1,2}, \d{4})/;
 //   const match = datePattern.exec(dateString);

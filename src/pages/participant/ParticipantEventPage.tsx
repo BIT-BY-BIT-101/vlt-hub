@@ -8,6 +8,7 @@ import ParticipantSidePane from "../../components/participant/ParticipantSidePan
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import EventsCalendarCard from "../../components/participant/EventsCalendarCard";
 
 const ParticipantEventPage: React.FC = () => {
   return (
@@ -18,15 +19,16 @@ const ParticipantEventPage: React.FC = () => {
         {/* <ParticipantHeader /> */}
         <Header />
 
-        <IonContent >
+        <IonContent>
           <IonGrid>
             <IonRow>
               {/* <ParticipantSidePane /> */}
               <SidePanel />
               <IonCol size="10">
-                <IonRow>
-                  <RegisteredEventsCard />
-                </IonRow>
+                {/* <IonRow> */}
+                {/* <RegisteredEventsCard /> */}
+                <EventsCalendarCard />
+                {/* </IonRow>ss */}
               </IonCol>
             </IonRow>
           </IonGrid>

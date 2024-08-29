@@ -17,7 +17,7 @@ import { useHistory, useParams } from "react-router";
 import useQueryDoc from "../../hooks/useQueryDoc";
 import useFirebaseStorage from "../../hooks/useFirestorage";
 import { serverTimestamp, Timestamp } from "firebase/firestore";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import useCreateEvent from "../../hooks/useCreateEvent";
 
 type RouteParams = {
@@ -240,7 +240,7 @@ function CreateEvent() {
                   event_title: data.title,
                   event_id: res.id,
                   event_date: data.event_date,
-
+                  event_description: data.description,
                   host_id: hostId,
                   host_name: hostName,
                   venue_id: venueId,
