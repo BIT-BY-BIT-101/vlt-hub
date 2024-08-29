@@ -16,25 +16,31 @@ import {
 } from "@ionic/react";
 import { search, power } from "ionicons/icons";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import LogoutModal from "../modals/LogoutModal";
 
 const Header = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchText, setSearchText] = useState("");
+  const history = useHistory();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleClick = () => {
     if (currentUser?.data.role === "host") {
-      window.location.href = "/host/home";
+      // window.location.href = "/host/home";
+      history.push("/host/home");
     }
     if (currentUser?.data.role === "venue") {
-      window.location.href = "/venue/home";
+      // window.location.href = "/venue/home";
+      history.push("/venue/home");
     }
     if (currentUser?.data.role === "participant") {
-      window.location.href = "/participant/home";
+      // window.location.href = "/participant/home";
+      history.push("/host/home");
     }
+
+    history.push("/participant/home");
   };
 
   const handleModalClose = () => {
@@ -170,7 +176,7 @@ const Header = () => {
                 </IonCol>
               ) : (
                 <IonCol size="auto" className="header-link-host-event">
-                  <Link to="/host/signin" className="header-link">
+                  <Link to="/host/home" className="header-link">
                     Host an event
                   </Link>
                 </IonCol>
@@ -339,9 +345,9 @@ const Header = () => {
               ></IonSearchbar>
               <IonIcon icon={search} className="search-icon"></IonIcon>
             </IonCol>
-            {currentUser ? (
+            {currentUser?.data.role === "host" ? (
               <IonCol size="auto" className="header-link-host-event">
-                <Link to="/host/signin" className="header-link">
+                <Link to="/host/home" className="header-link">
                   Host an event
                 </Link>
               </IonCol>
@@ -385,7 +391,10 @@ const Header = () => {
                   </IonButtons>
                 </IonItem>
               ) : (
-                <IonButton className="nav-login-signup-button" href="">
+                <IonButton
+                  className="nav-login-signup-button"
+                  onClick={() => history.push("/home")}
+                >
                   Login/Signup
                 </IonButton>
               )}

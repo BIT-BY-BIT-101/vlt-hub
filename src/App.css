@@ -18,6 +18,11 @@
   font-size: 16px;
 }
 
+.item-bg-none {
+  --ion-item-background: none;
+  --inner-border-width: 0;
+  --color: black;
+}
 .item-color {
   --ion-item-background: none;
   --inner-border-width: 0;
@@ -179,7 +184,7 @@ ion-thumbnail {
   /* width: 100%; */
   /* position: relative; */
   border-radius: 20px;
-  padding: 30px;
+  padding: 10px;
   color: black;
   border: 2px solid #c3c6ce;
   transition: 0.5s ease-out;
@@ -239,18 +244,18 @@ ion-modal.modal-container::part(content) {
   --max-height: 80%;
 }
 
-.modal-container {
-  background-color: rgba(0, 0, 0, 0.7);
+
+
+.f-size-auto {
+  font-size: calc(0.5rem + 0.5vw);
 }
 
-@media (max-width: 425px) {
+@media (min-width: 320px) and (max-width: 425px) {
   ion-modal.modal-container::part(content) {
-    --background: var(--main-color);
-    --border-radius: 20px;
-    --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    /* --width: 50%; */
-    /* --max-width: 50%;
-    --max-height: 80%; */
+    --border-radius: none;
+    --width: 50%;
+    --max-width: 50%;
+    --max-height: 100vh;
   }
 }
 
@@ -259,9 +264,7 @@ ion-modal.modal-container::part(content) {
     display: none;
   }
 
-  .f-size-auto {
-    font-size: calc(0.5rem + 0.5vw);
-  }
+  
 
   .hide-element {
     display: none;

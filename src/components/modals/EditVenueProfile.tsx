@@ -24,7 +24,7 @@ import "./EditVenueProfile.css";
 import { updateCurrentUser } from "firebase/auth";
 import useUpdateProfile from "../../hooks/useUpdateProfile";
 
-interface userData {
+type userData = {
   fname: string;
   bio: string;
   lname: string;

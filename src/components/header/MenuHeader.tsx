@@ -34,11 +34,20 @@ const MenuHeader = () => {
       <IonToolbar class="phome-menu-header">
         <IonImg
           src={
-            currentUser?.data.photoURL ? currentUser?.data.photoURL : UserImg
+            currentUser?.data.photoURL
+              ? currentUser?.data.photoURL
+              : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
           }
           alt="V.L.T. Hub"
           className="phome-logocontainer"
         />
+        {/* <IonImg
+          src={
+            currentUser?.data.photoURL ? currentUser?.data.photoURL : UserImg
+          }
+          alt="V.L.T. Hub"
+          className="phome-logocontainer"
+        /> */}
         <div className="phome-userinfo">
           <IonLabel class="phome-username">
             {currentUser?.data.fname} {currentUser?.data.lname}

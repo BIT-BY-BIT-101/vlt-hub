@@ -48,13 +48,13 @@ const ParticipantHomePage = () => {
   const history = useHistory();
 
   if (currentUser?.data.role === "host" || currentUser?.data.role === "venue") {
-    // return history.push("/participant/signin");
-    return (window.location.href = "/participant/signin");
+    return history.push("/participant/signin");
+    // return (window.location.href = "/participant/signin");
   }
   return (
     <>
       {/*<ParticipantNavMenu />*/}
-       <Menus /> 
+      <Menus />
       <IonPage id="main">
         {/* <ParticipantHeader /> */}
         <Header />

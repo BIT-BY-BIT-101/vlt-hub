@@ -89,20 +89,20 @@ export const UnpubEventCard = () => {
           routerLink={`/host/venue-list`}
           shape="round"
           color={"tertiary"}
-          size="large"
+          // size="large"
         >
           Create Event
         </IonButton>
       </div>
-      <IonRow>
-        {events?.length === 0 ? (
-          <IonCard>
-            <IonCardContent>
-              <IonLabel>No unpublished events available</IonLabel>
-            </IonCardContent>
-          </IonCard>
-        ) : (
-          events.map((event: EventDataModel) => (
+      {events?.length === 0 ? (
+        <IonItem className="item-bg-none">
+          <IonLabel className="item-bg-none">
+            No unpublished events available
+          </IonLabel>
+        </IonItem>
+      ) : (
+        <IonRow>
+          {events.map((event: EventDataModel) => (
             <IonCol size="12" size-sm="4" key={event.id}>
               <IonCard className="card">
                 <IonImg
@@ -176,9 +176,9 @@ export const UnpubEventCard = () => {
                 </IonButton>
               </IonCard>
             </IonCol>
-          ))
-        )}
-      </IonRow>
+          ))}
+        </IonRow>
+      )}
     </IonGrid>
   );
 };

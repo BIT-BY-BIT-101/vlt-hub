@@ -1,75 +1,39 @@
 import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonItem,
-  IonLabel,
-  IonList,
   IonMenu,
-  IonToolbar,
+  IonContent,
+  IonList,
+  IonItem,
+  IonIcon,
+  IonLabel,
 } from "@ionic/react";
-import {
-  addCircle,
-  calendar,
-  create,
-  home,
-  logIn,
-  logOut,
-  pencil,
-  time,
-} from "ionicons/icons";
-import React, { useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import HostImg from "../../assets/host.jpg";
-import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import LogoutModal from "../modals/LogoutModal";
-import MenuHeader from "../header/MenuHeader";
+import { logOut, logIn, calendar, home, time } from "ionicons/icons";
+import React from "react";
 import { auth } from "../../config/firebase";
+import MenuHeader from "../header/MenuHeader";
+import LogoutModal from "../modals/LogoutModal";
 
-function HostNavMenu() {
-  const { signOut, userData } = useFirebaseAuth();
-  const history = useHistory();
-  const location = useLocation();
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  const isMenuItemActive = (path: string) => {
-    return location.pathname === path;
-  };
-
-  const handleModalClose = () => {
-    setShowLogoutModal(false);
-  };
-
+const NavMenu = () => {
   const items = [
     {
       title: "Home",
-      path: "/host/home",
+      path: "/participant/home",
       icon: home,
     },
     {
-      title: "Create",
-      path: "/host/event-list",
-      icon: addCircle,
-    },
-    {
-      title: "My Events",
-      path: "/host/event",
+      title: "My Event",
+      path: "/participant/events",
       icon: calendar,
     },
-    // {
-    //   title: "History",
-    //   path: "/host/history",
-    //   icon: time,
-    // },
+    {
+      title: "History",
+      path: "/participant/history",
+      icon: time,
+    },
   ];
-
   return (
     <IonMenu contentId="main" type="overlay">
       <MenuHeader />
-      <IonContent>
+      <IonContent className="container-space-between" fullscreen={true}>
         {auth.currentUser ? (
           <>
             <IonList className="flex-item bg-color-secondary">
@@ -109,10 +73,10 @@ function HostNavMenu() {
           <IonList className="flex-item bg-color-secondary">
             <IonItem
               className="item-color"
-              routerLink="/host/signin"
+              routerLink="/participant/signin"
               // onClick={() => setShowLogoutModal(true)}
             >
-              <IonIcon icon={logIn} slot="start" className="item-color-dark" />
+              <IonIcon icon={logIn} slot="start" className="item-color" />
               <IonLabel>Signin</IonLabel>
             </IonItem>
           </IonList>
@@ -121,6 +85,6 @@ function HostNavMenu() {
       </IonContent>
     </IonMenu>
   );
-}
+};
 
-export default HostNavMenu;
+export default NavMenu;

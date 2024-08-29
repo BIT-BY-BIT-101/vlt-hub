@@ -38,9 +38,9 @@ const SidePanel = () => {
           <IonItem className="item-color" routerLink="/host/profile">
             <IonLabel>Account</IonLabel>
           </IonItem>
-          <IonItem className="item-color" routerLink="/host/history">
+        {/*  <IonItem className="item-color" routerLink="/host/history">
             <IonLabel>History</IonLabel>
-          </IonItem>
+          </IonItem>*/}
         </div>
       </IonCol>
     );

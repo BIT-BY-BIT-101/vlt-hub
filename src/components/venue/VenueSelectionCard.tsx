@@ -35,7 +35,8 @@ const VenueSelectionCard = () => {
           <IonCard
             routerLink={`${venue.id}/create`}
             key={venue.id}
-            className="addvenue-card"
+            // className="addvenue-card"
+            className="card"
           >
             <IonCardHeader>
               <IonCardTitle className="addvenue-title">
@@ -43,19 +44,19 @@ const VenueSelectionCard = () => {
               </IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              <IonList>
+              <IonList className="item-bg-none">
                 <IonLabel>Description</IonLabel>
-                <IonItem>{venue.description}</IonItem>
+                <IonItem className="item-bg-none">{venue.description}</IonItem>
               </IonList>
-              <IonList>
+              <IonList className="item-bg-none">
                 <IonLabel>Address</IonLabel>
-                <IonItem>
+                <IonItem className="item-bg-none">
                   {venue.bldg_no} {venue.street} {venue.city}
                 </IonItem>
               </IonList>
-              <IonList>
+              <IonList className="item-bg-none">
                 <IonLabel>Maximum Capacity</IonLabel>
-                <IonItem>{venue.maxCapacity}</IonItem>
+                <IonItem className="item-bg-none">{venue.maxCapacity}</IonItem>
               </IonList>
               <div className="addvenue-btns">
                 {/* <IonButton className="addvenue-editbtn">Edit</IonButton>

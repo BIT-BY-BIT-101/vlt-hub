@@ -1,6 +1,6 @@
 export type EventDataModel = {
   id?: string;
-  imgUrl: string;
+  imageUrl: string;
   image: string;
   title: string;
   description: string;

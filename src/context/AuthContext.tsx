@@ -44,6 +44,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
           console.log(userObj);
         }
       }
+      setLoading(false);
     });
 
     return () => {

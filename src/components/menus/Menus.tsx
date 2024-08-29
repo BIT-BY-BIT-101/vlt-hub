@@ -8,9 +8,9 @@ import "./Menus.css";
 const Menus = () => {
   const { currentUser } = useContext(AuthContext);
 
-  if (currentUser?.data.role === "participant") {
-    return <ParticipantNavMenu />;
-  }
+  // if (currentUser?.data.role === "participant") {
+  //   return <ParticipantNavMenu />;
+  // }
 
   if (currentUser?.data.role === "host") {
     return <HostNavMenu />;
@@ -18,6 +18,8 @@ const Menus = () => {
   if (currentUser?.data.role === "venue") {
     return <VenueNavMenu />;
   }
+
+  return <ParticipantNavMenu />;
 };
 
 export default Menus;

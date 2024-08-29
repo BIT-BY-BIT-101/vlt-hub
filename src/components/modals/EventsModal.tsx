@@ -77,7 +77,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         line_items: [
           {
             currency: "PHP",
-            images: [selected?.imgUrl],
+            images: [selected?.imageUrl],
             amount: selected?.event_fee! * 100,
             description: selected?.title,
             name: selected?.title,
@@ -87,7 +87,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         description: selected?.title,
         payment_method_types: ["gcash", "card", "paymaya", "grab_pay"],
         reference_number: "n45a4s",
-        success_url: `http://localhost:8080/payments/${selected?.id}/success`,
+        success_url: `http://localhost:8080/participant/payments/${selected?.id}/success`,
       },
     },
   };
@@ -160,14 +160,16 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
             {selected?.venue}
           </p>
           <p>
-            <span>Date:</span> {formatDateString(selected?.eventDate!)}
+            <span>Date:</span> {formatDateString(selected?.event_date!)}
           </p>
           <p>
             <span>Time:</span> {formatTimeString(selected?.startTime!)} -
             {formatTimeString(selected?.endTime!)}
           </p>
         </div>
-        {currentUser ? (
+        
+      </IonContent>
+      {currentUser ? (
           <div className="phome-btn-container">
             <IonButton
               expand="block"
@@ -189,7 +191,6 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
             </IonButton>
           </div>
         )}
-      </IonContent>
     </IonModal>
   );
 };

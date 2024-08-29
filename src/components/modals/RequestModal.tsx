@@ -51,7 +51,7 @@ const RequestModal: React.FC<Props> = ({
     <IonModal
       isOpen={isOpen}
       onDidDismiss={onDidDismissal}
-      className="modal-container"
+      // className="modal-container"
     >
       <IonHeader>
         <IonToolbar>

@@ -40,6 +40,7 @@ import VenueEditVenuePage from "../pages/venue/VenueEditVenuePage";
 import VenueAddRoomPage from "../pages/venue/VenueAddFacilityPage";
 import VenueAddFacilityPage from "../pages/venue/VenueAddFacilityPage";
 import TransactionPage from "../pages/payment/TransactionPage";
+import ParticipantRegsiteredEventDetailPage from "../pages/participant/ParticipantRegsiteredEventDetailPage";
 
 const RouteService = () => {
   return (
@@ -130,7 +131,8 @@ const RouteService = () => {
         <ProtectedRoute
           path="/participant/event/details/:id"
           allowedRoles={"participant"}
-          component={ParticipantEventDetailPage}
+          // component={ParticipantEventDetailPage}
+          component={ParticipantRegsiteredEventDetailPage}
           redirected="/participant/signin"
         />
         <ProtectedRoute
@@ -270,21 +272,21 @@ const RouteService = () => {
         {/* Payments */}
         {/* Participant */}
         <ProtectedRoute
-          path="/payments/:id/success"
+          path="/participant/payments/:id/success"
           allowedRoles={"participant"}
           component={SuccessPage}
           redirected="/participant/signin"
         />
         {/* Host */}
         <ProtectedRoute
-          path="/payments/:id/success"
+          path="/host/payments/:id/success"
           allowedRoles={"host"}
           component={SuccessPage}
           redirected="/participant/signin"
         />
         {/* Venue */}
         <ProtectedRoute
-          path="/payments/:id/success"
+          path="/venue/payments/:id/success"
           allowedRoles={"venue"}
           component={SuccessPage}
           redirected="/participant/signin"
