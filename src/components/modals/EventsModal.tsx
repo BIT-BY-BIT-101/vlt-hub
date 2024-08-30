@@ -163,34 +163,33 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
             <span>Date:</span> {formatDateString(selected?.event_date!)}
           </p>
           <p>
-            <span>Time:</span> {formatTimeString(selected?.startTime!)} -
-            {formatTimeString(selected?.endTime!)}
+            <span>Time:</span> {formatTimeString(selected?.start_time!)} -
+            {formatTimeString(selected?.end_time!)}
           </p>
         </div>
-        
       </IonContent>
       {currentUser ? (
-          <div className="phome-btn-container">
-            <IonButton
-              expand="block"
-              className="phome-register-btn"
-              onClick={selected?.event_fee ? handleCheckout : handleRegister}
-            >
-              {selected?.event_fee ? "Pay Now" : "Register"}
-            </IonButton>
-          </div>
-        ) : (
-          <div className="phome-btn-container">
-            <IonButton
-              expand="block"
-              className="phome-register-btn"
-              // routerLink="/participant/signin"
-              onClick={handleSignin}
-            >
-              Please Login
-            </IonButton>
-          </div>
-        )}
+        <div className="phome-btn-container">
+          <IonButton
+            expand="block"
+            className="phome-register-btn"
+            onClick={selected?.event_fee ? handleCheckout : handleRegister}
+          >
+            {selected?.event_fee ? "Pay Now" : "Register"}
+          </IonButton>
+        </div>
+      ) : (
+        <div className="phome-btn-container">
+          <IonButton
+            expand="block"
+            className="phome-register-btn"
+            // routerLink="/participant/signin"
+            onClick={handleSignin}
+          >
+            Please Login
+          </IonButton>
+        </div>
+      )}
     </IonModal>
   );
 };
