@@ -28,6 +28,7 @@ import "./HostEventPage.css";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import HostEventCalendar from "../../components/host/HostEventCalendar";
 
 const HostEventPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -108,167 +109,15 @@ const HostEventPage: React.FC = () => {
             placeholder="Search events"
             onIonChange={handleSearchChange}
           ></IonSearchbar> */}
-          <SidePanel />
 
           <IonGrid>
             <IonRow>
-              {filteredEvents.map((event, index) => (
-                <React.Fragment key={index}>
-                  {/* <h1 className="hevent-date">{event.date}</h1> */}
-                  <IonCol>
-                    <IonCard className="hevent-card">
-                      <IonCardHeader>
-                        <IonCardTitle>{event.title}</IonCardTitle>
-                      </IonCardHeader>
-                      <IonCardContent>
-                        <div className="hevent-host-info">
-                          <img
-                            src={event.hostImg}
-                            alt={`Host: ${event.hostname}`}
-                            className="hevent-host-img"
-                          />
-                          <div className="hevent-host-name">
-                            {event.hostname}
-                          </div>
-                        </div>
-                        <div className="hevent-venue">
-                          <span>Venue: </span>
-                          {event.venue}
-                        </div>
-                        <div className="hevent-time">
-                          <span>Time: </span>
-                          {event.time}
-                        </div>
-                        <div className="heventcard-btn">
-                          <IonButton
-                            className="hview-btn"
-                            onClick={() => openModal(event)}
-                          >
-                            View
-                          </IonButton>
-                          <IonButton
-                            className="hcancel-btn"
-                            onClick={handleCancelClick}
-                          >
-                            Cancel
-                          </IonButton>
-                        </div>
-                      </IonCardContent>
-                    </IonCard>
-                  </IonCol>
-                </React.Fragment>
-              ))}
+              <SidePanel />
+              <IonCol>
+                <HostEventCalendar />
+              </IonCol>
             </IonRow>
           </IonGrid>
-
-          {/* Modal */}
-          <IonModal
-            isOpen={showModal}
-            onDidDismiss={() => {
-              closeModal();
-              setShowPoster(false);
-            }}
-            // className="hevent-modal-container"
-          >
-            <IonHeader>
-              <IonToolbar>
-                <IonButtons slot="end">
-                  <IonButton onClick={closeModal}>
-                    <IonIcon icon={closeCircle} />
-                  </IonButton>
-                </IonButtons>
-              </IonToolbar>
-            </IonHeader>
-
-            <IonContent className="hevent-modal-content">
-              {selectedEvent && (
-                <div>
-                  <div className="hevent-modal-header">
-                    <p className="hevent-modal-free">Free</p>
-                    <IonButton
-                      className="hevent-view-poster-btn"
-                      onClick={() => setShowPoster(!showPoster)}
-                    >
-                      {showPoster ? "Hide Poster" : "View Poster"}
-                    </IonButton>
-                  </div>
-                  {showPoster && (
-                    <IonImg
-                      src={MetaSafety}
-                      alt="Poster"
-                      className="hevent-poster-img"
-                    />
-                  )}
-                  <h2 className="hevent-modal-title">{selectedEvent.title}</h2>
-
-                  <div className="hevent-modal-host-container">
-                    <IonImg
-                      src={HostImg}
-                      alt="Abdul Rauf M. Sultan"
-                      className="hevent-modal-host-img"
-                    />
-                    <p className="hevent-modal-host">Abdul Rauf M. Sultan</p>
-                  </div>
-                  <div className="hevent-modal-details">
-                    <p>
-                      <span>Description:</span> This course is designed to help
-                      you master the fundamentals of Visual C# programming. It
-                      is intended for absolute beginners with no prior
-                      programming experience. The course focuses on the
-                      fundamentals of Visual C# programming and covers the
-                      following topics: Visual C# language syntax, program
-                      structure, and implementation details.
-                    </p>
-                    <p className="hevent-modal-date">
-                      <span>Date:</span> {selectedEvent.date}
-                    </p>
-                    <p>
-                      <span>Host:</span> {selectedEvent.hostname}
-                    </p>
-                    <p>
-                      <span>Venue:</span> {selectedEvent.venue}
-                    </p>
-                    <p>
-                      <span>Time:</span> {selectedEvent.time}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <div className="hevent-modal-btn-container">
-                <IonButton expand="block" className="hevent-edit-btn">
-                  Edit Event
-                </IonButton>
-              </div>
-            </IonContent>
-          </IonModal>
-
-          {/* Confirmation Modal */}
-          <IonModal
-            isOpen={showConfirmationModal}
-            onDidDismiss={() => setShowConfirmationModal(false)}
-            className="hevent-confirmation-modal-container"
-          >
-            <IonContent className="hevent-confirmation-modal-content">
-              <h2 className="hevent-confirmation-modal-txt">Are you sure?</h2>
-              <div className="hevent-modal-btn-container">
-                <IonButton
-                  expand="block"
-                  className="hyes-btn"
-                  onClick={() => handleConfirmation(true)}
-                >
-                  Yes
-                </IonButton>
-                <IonButton
-                  expand="block"
-                  className="hno-btn"
-                  onClick={() => handleConfirmation(false)}
-                >
-                  No
-                </IonButton>
-              </div>
-            </IonContent>
-          </IonModal>
         </IonContent>
       </IonPage>
     </>

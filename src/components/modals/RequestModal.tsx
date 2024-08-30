@@ -1,8 +1,10 @@
 import {
   IonButton,
   IonButtons,
+  IonCol,
   IonContent,
   IonFooter,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonImg,
@@ -10,6 +12,7 @@ import {
   IonLabel,
   IonList,
   IonModal,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -21,6 +24,8 @@ import {
 } from "../../helpers/DateTimeFunctions";
 import useFirestore from "../../hooks/useFirestore";
 import { serverTimestamp } from "firebase/firestore";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router";
 
 type Props = {
   isOpen: boolean;
@@ -35,15 +40,61 @@ const RequestModal: React.FC<Props> = ({
   onClose,
   selected,
 }) => {
-  const { updateData } = useFirestore("events");
+  const { updateData, error, loading } = useFirestore("events");
+  const {
+    updateData: updateRequest,
+    error: requestError,
+    loading: requestLoading,
+  } = useFirestore("request");
+  const history = useHistory();
   console.log(selected);
 
   async function handleUpdate() {
     console.log(selected.id);
 
-    await updateData(selected.event_id, {
-      updatedAt: serverTimestamp(),
-      status: "confirming",
+    Swal.fire({
+      icon: "question",
+      heightAuto: false,
+      title: "Are you sure?",
+      confirmButtonText: "Yes",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          heightAuto: false,
+          position: "top-right",
+          title: "Accepting..",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        }).then(async (result) => {
+          await updateData(selected.event_id, {
+            updatedAt: serverTimestamp(),
+            status: "confirming",
+          }).then(() => {
+            if (error === null) {
+              Swal.fire({
+                title: "Success!",
+                text: "Event accepted successfully",
+                icon: "success",
+                confirmButtonText: "ok",
+                heightAuto: false,
+              }).then(() => {
+                // history.push("/venue/requests");
+                onDidDismissal();
+              });
+            } else {
+              Swal.fire({
+                title: "An Error Occured",
+                heightAuto: false,
+                icon: "error",
+              });
+            }
+          });
+        });
+      }
     });
   }
 
@@ -55,7 +106,7 @@ const RequestModal: React.FC<Props> = ({
     >
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{selected.event_title}</IonTitle>
+          <IonTitle>{selected?.event_title}</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={onDidDismissal}>
               <IonIcon icon={closeCircle} />
@@ -69,26 +120,74 @@ const RequestModal: React.FC<Props> = ({
           <IonItem className="item-color-dark">
             <IonLabel slot="start">
               <h3>Host:</h3>
-              <p slot="start">{selected.host_name}</p>
+              <p slot="start">{selected?.host_name}</p>
             </IonLabel>
           </IonItem>
           <IonItem className="item-color-dark">
             <IonLabel slot="start">
               <h3>Date:</h3>
-              <p slot="start">{formatDateString(selected.event_date)}</p>
+              <p slot="start">{formatDateString(selected?.event_date)}</p>
             </IonLabel>
           </IonItem>
           <IonItem className="item-color-dark">
             <IonLabel slot="start">
               <h3>Description:</h3>
-              <p slot="start">{selected.description}</p>
+              <p slot="start">{selected?.description}</p>
             </IonLabel>
           </IonItem>
         </IonList>
       </IonContent>
-      <IonButton color={"tertiary"} onClick={handleUpdate}>
-        Accept
-      </IonButton>
+
+      <IonFooter>
+        {/* <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonButton
+                shape="round"
+                color={"tertiary"}
+                onClick={handleUpdate}
+              >
+                Accept
+              </IonButton>
+            </IonCol>
+
+            <IonCol>
+              <IonButton
+                fill="outline"
+                shape="round"
+                color={"danger"}
+                onClick={handleUpdate}
+              >
+                Reject
+              </IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid> */}
+
+        <IonItem className="item-bg-none">
+          <IonButtons slot="end">
+            <IonButton
+              fill="solid"
+              slot="end"
+              // strong
+              // shape="round"
+              color={"tertiary"}
+              onClick={handleUpdate}
+            >
+              Accept
+            </IonButton>
+            <IonButton
+              // fill="outline"
+              // shape="round"
+              strong
+              color={"danger"}
+              onClick={handleUpdate}
+            >
+              Reject
+            </IonButton>
+          </IonButtons>
+        </IonItem>
+      </IonFooter>
     </IonModal>
   );
 };

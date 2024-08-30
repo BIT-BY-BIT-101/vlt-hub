@@ -1,43 +1,8 @@
-import {
-  IonButton,
-  IonButtons,
-  IonCard,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonMenu,
-  IonMenuButton,
-  IonMenuToggle,
-  IonModal,
-  IonPage,
-  IonRow,
-  IonSearchbar,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
-import { closeCircle, notificationsOutline, search } from "ionicons/icons";
-import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import HostImg from "../../assets/host.jpg";
-import IntrotoCSharp from "../../assets/introtocsharp.jpg";
-import MetaSafety from "../../assets/metasafety.jpg";
-import techythursdays from "../../assets/techythursdays.jpg";
-import Logo from "../../assets/user.jpg";
-import ParticipantNavMenu from "../../components/menus/ParticipantNavMenu";
-import EventsModal from "../../components/modals/EventsModal";
+import { IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
+import { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import EventsCard from "../../components/participant/EventsCard";
-import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import useFirebaseStorage from "../../hooks/useFirestorage";
-import useFirestore from "../../hooks/useFirestore";
 import "./ParticipantHomePage.css";
-import ParticipantHeader from "../../components/participant/ParticipantHeader";
-import ParticipantSidePane from "../../components/participant/ParticipantSidePane";
 import { AuthContext } from "../../context/AuthContext";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";

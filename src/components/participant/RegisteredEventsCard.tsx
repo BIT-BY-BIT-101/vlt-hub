@@ -144,11 +144,11 @@ const RegisteredEventsCard = () => {
               </IonItem> */}
               {/* </IonCardContent> */}
             </IonCard>
-            <RegisteredEventsModal
+            {/* <RegisteredEventsModal
               isOpen={showModal}
               onDidDismiss={closeModal}
               selected={selected}
-            />
+            /> */}
           </>
         </IonCol>
       ))}

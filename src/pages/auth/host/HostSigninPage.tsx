@@ -13,7 +13,7 @@ import ParticipantNavMenu from "../../../components/menus/ParticipantNavMenu";
 
 function HostSigninPage() {
   return (
-    <IonPage>
+    <IonPage id="main">
       {/* <ParticipantNavMenu /> */}
       <Header />
       <IonContent fullscreen className="ion-padding">

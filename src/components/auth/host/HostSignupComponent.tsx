@@ -59,7 +59,8 @@ const HostSignupComponent = () => {
   };
 
   if (currentUser?.data.role === "host") {
-    return <Redirect to="/host/home" />;
+    // return <Redirect to="/host/home" />;
+    return <Redirect to="/host/event-list" />;
   }
 
   return (

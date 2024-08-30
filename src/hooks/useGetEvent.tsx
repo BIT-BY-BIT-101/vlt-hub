@@ -16,27 +16,30 @@ const useGetEvent = (path: string) => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
+        console.log(data);
+
         const hostRef = doc(db, "profiles", data.host_id);
         const hostSnap = await getDoc(hostRef);
-        const venueRef = doc(db, "venue", data.venue_id);
-        const venueSnap = await getDoc(venueRef);
-        const facilityRef = doc(db, "facility", data.facility_id);
-        const facilitySnap = await getDoc(facilityRef);
+        // const venueRef = doc(db, "venue", data.venue_id);
+        // const venueSnap = await getDoc(venueRef);
+        // const facilityRef = doc(db, "facility", data.facility_id);
+        // const facilitySnap = await getDoc(facilityRef);
 
         if (hostSnap.exists()) {
           const hostData = hostSnap.data();
           setHostInfo(hostData);
+          setLoading(true);
         }
 
-        if (venueSnap.exists()) {
-          const venueData = venueSnap.data();
-          setVenueInfo(venueData);
-        }
+        // if (venueSnap.exists()) {
+        //   const venueData = venueSnap.data();
+        //   setVenueInfo(venueData);
+        // }
 
-        if (facilitySnap.exists()) {
-          const facilityData = facilitySnap.data();
-          setFacilityInfo(facilityData);
-        }
+        // if (facilitySnap.exists()) {
+        //   const facilityData = facilitySnap.data();
+        //   setFacilityInfo(facilityData);
+        // }
         setData(data);
         setLoading(false);
       } else {

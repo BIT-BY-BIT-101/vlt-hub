@@ -25,10 +25,12 @@ const ParticipantEventPage: React.FC = () => {
               {/* <ParticipantSidePane /> */}
               <SidePanel />
               <IonCol size="10">
-                {/* <IonRow> */}
-                {/* <RegisteredEventsCard /> */}
-                <EventsCalendarCard />
-                {/* </IonRow>ss */}
+                <IonRow>
+                  {/* <RegisteredEventsCard /> */}
+                  <IonCol>
+                    <EventsCalendarCard />
+                  </IonCol>
+                </IonRow>
               </IonCol>
             </IonRow>
           </IonGrid>

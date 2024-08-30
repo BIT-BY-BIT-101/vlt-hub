@@ -19,7 +19,7 @@ import {
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
 import React, { useContext, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/vsignup.svg";
 import "./VenueSignupComponent.css";
@@ -35,6 +35,8 @@ const VenueSignupComponent = () => {
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
 
+  const history = useHistory();
+
   // const [month, setMonth] = useState("");
   // const [date, setDate] = useState("");
   // const [year, setYear] = useState("");
@@ -49,6 +51,7 @@ const VenueSignupComponent = () => {
         newBirthdate,
         "venue"
       );
+
       // Redirect or handle success as needed
       console.log("Account created successfully");
     } catch (err) {

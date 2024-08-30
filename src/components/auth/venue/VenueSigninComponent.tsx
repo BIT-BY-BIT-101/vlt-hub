@@ -70,6 +70,7 @@ const VenueSigninComponent: React.FC = () => {
   };
 
   if (currentUser && currentUser?.data.role === "venue") {
+    // return <Redirect to="/venue/home" />;
     return <Redirect to="/venue/home" />;
   }
 

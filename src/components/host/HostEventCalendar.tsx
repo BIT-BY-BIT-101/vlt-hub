@@ -1,26 +1,26 @@
-import { IonCard, IonCardContent } from "@ionic/react";
-import React from "react";
-
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import { auth } from "../../config/firebase";
-import useQuery from "../../hooks/useQuery";
-import { formatDateOnly } from "../../helpers/DateTimeFunctions";
+import React from "react";
 import { useHistory } from "react-router";
+import { auth } from "../../config/firebase";
+import { formatDateOnly } from "../../helpers/DateTimeFunctions";
+import useQuery from "../../hooks/useQuery";
 import Loader from "../loaders/Loader";
+import useGetHostedEvent from "../../hooks/useGetHostedEvent";
 
-const EventsCalendarCard = () => {
+const HostEventCalendar = () => {
   const history = useHistory();
-  const {
-    data: events,
-    error,
-    loading,
-  } = useQuery(
-    "events",
-    "participants",
-    "array-contains",
-    auth.currentUser?.uid!
-  );
+  const { data: events, loading, error } = useGetHostedEvent();
+  //   const {
+  //     data: events,
+  //     error,
+  //     loading,
+  //   } = useQuery(
+  //     "events",
+  //     "participants",
+  //     "array-contains",
+  //     auth.currentUser?.uid!
+  //   );
 
   const handleEventClick = (info) => {
     // Handle event click here
@@ -39,13 +39,13 @@ const EventsCalendarCard = () => {
   return (
     // <IonCard className="card">
     //   <IonCardContent>
-    <div className="cars">
+    <div className="card">
       <FullCalendar
         height="100%"
         contentHeight={"auto"}
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        eventClick={handleEventClick}
+        // eventClick={handleEventClick}
         events={events.map((event) => ({
           id: event.id,
           title: event.title,
@@ -58,4 +58,4 @@ const EventsCalendarCard = () => {
   );
 };
 
-export default EventsCalendarCard;
+export default HostEventCalendar;

@@ -245,6 +245,7 @@ function CreateEvent() {
                   host_name: hostName,
                   venue_id: venueId,
                   venue_owner_id: venueOwnerId,
+                  status: status,
                   createdAt: serverTimestamp(),
                   updatedAt: serverTimestamp(),
                 });

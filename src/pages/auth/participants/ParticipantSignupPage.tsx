@@ -12,7 +12,7 @@ import Header from "../../../components/header/Header";
 
 function ParticipantSignupPage() {
   return (
-    <IonPage>
+    <IonPage id="main">
       <Header />
       <IonContent fullscreen className="ion-padding">
         <ParticipantSignupComponent />

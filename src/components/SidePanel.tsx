@@ -29,18 +29,21 @@ const SidePanel = () => {
     return (
       <IonCol size="2" className="side-pane">
         <div>
-          <IonItem className="item-color " routerLink="/host">
+          {/* <IonItem className="item-color " routerLink="/host">
             <IonLabel>Home</IonLabel>
-          </IonItem>
+          </IonItem> */}
           <IonItem className="item-color " routerLink="/host/event-list">
             <IonLabel>Create</IonLabel>
           </IonItem>
           <IonItem className="item-color" routerLink="/host/profile">
             <IonLabel>Account</IonLabel>
           </IonItem>
-        {/*  <IonItem className="item-color" routerLink="/host/history">
+          <IonItem className="item-color" routerLink="/host/event">
+            <IonLabel>Events</IonLabel>
+          </IonItem>
+          {/* <IonItem className="item-color" routerLink="/host/history">
             <IonLabel>History</IonLabel>
-          </IonItem>*/}
+          </IonItem> */}
         </div>
       </IonCol>
     );

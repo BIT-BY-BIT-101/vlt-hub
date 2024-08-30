@@ -44,7 +44,8 @@ const HostSigninComponent: React.FC = () => {
       await signIn(email, password);
       localStorage.setItem("session", email);
       console.log("Your Signin Successfully with an email", user?.email);
-      window.location.href = "/host/home";
+      // window.location.href = "/host/home";
+      window.location.href = "/host/event-list";
     } catch (err: any) {
       console.log("message: ", err.message);
       console.log("code: ", err.code);
@@ -64,7 +65,8 @@ const HostSigninComponent: React.FC = () => {
       "Too Many Failed Login Attempt, Please try again later", // Add more error codes and corresponding messages as needed
   };
   if (currentUser?.data.role === "host") {
-    return <Redirect to="/host/home" />;
+    // return <Redirect to="/host/home" />;
+    return <Redirect to="/host/event-list" />;
   }
 
   return (

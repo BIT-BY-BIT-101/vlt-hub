@@ -44,21 +44,21 @@ function HostNavMenu() {
   };
 
   const items = [
-    {
-      title: "Home",
-      path: "/host/home",
-      icon: home,
-    },
+    // {
+    //   title: "Home",
+    //   path: "/host/home",
+    //   icon: home,
+    // },
     {
       title: "Create",
       path: "/host/event-list",
       icon: addCircle,
     },
-    {
-      title: "My Events",
-      path: "/host/event",
-      icon: calendar,
-    },
+    // {
+    //   title: "My Events",
+    //   path: "/host/event",
+    //   icon: calendar,
+    // },
     // {
     //   title: "History",
     //   path: "/host/history",

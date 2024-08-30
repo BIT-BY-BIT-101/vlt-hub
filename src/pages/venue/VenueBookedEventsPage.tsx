@@ -28,7 +28,8 @@ import VenueNavMenu from "../../components/menus/VenueNavMenu";
 import "./VenueBookedEventsPage.css";
 import Header from "../../components/header/Header";
 import SidePanel from "../../components/SidePanel";
-import Menus from '../../components/menus/Menus';
+import Menus from "../../components/menus/Menus";
+import VenueEventCalendar from "../../components/venue/VenueEventCalendar";
 
 const VenueBookedEventsPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -104,164 +105,11 @@ const VenueBookedEventsPage: React.FC = () => {
             placeholder="Search events"
             onIonChange={handleSearchChange}
           ></IonSearchbar> */}
-                {filteredEvents.map((event, index) => (
-                  <React.Fragment key={index}>
-                    <h1 className="vevent-date">{event.date}</h1>
-                    <IonCard className="vevent-card">
-                      <IonCardHeader>
-                        <IonCardTitle>{event.title}</IonCardTitle>
-                      </IonCardHeader>
-                      <IonCardContent>
-                        <div className="vevent-host-info">
-                          <img
-                            src={event.hostImg}
-                            alt={`Host: ${event.hostname}`}
-                            className="vevent-host-img"
-                          />
-                          <div className="vevent-host-name">
-                            {event.hostname}
-                          </div>
-                        </div>
-                        <div className="vevent-venue">
-                          <span>Venue: </span>
-                          {event.venue}
-                        </div>
-                        <div className="vevent-time">
-                          <span>Time: </span>
-                          {event.time}
-                        </div>
-                        <div className="veventcard-btn">
-                          <IonButton
-                            className="vview-btn"
-                            onClick={() => openModal(event)}
-                          >
-                            View
-                          </IonButton>
-                          <IonButton
-                            className="vcancel-btn"
-                            onClick={handleCancelClick}
-                          >
-                            Cancel
-                          </IonButton>
-                          <IonButton className="vchat-btn">Chat</IonButton>
-                        </div>
-                      </IonCardContent>
-                    </IonCard>
-                  </React.Fragment>
-                ))}
+                <VenueEventCalendar />
               </IonCol>
             </IonRow>
           </IonGrid>
         </IonContent>
-
-        {/* Modal */}
-        <IonModal
-          isOpen={showModal}
-          onDidDismiss={() => {
-            closeModal();
-            setShowPoster(false);
-          }}
-          // className="vevent-modal-container"
-        >
-          <IonHeader>
-            <IonToolbar>
-              <IonButtons slot="end">
-                <IonButton onClick={closeModal}>
-                  <IonIcon icon={closeCircle} />
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-
-          <IonContent className="vevent-modal-content">
-            {selectedEvent && (
-              <div>
-                <div className="vevent-modal-header">
-                  <p className="vevent-modal-free">Free</p>
-                  <IonButton
-                    className="vevent-view-poster-btn"
-                    onClick={() => setShowPoster(!showPoster)}
-                  >
-                    {showPoster ? "Hide Poster" : "View Poster"}
-                  </IonButton>
-                </div>
-                {showPoster && (
-                  <IonImg
-                    src={MetaSafety}
-                    alt="Poster"
-                    className="vevent-poster-img"
-                  />
-                )}
-                <h2 className="vevent-modal-title">{selectedEvent.title}</h2>
-
-                <div className="vevent-modal-host-container">
-                  <IonImg
-                    src={HostImg}
-                    alt="Abdul Rauf M. Sultan"
-                    className="vevent-modal-host-img"
-                  />
-                  <p className="vevent-modal-host">Abdul Rauf M. Sultan</p>
-                </div>
-                <div className="vevent-modal-details">
-                  <p>
-                    <span>Description:</span> This course is designed to help
-                    you master the fundamentals of Visual C# programming. It is
-                    intended for absolute beginners with no prior programming
-                    experience. The course focuses on the fundamentals of Visual
-                    C# programming and covers the following topics: Visual C#
-                    language syntax, program structure, and implementation
-                    details.
-                  </p>
-                  <p className="vevent-modal-date">
-                    <span>Date:</span> {selectedEvent.date}
-                  </p>
-                  <p>
-                    <span>Host:</span> {selectedEvent.hostname}
-                  </p>
-                  <p>
-                    <span>Venue:</span> {selectedEvent.venue}
-                  </p>
-                  <p>
-                    <span>Time:</span> {selectedEvent.time}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className="vevent-modal-btn-container">
-              <IonButton expand="block" className="vevent-booked-btn">
-                Booked
-              </IonButton>
-            </div>
-          </IonContent>
-        </IonModal>
-
-        {/* cancel Modal */}
-        <IonModal
-          isOpen={showcancelModal}
-          onDidDismiss={() => setShowcancelModal(false)}
-          className="vevent-cancel-modal-container"
-        >
-          <IonContent className="vevent-cancel-modal-content">
-            <h2 className="vevent-cancel-modal-txt">Are you sure?</h2>
-            <div className="vevent-modal-btn-container">
-              <IonButton
-                expand="block"
-                className="vyes-btn"
-                onClick={() => handlecancel(true)}
-              >
-                Yes
-              </IonButton>
-              <IonButton
-                expand="block"
-                className="vno-btn"
-                onClick={() => handlecancel(false)}
-              >
-                No
-              </IonButton>
-            </div>
-          </IonContent>
-        </IonModal>
       </IonPage>
     </>
   );

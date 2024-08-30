@@ -19,22 +19,26 @@ import { db } from "../../config/firebase";
 import { handleWindowRoute } from "../../helpers/Helpers";
 import ChatBox from "../messaging/ChatBox";
 import RequestModal from "../modals/RequestModal";
+import useGetRequest from "../../hooks/useGetRequest";
 
 const RequestItems = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState();
   const { currentUser } = useContext(AuthContext);
-  const { data: requests } = useQuery(
-    "requests",
-    "host_id",
-    "==",
-    currentUser?.uid
-  );
-  const { data: requestData } = useQuery(
-    "requests",
-    "venue_id",
-    "==",
-    currentUser?.data.venueId
-  );
+  // const { data: requests } = useQuery(
+  //   "requests",
+  //   "host_id",
+  //   "==",
+  //   currentUser?.uid
+  // );
+  // const { data: requestData } = useQuery(
+  //   "requests",
+  //   "venue_id",
+  //   "==",
+  //   currentUser?.data.venueId
+  // );
+  const { data: requestData } = useGetRequest();
+
   // const [isOpen, setIsOpen] = useState(false);
   // const [chatroomId, setChatRoomId] = useState("");
 
@@ -89,44 +93,50 @@ const RequestItems = () => {
           </IonList>
         ) : (
           requestData?.map((request: any) => (
-            <IonList className="item-color-dark" key={request.id}>
-              <IonItem className="item-color-dark">
-                <IonLabel slot="start" className="item-label">
-                  {request.event_title}
-                </IonLabel>
-                <IonButton
-                  slot="end"
-                  fill="outline"
-                  color={"tertiary"}
-                  shape="round"
-                  onClick={() => handleChatButtonClick(request)}
-                >
-                  Chat
-                </IonButton>
-                <IonButton
-                  slot="end"
-                  shape="round"
-                  color="tertiary"
-                  onClick={handleOpenModal}
-                >
-                  View
-                </IonButton>
-                <IonIcon
-                  icon={closeCircle}
-                  slot="end"
-                  className="text-color-dark cursor-pointer"
-                />
-              </IonItem>
-              <RequestModal
-                isOpen={isOpen}
-                onDidDismissal={handleCloseModal}
-                onClose={handleCloseModal}
-                selected={request}
-              />
-            </IonList>
+            <>
+              <IonList className="item-color-dark" key={request.id}>
+                <IonItem className="item-color-dark">
+                  <IonLabel slot="start" className="item-label">
+                    {request.event_title}
+                  </IonLabel>
+                  <IonButton
+                    slot="end"
+                    fill="outline"
+                    color={"tertiary"}
+                    shape="round"
+                    onClick={() => handleChatButtonClick(request)}
+                  >
+                    Chat
+                  </IonButton>
+                  <IonButton
+                    slot="end"
+                    shape="round"
+                    color="tertiary"
+                    // onClick={handleOpenModal}
+                    onClick={() => {
+                      setIsOpen(true);
+                      setSelected(request);
+                    }}
+                  >
+                    View
+                  </IonButton>
+                  <IonIcon
+                    icon={closeCircle}
+                    slot="end"
+                    className="text-color-dark cursor-pointer"
+                  />
+                </IonItem>
+              </IonList>
+            </>
           ))
         )}
       </IonCard>
+      <RequestModal
+        isOpen={isOpen}
+        onDidDismissal={handleCloseModal}
+        onClose={handleCloseModal}
+        selected={selected}
+      />
       {/* <ChatBox isOpen={isOpen} id={chatroomId} /> */}
     </>
   );

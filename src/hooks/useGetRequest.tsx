@@ -1,37 +1,39 @@
-import React, { useContext, useEffect, useState } from "react";
-import { EventDataModel } from "../models/Model";
 import {
-  and,
   collection,
-  getDocs,
-  onSnapshot,
-  or,
   query,
-  QueryFieldFilterConstraint,
+  or,
   where,
+  onSnapshot,
+  and,
 } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
+import { EventDataModel } from "../models/Model";
 import { AuthContext } from "../context/AuthContext";
 
-const useFetchUnpublishedEvent = () => {
+const useGetRequest = () => {
   const { currentUser } = useContext(AuthContext);
   const [data, setData] = useState<EventDataModel>([]);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const colRef = collection(db, "events");
+    const colRef = collection(db, "requests");
     const q = query(
       colRef,
-      and(
-        where("host_id", "==", currentUser?.uid),
-        or(
-          where("status", "==", "unpublished"),
-          where("status", "==", "confirming"),
-          where("status", "==", "paying")
-        )
+      // and(
+      //   where("host_id", "==", currentUser?.uid),
+      //   or(
+      //     where("status", "==", "unpublished"),
+      //     where("status", "==", "confirming"),
+      //     where("status", "==", "paying")
+      //   )
+      // )
+      or(
+        where("status", "==", "unpublished"),
+        where("status", "==", "confirming"),
+        where("status", "==", "paying")
       )
-      // where("host_id", "==", currentUser?.uid),
     );
 
     const unsub = onSnapshot(q, (doc) => {
@@ -47,7 +49,7 @@ const useFetchUnpublishedEvent = () => {
     return () => unsub();
   }, []);
 
-  return { data, error, loading };
+  return { data, loading, error };
 };
 
-export default useFetchUnpublishedEvent;
+export default useGetRequest;
