@@ -16,14 +16,7 @@ import { connectStorageEmulator, getStorage } from "firebase/storage";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBMzYGKogH5WXEeXB8_XSkvvwk6kjDzVzQ",
-  authDomain: "vlt-hub-2a24f.firebaseapp.com",
-  projectId: "vlt-hub-2a24f",
-  storageBucket: "vlt-hub-2a24f.appspot.com",
-  messagingSenderId: "1047094733035",
-  appId: "1:1047094733035:web:ad54e04800d43f3bf176ae",
-};
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -87,7 +87,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         description: selected?.title,
         payment_method_types: ["gcash", "card", "paymaya", "grab_pay"],
         reference_number: "n45a4s",
-        success_url: `http://localhost:8080/participant/payments/${selected?.id}/success`,
+        // success_url: `http://localhost:8080/participant/payments/${selected?.id}/success`,
+        success_url: `${import.meta.env.VITE_BASE_URL}/participant/payments/${selected?.id}/success`,
       },
     },
   };

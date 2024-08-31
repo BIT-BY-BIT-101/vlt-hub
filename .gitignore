@@ -1,6 +1,7 @@
 .env
 .idx/
 build/
+src/config/firebase.tsx
 
 
 # Logs
