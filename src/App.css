@@ -22,6 +22,10 @@
   --ion-item-background: none;
   --inner-border-width: 0;
   --color: black;
+
+  &:hover{
+    --color: var(--ion-color-primary);
+  }
 }
 .item-color {
   --ion-item-background: none;
@@ -103,16 +107,16 @@
 
 /* Bottom */
 .btn-primary {
-  --background: var(--tertiary--color);
+  --background: var(--ion-color-primary);
   /* --ion-color-primary: var(--secondary-color); */
-  background-color: var(--secondary-color);
+  background-color: var(--ion-color-primary);
   color: var(--text-color-light);
   border-radius: 20px;
   padding: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: #ae2f5e;
+    background-color: var(--ion-color-secondary)
   }
 }
 
@@ -121,8 +125,8 @@
 }
 
 .btn-secondary {
-  --ion-color-primary: var(--secondary-color);
-  background-color: #ffff;
+  --ion-color-primary: var(--ion-color-secondary);
+  background-color: var(--ion-color-secondary);
   position: absolute;
   color: var(--main-color);
   border: var(--secondary-color) 2px solid;
@@ -242,6 +246,11 @@ ion-modal.modal-container::part(content) {
   --width: 50%;
   --max-width: 50%;
   --max-height: 80%;
+}
+
+.activated{
+  --ion-item-background: #383434;
+  color: #ddd;
 }
 
 

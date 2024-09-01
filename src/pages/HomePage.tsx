@@ -39,30 +39,10 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonMenu side="start" contentId="main-content" className="main-menu">
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Menu</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonList>
-            <IonItem button>
-              <Link to="/participant/signin">Participant</Link>
-            </IonItem>
-            <IonItem button>
-              <Link to="/host/signin">Host</Link>
-            </IonItem>
-            <IonItem button>
-              <Link to="/venue/signin">Venue</Link>
-            </IonItem>
-          </IonList>
-        </IonContent>
-      </IonMenu>
+    <IonPage id="main">
 
-      <IonContent id="main-content">
-        <Header />
+      <IonContent>
+    
 
         <div className="home-container">
           <div className="left-section">

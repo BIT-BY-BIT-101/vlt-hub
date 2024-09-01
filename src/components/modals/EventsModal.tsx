@@ -45,7 +45,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
   const history = useHistory();
 
   function handleSignin() {
-    return (window.location.href = "/participant/signin");
+    // return (window.location.href = "/participant/signin");
+    return history.push("/participant/signin")
   }
 
   const userId = auth.currentUser?.uid!;
@@ -73,7 +74,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         send_email_receipt: true,
         show_description: true,
         show_line_items: true,
-        cancel_url: "http://localhost:8080/participant/",
+        // cancel_url: "http://localhost:8080/participant/",
+        cancel_url: `${import.meta.env.VITE_BASE_URL}`,
         line_items: [
           {
             currency: "PHP",

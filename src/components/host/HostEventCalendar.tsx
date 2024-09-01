@@ -41,17 +41,17 @@ const HostEventCalendar = () => {
     //   <IonCardContent>
     <div className="card">
       <FullCalendar
-        height="100%"
-        contentHeight={"auto"}
-        plugins={[dayGridPlugin]}
-        initialView="dayGridMonth"
-        // eventClick={handleEventClick}
-        events={events.map((event) => ({
-          id: event.id,
-          title: event.title,
-          date: formatDateOnly(event.event_date),
-        }))}
-      />
+          height="100%"
+          contentHeight={"auto"}
+          plugins={[dayGridPlugin]}
+          initialView="dayGridMonth"
+          // eventClick={handleEventClick}
+          events={events.map((event) => ({
+            id: event?.id,
+            title: event?.title,
+            date: formatDateOnly(event?.event_date),
+          }))}
+        />
     </div>
     //   </IonCardContent>
     // </IonCard>

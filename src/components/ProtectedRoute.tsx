@@ -8,7 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 import Loader from "./loaders/Loader";
 
 interface ProtectedRouteProps extends RouteProps {
-  allowedRoles: "host" | "participant" | "venue";
+  allowedRoles: "host" | "participant" | "venue" | "manager";
   redirected: string;
 }
 

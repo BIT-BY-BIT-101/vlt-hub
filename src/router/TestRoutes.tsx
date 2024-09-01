@@ -8,7 +8,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 
 import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninPage";
 import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
-import HostHomePage from "../pages/host/HostHomePage";
+import HostHomePage from "../pages/host/HostHomePagee";
 import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
 import AuthPage from "../pages/test/AuthPage";
 import Test1 from "../pages/test/Test1";

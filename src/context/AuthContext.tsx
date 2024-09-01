@@ -26,6 +26,7 @@ interface AuthContextProviderProps {
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState()
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
@@ -33,15 +34,18 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         const userDoc = doc(db, "profiles", user?.uid);
         const userDocSnap = await getDoc(userDoc);
         if (userDocSnap.exists()) {
-          // setUserData(userDocSnap.data());
+          const userRole = userDocSnap.data().role
           const userObj: User = {
             uid: user?.uid!,
             email: user?.email!,
             data: userDocSnap?.data(),
           };
+          setRole(userRole)
           setCurrentUser(userObj);
           setLoading(false);
           console.log(userObj);
+          console.log(userRole);
+          
         }
       }
       setLoading(false);
