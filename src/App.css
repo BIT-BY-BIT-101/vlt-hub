@@ -9,6 +9,9 @@
 .h-full {
   height: 100vh;
 }
+.w-full {
+  width: 100vw;
+}
 
 .item-label {
   display: grid;
@@ -23,7 +26,7 @@
   --inner-border-width: 0;
   --color: black;
 
-  &:hover{
+  &:hover {
     --color: var(--ion-color-primary);
   }
 }
@@ -116,7 +119,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: var(--ion-color-secondary)
+    background-color: var(--ion-color-secondary);
   }
 }
 
@@ -248,12 +251,10 @@ ion-modal.modal-container::part(content) {
   --max-height: 80%;
 }
 
-.activated{
+.activated {
   --ion-item-background: #383434;
   color: #ddd;
 }
-
-
 
 .f-size-auto {
   font-size: calc(0.5rem + 0.5vw);
@@ -272,8 +273,6 @@ ion-modal.modal-container::part(content) {
   .side-pane {
     display: none;
   }
-
-  
 
   .hide-element {
     display: none;

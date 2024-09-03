@@ -30,8 +30,6 @@ import VenueEditVenuePage from "../pages/venue/VenueEditVenuePage";
 import VenueAddFacilityPage from "../pages/venue/VenueAddFacilityPage";
 import TransactionPage from "../pages/payment/TransactionPage";
 import ParticipantRegsiteredEventDetailPage from "../pages/participant/ParticipantRegsiteredEventDetailPage";
-import Menus from "../components/menus/Menus";
-import Header from "../components/header/Header";
 import HostCreatePage from "../pages/host/HostCreatePage";
 import HostEventListPage from "../pages/host/HostEventListPage";
 import HostEventPage from "../pages/host/HostEventPage";

@@ -337,14 +337,14 @@ const Header = () => {
                 <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
               </div>
             </IonCol>
-            <IonCol size="auto">
+            {/* <IonCol size="auto">
               <IonSearchbar
                 className="navsearch-bar"
                 placeholder="Search events"
                 onIonChange={handleSearchChange}
               ></IonSearchbar>
               <IonIcon icon={search} className="search-icon"></IonIcon>
-            </IonCol>
+            </IonCol> */}
             {currentUser?.data.role === "host" ? (
               <IonCol size="auto" className="header-link-host-event">
                 <Link to="/host/home" className="header-link">
@@ -392,7 +392,8 @@ const Header = () => {
                 </IonItem>
               ) : (
                 <IonButton
-                  className="nav-login-signup-button"
+                  // className="nav-login-signup-button"
+
                   onClick={() => history.push("/home")}
                 >
                   Login/Signup
