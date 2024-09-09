@@ -14,7 +14,16 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { calendar, home, logIn, logOut, pencil, time } from "ionicons/icons";
+import {
+  book,
+  calendar,
+  create,
+  home,
+  logIn,
+  logOut,
+  pencil,
+  time,
+} from "ionicons/icons";
 import React, { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import UserImg from "../../assets/user.jpg";
@@ -67,7 +76,7 @@ function ParticipantNavMenu() {
                 <IonItem
                   key={item.title}
                   routerLink={item.path}
-                  className={`item-color ${
+                  className={`item-bg-none ${
                     isMenuItemActive(item.path) ? "activated" : ""
                   }`}
                   // onClick={() => history.push("/participant/home")}
@@ -75,7 +84,7 @@ function ParticipantNavMenu() {
                   <IonIcon
                     icon={item.icon}
                     slot="start"
-                    className="item-color-dark"
+                    className="item-bg-none-dark"
                   />
                   <IonLabel>{item.title}</IonLabel>
                 </IonItem>
@@ -83,29 +92,51 @@ function ParticipantNavMenu() {
             </IonList>
             <IonList className="flex-item bg-color-secondary">
               <IonItem
-                className="item-color"
+                className="item-bg-none"
                 onClick={() => setShowLogoutModal(true)}
               >
                 <IonIcon
                   icon={logOut}
                   slot="start"
-                  className="item-color-dark"
+                  className="item-bg-none-dark"
                 />
                 <IonLabel>Logout</IonLabel>
               </IonItem>
             </IonList>
           </>
         ) : (
-          <IonList className="flex-item bg-color-secondary">
-            <IonItem
-              className="item-color"
-              routerLink="/participant/signin"
-              // onClick={() => setShowLogoutModal(true)}
-            >
-              <IonIcon icon={logIn} slot="start" className="item-color" />
-              <IonLabel>Signin</IonLabel>
-            </IonItem>
-          </IonList>
+          <>
+            <IonList className="flex-item bg-color-secondary">
+              <IonItem
+                className="item-bg-none"
+                routerLink="/host/signin"
+                // onClick={() => setShowLogoutModal(true)}
+              >
+                <IonIcon icon={create} slot="start" color="primary" />
+                <IonLabel>Create Course</IonLabel>
+              </IonItem>
+            </IonList>
+            <IonList className="flex-item bg-color-secondary">
+              <IonItem
+                className="item-bg-none"
+                routerLink="/participant/signin"
+                // onClick={() => setShowLogoutModal(true)}
+              >
+                <IonIcon icon={book} slot="start" color="primary" />
+                <IonLabel>My Learning</IonLabel>
+              </IonItem>
+            </IonList>
+            <IonList className="flex-item bg-color-secondary">
+              <IonItem
+                className="item-bg-none"
+                routerLink="/participant/signin"
+                // onClick={() => setShowLogoutModal(true)}
+              >
+                <IonIcon icon={logIn} slot="start" color="primary" />
+                <IonLabel>Signin</IonLabel>
+              </IonItem>
+            </IonList>
+          </>
         )}
         <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
       </IonContent>

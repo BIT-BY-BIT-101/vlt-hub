@@ -1,26 +1,51 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import React from "react";
+import interactionPlugin from "@fullcalendar/interaction";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import { auth } from "../../config/firebase";
-import { formatDateOnly } from "../../helpers/DateTimeFunctions";
+import {
+  extractDateOnly,
+  extractTimeFromDateTime,
+  formatDateOnly,
+} from "../../helpers/DateTimeFunctions";
 import useQuery from "../../hooks/useQuery";
 import Loader from "../loaders/Loader";
-import useGetHostedEvent from "../../hooks/useGetHostedEvent";
+import useGetHostedEvent from "../../hooks/useFetchHostedEvents";
+import useFetchHostedEvents from "../../hooks/useFetchHostedEvents";
+import { Interaction } from "@fullcalendar/core/internal";
 
 const HostEventCalendar = () => {
   const history = useHistory();
-  const { data: events, loading, error } = useGetHostedEvent();
-  //   const {
-  //     data: events,
-  //     error,
-  //     loading,
-  //   } = useQuery(
-  //     "events",
-  //     "participants",
-  //     "array-contains",
-  //     auth.currentUser?.uid!
-  //   );
+  const { data: events, loading, error } = useFetchHostedEvents();
+
+  console.log(events);
+
+  useEffect(() => {
+    window.setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 1000);
+  });
+
+  const handleDateClick = (info) => {
+    // Handle date click here
+    console.log("Date clicked:", info.dateStr);
+    console.log(info);
+    // You can add custom logic here, like opening a modal with date details
+  };
+
+  const eventMap = events.map((event) => ({
+    id: event?.id,
+    title: event?.title,
+    start:
+      extractDateOnly(event?.event_date) +
+      extractTimeFromDateTime(event?.start_time),
+    end:
+      extractDateOnly(event?.event_date) +
+      extractTimeFromDateTime(event?.end_time),
+  }));
+
+  console.log(eventMap);
 
   const handleEventClick = (info) => {
     // Handle event click here
@@ -41,17 +66,22 @@ const HostEventCalendar = () => {
     //   <IonCardContent>
     <div className="card">
       <FullCalendar
-          height="100%"
-          contentHeight={"auto"}
-          plugins={[dayGridPlugin]}
-          initialView="dayGridMonth"
-          // eventClick={handleEventClick}
-          events={events.map((event) => ({
-            id: event?.id,
-            title: event?.title,
-            date: formatDateOnly(event?.event_date),
-          }))}
-        />
+        height="100%"
+        contentHeight={"auto"}
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        // eventClick={handleEventClick}
+        events={events.map((event) => ({
+          id: event?.id,
+          title: event?.title,
+          start:
+            extractDateOnly(event?.event_date) +
+            extractTimeFromDateTime(event?.start_time),
+          end:
+            extractDateOnly(event?.event_date) +
+            extractTimeFromDateTime(event?.end_time),
+        }))}
+      />
     </div>
     //   </IonCardContent>
     // </IonCard>

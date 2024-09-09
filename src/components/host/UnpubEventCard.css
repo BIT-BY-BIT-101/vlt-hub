@@ -1,11 +1,10 @@
 .cover-img {
   height: 200px;
-  /* Adjust height as needed */
   object-fit: cover;
 }
 
-.card {
+/* .card {
   padding: 12px;
   margin: auto;
   border-radius: 12px;
-}
+} */

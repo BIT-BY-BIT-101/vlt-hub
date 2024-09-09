@@ -9,16 +9,44 @@ const SidePanel = () => {
     return (
       <IonCol size="2" className="side-pane">
         <div>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/participant/home")? "activated": ""}`} routerLink="/participant">
+          <IonItem
+            className={`${
+              isMenuItemActive("/participant/home")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/participant"
+          >
             <IonLabel>Home</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/participant/profile")? "activated": ""}`} routerLink="/participant/profile">
+          <IonItem
+            className={`${
+              isMenuItemActive("/participant/profile")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/participant/profile"
+          >
             <IonLabel>Account</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/participant/events")? "activated": ""}`} routerLink="/participant/events">
+          <IonItem
+            className={`${
+              isMenuItemActive("/participant/events")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/participant/events"
+          >
             <IonLabel>My Events</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/participant/history")? "activated": ""}`} routerLink="/participant/history">
+          <IonItem
+            className={`${
+              isMenuItemActive("/participant/history")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/participant/history"
+          >
             <IonLabel>History</IonLabel>
           </IonItem>
         </div>
@@ -33,13 +61,30 @@ const SidePanel = () => {
           {/* <IonItem className="item-color " routerLink="/host">
             <IonLabel>Home</IonLabel>
           </IonItem> */}
-          <IonItem className={`item-bg-none ${isMenuItemActive("/host/event-list")? "activated":""}`} routerLink="/host/event-list">
+          <IonItem
+            className={`${
+              isMenuItemActive("/host/event-list")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/host/event-list"
+          >
             <IonLabel>Create</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/host/profile")? "activated":""}`} routerLink="/host/profile">
+          <IonItem
+            className={`${
+              isMenuItemActive("/host/profile") ? "activated" : "item-bg-none"
+            }`}
+            routerLink="/host/profile"
+          >
             <IonLabel>Account</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/host/event")? "activated":""}`} routerLink="/host/event">
+          <IonItem
+            className={` ${
+              isMenuItemActive("/host/event") ? "activated" : "item-bg-none"
+            }`}
+            routerLink="/host/event"
+          >
             <IonLabel>Events</IonLabel>
           </IonItem>
           {/* <IonItem className={`item-bg-none ${isMenuItemActive()}`} routerLink="/host/history">
@@ -54,22 +99,58 @@ const SidePanel = () => {
     return (
       <IonCol size="2" className="side-pane">
         <div>
-          <IonItem className="item-color " routerLink="/venue">
+          <IonItem
+            className={`${
+              isMenuItemActive("/venue/home") ? "activated" : "item-bg-none"
+            }`}
+            routerLink="/venue/home"
+          >
             <IonLabel>Home</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/venue/profile")? "activated":""}`} routerLink="/venue/profile">
+          <IonItem
+            className={`${
+              isMenuItemActive("/venue/profile") ? "activated" : "item-bg-none"
+            }`}
+            routerLink="/venue/profile"
+          >
             <IonLabel>Account</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/venue/list-venue")? "activated": ""}`} routerLink="/venue/list-venue">
+          <IonItem
+            className={`${
+              isMenuItemActive("/venue/list-venue")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/venue/list-venue"
+          >
             <IonLabel>Facilities</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/venue/requests")? "activated":""}`} routerLink="/venue/requests">
+          <IonItem
+            className={`${
+              isMenuItemActive("/venue/requests") ? "activated" : "item-bg-none"
+            }`}
+            routerLink="/venue/requests"
+          >
             <IonLabel>Requests</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/venue/transactions")? "activated":""}`} routerLink="/venue/transactions">
+          <IonItem
+            className={`${
+              isMenuItemActive("/venue/transactions")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/venue/transactions"
+          >
             <IonLabel>Transactions</IonLabel>
           </IonItem>
-          <IonItem className={`item-bg-none ${isMenuItemActive("/venue/booked-events")? "activated":""}`} routerLink="/venue/booked-events">
+          <IonItem
+            className={`${
+              isMenuItemActive("/venue/booked-events")
+                ? "activated"
+                : "item-bg-none"
+            }`}
+            routerLink="/venue/booked-events"
+          >
             <IonLabel>Booked Events</IonLabel>
           </IonItem>
           {/* <IonItem className={`item-bg-none ${isMenuItemActive()}`} routerLink="/venue/history">
@@ -86,10 +167,20 @@ const SidePanel = () => {
         <IonItem className="item-color " routerLink="/participant">
           <IonLabel>Home</IonLabel>
         </IonItem>
-        <IonItem className={`item-bg-none ${isMenuItemActive("/participant/profile")? "activated":""}`} routerLink="/participant/profile">
+        <IonItem
+          className={`item-bg-none ${
+            isMenuItemActive("/participant/profile") ? "activated" : ""
+          }`}
+          routerLink="/participant/profile"
+        >
           <IonLabel>Account</IonLabel>
         </IonItem>
-        <IonItem className={`item-bg-none ${isMenuItemActive("/participant/history")? "activated":""}`} routerLink="/participant/history">
+        <IonItem
+          className={`item-bg-none ${
+            isMenuItemActive("/participant/history") ? "activated" : ""
+          }`}
+          routerLink="/participant/history"
+        >
           <IonLabel>History</IonLabel>
         </IonItem>
       </div>

@@ -161,7 +161,8 @@ const RouteService = () => {
           redirected="/host/signin"
         />
         <ProtectedRoute
-          path="/host/:id/create"
+          path="/host/create"
+          // path="/host/:id/create"
           allowedRoles={"host"}
           component={HostCreatePage}
           redirected="/host/signin"

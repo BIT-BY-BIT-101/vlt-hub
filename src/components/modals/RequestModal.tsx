@@ -105,7 +105,7 @@ const RequestModal: React.FC<Props> = ({
       // className="modal-container"
     >
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color={"primary"}>
           <IonTitle>{selected?.event_title}</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={onDidDismissal}>
@@ -116,26 +116,27 @@ const RequestModal: React.FC<Props> = ({
       </IonHeader>
 
       <IonContent>
-        <IonList className="item-color-dark">
-          <IonItem className="item-color-dark">
-            <IonLabel slot="start">
-              <h3>Host:</h3>
-              <p slot="start">{selected?.host_name}</p>
-            </IonLabel>
-          </IonItem>
-          <IonItem className="item-color-dark">
-            <IonLabel slot="start">
-              <h3>Date:</h3>
-              <p slot="start">{formatDateString(selected?.event_date)}</p>
-            </IonLabel>
-          </IonItem>
-          <IonItem className="item-color-dark">
-            <IonLabel slot="start">
-              <h3>Description:</h3>
-              <p slot="start">{selected?.description}</p>
-            </IonLabel>
-          </IonItem>
-        </IonList>
+        {/* <IonList className="item-bg-none"> */}
+        <IonItem className="item-bg-none">
+          <IonLabel slot="start">
+            <strong>Host</strong>
+            <p slot="start">{selected?.host_name}</p>
+          </IonLabel>
+        </IonItem>
+        <IonItem className="item-bg-none">
+          <IonLabel slot="start">
+            <strong>Date</strong>
+            <p slot="start">{formatDateString(selected?.event_date)}</p>
+          </IonLabel>
+        </IonItem>
+        <IonItem className="item-bg-none">
+          <IonLabel>
+            <strong>Description</strong>
+            <br />
+            <p>{selected?.event_description}</p>
+          </IonLabel>
+        </IonItem>
+        {/* </IonList> */}
       </IonContent>
 
       <IonFooter>
@@ -171,7 +172,7 @@ const RequestModal: React.FC<Props> = ({
               slot="end"
               // strong
               // shape="round"
-              color={"tertiary"}
+              color={"primary"}
               onClick={handleUpdate}
             >
               Accept

@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   // console.log(user);
   return (
-    <IonApp className="container">
+    <IonApp>
       <RouteService />
       {/* <ChatBox /> */}
     </IonApp>

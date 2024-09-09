@@ -13,24 +13,17 @@ import EventsCalendarCard from "../../components/participant/EventsCalendarCard"
 const ParticipantEventPage: React.FC = () => {
   return (
     <>
-      {/* <ParticipantNavMenu /> */}
       <Menus />
       <IonPage id="main">
-        {/* <ParticipantHeader /> */}
         <Header />
 
         <IonContent>
           <IonGrid>
             <IonRow>
-              {/* <ParticipantSidePane /> */}
               <SidePanel />
-              <IonCol size="10">
-                <IonRow>
-                  {/* <RegisteredEventsCard /> */}
-                  <IonCol>
-                    <EventsCalendarCard />
-                  </IonCol>
-                </IonRow>
+
+              <IonCol>
+                <EventsCalendarCard />
               </IonCol>
             </IonRow>
           </IonGrid>

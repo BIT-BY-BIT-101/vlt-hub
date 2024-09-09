@@ -80,7 +80,8 @@ ion-select::part(placeholder) {
 
 .profile-form-title {
   font-size: 18px;
-  color: var(--secondary-color);
+  /* color: var(--secondary-color); */
+  color: var(--ion-color-primary);
 }
 
 .profile-edit-btn {

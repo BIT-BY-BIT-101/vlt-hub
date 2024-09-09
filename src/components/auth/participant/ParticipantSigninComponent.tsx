@@ -107,7 +107,7 @@ const ParticipantSigninComponent: React.FC = () => {
 
           <IonCardContent>
             <IonInput
-              className="psignin-input"
+              className="auth-input"
               type="email"
               placeholder="Email"
               value={email}
@@ -115,18 +115,20 @@ const ParticipantSigninComponent: React.FC = () => {
             ></IonInput>
 
             <IonInput
-              className="psignin-input"
+              className="auth-input"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onIonChange={(e) => setPassword(e.detail.value!)}
-            ></IonInput>
-            <IonIcon
-              className="psignin-eye-icon"
-              slot="end"
-              icon={showPassword ? eyeOff : eye}
-              onClick={handleTogglePassword}
-            />
+            >
+              <IonButton slot="end" fill="clear" onClick={handleTogglePassword}>
+                <IonIcon
+                  // className="psignin-eye-icon"
+                  slot="icon-only"
+                  icon={showPassword ? eyeOff : eye}
+                />
+              </IonButton>
+            </IonInput>
 
             <IonItem>
               <IonText className="psignin-prompt">
@@ -140,7 +142,7 @@ const ParticipantSigninComponent: React.FC = () => {
             <IonButton
               expand="full"
               onClick={handleSignin}
-              className="psignin-loginbtn"
+              // className="psignin-loginbtn"
             >
               Sign in as a Participant
             </IonButton>

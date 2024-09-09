@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { auth } from "../../config/firebase";
 import { AuthContext } from "../../context/AuthContext";
-import { handleWindowRoute } from "../../helpers/Helpers"
+import { handleWindowRoute } from "../../helpers/Helpers";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 
@@ -161,10 +161,11 @@ const AddFacility = () => {
 
       <IonButton
         type="submit"
-        expand="full"
-        fill="clear"
+        expand="block"
+        // fill="clear"
+        // shape="round"
         onClick={handleSubmit(onSubmit)}
-        className="addevent-submit-btn"
+        // className="addevent-submit-btn"
       >
         <span className="hsubmit-txt">Submit</span>
       </IonButton>

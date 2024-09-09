@@ -26,6 +26,11 @@ import SignUpSVG from "../../../assets/psignup.svg";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import "./ParticipantSignupComponent.css";
 import { AuthContext } from "../../../context/AuthContext";
+import { serverTimestamp } from "firebase/firestore";
+import {
+  getMinimumDate,
+  getMaximumDate,
+} from "../../../helpers/DateTimeFunctions";
 
 const ParticipantSignupComponent = () => {
   const { currentUser } = useContext(AuthContext);
@@ -36,6 +41,7 @@ const ParticipantSignupComponent = () => {
   const [newFirstname, setNewFirstname] = useState<string>("");
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
@@ -61,15 +67,16 @@ const ParticipantSignupComponent = () => {
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   if (currentUser?.data.role === "participant") {
     return <Redirect to="/participant/home" />;
   }
+
+  const minDate = getMinimumDate();
+  const maxDate = getMaximumDate();
 
   return (
     <div className="psignup-container">
@@ -94,14 +101,14 @@ const ParticipantSignupComponent = () => {
           <IonCardContent>
             <div className="psignup-flname">
               <IonInput
-                className="psignup-input"
+                className="auth-input"
                 type="text"
                 placeholder="First Name"
                 onIonChange={(e) => setNewFirstname(e.detail.value!)}
               ></IonInput>
 
               <IonInput
-                className="psignup-input"
+                className="auth-input"
                 type="text"
                 placeholder="Last Name"
                 onIonChange={(e) => setNewLastname(e.detail.value!)}
@@ -109,25 +116,26 @@ const ParticipantSignupComponent = () => {
             </div>
 
             <IonInput
-              className="psignup-input"
+              className="auth-input"
               type="email"
               placeholder="Enter your email address"
               onIonChange={(e) => setNewEmail(e.detail.value!)}
             ></IonInput>
 
             <IonInput
-              className="psignup-input"
+              className="auth-input"
               type={showPassword ? "text" : "password"}
               placeholder="Enter a password"
               onIonChange={(e) => setNewPassword(e.detail.value!)}
-            />
-
-            <IonIcon
-              className="psignup-eye-icon"
-              slot="end"
-              icon={showPassword ? eyeOff : eye}
-              onClick={handleTogglePassword}
-            />
+            >
+              <IonButton fill="clear" slot="end" onClick={handleTogglePassword}>
+                <IonIcon
+                  // className="psignup-eye-icon"
+                  slot="icon-only"
+                  icon={showPassword ? eyeOff : eye}
+                />
+              </IonButton>
+            </IonInput>
 
             <div className="psignup-birthdate">
               <IonGrid>
@@ -155,7 +163,9 @@ const ParticipantSignupComponent = () => {
                     setNewBirthdate(e.detail.value!.toString());
                     console.log(e.detail.value!.toString());
                   }}
-                  min="1950"
+                  value={maxDate}
+                  min={minDate}
+                  max={maxDate}
                 ></IonDatetime>
               </IonModal>
             </div>
@@ -172,7 +182,8 @@ const ParticipantSignupComponent = () => {
             <IonButton
               expand="full"
               onClick={handleSignup}
-              className="psignup-signupbtn"
+              // className="psignup-signupbtn"
+              color={"primary"}
             >
               Sign up as a Participant
             </IonButton>

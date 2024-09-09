@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonButtons,
   IonCard,
   IonCardContent,
@@ -22,29 +23,29 @@ const VenueAddressCard = () => {
   const { data: venueDetails } = useFetchVenueDetails();
 
   return (
-    <IonCol>
-      <IonCard className="card">
-        <IonCardHeader>
-          <IonCardTitle className="text-color-dark">Venue Info</IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>
-          {venueDetails === null && (
+    // <IonCol>
+    <IonCard className="card">
+      <IonCardHeader>
+        <IonCardTitle className="text-color-dark">Venue Info</IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        {venueDetails === null && (
+          <IonItem className="item-bg-none">
+            <IonButtons slot="end">
+              <PrimaryButton
+                slot="end"
+                // routerLink="/venue/add-venue"
+                onClick={() => handleWindowRoute("/venue/add-venue")}
+              >
+                Add Venue
+              </PrimaryButton>
+            </IonButtons>
+          </IonItem>
+        )}
+        {venueDetails !== null ? (
+          <>
             <IonItem className="item-color">
-              <IonButtons slot="end">
-                <PrimaryButton
-                  slot="end"
-                  // routerLink="/venue/add-venue"
-                  onClick={() => handleWindowRoute("/venue/add-venue")}
-                >
-                  Add Venue
-                </PrimaryButton>
-              </IonButtons>
-            </IonItem>
-          )}
-          {venueDetails !== null ? (
-            <>
-              <IonItem className="item-color">
-                <IonButtons slot="end">
+              {/* <IonButtons slot="end">
                   <PrimaryButton
                     slot="end"
                     routerLink={`/venue/profile/venue-details/edit`}
@@ -54,28 +55,37 @@ const VenueAddressCard = () => {
                   >
                     Edit Details
                   </PrimaryButton>
-                </IonButtons>
-              </IonItem>
-              <IonItem className="item-color-dark">
-                <IonLabel className="card-label">
-                  <span className="card-title">Venue Name: </span>
-                  {venueDetails?.name}
-                </IonLabel>
-              </IonItem>
-              <IonItem className="item-color-dark">
-                <IonLabel className="card-label">
-                  <span className="card-title">Venue Address: </span>
-                  {venueDetails?.bldg_no} {venueDetails?.street}{" "}
-                  {venueDetails?.baranggay}, {venueDetails?.city}
-                </IonLabel>
-              </IonItem>
-            </>
-          ) : (
-            <p>No Venue Added</p>
-          )}
-        </IonCardContent>
-      </IonCard>
-    </IonCol>
+                </IonButtons> */}
+              <IonButton
+                shape="round"
+                slot="end"
+                onClick={() =>
+                  handleWindowRoute(`/venue/profile/venue-details/edit`)
+                }
+              >
+                Edit Details
+              </IonButton>
+            </IonItem>
+            <IonItem className="item-bg-none">
+              <IonLabel className="card-label">
+                <span className="card-title">Venue Name: </span>
+                {venueDetails?.name}
+              </IonLabel>
+            </IonItem>
+            <IonItem className="item-bg-none">
+              <IonLabel className="card-label">
+                <span className="card-title">Venue Address: </span>
+                {venueDetails?.bldg_no} {venueDetails?.street}{" "}
+                {venueDetails?.baranggay}, {venueDetails?.city}
+              </IonLabel>
+            </IonItem>
+          </>
+        ) : (
+          <p>No Venue Added</p>
+        )}
+      </IonCardContent>
+    </IonCard>
+    // </IonCol>
   );
 };
 

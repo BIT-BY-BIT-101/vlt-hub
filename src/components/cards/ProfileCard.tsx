@@ -50,81 +50,76 @@ const ProfileCard = () => {
   };
 
   return (
-    <IonCard className="profile-card">
-      <IonCardHeader>
-        <IonItem className="item-color-dark">
-          <IonButtons slot="end">
-            {/* <IonButton
-                slot="start"
-                fill="clear"
-                onClick={handleOpenEditProfile}
-                className="profile-edit-btn"
-              >
-                Edit Profile
-              </IonButton> */}
+    <>
+      <IonCard className="card">
+        <IonCardHeader>
+          <IonItem className="item-bg-none">
+            {/* <IonButtons slot="end">
             <PrimaryButton slot="end" onClick={handleOpenEditProfile}>
               Edit Profile
             </PrimaryButton>
-          </IonButtons>
-          {/* <IonButtons slot="start">
-            <SecondaryButton slot="start">Back</SecondaryButton>
           </IonButtons> */}
-        </IonItem>
-      </IonCardHeader>
+            <IonButton slot="end" shape="round" onClick={handleOpenEditProfile}>
+              Edit Profile
+            </IonButton>
+          </IonItem>
+        </IonCardHeader>
 
-      {/* <IonItem>{userData?.email}</IonItem> */}
-      <IonList className="item-color-dark">
-        <IonItem className="item-color-dark">
-          <IonThumbnail slot="start" onClick={handleOpenUploadImg}>
-            <img
-              alt="Silhouette of mountains"
-              src={
-                userData?.photoURL
-                  ? userData?.photoURL
-                  : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
-              }
-            />
-          </IonThumbnail>
-          <IonLabel className="profile-form-label">
-            {userData?.fname} {userData?.lname}
-          </IonLabel>
-        </IonItem>
+        <IonCardContent>
+          {/* <IonItem>{userData?.email}</IonItem> */}
+          <IonItem className="item-bg-none">
+            <IonThumbnail slot="start" onClick={handleOpenUploadImg}>
+              <img
+                alt="Silhouette of mountains"
+                src={
+                  userData?.photoURL
+                    ? userData?.photoURL
+                    : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                }
+              />
+            </IonThumbnail>
+            <IonLabel>
+              {userData?.fname} {userData?.lname}
+              <p>{userData?.email}</p>
+            </IonLabel>
+          </IonItem>
 
-        <IonItem className="item-color-dark">
-          <IonLabel className="profile-form-label">
-            <span className="profile-form-title">Birthdate: </span>
-            {/* {userData?.birthdate} */}
-            {formatDateString(userData?.birthdate)}
-          </IonLabel>
-        </IonItem>
-        <IonItem className="item-color-dark">
-          <IonLabel className="profile-form-label">
-            <span className="profile-form-title">Sex: </span>
-            {userData?.gender}
-          </IonLabel>
-        </IonItem>
-        <IonItem className="item-color-dark">
-          <IonLabel className="profile-form-label">
-            <span className="profile-form-title">Address: </span>
-            {userData?.bldg_no} {userData?.street} {userData?.city}{" "}
-            {userData?.country}
-          </IonLabel>
-        </IonItem>
-      </IonList>
+          <IonItem className="item-bg-none">
+            <IonLabel className="profile-form-label">
+              <span className="profile-form-title">Birthdate: </span>
+              {/* {userData?.birthdate} */}
+              {formatDateString(userData?.birthdate)}
+            </IonLabel>
+          </IonItem>
+          <IonItem className="item-bg-none">
+            <IonLabel className="profile-form-label">
+              <span className="profile-form-title">Sex: </span>
+              {userData?.gender}
+            </IonLabel>
+          </IonItem>
+          <IonItem className="item-bg-none">
+            <IonLabel className="profile-form-label">
+              <span className="profile-form-title">Address: </span>
+              {userData?.bldg_no} {userData?.street} {userData?.city}{" "}
+              {userData?.country}
+            </IonLabel>
+          </IonItem>
+        </IonCardContent>
 
-      <EditProfile
-        isOpen={showEditModal}
-        onClose={handleCloseEditModal}
-        onDidDismissal={handleCloseEditModal}
-        userData={userData}
-      />
-      <UploadProfileImg
-        isOpen={showUploadImg}
-        onClose={handleCloseUploadImg}
-        userData={userData}
-        onDidDismissal={handleCloseUploadImg}
-      />
-    </IonCard>
+        <EditProfile
+          isOpen={showEditModal}
+          onClose={handleCloseEditModal}
+          onDidDismissal={handleCloseEditModal}
+          userData={userData}
+        />
+        <UploadProfileImg
+          isOpen={showUploadImg}
+          onClose={handleCloseUploadImg}
+          userData={userData}
+          onDidDismissal={handleCloseUploadImg}
+        />
+      </IonCard>
+    </>
   );
 };
 

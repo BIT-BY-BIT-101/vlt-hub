@@ -26,11 +26,13 @@ const HomeComponent = () => {
 
       <IonRow className="ion-justify-content-center ion-margin-top">
         <IonButton
-          fill="outline"
           color={"secondary"}
           className="ion-margin-top"
+          size="large"
+          shape="round"
         >
-          <h1 className="ion-padding">Get Started</h1>
+          {/* <h1 className="ion-padding">Get Started</h1> */}
+          Get Started
         </IonButton>
       </IonRow>
     </IonCol>

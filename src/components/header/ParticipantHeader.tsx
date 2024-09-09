@@ -17,13 +17,10 @@ import {
 import { search, power } from "ionicons/icons";
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import LogoutModal from "../modals/LogoutModal";
-import ParticipantHeader from "./ParticipantHeader";
-import HostHeader from "./HostHeader";
-import VenueHeader from "./VenueHeader";
+import { AuthContext } from "../../context/AuthContext";
 
-const Header = () => {
+const ParticipantHeader = () => {
   const { currentUser } = useContext(AuthContext);
   const [searchText, setSearchText] = useState("");
   const history = useHistory();
@@ -52,21 +49,6 @@ const Header = () => {
   const handleSearchChange = (event: CustomEvent) => {
     setSearchText(event.detail.value);
   };
-
-  console.log(currentUser);
-
-  if (currentUser?.data.role === "participant") {
-    return <ParticipantHeader />;
-  }
-
-  if (currentUser?.data.role === "host") {
-    return <HostHeader />;
-  }
-
-  if (currentUser?.data.role === "venue") {
-    return <VenueHeader />;
-  }
-
   return (
     <IonHeader>
       <IonToolbar className="custom-toolbar">
@@ -85,17 +67,17 @@ const Header = () => {
                 <IonTitle className="title-with-logo">V.L.T. Hub</IonTitle>
               </div>
             </IonCol>
-            {/* <IonCol size="auto">
+            <IonCol size="auto">
               <IonSearchbar
                 className="navsearch-bar"
                 placeholder="Search events"
                 onIonChange={handleSearchChange}
               ></IonSearchbar>
               <IonIcon icon={search} className="search-icon"></IonIcon>
-            </IonCol> */}
-            {currentUser?.data.role === "host" ? (
+            </IonCol>
+            {currentUser ? (
               <IonCol size="auto" className="header-link-host-event">
-                <Link to="/host/home" className="header-link">
+                <Link to="/host/signin" className="header-link">
                   Create Course
                 </Link>
               </IonCol>
@@ -106,19 +88,11 @@ const Header = () => {
                 </Link>
               </IonCol>
             )}
-            {currentUser?.data.role === "participant" ? (
-              <IonCol size="auto" className="header-link-my-events">
-                <Link to="/participant/signin" className="header-link">
-                  My Learning
-                </Link>
-              </IonCol>
-            ) : (
-              <IonCol size="auto" className="header-link-my-events">
-                <Link to="/participant/signin" className="header-link">
-                  My Learning
-                </Link>
-              </IonCol>
-            )}
+            <IonCol size="auto" className="header-link-my-events">
+              <Link to="/participant/events" className="header-link">
+                My Learning
+              </Link>
+            </IonCol>
             {/* <IonCol offset="1" size="auto">
                   <IonIcon
                     icon={notificationsOutline}
@@ -138,7 +112,10 @@ const Header = () => {
                     />
                   </IonThumbnail>
                   <span className="hide-element">
-                    Hello, {currentUser?.data.fname}
+                    Hello,{" "}
+                    <span className="text-color-rgb">
+                      {currentUser?.data.fname}
+                    </span>
                   </span>
                   <IonButtons slot="end" className="hide-element">
                     <IonButton onClick={() => setShowLogoutModal(true)}>
@@ -147,11 +124,7 @@ const Header = () => {
                   </IonButtons>
                 </IonItem>
               ) : (
-                <IonButton
-                  // className="nav-login-signup-button"
-
-                  onClick={() => history.push("/participant/signin")}
-                >
+                <IonButton className="nav-login-signup-button" href="">
                   Login/Signup
                 </IonButton>
               )}
@@ -164,4 +137,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default ParticipantHeader;

@@ -13,9 +13,9 @@ import Menus from "../../../components/menus/Menus";
 export default function VenueSigninPage() {
   return (
     <>
-      <Menus />
+      {/* <Menus /> */}
       <IonPage id="main">
-        <Header />
+        {/* <Header /> */}
         <IonContent fullscreen className="ion-padding">
           <VenueSigninComponent />
         </IonContent>

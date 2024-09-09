@@ -12,14 +12,12 @@ export const ParticipantProfilePage = () => {
     <>
       <Menus />
       <IonPage>
-        {/* <ParticipantHeader /> */}
         <Header />
         <IonContent>
           <IonGrid>
             <IonRow className="ion-justify-content-center">
-              {/* <ParticipantSidePane /> */}
               <SidePanel />
-              <IonCol size="10">
+              <IonCol>
                 <ProfileCard />
               </IonCol>
             </IonRow>

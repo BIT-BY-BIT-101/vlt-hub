@@ -43,9 +43,9 @@ const VenueHomePage: React.FC = () => {
     <>
       {/* <VenueNavMenu /> */}
       <Menus />
-      <IonPage>
+      <IonPage id="main">
         <Header />
-        <IonContent id="main">
+        <IonContent>
           <IonGrid>
             <IonRow>
               <SidePanel />

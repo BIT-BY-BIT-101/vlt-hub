@@ -7,6 +7,10 @@ import {
   IonDatetime,
   IonButton,
   IonTextarea,
+  IonSelect,
+  IonSelectOption,
+  IonItem,
+  IonToggle,
 } from "@ionic/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
@@ -71,6 +75,7 @@ function CreateEvent() {
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
   const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
+  const [isPaid, setIsPaid] = useState(false);
   // const [imagePreviewUrl, setImagePreviewUrl] = useState<File | null>(null);
   const [imgUrl, setImgUrl] = useState<File | null>(null);
 
@@ -175,15 +180,13 @@ function CreateEvent() {
     console.log("Selected Online Option:", selectedOnlineOption);
   };
 
-  console.log(venueData);
-
   const onSubmit = async (data: any) => {
     const hostId = auth.currentUser?.uid!;
     const hostName = `${userData?.fname} ${userData?.lname}`;
     const venueId = id;
     const status = "unpublished";
-    const venueName = venueData.name;
-    const venueOwnerId = venueData.user_id;
+    // const venueName = venueData?.name;
+    // const venueOwnerId = venueData?.user_id;
 
     // const convertDate = Timestamp.fromDate(eventDate);
     // const convertDate = new Date(eventDate!);
@@ -194,8 +197,8 @@ function CreateEvent() {
       ...data,
       // ...register,
       // eventDate: convertDate,
-      venue: venueName,
-      venue_id: venueId,
+      // venue: venueName,
+      // venue_id: venueId,
       host_id: hostId,
       host_name: hostName,
       status: status,
@@ -203,13 +206,11 @@ function CreateEvent() {
       img_url: imageUrl,
       img_path: imagePath,
       is_confirmed: false,
-      venue_owner_id: venueOwnerId,
+      is_paid: isPaid,
+
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
-    console.log(id);
-    console.log(venueData.name);
-    console.log(data);
 
     Swal.fire({
       title: "Do you want to save?",
@@ -233,7 +234,7 @@ function CreateEvent() {
           await createEvent(imgUrl, Date.now(), eventDataToSubmit).then(
             async (res) => {
               console.log("response: ", res);
-              console.log(eventError);
+              console.log("Event Error", eventError);
 
               if (eventError === null) {
                 await createRequest({
@@ -241,11 +242,13 @@ function CreateEvent() {
                   event_id: res.id,
                   event_date: data.event_date,
                   event_description: data.description,
+                  event_start_date: data.start_time,
+                  event_end_date: data.end_time,
+                  is_paid: isPaid,
                   host_id: hostId,
                   host_name: hostName,
-                  venue_id: venueId,
-                  venue_owner_id: venueOwnerId,
-                  status: status,
+                  status: "for verification",
+                  is_confirmed: false,
                   createdAt: serverTimestamp(),
                   updatedAt: serverTimestamp(),
                 });
@@ -253,7 +256,7 @@ function CreateEvent() {
                   title: "Success!",
                   text: "Event created successfully",
                   icon: "success",
-                  confirmButtonText: "ok",
+                  confirmButtonText: "OK",
                   heightAuto: false,
                 }).then(() => {
                   history.push("/host/event-list");
@@ -263,7 +266,7 @@ function CreateEvent() {
                   title: "Error!",
                   text: "Something went wrong, please try again",
                   icon: "error",
-                  confirmButtonText: "ok",
+                  confirmButtonText: "OK",
                   heightAuto: false,
                 });
               }
@@ -284,6 +287,38 @@ function CreateEvent() {
   };
 
   // console.log("Photot: ", photos);
+
+  function MinDate() {
+    // Calculate the date 18 years ago from today
+    const today = new Date();
+    const minDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    )
+      .toISOString()
+      .split("T")[0]; // Format as 'YYYY-MM-DD'
+
+    return minDate;
+  }
+  function MaxDate() {
+    // Calculate the date 18 years ago from today
+    const today = new Date();
+    const maxDate = new Date(
+      today.getFullYear() + 1,
+      today.getMonth() - 5,
+      today.getDate()
+    )
+      .toISOString()
+      .split("T")[0]; // Format as 'YYYY-MM-DD'
+
+    return maxDate;
+  }
+  console.log(MinDate());
+
+  useEffect(() => {
+    console.log(isPaid);
+  }, [isPaid]);
 
   return (
     <IonCard className="hhome-card-container">
@@ -338,7 +373,7 @@ function CreateEvent() {
       </IonLabel>
       {formError.title?.type === "required" && (
         <p role="alert" className="text-color-danger">
-          Please enter a title
+          Please add a title
         </p>
       )}
 
@@ -359,7 +394,7 @@ function CreateEvent() {
       </IonLabel>
       {formError.description?.type === "required" && (
         <p role="alert" className="text-color-danger">
-          Please enter a title
+          Please add a Description
         </p>
       )}
 
@@ -386,15 +421,15 @@ function CreateEvent() {
                   showDefaultButtons={true}
                   presentation="date"
                   id="date"
-                  min="2023-12-01"
-                  max="2025-12-31"
+                  min={MinDate()}
+                  max={MaxDate()}
                 ></IonDatetime>
               </IonModal>
             </div>
           </IonLabel>
           {formError.eventDate?.type === "required" && (
             <p role="alert" className="text-color-danger">
-              Please enter a date
+              Please add the date in which the event will take place
             </p>
           )}
         </div>
@@ -418,7 +453,7 @@ function CreateEvent() {
           </IonLabel>
           {formError.startTime?.type === "required" && (
             <p role="alert" className="text-color-danger">
-              Please enter a start time
+              Please add the time in which the event will start
             </p>
           )}
         </div>
@@ -442,11 +477,54 @@ function CreateEvent() {
           </IonLabel>
           {formError.endTime?.type === "required" && (
             <p role="alert" className="text-color-danger">
-              Please enter an end time
+              Please select the time in which the event will end
             </p>
           )}
+
+          {/* {formError.event_fee?.type === "required" && (
+            <p role="alert" className="text-color-danger">
+              Please add amount fee
+            </p>
+          )} */}
         </div>
       </div>
+      <IonLabel className="hhome-form-label">
+        <span className="hhome-form-title">Number of Deligates:</span>
+        <IonInput
+          className="hhome-form-input"
+          type="number"
+          required
+          min={20}
+          {...register("event_deligates", { required: true })}
+        />
+      </IonLabel>
+
+      {/* <IonLabel className="hhome-form-label">
+        <IonSelect
+          interface="popover"
+          label="Event Fee"
+          className="hhome-form-input"
+          onIonChange={(e) => setIsPaid(e.detail.value)}
+        >
+          <IonSelectOption value={false}>Free</IonSelectOption>
+          <IonSelectOption value={true}>Paid</IonSelectOption>
+        </IonSelect>
+      </IonLabel> */}
+
+      {/* <IonItem lines="none" className="item-bg-none"> */}
+      <IonLabel>
+        <span className="hhome-form-title">is there any fee?</span>
+        <IonToggle
+          // slot="end"
+          color={"primary"}
+          enableOnOffLabels={true}
+          onIonChange={(e) => {
+            e.detail.checked ? setIsPaid(true) : setIsPaid(false);
+          }}
+        ></IonToggle>
+      </IonLabel>
+
+      {/* </IonItem> */}
 
       <IonButton
         type="submit"

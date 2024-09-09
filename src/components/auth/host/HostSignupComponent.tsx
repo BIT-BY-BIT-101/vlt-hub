@@ -25,6 +25,10 @@ import Logo from "../../../assets/logo.png";
 import "./HostSignupComponent.css";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import { AuthContext } from "../../../context/AuthContext";
+import {
+  getMaximumDate,
+  getMinimumDate,
+} from "../../../helpers/DateTimeFunctions";
 
 const HostSignupComponent = () => {
   const { currentUser } = useContext(AuthContext);
@@ -34,6 +38,7 @@ const HostSignupComponent = () => {
   const [newFirstname, setNewFirstname] = useState<string>("");
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignup = async () => {
     try {
@@ -52,16 +57,18 @@ const HostSignupComponent = () => {
       // Handle error, show message, etc.
     }
   };
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   if (currentUser?.data.role === "host") {
     // return <Redirect to="/host/home" />;
     return <Redirect to="/host/event-list" />;
   }
+
+  const minDate = getMinimumDate();
+  const maxDate = getMaximumDate();
 
   return (
     <div className="hsignup-container">
@@ -86,14 +93,14 @@ const HostSignupComponent = () => {
           <IonCardContent>
             <div className="hsignup-flname">
               <IonInput
-                className="hsignup-input"
+                className="auth-input"
                 type="text"
                 placeholder="First Name"
                 onIonChange={(e) => setNewFirstname(e.detail.value!)}
               ></IonInput>
 
               <IonInput
-                className="hsignup-input"
+                className="auth-input"
                 type="text"
                 placeholder="Last Name"
                 onIonChange={(e) => setNewLastname(e.detail.value!)}
@@ -101,25 +108,26 @@ const HostSignupComponent = () => {
             </div>
 
             <IonInput
-              className="hsignup-input"
+              className="auth-input"
               type="email"
               placeholder="Enter your email address"
               onIonChange={(e) => setNewEmail(e.detail.value!)}
             ></IonInput>
 
             <IonInput
-              className="hsignup-input"
+              className="auth-input"
               type={showPassword ? "text" : "password"}
               placeholder="Enter a password"
               onIonChange={(e) => setNewPassword(e.detail.value!)}
-            />
-
-            <IonIcon
-              className="hsignup-eye-icon"
-              slot="end"
-              icon={showPassword ? eyeOff : eye}
-              onClick={handleTogglePassword}
-            />
+            >
+              <IonButton fill="clear" onClick={handleTogglePassword} slot="end">
+                <IonIcon
+                  // className="hsignup-eye-icon"
+                  slot="icon-only"
+                  icon={showPassword ? eyeOff : eye}
+                />
+              </IonButton>
+            </IonInput>
 
             <div className="hsignup-birthdate">
               <IonGrid>
@@ -147,7 +155,9 @@ const HostSignupComponent = () => {
                     setNewBirthdate(e.detail.value!.toString());
                     console.log(e.detail.value!.toString());
                   }}
-                  min="1950"
+                  value={maxDate}
+                  min={minDate}
+                  max={maxDate}
                 ></IonDatetime>
               </IonModal>
             </div>
@@ -164,7 +174,7 @@ const HostSignupComponent = () => {
             <IonButton
               expand="full"
               onClick={handleSignup}
-              className="hsignup-signupbtn"
+              // className="hsignup-signupbtn"
             >
               Sign up as a Host
             </IonButton>

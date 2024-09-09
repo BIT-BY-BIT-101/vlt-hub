@@ -32,26 +32,6 @@ export function formatDateOnly(originalDateString: string) {
   return `${year}-${month}-${day}`;
 }
 
-// export function formatFibaseTimestamp(dateString: string): string {
-//   const datePattern = /^(.*? \d{1,2}, \d{4})/;
-//   const match = datePattern.exec(dateString);
-
-//   if (match && match[1]) {
-//     return match[1];
-//   } else {
-//     return "Invalid Date Format";
-//   }
-// }
-// export function formatFibaseTimestamp(timestamp: Timestamp) {
-//   const dateObject = new Date(timestamp);
-//   const options: Intl.DateTimeFormatOptions = {
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   };
-//   return dateObject.toLocaleDateString("en-US", options);
-// }
-
 /**
  * Checks if the event date is due.
  * @param eventDate - The date of the event.
@@ -60,4 +40,46 @@ export function formatDateOnly(originalDateString: string) {
 export const isEventDue = (eventDate: Date): boolean => {
   const currentDate = new Date();
   return eventDate < currentDate;
+};
+
+export function getMaximumDate() {
+  // Calculate the date 18 years ago from today
+  const today = new Date();
+  const maxDate = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  ).toISOString();
+  // .split("T")[0]; // Format as 'YYYY-MM-DD'
+
+  return maxDate;
+}
+
+export function getMinimumDate() {
+  // Calculate the date 100 years ago from today
+  const today = new Date();
+  const minDate = new Date(
+    today.getFullYear() - 100,
+    today.getMonth(),
+    today.getDate()
+  ).toISOString();
+  // .split("T")[0]; // Format as 'YYYY-MM-DD'
+
+  return minDate;
+}
+
+export const extractTimeFromDateTime = (dateString: string): string => {
+  // Split the string at 'T' and return the second part (the time)
+  const timePart = dateString.split("T")[1];
+
+  // If there's a time part, return it with 'T', otherwise return an empty string
+  return timePart ? `T${timePart}` : "";
+};
+
+export const extractDateOnly = (dateString: string): string => {
+  // Split the string at 'T' and return the first part (the date)
+  const datePart = dateString.split("T")[0];
+
+  // If there's a date part, return it, otherwise return an empty string
+  return datePart || "";
 };

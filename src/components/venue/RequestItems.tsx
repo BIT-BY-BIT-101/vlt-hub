@@ -86,20 +86,21 @@ const RequestItems = () => {
     <>
       <IonCard className="card">
         {requestData.length === 0 ? (
-          <IonList className="item-color-dark">
-            <IonItem className="item-color">
+          <IonList className="item-bg-none">
+            <IonItem className="item-bg-none">
               <IonLabel>No Requests</IonLabel>
             </IonItem>
           </IonList>
         ) : (
           requestData?.map((request: any) => (
             <>
-              <IonList className="item-color-dark" key={request.id}>
-                <IonItem className="item-color-dark">
+              <IonList className="item-bg-none" key={request.id}>
+                <IonItem className="item-bg-none">
                   <IonLabel slot="start" className="item-label">
                     {request.event_title}
+                    <p>{request.host_name}</p>
                   </IonLabel>
-                  <IonButton
+                  {/* <IonButton
                     slot="end"
                     fill="outline"
                     color={"tertiary"}
@@ -107,11 +108,16 @@ const RequestItems = () => {
                     onClick={() => handleChatButtonClick(request)}
                   >
                     Chat
-                  </IonButton>
+                  </IonButton> */}
+
+                  <IonLabel slot="end">
+                    Status
+                    <p>{request.status}</p>
+                  </IonLabel>
                   <IonButton
                     slot="end"
                     shape="round"
-                    color="tertiary"
+                    color="primary"
                     // onClick={handleOpenModal}
                     onClick={() => {
                       setIsOpen(true);

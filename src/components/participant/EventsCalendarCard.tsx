@@ -1,26 +1,24 @@
 import { IonCard, IonCardContent } from "@ionic/react";
-import React from "react";
+import React, { useEffect } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
+import interactionPlugin from "@fullcalendar/interaction";
 import { auth } from "../../config/firebase";
 import useQuery from "../../hooks/useQuery";
 import { formatDateOnly } from "../../helpers/DateTimeFunctions";
 import { useHistory } from "react-router";
 import Loader from "../loaders/Loader";
+import useFetchParticipantingEvents from "../../hooks/useFetchParticipantingEvents";
 
 const EventsCalendarCard = () => {
   const history = useHistory();
-  const {
-    data: events,
-    error,
-    loading,
-  } = useQuery(
-    "events",
-    "participants",
-    "array-contains",
-    auth.currentUser?.uid!
-  );
+  const { data: events, loading, error } = useFetchParticipantingEvents();
+  useEffect(() => {
+    window.setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 1000);
+  });
 
   const handleEventClick = (info) => {
     // Handle event click here
@@ -39,18 +37,21 @@ const EventsCalendarCard = () => {
   return (
     // <IonCard className="card">
     //   <IonCardContent>
-    <div className="cars">
+    <div className="card">
       <FullCalendar
         height="100%"
         contentHeight={"auto"}
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        eventClick={handleEventClick}
-        events={events.map((event) => ({
-          id: event.id,
-          title: event.title,
-          date: formatDateOnly(event.event_date),
-        }))}
+        dateClick={handleEventClick}
+        // eventClick={handleEventClick}
+        // events={events.map((event) => ({
+        //   id: event?.id,
+        //   title: event?.title,
+        //   date: formatDateOnly(event?.event_date),
+        // }))}
+
+        events={events}
       />
     </div>
     //   </IonCardContent>

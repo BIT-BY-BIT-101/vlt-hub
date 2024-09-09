@@ -14,9 +14,8 @@ export const VenueProfilePage = () => {
         <IonContent>
           <IonGrid>
             <IonRow className="ion-justify-content-center">
-              {/* <ParticipantSidePane /> */}
               <SidePanel />
-              <IonCol size="10">
+              <IonCol>
                 <ProfileCard />
                 <br />
                 <VenueAddressCard />

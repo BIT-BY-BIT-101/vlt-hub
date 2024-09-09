@@ -1,9 +1,46 @@
+ion-content {
+  --background: #ede8f5;
+}
+.cover-img,
+.profile-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.profile-img {
+  width: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: auto;
+}
+
 .content-center {
   background-color: #ae2f5e;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 20000px;
+}
+
+.auth-input {
+  --highlight-color: var(--ion-color-primary);
+  --padding-start: 10px;
+  border: 2px solid var(--ion-color-dark);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
+
+  &:hover,
+  &:focus {
+    border-color: var(--ion-color-primary);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.auth-input::placeholder {
+  color: #ccc;
 }
 
 .h-full {
@@ -24,10 +61,10 @@
 .item-bg-none {
   --ion-item-background: none;
   --inner-border-width: 0;
-  --color: black;
+  --color: var(--ion-color-dark);
 
   &:hover {
-    --color: var(--ion-color-primary);
+    --color: var(--ion-color-tertiary);
   }
 }
 .item-color {
@@ -184,6 +221,10 @@ ion-thumbnail {
 
 /* Cards */
 
+.card-width-100 {
+  width: 100%;
+}
+
 .card {
   --ion-card-background: #ffff;
   /* cursor: pointer; */
@@ -198,7 +239,7 @@ ion-thumbnail {
   margin-top: 20px;
 
   &:hover {
-    border-color: var(--secondary-color);
+    border-color: var(--ion-color-primary);
     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
     box-shadow: 0 0 20px var(--hover-shadow-color);
   }
@@ -252,7 +293,7 @@ ion-modal.modal-container::part(content) {
 }
 
 .activated {
-  --ion-item-background: #383434;
+  --ion-item-background: var(--ion-color-primary);
   color: #ddd;
 }
 
@@ -275,6 +316,11 @@ ion-modal.modal-container::part(content) {
   }
 
   .hide-element {
+    display: none;
+  }
+}
+@media (max-width: 319px) {
+  * {
     display: none;
   }
 }

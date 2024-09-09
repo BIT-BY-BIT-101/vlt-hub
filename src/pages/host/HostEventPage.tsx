@@ -31,29 +31,13 @@ import SidePanel from "../../components/SidePanel";
 import HostEventCalendar from "../../components/host/HostEventCalendar";
 
 const HostEventPage: React.FC = () => {
-  
   return (
     <>
-      {/* <HostNavMenu /> */}
       <Menus />
       <IonPage id="main">
         <Header />
-        {/* <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonMenuButton autoHide={false}></IonMenuButton>
-            </IonButtons>
-            <IonTitle>My Events</IonTitle>
-          </IonToolbar>
-        </IonHeader> */}
 
         <IonContent>
-          {/* <IonSearchbar
-            className="hsearch-bar"
-            placeholder="Search events"
-            onIonChange={handleSearchChange}
-          ></IonSearchbar> */}
-
           <IonGrid>
             <IonRow>
               <SidePanel />

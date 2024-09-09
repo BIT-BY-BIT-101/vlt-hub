@@ -4,7 +4,7 @@ import { db } from "../config/firebase";
 import { EventDataModel } from "../models/Model";
 import { AuthContext } from "../context/AuthContext";
 
-const useGetHostedEvent = () => {
+const useFetchHostedEvents = () => {
   const { currentUser } = useContext(AuthContext);
   const [data, setData] = useState<EventDataModel>([]);
   const [error, setError] = useState();
@@ -34,4 +34,4 @@ const useGetHostedEvent = () => {
   return { data, loading, error };
 };
 
-export default useGetHostedEvent;
+export default useFetchHostedEvents;

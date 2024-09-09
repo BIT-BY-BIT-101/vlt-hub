@@ -27,14 +27,6 @@ const HostCreatePage = () => {
       <Menus />
       <IonPage id="main">
         <Header />
-        {/* <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonButton onClick={history.goBack}>Back</IonButton>
-            </IonButtons>
-            <IonTitle>Create</IonTitle>
-          </IonToolbar>
-        </IonHeader> */}
 
         <IonContent>
           <IonGrid>

@@ -6,6 +6,10 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
+  IonThumbnail,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { pencil } from "ionicons/icons";
 import React, { useContext } from "react";
@@ -32,33 +36,38 @@ const MenuHeader = () => {
   return (
     <IonHeader>
       <IonToolbar class="phome-menu-header">
-        <IonImg
-          src={
-            currentUser?.data.photoURL
-              ? currentUser?.data.photoURL
-              : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
-          }
-          alt="V.L.T. Hub"
-          className="phome-logocontainer"
-        />
-        {/* <IonImg
-          src={
-            currentUser?.data.photoURL ? currentUser?.data.photoURL : UserImg
-          }
-          alt="V.L.T. Hub"
-          className="phome-logocontainer"
-        /> */}
-        <div className="phome-userinfo">
-          <IonLabel class="phome-username">
-            {currentUser?.data.fname} {currentUser?.data.lname}
-          </IonLabel>
-          <IonButtons>
-            <IonButton className="phome-editprofile" onClick={handleLink}>
-              <IonIcon icon={pencil} />
-              My Profile
-            </IonButton>
-          </IonButtons>
-        </div>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              {/* <IonThumbnail> */}
+              <IonImg
+                src={
+                  currentUser?.data.photoURL
+                    ? currentUser?.data.photoURL
+                    : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                }
+                alt="V.L.T. Hub"
+                // className="phome-logocontainer"
+                className="profile-img"
+              />
+              {/* </IonThumbnail> */}
+            </IonCol>
+
+            <IonCol>
+              <div className="phome-userinfo">
+                <IonLabel class="phome-username">
+                  {currentUser?.data.fname} {currentUser?.data.lname}
+                </IonLabel>
+                <IonButtons>
+                  <IonButton className="phome-editprofile" onClick={handleLink}>
+                    <IonIcon icon={pencil} />
+                    My Profile
+                  </IonButton>
+                </IonButtons>
+              </div>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonToolbar>
     </IonHeader>
   );

@@ -86,9 +86,10 @@ export const UnpubEventCard = () => {
     <IonGrid>
       <div className="w-100 ion-margin">
         <IonButton
-          routerLink={`/host/venue-list`}
+          // routerLink={`/host/venue-list`}
+          routerLink={`/host/create`}
           shape="round"
-          color={"tertiary"}
+          color={"primary"}
           // size="large"
         >
           Create Event
@@ -145,35 +146,37 @@ export const UnpubEventCard = () => {
                     </strong>
                   </IonItem>
                 </IonCardContent>
-                {event.is_confirmed ? (
+                <IonItem className="item-bg-none">
+                  {event.is_confirmed ? (
+                    <IonButton
+                      className="publish-btn"
+                      color={"tertiary"}
+                      shape="round"
+                      onClick={() => handlePublishBtn(event)}
+                      disabled={event.is_confirmed ? false : true}
+                    >
+                      Publish
+                    </IonButton>
+                  ) : (
+                    <IonButton
+                      className="publish-btn"
+                      color={"tertiary"}
+                      shape="round"
+                      onClick={() => handleConfirmed(event)}
+                      disabled={event.status !== "confirming" ? true : false}
+                    >
+                      {event.status !== "confirming" ? "Pending" : "Confirm"}
+                    </IonButton>
+                  )}
                   <IonButton
                     className="publish-btn"
-                    color={"tertiary"}
                     shape="round"
-                    onClick={() => handlePublishBtn(event)}
-                    disabled={event.is_confirmed ? false : true}
+                    slot="end"
+                    // onClick={() => handleChatButtonClick(event)}
                   >
-                    Publish
+                    View
                   </IonButton>
-                ) : (
-                  <IonButton
-                    className="publish-btn"
-                    color={"tertiary"}
-                    shape="round"
-                    onClick={() => handleConfirmed(event)}
-                    disabled={event.status !== "confirming" ? true : false}
-                  >
-                    {event.status !== "confirming" ? "Pending" : "Confirm"}
-                  </IonButton>
-                )}
-                <IonButton
-                  className="publish-btn"
-                  shape="round"
-                  color={"tertiary"}
-                  onClick={() => handleChatButtonClick(event)}
-                >
-                  Chat
-                </IonButton>
+                </IonItem>
               </IonCard>
             </IonCol>
           ))}

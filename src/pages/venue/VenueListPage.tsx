@@ -5,6 +5,7 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonItem,
   IonMenuButton,
   IonPage,
   IonRow,
@@ -30,12 +31,11 @@ const VenueListPage = () => {
             <IonRow className="ion-justify-content-center">
               <SidePanel />
               <IonCol>
-                <IonButton
-                  className="vlistpage-btn"
-                  routerLink="/venue/add-room"
-                >
-                  Add Venue
-                </IonButton>
+                <IonItem className="item-bg-none">
+                  <IonButton routerLink="/venue/add-room" slot="end">
+                    <span>Add Facility</span>
+                  </IonButton>
+                </IonItem>
                 <FacilityCard />
               </IonCol>
             </IonRow>

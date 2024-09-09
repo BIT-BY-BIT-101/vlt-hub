@@ -23,20 +23,11 @@ import SidePanel from "../../components/SidePanel";
 import Menus from "../../components/menus/Menus";
 
 const HostVenueSelectionPage = () => {
-  const history = useHistory();
   return (
     <>
       <Menus />
       <IonPage id="main">
         <Header />
-        {/* <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonButton onClick={history.goBack}>Back</IonButton>
-            </IonButtons>
-            <IonTitle>Select Venue</IonTitle>
-          </IonToolbar>
-        </IonHeader> */}
 
         <IonContent>
           <IonGrid>
@@ -47,9 +38,6 @@ const HostVenueSelectionPage = () => {
               </IonCol>
             </IonRow>
           </IonGrid>
-          {/* <div className="hhome-form-container">
-            <VenueSelectionCard />
-          </div> */}
         </IonContent>
       </IonPage>
     </>

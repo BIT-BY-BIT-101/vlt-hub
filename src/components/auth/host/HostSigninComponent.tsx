@@ -94,7 +94,7 @@ const HostSigninComponent: React.FC = () => {
 
           <IonCardContent>
             <IonInput
-              className="hsignin-input"
+              className="auth-input"
               type="email"
               placeholder="Email"
               value={email}
@@ -102,18 +102,20 @@ const HostSigninComponent: React.FC = () => {
             ></IonInput>
 
             <IonInput
-              className="hsignin-input"
+              className="auth-input"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onIonChange={(e) => setPassword(e.detail.value!)}
-            ></IonInput>
-            <IonIcon
-              className="hsignin-eye-icon"
-              slot="end"
-              icon={showPassword ? eyeOff : eye}
-              onClick={handleTogglePassword}
-            />
+            >
+              <IonButton fill="clear" slot="end" onClick={handleTogglePassword}>
+                <IonIcon
+                  // className="hsignin-eye-icon"
+                  slot="icon-only"
+                  icon={showPassword ? eyeOff : eye}
+                />
+              </IonButton>
+            </IonInput>
 
             <IonItem>
               <IonText className="hsignin-prompt">
@@ -127,7 +129,7 @@ const HostSigninComponent: React.FC = () => {
             <IonButton
               expand="full"
               onClick={handleSignin}
-              className="hsignin-loginbtn"
+              // className="hsignin-loginbtn"
             >
               Sign in as a Host
             </IonButton>

@@ -99,7 +99,7 @@ const VenueSigninComponent: React.FC = () => {
 
           <IonCardContent>
             <IonInput
-              className="vsignin-input"
+              className="auth-input"
               type="email"
               placeholder="Email"
               value={email}
@@ -107,32 +107,34 @@ const VenueSigninComponent: React.FC = () => {
             ></IonInput>
 
             <IonInput
-              className="vsignin-input"
+              className="auth-input"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
               onIonChange={(e) => setPassword(e.detail.value!)}
-            ></IonInput>
-            <IonIcon
-              className="vsignin-eye-icon"
-              slot="end"
-              icon={showPassword ? eyeOff : eye}
-              onClick={handleTogglePassword}
-            />
+            >
+              <IonButton fill="clear" slot="end" onClick={handleTogglePassword}>
+                <IonIcon
+                  // className="vsignin-eye-icon"
+                  slot="icon-only"
+                  icon={showPassword ? eyeOff : eye}
+                />
+              </IonButton>
+            </IonInput>
 
-            <IonItem>
+            {/* <IonItem>
               <IonText className="vsignin-prompt">
                 <p>
                   Don't have an Account?{" "}
                   <Link to={"/venue/signup"}>Sign up!</Link>
                 </p>
               </IonText>
-            </IonItem>
+            </IonItem> */}
 
             <IonButton
               expand="full"
               onClick={handleSignin}
-              className="vsignin-loginbtn"
+              // className="vsignin-loginbtn"
             >
               Sign in as a Venue
             </IonButton>
