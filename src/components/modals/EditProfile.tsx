@@ -13,11 +13,16 @@ import {
   IonSelectOption,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { auth } from "../../config/firebase";
 import useFirestore from "../../hooks/useFirestore";
 import "./EditProfile.css";
+import { updateProfile } from "firebase/auth";
+import { serverTimestamp } from "firebase/firestore";
+import Swal from "sweetalert2";
+import { handleWindowRoute } from "../../helpers/Helpers";
+import { AuthContext } from "../../context/AuthContext";
 
 type userData = {
   fname: string;
@@ -44,30 +49,111 @@ const EditProfile: React.FC<EditProps> = ({
   onDidDismissal,
   onClose,
 }) => {
+  const { currentUser } = useContext(AuthContext);
   const { updateData } = useFirestore("profiles");
 
-  const [editedData, setEditedData] = useState<any>({ ...userData });
+  const [editedData, setEditedData] = useState<any>();
   const history = useHistory();
+
+  useEffect(() => {
+    setEditedData(userData);
+    console.log(editedData);
+
+    return () => {
+      setEditedData(null);
+      console.log(editedData);
+    };
+  }, [isOpen]);
+
+  console.log(editedData);
 
   const handleSaveChanges = async (e: any) => {
     e.preventDefault();
+
     try {
-      // const userEmail = localStorage.getItem("session")!;
-      const user = auth.currentUser?.uid;
-
-      if (user) {
-        await updateData(user, editedData);
-
+      Swal.fire({
+        title: "Do you want to save?",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        heightAuto: false,
+      }).then(async (result) => {
         console.log(editedData);
-        console.log(userData);
-        onClose();
 
-        // history.push("/venue/home");
-      }
-    } catch (error) {
-      console.log(error);
-      console.error;
+        if (result.isConfirmed) {
+          Swal.fire({
+            heightAuto: false,
+            position: "top-right",
+            title: "Uploading..",
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          })
+            .then(async () => {
+              const userId = currentUser?.uid;
+
+              console.log("User ID:", userId);
+
+              // Combine the state and any other data needed
+
+              // Call the createEvent function to add the event data to Firebase
+
+              await updateData(userId, {
+                ...editedData,
+                updatedAt: serverTimestamp(),
+              });
+
+              // Optionally, you can reset the form after successful submission
+              // reset();
+
+              // Log success or navigate to another page
+              console.log("Venue Added successfully!");
+            })
+            .then(() => {
+              Swal.fire({
+                heightAuto: false,
+                icon: "success",
+                title: "Successfully added!",
+              }).then(() => {
+                // handleWindowRoute("/venue/profile");
+                onClose();
+              });
+            });
+        }
+      });
+    } catch (err) {
+      console.log("Error adding venue:", err);
+      Swal.fire({
+        heightAuto: false,
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
+
+    // try {
+    //   // const userEmail = localStorage.getItem("session")!;
+    //   const user = auth.currentUser?.uid;
+
+    //   if (user) {
+    //     await updateData(user, editedData);
+
+    //     onClose();
+
+    //     // history.push("/venue/home");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   console.error;
+    // }
+  };
+
+  const handleInputChange = (e: CustomEvent) => {
+    setEditedData((prevData: any) => ({
+      ...prevData,
+      [e.target?.name]: e.target.value,
+    }));
   };
 
   return (
@@ -93,12 +179,14 @@ const EditProfile: React.FC<EditProps> = ({
             <IonInput
               className="veditprofile-form-input"
               value={editedData?.fname}
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  fname: e.detail.value!,
-                }))
-              }
+              name="fname"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     fname: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             />
           </IonLabel>
           <IonLabel className="veditprofile-form-label">
@@ -106,12 +194,14 @@ const EditProfile: React.FC<EditProps> = ({
             <IonInput
               className="veditprofile-form-input"
               value={editedData?.lname}
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  lname: e.detail.value!,
-                }))
-              }
+              name="lname"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     lname: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             />
           </IonLabel>
 
@@ -119,14 +209,22 @@ const EditProfile: React.FC<EditProps> = ({
             <span className="veditprofile-form-title">Sex:</span>
             <IonSelect
               className="veditprofile-form-select"
-              interface="action-sheet"
-              placeholder="Select Gender"
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  gender: e.detail.value!,
-                }))
+              // interface="action-sheet"
+              interface="popover"
+              placeholder="Select Your Sex"
+              name="gender"
+              value={
+                editedData?.gender
+                  ? editedData?.gender
+                  : "Please Specify your Sex"
               }
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     gender: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             >
               <IonSelectOption value="Male">Male</IonSelectOption>
               <IonSelectOption value="Female">Female</IonSelectOption>
@@ -137,52 +235,60 @@ const EditProfile: React.FC<EditProps> = ({
             <span className="veditprofile-form-title">Building No.:</span>
             <IonInput
               className="veditprofile-form-input"
-              value={editedData.bldg_no}
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  bldg_no: e.detail.value!,
-                }))
-              }
+              value={editedData?.bldg_no}
+              name="bldg_no"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     bldg_no: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             />
           </IonLabel>
           <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">Street:</span>
             <IonInput
               className="veditprofile-form-input"
-              value={editedData.street}
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  street: e.detail.value!,
-                }))
-              }
+              value={editedData?.street}
+              name="street"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     street: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             />
           </IonLabel>
           <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">City:</span>
             <IonInput
               className="veditprofile-form-input"
-              value={editedData.city}
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  city: e.detail.value!,
-                }))
-              }
+              value={editedData?.city}
+              name="city"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     city: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             />
           </IonLabel>
           <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">Country:</span>
             <IonInput
               className="veditprofile-form-input"
-              value={editedData.country}
-              onIonChange={(e) =>
-                setEditedData((prevData: any) => ({
-                  ...prevData,
-                  country: e.detail.value!,
-                }))
-              }
+              value={editedData?.country}
+              name="country"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     country: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
             />
           </IonLabel>
         </IonContent>

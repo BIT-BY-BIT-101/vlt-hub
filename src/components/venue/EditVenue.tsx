@@ -5,7 +5,7 @@ import {
   IonTextarea,
   IonButton,
 } from "@ionic/react";
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { auth } from "../../config/firebase";
@@ -15,6 +15,7 @@ import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
 import { serverTimestamp } from "@firebase/firestore";
 import useFetchVenueDetails from "../../hooks/useFetchVenueDetails";
+import { VenueDataModel } from "../../models/Model";
 
 const EditVenue = () => {
   const { currentUser } = useContext(AuthContext);
@@ -22,12 +23,17 @@ const EditVenue = () => {
   const { userData } = useFirebaseAuth();
   const { updateData: updateProfile, error: updateError } =
     useFirestore("venues");
-  const [editedData, setEditedData] = useState<any>({ ...venueDetails });
+  const [editedData, setEditedData] = useState<VenueDataModel>();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   // const { register, handleSubmit, reset } = useForm();
   const [venueData, setvenueData] = useState({});
+
+  useEffect(() => {
+    setEditedData(venueDetails);
+  }, []);
+  console.log(editedData);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -104,13 +110,12 @@ const EditVenue = () => {
     }
   };
 
-  // const handleInputChange = (e: CustomEvent) => {
-  //   const { name, value } = e.detail;
-  //   setEditedData((prevData: any) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleInputChange = (e: CustomEvent) => {
+    setEditedData((prevData: any) => ({
+      ...editedData,
+      [e.target?.name]: e.target.value,
+    }));
+  };
   return (
     <IonCard className="addvenue-card-container">
       {/* <IonLabel className="hhome-form-label">
@@ -137,14 +142,16 @@ const EditVenue = () => {
           type="text"
           required
           name="name"
-          value={editedData?.name}
+          value={editedData?.name || ""}
           // {...register("name")}
-          onIonChange={(e) =>
-            setEditedData((prevData: any) => ({
-              ...prevData,
-              name: e.detail.value!,
-            }))
-          }
+          // onIonChange={(e) =>
+          //   setEditedData((prevData: any) => ({
+          //     ...prevData,
+          //     name: e.detail.value!,
+          //   }))
+          // }
+
+          onIonChange={handleInputChange}
         />
       </IonLabel>
 
@@ -157,12 +164,13 @@ const EditVenue = () => {
           name="description"
           value={editedData?.description}
           // {...register("description")}
-          onIonChange={(e) =>
-            setEditedData((prevData: any) => ({
-              ...prevData,
-              description: e.detail.value!,
-            }))
-          }
+          // onIonChange={(e) =>
+          //   setEditedData((prevData: any) => ({
+          //     ...prevData,
+          //     description: e.detail.value!,
+          //   }))
+          // }
+          onIonChange={handleInputChange}
         />
       </IonLabel>
 
@@ -178,12 +186,13 @@ const EditVenue = () => {
           value={editedData?.bldg_no}
           required
           // {...register("bldg_no")}
-          onIonChange={(e) =>
-            setEditedData((prevData: any) => ({
-              ...prevData,
-              bldg_no: e.detail.value!,
-            }))
-          }
+          // onIonChange={(e) =>
+          //   setEditedData((prevData: any) => ({
+          //     ...prevData,
+          //     bldg_no: e.detail.value!,
+          //   }))
+          // }
+          onIonChange={handleInputChange}
         />
       </IonLabel>
       <IonLabel className="hhome-form-label">
@@ -196,12 +205,13 @@ const EditVenue = () => {
           value={editedData?.street}
           // placeholder={venueDetails?.street}
           // {...register("street")}
-          onIonChange={(e) =>
-            setEditedData((prevData: any) => ({
-              ...prevData,
-              street: e.detail.value!,
-            }))
-          }
+          // onIonChange={(e) =>
+          //   setEditedData((prevData: any) => ({
+          //     ...prevData,
+          //     street: e.detail.value!,
+          //   }))
+          // }
+          onIonChange={handleInputChange}
         />
       </IonLabel>
       <IonLabel className="hhome-form-label">
@@ -213,12 +223,13 @@ const EditVenue = () => {
           name="baranggay"
           value={editedData?.baranggay}
           // {...register("baranggay")}
-          onIonChange={(e) =>
-            setEditedData((prevData: any) => ({
-              ...prevData,
-              baranggay: e.detail.value!,
-            }))
-          }
+          // onIonChange={(e) =>
+          //   setEditedData((prevData: any) => ({
+          //     ...prevData,
+          //     baranggay: e.detail.value!,
+          //   }))
+          // }
+          onIonChange={handleInputChange}
         />
       </IonLabel>
       <IonLabel className="hhome-form-label">
@@ -230,12 +241,13 @@ const EditVenue = () => {
           name="city"
           value={editedData?.city}
           // {...register("city")}
-          onIonChange={(e) =>
-            setEditedData((prevData: any) => ({
-              ...prevData,
-              city: e.detail.value!,
-            }))
-          }
+          // onIonChange={(e) =>
+          //   setEditedData((prevData: any) => ({
+          //     ...prevData,
+          //     city: e.detail.value!,
+          //   }))
+          // }
+          onIonChange={handleInputChange}
         />
       </IonLabel>
       {/* <IonLabel className="hhome-form-label">

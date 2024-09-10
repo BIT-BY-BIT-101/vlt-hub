@@ -9,12 +9,12 @@ import {
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { EventDataModel } from "../models/Model";
+import { EventDataModel, VenueDataModel } from "../models/Model";
 import { AuthContext } from "../context/AuthContext";
 
 const useFetchVenueDetails = () => {
   const { currentUser } = useContext(AuthContext);
-  const [data, setData] = useState<EventDataModel | null>(null);
+  const [data, setData] = useState<VenueDataModel | null>(null);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 

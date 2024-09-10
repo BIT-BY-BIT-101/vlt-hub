@@ -133,7 +133,12 @@ const RequestModal: React.FC<Props> = ({
           <IonLabel>
             <strong>Description</strong>
             <br />
-            <p>{selected?.event_description}</p>
+            {/* <p>{selected?.event_description}</p> */}
+            <p
+              dangerouslySetInnerHTML={{
+                __html: selected?.event_description.replace(/\n/g, "<br />"),
+              }}
+            />
           </IonLabel>
         </IonItem>
         {/* </IonList> */}

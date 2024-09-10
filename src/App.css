@@ -247,7 +247,7 @@ ion-thumbnail {
 
 .card-title {
   font-size: 18px;
-  color: var(--secondary-color);
+  color: var(--ion-color-primary);
 }
 
 .card-label {
