@@ -1,264 +1,264 @@
-:root {
-   --main-color: #282a2a;
-   --secondary-color: #f46197;
-   --shadow-color: rgba(0, 0, 0, 0.2);
-   --hover-shadow-color: rgba(0, 0, 0, 0.4);
+/* :root {
+  --main-color: #282a2a;
+  --secondary-color: #f46197;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --hover-shadow-color: rgba(0, 0, 0, 0.4);
+} */
+
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  background-color: var(--main-color);
+  font-family: "Poppins", sans-serif;
+  height: 100%;
 }
 
-html,
 body {
-   margin: 0;
-   padding: 0;
-   text-decoration: none;
-   background-color: var(--main-color);
-   font-family: "Poppins", sans-serif;
-   height: 100%;
-}
-
-body {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   overflow: hidden;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+} */
 
 .vsignup-container {
-   display: flex;
-   height: 100%;
-   overflow-y: auto;
-   --ion-card-background: #1c1c1d;
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+  --ion-card-background: #1c1c1d;
 }
 
 .left-section {
-   flex: 1;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   z-index: 1;
-   background-color: white;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: white;
 }
 
 .right-section {
-   flex: 1;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background-color: #fff;
-   z-index: 2;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 2;
 }
 
 .vsignup-img {
-   max-width: 100%;
-   max-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .vsignup-card {
-   /* position: absolute; */
-   /* top: 50%;
+  /* position: absolute; */
+  /* top: 50%;
    left: 50%; */
-   /* transform: translate(-50%, -50%); */
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   max-width: 400px;
-   width: 100%;
-   padding: 20px;
-   box-sizing: border-box;
-   margin: auto;
-   border-radius: 10px;
-   box-shadow: 0 10px 20px var(--shadow-color);
-   transition: box-shadow 0.3s ease;
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px var(--shadow-color);
+  transition: box-shadow 0.3s ease;
 }
 
 .vsignup-card:hover {
-   box-shadow: 0 20px 40px var(--hover-shadow-color);
+  box-shadow: 0 20px 40px var(--hover-shadow-color);
 }
 
 .vsignup-heading {
-   font-size: 26px;
-   font-weight: 600;
-   color: white;
-   margin-bottom: 10px;
-   caret-color: transparent;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+  caret-color: transparent;
 }
 
 .logo-container {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 100px;
-   height: 100px;
-   border-radius: 50%;
-   overflow: hidden;
-   margin: auto;
-   margin-bottom: 20px;
-   border: 2px solid white;
-   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: auto;
+  margin-bottom: 20px;
+  border: 2px solid white;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 24px 48px rgba(0, 0, 0, 0.4);
 }
 
 .vsignup-logo {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .vsignup-subheading {
-   font-size: 20px;
-   font-weight: normal;
-   color: white;
-   margin-top: 5px;
-   margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .vsignup-input {
-   --highlight-color: var(--secondary-color);
-   --padding-start: 10px;
-   border: 2px solid var(--main-color);
-   border-radius: 8px;
-   background-color: rgba(255, 255, 255, 0.1);
-   color: white;
-   margin-bottom: 15px;
-   transition: border-color 0.3s ease;
+  --highlight-color: var(--secondary-color);
+  --padding-start: 10px;
+  border: 2px solid var(--main-color);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
 }
 
 .vsignup-input::placeholder {
-   color: #ccc;
+  color: #ccc;
 }
 
 .vsignup-input:hover,
 .vsignup-input:focus {
-   border-color: var(--secondary-color);
-   background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--secondary-color);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .vsignup-flname {
-   display: flex;
-   gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .vsignup-eye-icon {
-   cursor: pointer;
-   position: absolute;
-   top: 42%;
-   right: 30px;
-   transform: translateY(-50%);
-   z-index: 999;
-   font-size: 1.3em;
+  cursor: pointer;
+  position: absolute;
+  top: 42%;
+  right: 30px;
+  transform: translateY(-50%);
+  z-index: 999;
+  font-size: 1.3em;
 }
 
 .vsignup-birthdate {
-   margin-top: -10px;
+  margin-top: -10px;
 }
 
 .vsignup-birthdate-container {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 .vsignup-birthdate-label {
-   color: #ccc;
-   font-size: 16px;
-   margin-bottom: 10px;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
+  color: #ccc;
+  font-size: 16px;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .vsignup-birthdate-button {
-   --ion-color-step-300: transparent;
-   border: 1px solid #ccc;
-   border-radius: 8px;
-   padding: 8px;
-   cursor: pointer;
-   caret-color: transparent;
+  --ion-color-step-300: transparent;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  caret-color: transparent;
 }
 
 .vsignup-birthdate-button:hover {
-   border-color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 .vsignup-prompt {
-   display: block;
-   margin: 0;
-   padding: 0;
-   caret-color: transparent;
+  display: block;
+  margin: 0;
+  padding: 0;
+  caret-color: transparent;
 }
 
 .vsignup-prompt p {
-   font-size: 15px;
-   font-weight: 600;
-   color: white;
-   margin: 20px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  margin: 20px 0;
 }
 
 .vsignup-prompt a {
-   text-decoration: none;
-   color: var(--secondary-color);
+  text-decoration: none;
+  color: var(--secondary-color);
 }
 
 .vsignup-signupbtn {
-   background-color: var(--secondary-color) !important;
-   color: white !important;
-   --background: var(--secondary-color) !important;
-   --border-color: var(--secondary-color) !important;
-   --box-shadow: none !important;
-   margin-top: 10px;
-   border-radius: 10px;
-   padding: 5px;
-   cursor: pointer;
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+  --background: var(--secondary-color) !important;
+  --border-color: var(--secondary-color) !important;
+  --box-shadow: none !important;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
-   .vsignup-container {
-      flex-direction: column;
-   }
+  .vsignup-container {
+    flex-direction: column;
+  }
 
-   .left-section,
-   .right-section {
-      width: 100%;
-   }
+  .left-section,
+  .right-section {
+    width: 100%;
+  }
 
-   .vsignup-card {
-      max-width: 100%;
-      padding: 10px;
-   }
+  .vsignup-card {
+    max-width: 100%;
+    padding: 10px;
+  }
 
-   .vsignup-img {
-      max-width: 30%;
-      width: 100%;
-   }
+  .vsignup-img {
+    max-width: 30%;
+    width: 100%;
+  }
 
-   .vsignup-group {
-      flex-direction: column;
-      gap: 0;
-   }
+  .vsignup-group {
+    flex-direction: column;
+    gap: 0;
+  }
 
-   .vsignup-input {
-      border-radius: 6px;
-      border-width: 1px;
-   }
+  .vsignup-input {
+    border-radius: 6px;
+    border-width: 1px;
+  }
 
-   .vsignup-eye-icon {
-      font-size: 1em;
-   }
+  .vsignup-eye-icon {
+    font-size: 1em;
+  }
 
-   .vsignup-heading {
-      font-size: 20px;
-   }
+  .vsignup-heading {
+    font-size: 20px;
+  }
 
-   .vsignup-subheading {
-      font-size: 16px;
-   }
+  .vsignup-subheading {
+    font-size: 16px;
+  }
 
-   .vsignup-prompt p {
-      font-size: 14px;
-      margin: 10px 0;
-   }
+  .vsignup-prompt p {
+    font-size: 14px;
+    margin: 10px 0;
+  }
 
-   .vsignup-signupbtn {
-      padding: 10px;
-   }
+  .vsignup-signupbtn {
+    padding: 10px;
+  }
 }

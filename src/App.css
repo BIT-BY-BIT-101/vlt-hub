@@ -1,5 +1,24 @@
+html,
+body {
+  --ion-dynamic-font: var(--ion-default-dynamic-font);
+  --ion-font-family: Poppins, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  background-color: var(--main-color);
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
 ion-content {
-  --background: #ede8f5;
+  --background: var(--content-background);
 }
 .cover-img,
 .profile-img {
@@ -226,15 +245,16 @@ ion-thumbnail {
 }
 
 .card {
-  --ion-card-background: #ffff;
+  /* --ion-card-background: #ffff; */
+  --ion-card-background: var(--content-background);
   /* cursor: pointer; */
   /* max-width: 90vw; */
   /* width: 100%; */
   /* position: relative; */
   border-radius: 20px;
-  padding: 10px;
+  /* padding: 10px; */
   color: black;
-  border: 2px solid #c3c6ce;
+  /* border: 2px solid #c3c6ce; */
   transition: 0.5s ease-out;
   margin-top: 20px;
 

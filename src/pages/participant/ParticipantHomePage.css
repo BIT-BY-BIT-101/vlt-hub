@@ -1,9 +1,9 @@
-:root {
+/* :root {
   --main-color: #282a2a;
   --secondary-color: #f46197;
   --shadow-color: rgba(0, 0, 0, 0.2);
   --hover-shadow-color: rgba(0, 0, 0, 0.4);
-}
+} */
 
 ion-app {
   --ion-background-color: #ffffff;
@@ -11,7 +11,7 @@ ion-app {
   --ion-item-background-color: #282a2a;
 }
 
-html,
+/* html,
 body {
   --ion-dynamic-font: var(--ion-default-dynamic-font);
   --ion-font-family: Poppins, sans-serif;
@@ -20,7 +20,7 @@ body {
   text-decoration: none;
   background-color: var(--main-color);
   height: 100%;
-}
+} */
 
 /*Nav Bar Styling*/
 

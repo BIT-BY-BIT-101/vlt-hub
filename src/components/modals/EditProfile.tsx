@@ -14,27 +14,11 @@ import {
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { auth } from "../../config/firebase";
 import useFirestore from "../../hooks/useFirestore";
 import "./EditProfile.css";
-import { updateProfile } from "firebase/auth";
 import { serverTimestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
-import { handleWindowRoute } from "../../helpers/Helpers";
 import { AuthContext } from "../../context/AuthContext";
-
-type userData = {
-  fname: string;
-  bio: string;
-  lname: string;
-  age: string;
-  gender: string;
-  bldg_no: string;
-  street: string;
-  city: string;
-  country: string;
-};
 
 type EditProps = {
   userData: any;
@@ -53,7 +37,6 @@ const EditProfile: React.FC<EditProps> = ({
   const { updateData } = useFirestore("profiles");
 
   const [editedData, setEditedData] = useState<any>();
-  const history = useHistory();
 
   useEffect(() => {
     setEditedData(userData);

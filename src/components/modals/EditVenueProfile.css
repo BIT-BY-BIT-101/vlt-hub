@@ -1,117 +1,117 @@
-:root {
-   --main-color: #282a2a;
-   --secondary-color: #f46197;
-   --shadow-color: rgba(0, 0, 0, 0.2);
-   --hover-shadow-color: rgba(0, 0, 0, 0.4);
-}
+/* :root {
+  --main-color: #282a2a;
+  --secondary-color: #f46197;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --hover-shadow-color: rgba(0, 0, 0, 0.4);
+} */
 
 ion-app {
-   --ion-background-color: #ffffff;
-   --ion-item-background: #282a2a;
-   --ion-item-background-color: #282a2a;
-   --ion-card-background: #282a2a;
+  --ion-background-color: #ffffff;
+  --ion-item-background: #282a2a;
+  --ion-item-background-color: #282a2a;
+  --ion-card-background: #282a2a;
 }
 
-html,
+/* html,
 body {
-   --ion-dynamic-font: var(--ion-default-dynamic-font);
-   --ion-font-family: Poppins, sans-serif;
-   margin: 0;
-   padding: 0;
-   text-decoration: none;
-   background-color: var(--main-color);
-   height: 100%;
-}
+  --ion-dynamic-font: var(--ion-default-dynamic-font);
+  --ion-font-family: Poppins, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  background-color: var(--main-color);
+  height: 100%;
+} */
 
 ion-modal.veditprofile-modal::part(content) {
-   --background: var(--main-color);
-   --border-radius: 20px;
-   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   --height: 68%;
-   --width: 50%;
-   --max-width: 50%;
-   --max-height: 80%;
+  --background: var(--main-color);
+  --border-radius: 20px;
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  --height: 68%;
+  --width: 50%;
+  --max-width: 50%;
+  --max-height: 80%;
 }
 
 .veditprofile-modal ion-icon {
-   font-size: 28px;
+  font-size: 28px;
 }
 
 .veditprofile-modal-content:not(.veditprofile-register-btn) {
-   --padding-start: 10px;
-   --padding-top: 20px;
+  --padding-start: 10px;
+  --padding-top: 20px;
 }
 
 .veditprofile-form-label {
-   display: grid;
-   margin-bottom: 20px;
-   font-weight: bold;
-   grid-template-columns: 1fr;
-   font-size: 16px;
+  display: grid;
+  margin-bottom: 20px;
+  font-weight: bold;
+  grid-template-columns: 1fr;
+  font-size: 16px;
 }
 
 .veditprofile-form-label :not(.veditprofile-form-title) {
-   font-size: 16px;
-   color: #747474;
+  font-size: 16px;
+  color: #747474;
 }
 
 ion-input::part(placeholder) {
-   font-size: 16px;
-   color: #747474;
+  font-size: 16px;
+  color: #747474;
 }
 
 .veditprofile-form-input {
-   width: 100%;
-   --padding-start: 10px;
-   border: 1px solid #ddd;
-   border-radius: 5px;
-   margin-top: 5px;
-   color: black;
-   --highlight-color: var(--secondary-color);
-   --webkit-appearance: none;
-   transition: border-color 0.3s ease;
+  width: 100%;
+  --padding-start: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: black;
+  --highlight-color: var(--secondary-color);
+  --webkit-appearance: none;
+  transition: border-color 0.3s ease;
 }
 
 ion-select::part(placeholder) {
-   font-size: 16px;
-   color: #1a1818;
+  font-size: 16px;
+  color: #1a1818;
 }
-
+/* 
 ion-select::part(icon) {
    color: var(--secondary-color);
-}
+} */
 
 .veditprofile-form-select {
-   width: 100%;
-   padding: 15px;
-   border: 1px solid #ddd;
-   border-radius: 5px;
-   margin-top: 5px;
-   color: black;
-   --highlight-color: var(--secondary-color);
-   --webkit-appearance: none;
-   transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: black;
+  --highlight-color: var(--secondary-color);
+  --webkit-appearance: none;
+  transition: border-color 0.3s ease;
 }
 
 .veditprofile-form-input:hover,
 .veditprofile-form-input:focus,
 .veditprofile-form-select:hover,
 .veditprofile-form-select:focus {
-   border-color: var(--highlight-color);
+  border-color: var(--highlight-color);
 }
 
 .veditprofile-form-title {
-   font-size: 18px;
-   font-weight: bold;
-   color: var(--secondary-color);
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--secondary-color);
 }
 
 .veditprofile-save-btn {
-   --background: var(--secondary-color);
-   --color: #fff;
-   font-weight: bold;
-   margin-top: 20px;
-   margin-bottom: 20px;
-   width: 100%;
-   padding: 0px 20px;
+  --background: var(--secondary-color);
+  --color: #fff;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0px 20px;
 }

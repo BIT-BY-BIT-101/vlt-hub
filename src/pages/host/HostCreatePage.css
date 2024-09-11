@@ -1,18 +1,18 @@
-:root {
+/* :root {
    --main-color: #282a2a;
    --secondary-color: #f46197;
    --shadow-color: rgba(0, 0, 0, 0.2);
    --hover-shadow-color: rgba(0, 0, 0, 0.4);
-}
+} */
 
-ion-app {
+/* ion-app {
    --ion-background-color: #ffffff;
    --ion-item-background: #282a2a;
    --ion-item-background-color: #282a2a;
    --ion-card-background: #282a2a;
-}
+} */
 
-html,
+/* html,
 body {
    --ion-dynamic-font: var(--ion-default-dynamic-font);
    --ion-font-family: Poppins, sans-serif;
@@ -133,9 +133,9 @@ ion-alert {
    --ion-color-primary: var(--secondary-color) !important;
 }
 
-ion-select::part(icon) {
+/* ion-select::part(icon) {
    color: var(--secondary-color);
-}
+} */
 
 .hhome-form-label.date-time-label {
    grid-template-columns: auto 1fr;

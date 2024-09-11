@@ -1,11 +1,11 @@
-:root {
+/* :root {
   --main-color: #282a2a;
   --secondary-color: #f46197;
   --shadow-color: rgba(0, 0, 0, 0.2);
   --hover-shadow-color: rgba(0, 0, 0, 0.4);
-}
+} */
 
-html,
+/* html,
 body {
   margin: 0;
   padding: 0;
@@ -20,7 +20,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
+} */
 
 .psignin-container {
   display: flex;

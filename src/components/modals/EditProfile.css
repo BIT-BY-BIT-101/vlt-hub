@@ -1,9 +1,9 @@
-:root {
+/* :root {
   --main-color: #282a2a;
   --secondary-color: #f46197;
   --shadow-color: rgba(0, 0, 0, 0.2);
   --hover-shadow-color: rgba(0, 0, 0, 0.4);
-}
+} */
 
 ion-app {
   --ion-background-color: #ffffff;
@@ -12,7 +12,7 @@ ion-app {
   --ion-card-background: #282a2a;
 }
 
-html,
+/* html,
 body {
   --ion-dynamic-font: var(--ion-default-dynamic-font);
   --ion-font-family: Poppins, sans-serif;
@@ -21,7 +21,7 @@ body {
   text-decoration: none;
   background-color: var(--main-color);
   height: 100%;
-}
+} */
 
 ion-modal.veditprofile-modal::part(content) {
   --background: var(--main-color);
@@ -67,7 +67,8 @@ ion-input::part(placeholder) {
   border-radius: 5px;
   margin-top: 5px;
   color: black;
-  --highlight-color: var(--secondary-color);
+  --highlight-color: var(--ion-color-primary);
+  /* --highlight-color: var(--secondary-color); */
   --webkit-appearance: none;
   transition: border-color 0.3s ease;
 }
@@ -77,9 +78,9 @@ ion-select::part(placeholder) {
   color: #1a1818;
 }
 
-ion-select::part(icon) {
-  color: var(--secondary-color);
-}
+/* ion-select::part(icon) {
+  color: var(--ion-color-primary);
+} */
 
 .veditprofile-form-select {
   width: 100%;
@@ -88,7 +89,8 @@ ion-select::part(icon) {
   border-radius: 5px;
   margin-top: 5px;
   color: black;
-  --highlight-color: var(--secondary-color);
+  /* --highlight-color: var(--secondary-color); */
+  --highlight-color: var(--ion-color-primary);
   --webkit-appearance: none;
   transition: border-color 0.3s ease;
 }
@@ -103,12 +105,12 @@ ion-select::part(icon) {
 .veditprofile-form-title {
   font-size: 18px;
   font-weight: bold;
-  color: var(--secondary-color);
+  color: var(--ion-color-primary);
 }
 
 .veditprofile-save-btn {
-  --background: var(--secondary-color);
-  --color: #fff;
+  /* --background: var(--secondary-color); */
+  /* --color: #fff; */
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 20px;
