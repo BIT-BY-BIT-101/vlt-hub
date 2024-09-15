@@ -1,10 +1,13 @@
 import {
   IonCard,
+  IonCardHeader,
+  IonCardTitle,
   IonCol,
   IonIcon,
   IonImg,
   IonItem,
   IonLabel,
+  IonSkeletonText,
   IonTab,
   IonText,
 } from "@ionic/react";
@@ -29,7 +32,8 @@ import { addCircleOutline, homeOutline, timeOutline } from "ionicons/icons";
 // };
 
 const EventsCard = () => {
-  const { data } = useQuery("events", "status", "==", "published");
+  // const { data } = useQuery("events", "status", "==", "published");
+  const { data, loading, error } = useFirestore("events");
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selected, setSelected] = useState<EventDataModel>();
@@ -42,75 +46,83 @@ const EventsCard = () => {
 
   return (
     <>
-      {data.length !== 0 ? (
-        data.map((event: EventDataModel) => (
-          <IonCol
-            size="auto"
-            size-md="6"
-            size-lg="3"
-            sizeXs="10"
-            key={event.id}
-          >
-            <IonCard
-              className="card bg-color-main"
-              // onClick={openModal}
-              // onClick={() => history.push(`/participant/event/details/${event.id}`)}
-              onClick={() => {
-                setShowModal(true);
-                setSelected(event);
-              }}
-            >
-              <IonItem className="item-color">
-                <IonImg
-                  src={event.imageUrl ? event.imageUrl : Default}
-                  alt={event.title}
-                  className="event-card-image"
-                />
-              </IonItem>
-              <IonItem className="item-color">
-                <IonLabel>
-                  <h2>{event.title}</h2>
-                  {/*<div>
-                    <p>{event.host_name}</p>
-                  </div>*/}
-                </IonLabel>
-              </IonItem>
-
-              <IonItem className="item-color-dark">
-                <IonIcon
-                  className="text-color-dark"
-                  icon={homeOutline}
-                  slot="start"
-                />
-                <IonText>{event.venue}</IonText>
-              </IonItem>
-              <IonItem className="item-color-dark">
-                <IonIcon
-                  className="text-color-dark"
-                  icon={timeOutline}
-                  slot="start"
-                />
-                <IonText>{formatDateString(event.event_date)}</IonText>
-              </IonItem>
-              <IonItem className="item-color">
-                <IonLabel>
-                  <p
-                    className={`${
-                      event.event_fee ? "phome-event-paid" : "phome-event-free"
-                    }`}
-                  >
-                    {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
-                  </p>
-                </IonLabel>
-              </IonItem>
-            </IonCard>
-          </IonCol>
-        ))
+      {loading ? (
+        <IonSkeletonText animated style={{ width: "100%", height: "100%" }} />
       ) : (
-        <IonItem className="item-bg-none">
-          There is no current Event Available
-        </IonItem>
+        <>
+          {data.length !== 0 ? (
+            data.map((event: EventDataModel) => (
+              <IonCol
+                size="auto"
+                sizeXs="12"
+                sizeMd="4"
+                sizeLg="2"
+                key={event.id}
+              >
+                <div
+                  className="card"
+                  // onClick={openModal}
+                  onClick={() =>
+                    history.push(`/participant/event/details/${event.id}`)
+                  }
+                  // onClick={() => {
+                  //   setShowModal(true);
+                  //   setSelected(event);
+                  // }}
+                >
+                  <IonImg
+                    src={event.imageUrl ? event.imageUrl : Default}
+                    alt={event.title}
+                    // className="event-card-image"
+                    className="poster-img"
+                  />
+                  <IonItem className="item-color"></IonItem>
+
+                  <IonCardHeader className="card-header">
+                    <IonCardTitle
+                      className="card-title f-weight-bold"
+                      // style={{ fontSize: getFontSizeForTitle(event.title) }}
+                    >
+                      {/* {event.title.slice(0, 100)}{" "} */}
+                      {/* Replace '20' with the desired length */}
+                      {/* {event.title.length > 100 && "..."}{" "} */}
+                      {/* Add ellipsis if title is longer */}
+                      {event.title}
+                    </IonCardTitle>
+                  </IonCardHeader>
+
+                  <IonItem className="item-color-dark">
+                    <IonIcon
+                      className="text-color-dark"
+                      icon={timeOutline}
+                      slot="start"
+                    />
+                    <IonText>{formatDateString(event.event_date)}</IonText>
+                  </IonItem>
+                  <IonItem className="item-color">
+                    <IonLabel>
+                      <p
+                        className={`${
+                          event.event_fee
+                            ? "phome-event-paid"
+                            : "phome-event-free"
+                        }`}
+                      >
+                        {event.event_fee ? `PHP ${event.event_fee}` : "Free"}
+                      </p>
+                    </IonLabel>
+                  </IonItem>
+                </div>
+              </IonCol>
+            ))
+          ) : (
+            <IonItem className="item-bg-none">
+              There is no current Event Available
+            </IonItem>
+          )}
+        </>
       )}
+
       <EventsModal
         isOpen={showModal}
         onDidDismiss={closeModal}

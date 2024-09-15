@@ -15,7 +15,7 @@ export const HostProfilePage = () => {
         <IonContent>
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <ProfileCard />
               </IonCol>

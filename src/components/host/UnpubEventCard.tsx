@@ -82,8 +82,15 @@ export const UnpubEventCard = () => {
     });
   };
 
+  // Function to dynamically calculate font size based on title length
+  const getFontSizeForTitle = (title: string) => {
+    if (title.length > 30) {
+      return "14px";
+    }
+  };
+
   return (
-    <IonGrid>
+    <IonGrid style={{ margin: "auto" }}>
       <div className="w-100 ion-margin">
         <IonButton
           // routerLink={`/host/venue-list`}
@@ -102,12 +109,27 @@ export const UnpubEventCard = () => {
           </IonLabel>
         </IonItem>
       ) : (
-        <IonRow>
+        <IonRow className="w-100 ion-wrap">
           {events.map((event: EventDataModel) => (
-            <IonCol size="12" size-sm="4" key={event.id}>
-              <IonCard className="card">
+            <IonCol
+              size="auto"
+              sizeXs="12"
+              size-sm="12"
+              size-md="4"
+              sizeLg="3"
+              sizeXl="2"
+              // className="w-100"
+              key={event.id}
+            >
+              <div className="card card-width-100">
+                <IonItem
+                  color={event.status === "rejected" ? "danger" : "primary"}
+                  className="ion-text-uppercase"
+                >
+                  <IonLabel>{event.status}</IonLabel>
+                </IonItem>
                 <IonImg
-                  className="cover-img"
+                  className="poster-img"
                   src={
                     imageLoadError
                       ? defaultImage
@@ -116,36 +138,36 @@ export const UnpubEventCard = () => {
                   onError={handleImageError}
                 />
 
-                <IonCardHeader>
-                  <IonCardTitle className="card-title f-weight-bold">
-                    {event.title.slice(0, 30)}{" "}
+                <IonCardHeader className="card-header">
+                  <IonCardTitle
+                    className="card-title f-weight-bold"
+                    // style={{ fontSize: getFontSizeForTitle(event.title) }}
+                  >
+                    {/* {event.title.slice(0, 100)}{" "} */}
                     {/* Replace '20' with the desired length */}
-                    {event.title.length > 20 && "..."}{" "}
+                    {/* {event.title.length > 100 && "..."}{" "} */}
                     {/* Add ellipsis if title is longer */}
+                    {event.title}
                   </IonCardTitle>
                 </IonCardHeader>
-                <IonCardContent>
-                  <IonItem className="item-color-dark">
-                    <strong>
-                      Venue: <p>{event.venue}</p>
-                    </strong>
-                  </IonItem>
-                  <IonItem className="item-color-dark">
-                    <strong>
-                      Date: <p>{formatDateString(event.event_date)}</p>
-                    </strong>
-                  </IonItem>
-                  <IonItem className="item-color-dark">
-                    <strong>
-                      Start Time: <p>{formatTimeString(event.start_time)}</p>
-                    </strong>
-                  </IonItem>
-                  <IonItem className="item-color-dark">
-                    <strong>
-                      End Time: <p>{formatTimeString(event.end_time)}</p>
-                    </strong>
-                  </IonItem>
-                </IonCardContent>
+
+                {/* <IonCardContent> */}
+                <IonItem className="item-bg-none">
+                  <IonLabel className="card-label">
+                    <strong className="card-title">Date: </strong>
+                    <p>{formatDateString(event.event_date)}</p>
+                  </IonLabel>
+                </IonItem>
+                <IonItem className="item-bg-none">
+                  <IonLabel className="card-label">
+                    <strong className="card-title">Time: </strong>
+                    <p>
+                      {formatTimeString(event.start_time)} -{" "}
+                      {formatTimeString(event.end_time)}
+                    </p>
+                  </IonLabel>
+                </IonItem>
+                {/* </IonCardContent> */}
                 <IonItem className="item-bg-none">
                   {event.is_confirmed ? (
                     <IonButton
@@ -177,7 +199,7 @@ export const UnpubEventCard = () => {
                     View
                   </IonButton>
                 </IonItem>
-              </IonCard>
+              </div>
             </IonCol>
           ))}
         </IonRow>

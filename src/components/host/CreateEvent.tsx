@@ -23,33 +23,19 @@ import useFirebaseStorage from "../../hooks/useFirestorage";
 import { serverTimestamp, Timestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
 import useCreateEvent from "../../hooks/useCreateEvent";
+import useHandleEvents from "../../hooks/useHandleEvents";
 
-type RouteParams = {
-  id: string;
-};
+// type RouteParams = {
+//   id: string;
+// };
 
 function CreateEvent() {
-  const { id } = useParams<RouteParams>();
-  // const {
-  //   uploadImage,
-  //   imageUrl,
-  //   error: uploadError,
-  //   imageName,
-  // } = useFirebaseStorage("events/image");
-  const { data: venueData } = useQueryDoc("venues", id);
+  // const { id } = useParams<RouteParams>();
   // const { data: venueData } = useQuery("venue", "id", "==", id);
   const { userData } = useFirebaseAuth();
   // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
-  const { addData: createRequest, error: requestError } =
-    useFirestore("requests");
-  const {
-    createEvent,
-    error: eventError,
-    imageUrl,
-    imagePath,
-  } = useCreateEvent();
-  // const { photos, takePhoto, uploading, imageUrl } =
-  //   usePhotoUpload("events/image");
+
+  const { handleCreateEvent, setIsPaid, setImgUrl } = useHandleEvents();
   const {
     register,
     handleSubmit,
@@ -75,15 +61,9 @@ function CreateEvent() {
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
   const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
-  const [isPaid, setIsPaid] = useState(false);
+  // const [isPaid, setIsPaid] = useState(false);
   // const [imagePreviewUrl, setImagePreviewUrl] = useState<File | null>(null);
-  const [imgUrl, setImgUrl] = useState<File | null>(null);
-
-  const history = useHistory();
-
-  // useEffect(() => {
-  //   console.log(eventDate);
-  // }, [eventDate]);
+  // const [imgUrl, setImgUrl] = useState<File | null>(null);
 
   const customVenueFormatOptions = {
     header: "Venue Format",
@@ -101,13 +81,13 @@ function CreateEvent() {
     translucent: true,
   };
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setEventData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  // const handleInputChange = (e: any) => {
+  //   const { name, value } = e.target;
+  //   setEventData((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -125,46 +105,6 @@ function CreateEvent() {
       setImgUrl(null);
     }
   };
-  // const handleUpload = async () => {
-  //   await uploadImage(imgUrl, Date.now()).then((res) => {
-  //     Swal.fire({
-  //       heightAuto: false,
-  //       position: "top-right",
-  //       title: "Uploading..",
-  //       timer: 2000,
-  //       timerProgressBar: true,
-  //       didOpen: () => {
-  //         Swal.showLoading();
-  //       },
-  //     }).then((result) => {
-  //       /* Read more about handling dismissals below */
-  //       // console.log(uploadError);
-
-  //       if (uploadError) {
-  //         Swal.fire({
-  //           heightAuto: false,
-  //           title: "Oops!, something went wrong while uploading image",
-  //           icon: "error",
-  //           timer: 1000,
-  //           position: "top-right",
-  //           showConfirmButton: false,
-  //         });
-  //       } else {
-  //         Swal.fire({
-  //           icon: "success",
-  //           heightAuto: false,
-  //           timer: 1000,
-  //           position: "top-right",
-  //           showConfirmButton: false,
-  //         });
-  //       }
-
-  //       if (result.dismiss === Swal.DismissReason.timer) {
-  //         console.log("I was closed by the timer");
-  //       }
-  //     });
-  //   });
-  // };
 
   const handleVenueChange = (event: CustomEvent) => {
     const selectedVenue = event.detail.value;
@@ -178,112 +118,6 @@ function CreateEvent() {
   const handleOnlineOptionChange = (event: CustomEvent) => {
     const selectedOnlineOption = event.detail.value;
     console.log("Selected Online Option:", selectedOnlineOption);
-  };
-
-  const onSubmit = async (data: any) => {
-    const hostId = auth.currentUser?.uid!;
-    const hostName = `${userData?.fname} ${userData?.lname}`;
-    const venueId = id;
-    const status = "unpublished";
-    // const venueName = venueData?.name;
-    // const venueOwnerId = venueData?.user_id;
-
-    // const convertDate = Timestamp.fromDate(eventDate);
-    // const convertDate = new Date(eventDate!);
-
-    // Combine the state and any other data needed
-    const eventDataToSubmit = {
-      // ...eventData,
-      ...data,
-      // ...register,
-      // eventDate: convertDate,
-      // venue: venueName,
-      // venue_id: venueId,
-      host_id: hostId,
-      host_name: hostName,
-      status: status,
-      isArchived: false,
-      img_url: imageUrl,
-      img_path: imagePath,
-      is_confirmed: false,
-      is_paid: isPaid,
-
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    };
-
-    Swal.fire({
-      title: "Do you want to save?",
-      showCancelButton: true,
-      confirmButtonText: "Save",
-      heightAuto: false,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire({
-          heightAuto: false,
-          position: "top-right",
-          title: "Uploading..",
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-        }).then(async (result) => {
-          /* Read more about handling dismissals below */
-          await createEvent(imgUrl, Date.now(), eventDataToSubmit).then(
-            async (res) => {
-              console.log("response: ", res);
-              console.log("Event Error", eventError);
-
-              if (eventError === null) {
-                await createRequest({
-                  event_title: data.title,
-                  event_id: res.id,
-                  event_date: data.event_date,
-                  event_description: data.description,
-                  event_start_date: data.start_time,
-                  event_end_date: data.end_time,
-                  is_paid: isPaid,
-                  host_id: hostId,
-                  host_name: hostName,
-                  status: "for verification",
-                  is_confirmed: false,
-                  createdAt: serverTimestamp(),
-                  updatedAt: serverTimestamp(),
-                });
-                Swal.fire({
-                  title: "Success!",
-                  text: "Event created successfully",
-                  icon: "success",
-                  confirmButtonText: "OK",
-                  heightAuto: false,
-                }).then(() => {
-                  history.push("/host/event-list");
-                });
-              } else {
-                Swal.fire({
-                  title: "Error!",
-                  text: "Something went wrong, please try again",
-                  icon: "error",
-                  confirmButtonText: "OK",
-                  heightAuto: false,
-                });
-              }
-            }
-          );
-        });
-      }
-    });
-
-    // const docRef = doc(db, `venues`, id);
-    // const colRef = collection(docRef, "events");
-    // await addDoc(colRef, eventDataToSubmit);
-
-    // Optionally, you can reset the form after successful submission
-    reset();
-
-    // Log success or navigate to another page
   };
 
   // console.log("Photot: ", photos);
@@ -315,10 +149,6 @@ function CreateEvent() {
     return maxDate;
   }
   console.log(MinDate());
-
-  useEffect(() => {
-    console.log(isPaid);
-  }, [isPaid]);
 
   return (
     <IonCard className="hhome-card-container">
@@ -498,6 +328,11 @@ function CreateEvent() {
           {...register("event_deligates", { required: true })}
         />
       </IonLabel>
+      {formError.event_deligates?.type === "required" && (
+        <p role="alert" className="text-color-danger">
+          Please type value in this field(minimum of twety deligates)
+        </p>
+      )}
 
       {/* <IonLabel className="hhome-form-label">
         <IonSelect
@@ -529,10 +364,13 @@ function CreateEvent() {
       <IonButton
         type="submit"
         expand="full"
-        fill="clear"
-        onClick={handleSubmit(onSubmit)}
-        className="hsubmit-btn"
-        // disabled={!imageName}
+        shape="round"
+        // fill="clear"
+        // onClick={handleSubmit(onSubmit)}
+        onClick={handleSubmit(handleCreateEvent)}
+        // className="hsubmit-btn"
+        className="ion-margin-top"
+        disabled={!imagePreviewUrl || !formError}
       >
         <span className="hsubmit-txt">Submit</span>
       </IonButton>

@@ -38,10 +38,12 @@ const HostHeader = () => {
     }
     if (currentUser?.data.role === "participant") {
       // window.location.href = "/participant/home";
-      history.push("/host/home");
+      history.push("/participant/home");
     }
 
-    history.push("/participant/home");
+    if (!currentUser) {
+      history.push("/participant/home");
+    }
   };
 
   const handleModalClose = () => {
@@ -84,14 +86,14 @@ const HostHeader = () => {
               </IonCol>
             ) : (
               <IonCol size="auto" className="header-link-host-event">
-                <Link to="/host/home" className="header-link">
-                  Host an event
+                <Link to="/host/event-list" className="header-link">
+                  Create Session
                 </Link>
               </IonCol>
             )}
             <IonCol size="auto" className="header-link-my-events">
               <Link to="/host/event" className="header-link">
-                My Events
+                My Trainings
               </Link>
             </IonCol>
             {/* <IonCol offset="1" size="auto">
@@ -102,8 +104,11 @@ const HostHeader = () => {
                 </IonCol> */}
             <IonCol size="2" className="login-button">
               {currentUser ? (
-                <IonItem className="item-color-dark">
-                  <IonThumbnail slot="start">
+                <IonItem className="item-color-dark cursor-pointer">
+                  <IonThumbnail
+                    slot="start"
+                    onClick={() => history.push("/host/profile")}
+                  >
                     <img
                       src={
                         currentUser?.data.photoURL

@@ -32,7 +32,7 @@ const HostVenueSelectionPage = () => {
         <IonContent>
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <VenueSelectionCard />
               </IonCol>

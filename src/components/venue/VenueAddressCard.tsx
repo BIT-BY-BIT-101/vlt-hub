@@ -24,7 +24,7 @@ const VenueAddressCard = () => {
 
   return (
     // <IonCol>
-    <IonCard className="card">
+    <IonCard className="card card-border">
       <IonCardHeader>
         <IonCardTitle className="text-color-dark">Venue Info</IonCardTitle>
       </IonCardHeader>

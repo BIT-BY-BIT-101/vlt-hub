@@ -64,7 +64,7 @@ const HostEventCalendar = () => {
   return (
     // <IonCard className="card">
     //   <IonCardContent>
-    <div className="card">
+    <div className="card ion-padding">
       <FullCalendar
         height="100%"
         contentHeight={"auto"}

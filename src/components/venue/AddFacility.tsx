@@ -113,7 +113,7 @@ const AddFacility = () => {
     }
   };
   return (
-    <IonCard className="card">
+    <IonCard className="card ion-padding">
       <IonLabel className="card-label">
         <span className="form-title">Name of the Venue:</span>
         <IonInput

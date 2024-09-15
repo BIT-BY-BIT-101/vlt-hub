@@ -1,4 +1,4 @@
-import { IonRouterOutlet } from "@ionic/react";
+import { IonRouterOutlet, isPlatform } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -37,6 +37,7 @@ import HostHistoryPage from "../pages/host/HostHistoryPage";
 import HostHomePage from "../pages/host/HostHomePage";
 import { HostProfilePage } from "../pages/host/HostProfilePage";
 import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
+import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
 
 const RouteService = () => {
   return (
@@ -62,7 +63,11 @@ const RouteService = () => {
         </Route>
 
         <Route exact path="/home">
-          <HomePage />
+          {isPlatform("android") ? (
+            <Redirect to="/home/events" />
+          ) : (
+            <HomePage />
+          )}
         </Route>
         <Route exact path="/home/events">
           <ParticipantHomePage />

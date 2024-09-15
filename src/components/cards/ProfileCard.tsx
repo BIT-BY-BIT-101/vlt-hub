@@ -51,7 +51,7 @@ const ProfileCard = () => {
 
   return (
     <>
-      <IonCard className="card">
+      <IonCard className="card card-border">
         <IonCardHeader>
           <IonItem className="item-bg-none">
             {/* <IonButtons slot="end">

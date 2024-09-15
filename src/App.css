@@ -19,10 +19,25 @@ body {
 
 ion-content {
   --background: var(--content-background);
+  /* max-width: 100% !important; */
+
+  margin: auto !important;
 }
-.cover-img,
+
+/* .container {
+  margin: auto !important;
+} */
+
 .profile-img {
   height: 200px;
+  object-fit: cover;
+}
+.poster-container {
+  height: 90vw;
+  overflow: hidden;
+}
+.poster-img {
+  height: 150px;
   object-fit: cover;
 }
 
@@ -64,9 +79,6 @@ ion-content {
 
 .h-full {
   height: 100vh;
-}
-.w-full {
-  width: 100vw;
 }
 
 .item-label {
@@ -153,10 +165,10 @@ ion-content {
 
 /* Width */
 .w-100 {
-  width: 100%;
+  width: 100% !important;
 }
 .w-auto {
-  width: auto;
+  width: auto !important;
 }
 
 /* Cursor */
@@ -238,17 +250,59 @@ ion-thumbnail {
   --border-radius: 14px;
 }
 
+.banner-slider .card-bg-image {
+  padding: 20px;
+  height: 60vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(0.5);
+  z-index: 1;
+}
+
+.banner-slider .card-content {
+  --background: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+}
+
+.banner-slider .card-content {
+  width: 70%;
+  height: 100%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  color: white;
+}
+
+.banner-slider ion-card-title {
+  font-size: 54px;
+}
+.banner-slider ion-card-content {
+  font-size: 24px;
+}
+
+.banner-slider .btn-join {
+  padding-top: 24px;
+  position: fixed;
+  font-size: 24px;
+}
+
 /* Cards */
 
 .card-width-100 {
-  width: 100%;
+  width: 100% !important;
 }
 
 .card {
   /* --ion-card-background: #ffff; */
   --ion-card-background: var(--content-background);
   /* cursor: pointer; */
-  /* max-width: 90vw; */
+  /* max-width: 50vw; */
   /* width: 100%; */
   /* position: relative; */
   border-radius: 20px;
@@ -265,14 +319,31 @@ ion-thumbnail {
   }
 }
 
+.card-border {
+  border: 2px solid #c3c6ce;
+}
+
+.card-header {
+  /* border: #5b2fae 1px solid; */
+  height: 80px;
+  overflow: hidden; /* Ensure content is hidden if it exceeds the height */
+}
+
 .card-title {
-  font-size: 18px;
+  /* border: #ae2f5e 1px solid; */
+  font-size: 14px;
+  width: 100% !important;
+  /* max-width: calc(calc(100% - 80px) - 10px) !important; */
+
   color: var(--ion-color-primary);
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-label {
   display: grid;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   font-weight: bold;
   grid-template-columns: 1fr;
   font-size: 16px;
@@ -290,7 +361,7 @@ ion-thumbnail {
   border-radius: 5px;
   margin-top: 5px;
   color: black;
-  --highlight-color: var(--secondary-color);
+  --highlight-color: var(--ion-color-primary);
   --webkit-appearance: none;
   transition: border-color 0.3s ease;
 }
@@ -321,12 +392,9 @@ ion-modal.modal-container::part(content) {
   font-size: calc(0.5rem + 0.5vw);
 }
 
-@media (min-width: 320px) and (max-width: 425px) {
-  ion-modal.modal-container::part(content) {
-    --border-radius: none;
-    --width: 50%;
-    --max-width: 50%;
-    --max-height: 100vh;
+@media (min-width: 2560px) {
+  ion-content {
+    max-width: 2559px;
   }
 }
 
@@ -339,6 +407,52 @@ ion-modal.modal-container::part(content) {
     display: none;
   }
 }
+
+@media (max-width: 426px) and (min-width: 320px) {
+  /* * {
+    display: none;
+  } */
+  ion-modal.modal-container::part(content) {
+    --border-radius: none;
+    --width: 50%;
+    --max-width: 50%;
+    --max-height: 100vh;
+  }
+
+  .banner-slider .card-bg-image,
+  .banner-slider .card-content {
+    padding: 0;
+    margin: 10px;
+    height: 40vh;
+    width: 90vw;
+  }
+
+  .banner-slider ion-card-content,
+  .banner-slider ion-card-title {
+    margin: 0;
+  }
+
+  .banner-slider ion-card-title {
+    font-size: 30px;
+    inline-height: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .banner-slider ion-card-content p {
+    font-size: 10px;
+    overflow: scroll;
+    /* height: 100px; */
+  }
+
+  .banner-slider .btn-join {
+    padding: 0;
+    position: fixed;
+    font-size: 14px;
+    left: 14px;
+    bottom: 14px;
+  }
+}
+
 @media (max-width: 319px) {
   * {
     display: none;

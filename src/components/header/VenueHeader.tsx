@@ -36,10 +36,11 @@ const VenueHeader = () => {
     }
     if (currentUser?.data.role === "participant") {
       // window.location.href = "/participant/home";
-      history.push("/host/home");
+      history.push("/participant/home");
     }
-
-    history.push("/participant/home");
+    if (!currentUser) {
+      history.push("/participant/home");
+    }
   };
 
   const handleModalClose = () => {
@@ -74,24 +75,25 @@ const VenueHeader = () => {
                 ></IonSearchbar>
                 <IonIcon icon={search} className="search-icon"></IonIcon>
               </IonCol> */}
-            {currentUser ? (
-              <IonCol size="auto" className="header-link-host-event">
-                <Link to="/host/signin" className="header-link">
-                  Host an event
-                </Link>
-              </IonCol>
-            ) : (
-              <IonCol size="auto" className="header-link-host-event">
-                <Link to="/host/signin" className="header-link">
-                  Host an event
-                </Link>
-              </IonCol>
-            )}
+
+            <IonCol size="auto" className="header-link-host-event">
+              <Link
+                to={`${
+                  currentUser?.data.role === "venue"
+                    ? "/venue/requests"
+                    : "/venue/signin"
+                }`}
+                className="header-link"
+              >
+                Requests
+              </Link>
+            </IonCol>
+
             <IonCol size="auto" className="header-link-my-events">
               <Link
                 to={`${
                   currentUser?.data.role === "venue"
-                    ? "/venue/events"
+                    ? "/venue/booked-events"
                     : "/venue/signup"
                 }`}
                 className="header-link"
@@ -103,7 +105,10 @@ const VenueHeader = () => {
             </IonCol>
             <IonCol size="2" className="login-button">
               {currentUser ? (
-                <IonItem className="item-color-dark">
+                <IonItem
+                  className="item-color-dark"
+                  routerLink="/venue/profile"
+                >
                   <IonThumbnail slot="start">
                     <img
                       src={

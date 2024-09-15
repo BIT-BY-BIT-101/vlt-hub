@@ -74,6 +74,7 @@ const VenueCard = () => {
                     shape="round"
                     color={"tertiary"}
                     fill="outline"
+                    routerLink="/venue/list-venue"
                     // slot="start"
                   >
                     Facilities
@@ -83,6 +84,7 @@ const VenueCard = () => {
                     shape="round"
                     color={"tertiary"}
                     fill="outline"
+                    routerLink="/venue/booked-events"
                     // slot="start"
                   >
                     Calendar of Events
@@ -92,6 +94,7 @@ const VenueCard = () => {
                     shape="round"
                     color={"tertiary"}
                     fill="outline"
+                    routerLink="/venue/requests"
                     // slot="start"
                   >
                     Requests

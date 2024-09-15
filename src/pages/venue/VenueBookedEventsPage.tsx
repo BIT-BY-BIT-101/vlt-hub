@@ -98,7 +98,7 @@ const VenueBookedEventsPage: React.FC = () => {
         <IonContent id="main">
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 {/* <IonSearchbar
             className="vsearch-bar"

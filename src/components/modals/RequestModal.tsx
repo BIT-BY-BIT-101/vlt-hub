@@ -26,6 +26,7 @@ import useFirestore from "../../hooks/useFirestore";
 import { serverTimestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router";
+import useRequestHandles from "../../hooks/useHandleRequests";
 
 type Props = {
   isOpen: boolean;
@@ -40,63 +41,12 @@ const RequestModal: React.FC<Props> = ({
   onClose,
   selected,
 }) => {
-  const { updateData, error, loading } = useFirestore("events");
-  const {
-    updateData: updateRequest,
-    error: requestError,
-    loading: requestLoading,
-  } = useFirestore("request");
+  const { handleAccept, handleReject } = useRequestHandles(
+    selected
+    // onDidDismissal
+  );
+
   const history = useHistory();
-  console.log(selected);
-
-  async function handleUpdate() {
-    console.log(selected.id);
-
-    Swal.fire({
-      icon: "question",
-      heightAuto: false,
-      title: "Are you sure?",
-      confirmButtonText: "Yes",
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          heightAuto: false,
-          position: "top-right",
-          title: "Accepting..",
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-          },
-        }).then(async (result) => {
-          await updateData(selected.event_id, {
-            updatedAt: serverTimestamp(),
-            status: "confirming",
-          }).then(() => {
-            if (error === null) {
-              Swal.fire({
-                title: "Success!",
-                text: "Event accepted successfully",
-                icon: "success",
-                confirmButtonText: "ok",
-                heightAuto: false,
-              }).then(() => {
-                // history.push("/venue/requests");
-                onDidDismissal();
-              });
-            } else {
-              Swal.fire({
-                title: "An Error Occured",
-                heightAuto: false,
-                icon: "error",
-              });
-            }
-          });
-        });
-      }
-    });
-  }
 
   return (
     <IonModal
@@ -151,7 +101,7 @@ const RequestModal: React.FC<Props> = ({
               <IonButton
                 shape="round"
                 color={"tertiary"}
-                onClick={handleUpdate}
+                onClick={handleAccept}
               >
                 Accept
               </IonButton>
@@ -162,7 +112,7 @@ const RequestModal: React.FC<Props> = ({
                 fill="outline"
                 shape="round"
                 color={"danger"}
-                onClick={handleUpdate}
+                onClick={handleAccept}
               >
                 Reject
               </IonButton>
@@ -178,7 +128,7 @@ const RequestModal: React.FC<Props> = ({
               // strong
               // shape="round"
               color={"primary"}
-              onClick={handleUpdate}
+              onClick={() => handleAccept(onDidDismissal)}
             >
               Accept
             </IonButton>
@@ -187,7 +137,7 @@ const RequestModal: React.FC<Props> = ({
               // shape="round"
               strong
               color={"danger"}
-              onClick={handleUpdate}
+              onClick={() => handleReject(onDidDismissal)}
             >
               Reject
             </IonButton>

@@ -26,9 +26,13 @@ const useFetchUnpublishedEvent = () => {
       and(
         where("host_id", "==", currentUser?.uid),
         or(
-          where("status", "==", "unpublished"),
-          where("status", "==", "confirming"),
-          where("status", "==", "paying")
+          // where("status", "==", "unpublished"),
+          // where("status", "==", "for confirmation"),
+          // where("status", "==", "rejected"),
+          // where("status", "==", "confirming"),
+          // where("status", "==", "confirmed"),
+          // where("status", "==", "paying"),
+          where("is_transaction_complete", "==", false)
         )
       )
       // where("host_id", "==", currentUser?.uid),

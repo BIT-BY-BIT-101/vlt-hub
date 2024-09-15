@@ -8,8 +8,16 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import useFirestore from "./useFirestore";
+import { er } from "@fullcalendar/core/internal-common";
 
 const useCreateEvent = () => {
+  const {
+    addData,
+    updateData,
+    loading: isLoading,
+    error: eventError,
+  } = useFirestore("events");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
 
@@ -28,6 +36,7 @@ const useCreateEvent = () => {
       const compressedFile = await imageCompression(file, options);
       return compressedFile;
     } catch (error) {
+      setError(error);
       console.error("Error compressing image:", error);
       throw error;
     }
@@ -44,29 +53,42 @@ const useCreateEvent = () => {
 
       const compressedFile = await compressImage(file);
 
-      const storageRef = ref(storage, "events/images");
-      const imageRef = ref(storageRef, `${filename}`);
+      // console.log("path: ", imagePath);
+      // const collectionRef = collection(db, "events");
+      const dataSnapshot = await addData(newData);
 
-      // const snapshot = await uploadString(imageRef, file, "data_url");
-      // const snapshot = await uploadBytes(imageRef, file);
-      const snapshot = await uploadBytes(imageRef, compressedFile);
-      console.log("Uploaded a blob or file! ", snapshot);
-      // Upload completed successfully, get download URL
-      const downloadUrl = await getDownloadURL(snapshot.ref);
-      const imagePath = snapshot.metadata.fullPath;
-      console.log("path: ", imagePath);
-      const collectionRef = collection(db, "events");
-      const dataSnapshot = await addDoc(collectionRef, {
-        ...newData,
-        imagePath: imagePath,
-        imageUrl: downloadUrl,
-      });
+      console.log(dataSnapshot);
+
+      if (dataSnapshot) {
+        const storageRef = ref(storage, `events/${dataSnapshot}/images`);
+        const imageRef = ref(storageRef, `${filename}`);
+
+        const snapshot = await uploadBytes(imageRef, compressedFile);
+        console.log("Uploaded a blob or file! ", snapshot);
+        // Upload completed successfully, get download URL
+        const downloadUrl = await getDownloadURL(snapshot.ref);
+        const imagePath = snapshot.metadata.fullPath;
+
+        await updateData(dataSnapshot, {
+          imagePath: imagePath,
+          imageUrl: downloadUrl,
+        });
+      }
+
+      // const res = await addDoc(collectionRef, {
+      //   ...newData,
+      //   imagePath: imagePath,
+      //   imageUrl: downloadUrl,
+      // });
+
+      console.log("Data added successfully!", dataSnapshot);
 
       return dataSnapshot;
     } catch (err) {
-      console.log("Error: ", err);
+      console.error("Error Creating Event: ", err);
       deleteImage();
       setError(err);
+      throw err;
     } finally {
       setIsUploading(false);
       setLoading(false);

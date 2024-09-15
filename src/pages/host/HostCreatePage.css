@@ -21,7 +21,7 @@ body {
    text-decoration: none;
    background-color: var(--main-color);
    height: 100%;
-}
+} */
 
 .hhome-form-container {
    display: flex;
@@ -45,7 +45,7 @@ body {
    margin: auto;
 
    &:hover {
-      border-color: var(--secondary-color);
+      border-color: var(--ion-color-primary);
       box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
    }
 }
@@ -96,7 +96,7 @@ ion-select::part(placeholder) {
    border-radius: 5px;
    margin-top: 5px;
    color: black;
-   --highlight-color: var(--secondary-color);
+   --highlight-color: var(--ion-color-primary);
    --webkit-appearance: none;
    transition: border-color 0.3s ease;
 }
@@ -106,7 +106,7 @@ ion-select::part(placeholder) {
    padding: 15px;
    border-radius: 5px;
    color: #747474;
-   --highlight-color: var(--secondary-color);
+   --highlight-color: var(--ion-color-primary);
    --webkit-appearance: none;
    transition: border-color 0.3s ease;
 }
@@ -133,9 +133,9 @@ ion-alert {
    --ion-color-primary: var(--secondary-color) !important;
 }
 
-/* ion-select::part(icon) {
+ion-select::part(icon) {
    color: var(--secondary-color);
-} */
+}
 
 .hhome-form-label.date-time-label {
    grid-template-columns: auto 1fr;

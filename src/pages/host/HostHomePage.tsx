@@ -42,13 +42,12 @@ const HostHomePage: React.FC = () => {
         <IonContent>
           <IonGrid>
             <IonRow>
-              <SidePanel />
-            <EventsCard />
+              {/* <SidePanel /> */}
+              <EventsCard />
             </IonRow>
           </IonGrid>
         </IonContent>
       </IonPage>
-
     </>
   );
 };

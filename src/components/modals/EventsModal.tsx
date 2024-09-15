@@ -46,7 +46,7 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
 
   function handleSignin() {
     // return (window.location.href = "/participant/signin");
-    return history.push("/participant/signin")
+    return history.push("/participant/signin");
   }
 
   const userId = auth.currentUser?.uid!;
@@ -90,7 +90,9 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
         payment_method_types: ["gcash", "card", "paymaya", "grab_pay"],
         reference_number: "n45a4s",
         // success_url: `http://localhost:8080/participant/payments/${selected?.id}/success`,
-        success_url: `${import.meta.env.VITE_BASE_URL}/participant/payments/${selected?.id}/success`,
+        success_url: `${import.meta.env.VITE_BASE_URL}/participant/payments/${
+          selected?.id
+        }/success`,
       },
     },
   };
@@ -140,11 +142,8 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
 
       <IonContent className="phome-modal-content">
         <div className="phome-modal-event-info">
-          <p className="phome-event-free">Free</p>
-          <h2 className="phome-modal-title">
-            {/* Mastering the Fundamentals: An Introduction to Visual C# Programming */}
-            {selected?.title || ""}
-          </h2>
+          {/* <p className="phome-event-paid">Free</p> */}
+          <h2 className="phome-modal-title">{selected?.title || ""}</h2>
         </div>
         <div className="phome-modal-host-container">
           <IonImg

@@ -18,7 +18,7 @@ const VenueAddFacilityPage = () => {
         <IonContent>
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <AddFacility />
               </IonCol>

@@ -31,7 +31,7 @@ const HostCreatePage = () => {
         <IonContent>
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <CreateEvent />
               </IonCol>

@@ -37,10 +37,12 @@ const ParticipantHeader = () => {
     }
     if (currentUser?.data.role === "participant") {
       // window.location.href = "/participant/home";
-      history.push("/host/home");
+      history.push("/participant/home");
     }
 
-    history.push("/participant/home");
+    if (!currentUser) {
+      history.push("/participant/home");
+    }
   };
 
   const handleModalClose = () => {

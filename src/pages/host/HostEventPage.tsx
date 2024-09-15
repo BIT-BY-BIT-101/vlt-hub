@@ -40,7 +40,7 @@ const HostEventPage: React.FC = () => {
         <IonContent>
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <HostEventCalendar />
               </IonCol>

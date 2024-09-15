@@ -26,7 +26,7 @@ const useFetchRequests = () => {
       and(
         // where("host_id", "==", currentUser?.uid),
         or(
-          where("status", "==", "unpublished"),
+          // where("status", "==", "unpublished"),
           where("status", "==", "for verification"),
           where("status", "==", "confirming"),
           where("status", "==", "paying")
@@ -45,9 +45,9 @@ const useFetchRequests = () => {
       console.log("Data Refreshed");
       console.log(data);
 
-      if (data?.length !== 0) {
-        const docref = doc(db, "profiles", data[0].host_id);
-      }
+      // if (data?.length !== 0) {
+      //   const docref = doc(db, "profiles", data.host_id);
+      // }
     });
     console.log(data);
 

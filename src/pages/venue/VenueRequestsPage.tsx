@@ -47,7 +47,7 @@ const VenueRequestsPage: React.FC = () => {
         <IonContent id="main">
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <RequestItems />
               </IonCol>

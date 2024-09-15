@@ -8,15 +8,15 @@ import {
 } from "@ionic/react";
 import React from "react";
 import "./ParticipantEventPage.css";
-import EventsDetailCard from "../../components/participant/EventsDetailCard";
+import EventsDetailCard from "../../components/participant/EventDetail";
 import { useHistory } from "react-router";
-import Menus from '../../components/menus/Menus';
+import Menus from "../../components/menus/Menus";
 
 const ParticipantEventDetailPage: React.FC = () => {
   const history = useHistory();
   return (
     <>
-    <Menus/>
+      <Menus />
       {/* <ParticipantNavMenu /> */}
       <IonPage id="main">
         <IonHeader>

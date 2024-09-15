@@ -1,4 +1,12 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
+import {
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonPage,
+  IonRow,
+  IonTitle,
+} from "@ionic/react";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import EventsCard from "../../components/participant/EventsCard";
@@ -7,6 +15,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
+import EventSlides from "../../components/participant/EventSlides";
 
 const ParticipantHomePage = () => {
   const { currentUser } = useContext(AuthContext);
@@ -32,13 +41,20 @@ const ParticipantHomePage = () => {
           </IonToolbar>
         </IonHeader> */}
 
-        <IonContent>
+        <IonContent className="container">
           <IonGrid>
             <IonRow>
-              {/* <ParticipantSidePane /> */}
-              <SidePanel />
+              {/* <SidePanel /> */}
 
-              <IonCol size="10">
+              <IonCol size="12">
+                <IonRow>
+                  <EventSlides />
+                </IonRow>
+                <IonRow>
+                  <IonTitle color={"dark"}>
+                    <h1>Upcomming Events</h1>
+                  </IonTitle>
+                </IonRow>
                 <IonRow>
                   <EventsCard />
                 </IonRow>

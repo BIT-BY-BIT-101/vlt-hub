@@ -29,7 +29,7 @@ const VenueListPage = () => {
         <IonContent>
           <IonGrid>
             <IonRow className="ion-justify-content-center">
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <IonItem className="item-bg-none">
                   <IonButton routerLink="/venue/add-room" slot="end">

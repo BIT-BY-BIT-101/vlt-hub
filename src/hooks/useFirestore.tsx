@@ -36,7 +36,11 @@ const useFirestore = (collectionPath: string) => {
   const addData = async (newData: any) => {
     try {
       const collectionRef = collection(db, collectionPath);
-      const snapshot = await addDoc(collectionRef, newData);
+      const snapshot = await addDoc(collectionRef, {
+        ...newData,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
       console.log("Data added successfully!", snapshot.id);
       const newDocId = snapshot.id;
       return newDocId;
@@ -45,6 +49,7 @@ const useFirestore = (collectionPath: string) => {
       setError(err);
       setLoading(false);
       console.error("Error adding event:", err);
+      throw err;
     }
   };
 
@@ -63,6 +68,7 @@ const useFirestore = (collectionPath: string) => {
     } catch (err) {
       console.error("Error fetching data:", err);
       setError(err);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -71,11 +77,16 @@ const useFirestore = (collectionPath: string) => {
   const updateData = async (id: string, data: any) => {
     try {
       const docRef = doc(db, collectionPath, id);
-      await updateDoc(docRef, { ...data, updatedAt: serverTimestamp() });
+      await updateDoc(docRef, {
+        ...data,
+        updatedAt: serverTimestamp(),
+      }).then((result) => {
+        console.log("Data updated successfully! ", result);
+      });
     } catch (err) {
-      console.log("Error updating data:", err);
+      console.error("Error updating data:", err);
+      throw err;
     }
-    // getData();
   };
 
   useEffect(() => {

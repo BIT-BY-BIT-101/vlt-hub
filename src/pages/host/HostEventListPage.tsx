@@ -24,7 +24,7 @@ const HostEventListPage = () => {
           </div> */}
           <IonGrid>
             <IonRow>
-              <SidePanel />
+              {/* <SidePanel /> */}
               <UnpubEventCard />
             </IonRow>
           </IonGrid>

@@ -1,3 +1,5 @@
+import "./App.css";
+import "./Swiper.css";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -18,7 +20,6 @@ import "@ionic/react/css/text-transformation.css";
 import { IonApp, setupIonicReact } from "@ionic/react";
 import RouteService from "./router/RouteService";
 import "./theme/variables.css";
-import "./App.css";
 
 setupIonicReact();
 

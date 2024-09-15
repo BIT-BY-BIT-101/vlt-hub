@@ -35,27 +35,25 @@ const EventsCalendarCard = () => {
   }
 
   return (
-    // <IonCard className="card">
-    //   <IonCardContent>
-    <div className="card">
-      <FullCalendar
-        height="100%"
-        contentHeight={"auto"}
-        plugins={[dayGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        dateClick={handleEventClick}
-        // eventClick={handleEventClick}
-        // events={events.map((event) => ({
-        //   id: event?.id,
-        //   title: event?.title,
-        //   date: formatDateOnly(event?.event_date),
-        // }))}
+    <IonCard className="card">
+      <IonCardContent>
+        <FullCalendar
+          height="100%"
+          contentHeight={"auto"}
+          plugins={[dayGridPlugin, interactionPlugin]}
+          initialView="dayGridMonth"
+          dateClick={handleEventClick}
+          // eventClick={handleEventClick}
+          // events={events.map((event) => ({
+          //   id: event?.id,
+          //   title: event?.title,
+          //   date: formatDateOnly(event?.event_date),
+          // }))}
 
-        events={events}
-      />
-    </div>
-    //   </IonCardContent>
-    // </IonCard>
+          events={events}
+        />
+      </IonCardContent>
+    </IonCard>
   );
 };
 
