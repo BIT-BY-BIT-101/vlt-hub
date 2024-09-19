@@ -35,7 +35,10 @@ const MenuHeader = () => {
   }
   return (
     <IonHeader>
-      <IonToolbar class="phome-menu-header">
+      <IonToolbar
+        color={"primary"}
+        // class="phome-menu-header"
+      >
         <IonGrid>
           <IonRow>
             <IonCol>
@@ -59,9 +62,15 @@ const MenuHeader = () => {
                   {currentUser?.data.fname} {currentUser?.data.lname}
                 </IonLabel>
                 <IonButtons>
-                  <IonButton className="phome-editprofile" onClick={handleLink}>
-                    <IonIcon icon={pencil} />
-                    My Profile
+                  <IonButton
+                    fill="outline"
+                    shape="round"
+                    size="small"
+                    // className="phome-editprofile"
+                    onClick={handleLink}
+                  >
+                    <IonIcon slot="icon-only" icon={pencil} />
+                    <span>My Profile</span>
                   </IonButton>
                 </IonButtons>
               </div>

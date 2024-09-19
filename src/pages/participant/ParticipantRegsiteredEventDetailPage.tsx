@@ -17,7 +17,7 @@ const ParticipantRegsiteredEventDetailPage = () => {
           <IonGrid>
             <IonRow>
               {/* <ParticipantSidePane /> */}
-              <SidePanel />
+              {/* <SidePanel /> */}
               <IonCol>
                 <RegisteredEventDetails />
               </IonCol>

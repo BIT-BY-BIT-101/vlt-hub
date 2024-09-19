@@ -46,20 +46,19 @@ const EventDetail = () => {
 
   if (event) {
     return (
-      <IonCard className="card">
+      <div className="event-page">
         <IonCardTitle>
-          <IonItem className="item-bg-none">
-            <p>
-              <IonLabel className="">
-                <h1>{event.title}</h1>
-              </IonLabel>
-              <IonLabel>
-                <p>
-                  <span className="text-color-rgb">Hosted by: </span>
-                  {hostInfo?.fname} {hostInfo?.lname}
-                </p>
-              </IonLabel>
-            </p>
+          <IonItem color={"none"} className="ion-text-center" lines="none">
+            <IonLabel className="ion-text-center">
+              <h1
+                style={{
+                  fontWeight: "bold",
+                  color: "var(--ion-color-primary)",
+                }}
+              >
+                {event.title}
+              </h1>
+            </IonLabel>
           </IonItem>
         </IonCardTitle>
         <div
@@ -69,37 +68,81 @@ const EventDetail = () => {
             alignItems: "center",
           }}
         >
-          <IonImg src={event?.imageUrl} style={{ width: "50vw" }} />
+          <IonImg
+            src={event?.imageUrl}
+            style={{ objectFit: "cover", height: "400px", width: "100%" }}
+          />
         </div>
+        <IonItem color={"none"} className="ion-text-center" lines="none">
+          <IonLabel>
+            <span
+              style={{
+                fontWeight: "bold",
+                width: "100%",
+                color: "var(--ion-color-primary)",
+              }}
+            >
+              by: {hostInfo?.fname} {hostInfo?.lname}{" "}
+            </span>
+          </IonLabel>
+        </IonItem>
 
-        <IonItem className="item-bg-none">
+        <IonItem color={"none"} lines="none">
           <IonLabel slot="start">
-            <p>
-              <span className="text-color-rgb">Date: </span>
+            <span
+              style={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                color: "var(--ion-color-primary)",
+              }}
+            >
+              Date:{" "}
+            </span>
+            <p style={{ color: "black" }}>
               {formatDateString(event?.event_date)}
             </p>
           </IonLabel>
         </IonItem>
-        <IonItem className="item-bg-none">
+        <IonItem className="item-bg-none" lines="none">
           <IonLabel>
-            <p>
-              <span className="text-color-rgb">Time: </span>
+            <span
+              style={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                color: "var(--ion-color-primary)",
+              }}
+            >
+              Time:{" "}
+            </span>
+            <p style={{ color: "black" }}>
               {formatTimeString(event?.start_time)} -{" "}
               {formatTimeString(event?.end_time)}
             </p>
           </IonLabel>
         </IonItem>
-        <IonItem className="item-bg-none">
+        <IonItem className="item-bg-none" lines="none">
           <IonLabel>
-            <p>
-              <span className="text-color-rgb">Description:</span>
-            </p>
+            <span
+              style={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                color: "var(--ion-color-primary)",
+              }}
+            >
+              Description:
+            </span>
           </IonLabel>
         </IonItem>
         <IonCardContent>
-          <IonItem className="item-bg-none">{event?.description}</IonItem>
+          {/* <IonItem className="item-bg-none">{event?.description}</IonItem> */}
+          <p
+            style={{ color: "black" }}
+            dangerouslySetInnerHTML={{
+              __html: event?.description.replace(/\n/g, "<br />"),
+            }}
+          />
         </IonCardContent>
-      </IonCard>
+      </div>
     );
   } else {
     return <IonItem className="item-bg-none">Event not found</IonItem>;

@@ -1,24 +1,25 @@
 import {
-  IonCol,
+  IonPage,
   IonContent,
   IonGrid,
-  IonHeader,
-  IonPage,
   IonRow,
+  IonCol,
   IonTitle,
 } from "@ionic/react";
-import { useContext } from "react";
-import { useHistory } from "react-router-dom";
-import EventsCard from "../../components/participant/EventsCard";
-import "./ParticipantHomePage.css";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useContext } from "react";
+import { useHistory, useLocation } from "react-router";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
-import SidePanel from "../../components/SidePanel";
+import EventsCard from "../../components/participant/EventsCard";
 import EventSlides from "../../components/participant/EventSlides";
+import { AuthContext } from "../../context/AuthContext";
+import EventSearchResult from "../../components/participant/EventSearchResult";
 
-const ParticipantHomePage = () => {
+function ParticipantEventSearch() {
   const { currentUser } = useContext(AuthContext);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.get("query");
   const history = useHistory();
 
   if (currentUser?.data.role === "host" || currentUser?.data.role === "venue") {
@@ -47,16 +48,16 @@ const ParticipantHomePage = () => {
               {/* <SidePanel /> */}
 
               <IonCol size="12">
-                <IonRow>
+                {/* <IonRow>
                   <EventSlides />
-                </IonRow>
+                </IonRow> */}
                 <IonRow>
                   <IonTitle color={"dark"}>
-                    <h1>Upcomming Events</h1>
+                    <h1>Result for "{query}"</h1>
                   </IonTitle>
                 </IonRow>
                 <IonRow style={{ marginLeft: "40px", marginRight: "40px" }}>
-                  <EventsCard />
+                  <EventSearchResult />
                 </IonRow>
               </IonCol>
             </IonRow>
@@ -65,6 +66,6 @@ const ParticipantHomePage = () => {
       </IonPage>
     </>
   );
-};
+}
 
-export default ParticipantHomePage;
+export default ParticipantEventSearch;

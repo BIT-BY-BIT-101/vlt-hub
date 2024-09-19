@@ -13,6 +13,7 @@ import {
   IonThumbnail,
   IonButtons,
   IonButton,
+  IonList,
 } from "@ionic/react";
 import { search, power } from "ionicons/icons";
 import React, { useContext, useState } from "react";
@@ -49,7 +50,15 @@ const ParticipantHeader = () => {
     setShowLogoutModal(false);
   };
   const handleSearchChange = (event: CustomEvent) => {
-    setSearchText(event.detail.value);
+    const searchQuery = event.detail.value;
+    setSearchText(searchQuery);
+
+    // Update the URL with the search query parameter
+    if (searchQuery) {
+      history.push(
+        `/participant/search?query=${encodeURIComponent(searchQuery)}`
+      );
+    }
   };
   return (
     <IonHeader>
@@ -103,28 +112,42 @@ const ParticipantHeader = () => {
                 </IonCol> */}
             <IonCol size="2" className="login-button">
               {currentUser ? (
-                <IonItem className="item-color-dark">
-                  <IonThumbnail slot="start">
-                    <img
-                      src={
-                        currentUser?.data.photoURL
-                          ? currentUser?.data.photoURL
-                          : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
-                      }
-                    />
-                  </IonThumbnail>
-                  <span className="hide-element">
-                    Hello,{" "}
-                    <span className="text-color-rgb">
-                      {currentUser?.data.fname}
+                <IonList className="item-bg-none">
+                  <IonItem
+                    lines="none"
+                    color={"none"}
+                    // className="item-color-dark"
+                    // routerLink="/participant/profile"
+                  >
+                    <IonThumbnail
+                      slot="start"
+                      onClick={() => history.push("/participant/profile")}
+                    >
+                      <img
+                        src={
+                          currentUser?.data.photoURL
+                            ? currentUser?.data.photoURL
+                            : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                        }
+                      />
+                    </IonThumbnail>
+                    <span className="hide-element">
+                      Hello,{" "}
+                      <span className="text-color-rgb">
+                        {currentUser?.data.fname}
+                      </span>
                     </span>
-                  </span>
-                  <IonButtons slot="end" className="hide-element">
-                    <IonButton onClick={() => setShowLogoutModal(true)}>
-                      <IonIcon icon={power} slot="end"></IonIcon>
+                    {/* <IonButtons slot="end" className="hide-element"> */}
+                    <IonButton
+                      fill="clear"
+                      slot="end"
+                      onClick={() => setShowLogoutModal(true)}
+                    >
+                      <IonIcon icon={power} slot="icon-only"></IonIcon>
                     </IonButton>
-                  </IonButtons>
-                </IonItem>
+                    {/* </IonButtons> */}
+                  </IonItem>
+                </IonList>
               ) : (
                 <IonButton className="nav-login-signup-button" href="">
                   Login/Signup

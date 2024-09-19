@@ -1,12 +1,13 @@
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
+import { EventDataModel, UserDataModel } from "../models/Model";
 
 const useGetEvent = (path: string) => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<EventDataModel | null>(null);
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [hostInfo, setHostInfo] = useState();
+  const [hostInfo, setHostInfo] = useState<UserDataModel | null>(null);
   const [venueinfo, setVenueInfo] = useState();
   const [facilityInfo, setFacilityInfo] = useState();
 

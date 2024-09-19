@@ -42,6 +42,10 @@ export const isEventDue = (eventDate: Date): boolean => {
   return eventDate < currentDate;
 };
 
+export function getCurrentDateInISO() {
+  return new Date().toISOString();
+}
+
 export function getMaximumDate() {
   // Calculate the date 18 years ago from today
   const today = new Date();

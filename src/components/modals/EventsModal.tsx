@@ -101,10 +101,6 @@ const EventsModal = ({ isOpen, onDidDismiss, selected }: EventModalProps) => {
     await paymongo
       .post(`/checkout_sessions`, payload)
       .then((res) => {
-        // const checkoutId = res;
-        // console.log(res.data);
-        // console.log(res.data.data.id);
-
         const paymentDetails = {
           amount: selected?.event_fee!,
           currency: "PHP",

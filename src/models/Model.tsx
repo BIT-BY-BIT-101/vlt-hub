@@ -19,14 +19,10 @@ export type EventDataModel = {
 
 export type UserDataModel = {
   id?: string;
-  user_imgUrl: string;
-  user_fname: string;
-  user_lname: string;
-  user_email: string;
-};
-
-export type UserEventDataModel = {
-  id?: string;
+  photoURL: string;
+  fname: string;
+  lname: string;
+  email: string;
 };
 
 export type VenueDataModel = {

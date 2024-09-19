@@ -1,48 +1,34 @@
+import React from "react";
+import { useLocation } from "react-router-dom";
+import useSearchEventQuery from "../../hooks/useSearchEventQuery";
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
+  IonSkeletonText,
   IonCol,
-  IonIcon,
   IonImg,
   IonItem,
-  IonLabel,
-  IonSkeletonText,
-  IonTab,
+  IonCardHeader,
+  IonCardTitle,
+  IonIcon,
   IonText,
+  IonLabel,
 } from "@ionic/react";
-import { useState } from "react";
-import { useHistory } from "react-router";
-import Default from "../../assets/defaultCover.jpg";
-import HostImg from "../../assets/host.jpg";
-import {
-  formatDateString,
-  // formatFibaseTimestamp,
-  formatTimeString,
-} from "../../helpers/DateTimeFunctions";
-import useFirestore from "../../hooks/useFirestore";
-import useQuery from "../../hooks/useQuery";
+import { timeOutline } from "ionicons/icons";
+import { formatDateString } from "../../helpers/DateTimeFunctions";
 import { EventDataModel } from "../../models/Model";
-import EventsModal from "../modals/EventsModal";
-import "./EventsCard.css";
-import { addCircleOutline, homeOutline, timeOutline } from "ionicons/icons";
 
-// type UserEventModalProps = {
-//   onOpen: () => void;
-// };
+const EventSearchResult = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const query = searchParams.get("query");
+  const { data: events, error, loading } = useSearchEventQuery();
+  console.log(query);
+  console.log(events);
 
-const EventsCard = () => {
-  // const { data } = useQuery("events", "status", "==", "published");
-  const { data, loading, error } = useFirestore("events");
-  const [showEventDetails, setShowEventDetails] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [selected, setSelected] = useState<EventDataModel>();
-  const history = useHistory();
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
-
-  console.log(data);
+  const filteredEvents = query
+    ? events?.filter((event) =>
+        event.title.toLowerCase().includes(query.toLowerCase())
+      )
+    : events;
 
   return (
     <>
@@ -50,8 +36,8 @@ const EventsCard = () => {
         <IonSkeletonText animated style={{ width: "100%", height: "100%" }} />
       ) : (
         <>
-          {data.length !== 0 ? (
-            data.map((event: EventDataModel) => (
+          {events?.length !== 0 ? (
+            filteredEvents.map((event: EventDataModel) => (
               <IonCol
                 size="auto"
                 sizeXs="12"
@@ -123,14 +109,8 @@ const EventsCard = () => {
           )}
         </>
       )}
-
-      <EventsModal
-        isOpen={showModal}
-        onDidDismiss={closeModal}
-        selected={selected}
-      />
     </>
   );
 };
 
-export default EventsCard;
+export default EventSearchResult;

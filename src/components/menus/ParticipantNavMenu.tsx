@@ -58,11 +58,11 @@ function ParticipantNavMenu() {
       path: "/participant/events",
       icon: calendar,
     },
-    {
-      title: "History",
-      path: "/participant/history",
-      icon: time,
-    },
+    // {
+    //   title: "History",
+    //   path: "/participant/history",
+    //   icon: time,
+    // },
   ];
 
   return (

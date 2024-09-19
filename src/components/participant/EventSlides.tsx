@@ -92,7 +92,7 @@ const EventSlides = () => {
         <IonCard className="card-content">
           <IonCardHeader>
             <IonCardTitle>
-              <strong>Want to join our community?</strong>
+              <strong>Want to join and share your knowledge?</strong>
             </IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
@@ -113,7 +113,41 @@ const EventSlides = () => {
           </IonItem>
         </IonCard>
       </SwiperSlide>
-      {data.map((event: EventDataModel) => (
+      <SwiperSlide>
+        <IonCard
+          className="card-bg-image"
+          style={{
+            backgroundImage: `url(${JoinUs})`,
+          }}
+        ></IonCard>
+        <IonCard className="card-content">
+          <IonCardHeader>
+            <IonCardTitle>
+              <strong>
+                Download the app and join the community of learners
+              </strong>
+            </IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <p></p>
+          </IonCardContent>
+          <IonItem className="item-bg-none">
+            <IonButton
+              className="btn-join"
+              size="large"
+              // routerLink="/download/app"
+              onClick={() =>
+                window.open(
+                  "https://play.google.com/store/apps/details?id=com.phome"
+                )
+              }
+            >
+              Download Now
+            </IonButton>
+          </IonItem>
+        </IonCard>
+      </SwiperSlide>
+      {/* {data.map((event: EventDataModel) => (
         <div>
           <SwiperSlide key={event.id}>
             <IonCard
@@ -141,7 +175,7 @@ const EventSlides = () => {
             </IonCard>
           </SwiperSlide>
         </div>
-      ))}
+      ))} */}
     </Swiper>
   );
 };

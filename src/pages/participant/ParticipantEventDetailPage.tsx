@@ -1,9 +1,12 @@
 import {
   IonButton,
   IonButtons,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
   IonPage,
+  IonRow,
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
@@ -11,30 +14,29 @@ import "./ParticipantEventPage.css";
 import EventsDetailCard from "../../components/participant/EventDetail";
 import { useHistory } from "react-router";
 import Menus from "../../components/menus/Menus";
+import Header from "../../components/header/Header";
+import RegisteredEventDetails from "../../components/participant/RegisteredEventDetails";
+import EventDetail from "../../components/participant/EventDetail";
 
 const ParticipantEventDetailPage: React.FC = () => {
   const history = useHistory();
   return (
     <>
-      <Menus />
       {/* <ParticipantNavMenu /> */}
+      <Menus />
       <IonPage id="main">
-        <IonHeader>
-          <IonToolbar>
-            <div className="back-button">
-              <IonButton
-                color={"dark"}
-                fill="clear"
-                slot="start"
-                onClick={history.goBack}
-              >
-                Back
-              </IonButton>
-            </div>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
+
         <IonContent>
-          <EventsDetailCard />
+          <IonGrid>
+            <IonRow>
+              {/* <ParticipantSidePane /> */}
+              {/* <SidePanel /> */}
+              <IonCol>
+                <EventDetail />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </IonContent>
       </IonPage>
     </>

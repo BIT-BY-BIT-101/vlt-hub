@@ -38,6 +38,7 @@ import HostHomePage from "../pages/host/HostHomePage";
 import { HostProfilePage } from "../pages/host/HostProfilePage";
 import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
 import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
+import ParticipantEventSearch from "../pages/participant/ParticipantEventSearch";
 
 const RouteService = () => {
   return (
@@ -112,6 +113,9 @@ const RouteService = () => {
         <Route exact path="/participant">
           <Redirect to="/participant/home" />
         </Route>
+        <Route exact path="/participant/search">
+          <ParticipantEventSearch />
+        </Route>
 
         <Route exact path={"/participant/home"}>
           <ParticipantHomePage />
@@ -132,8 +136,8 @@ const RouteService = () => {
         <ProtectedRoute
           path="/participant/event/details/:id"
           allowedRoles={"participant"}
-          // component={ParticipantEventDetailPage}
-          component={ParticipantRegsiteredEventDetailPage}
+          component={ParticipantEventDetailPage}
+          // component={ParticipantRegsiteredEventDetailPage}
           redirected="/participant/signin"
         />
         <ProtectedRoute

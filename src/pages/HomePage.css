@@ -234,12 +234,12 @@ a {
 
 .navsearch-bar {
   --background: #ffffff;
-  --color: var(--secondary-color);
+  --color: var(--ion-color-primary);
   --border-radius: 20px;
-  --placeholder-color: var(--secondary-color);
+  --placeholder-color: var(--ion-color-primary);
   --placeholder-font-weight: bold;
   --border-width: 2px;
-  --border-color: var(--secondary-color);
+  --border-color: var(ion-color-primary);
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-left: 15px;
   /* Adjust margin to separate title and search bar */
@@ -251,24 +251,6 @@ a {
 .navsearch-bar:focus-within {
   --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --border-color: var(--hover-shadow-color);
-}
-
-.header-links {
-  display: flex;
-  gap: 20px;
-}
-
-.header-link {
-  background-color: none;
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--main-color);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.header-link:hover {
-  color: var(--secondary-color);
 }
 
 .nav-login-signup-button {
