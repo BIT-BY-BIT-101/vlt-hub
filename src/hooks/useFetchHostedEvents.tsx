@@ -6,7 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const useFetchHostedEvents = () => {
   const { currentUser } = useContext(AuthContext);
-  const [data, setData] = useState<EventDataModel>([]);
+  const [data, setData] = useState<EventDataModel>();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
 

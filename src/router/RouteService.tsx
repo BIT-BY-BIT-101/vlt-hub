@@ -39,6 +39,7 @@ import { HostProfilePage } from "../pages/host/HostProfilePage";
 import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
 import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
 import ParticipantEventSearch from "../pages/participant/ParticipantEventSearch";
+import HostEventDetailPage from "../pages/host/HostEventDetailPage";
 
 const RouteService = () => {
   return (
@@ -136,7 +137,7 @@ const RouteService = () => {
         <ProtectedRoute
           path="/participant/event/details/:id"
           allowedRoles={"participant"}
-          component={ParticipantEventDetailPage}
+          component={HostEventDetailPage}
           // component={ParticipantRegsiteredEventDetailPage}
           redirected="/participant/signin"
         />
@@ -176,12 +177,7 @@ const RouteService = () => {
           component={HostCreatePage}
           redirected="/host/signin"
         />
-        <ProtectedRoute
-          path="/host/:id/edit"
-          allowedRoles={"host"}
-          component={HostCreatePage}
-          redirected="/host/signin"
-        />
+
         <ProtectedRoute
           path="/host/event"
           allowedRoles={"host"}
@@ -192,6 +188,19 @@ const RouteService = () => {
           path="/host/history"
           allowedRoles={"host"}
           component={HostHistoryPage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/event/details/:id"
+          allowedRoles={"host"}
+          component={HostEventDetailPage}
+          // component={ParticipantRegsiteredEventDetailPage}
+          redirected="/host/signin"
+        />
+        <ProtectedRoute
+          path="/host/event/:id/edit"
+          allowedRoles={"host"}
+          component={HostCreatePage}
           redirected="/host/signin"
         />
 

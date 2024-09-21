@@ -13,8 +13,10 @@ import { db } from "../config/firebase";
 import { AuthContext } from "../context/AuthContext";
 import { EventDataModel } from "../models/Model";
 import { getMaximumDate } from "../helpers/DateTimeFunctions";
+import { FirebaseError } from "firebase/app";
+import { search } from "ionicons/icons";
 
-const useSearchEventQuery = () => {
+const useSearchEventQuery = (searchTerm: string) => {
   const { currentUser } = useContext(AuthContext);
   const [data, setData] = useState<EventDataModel>();
   const [error, setError] = useState();
@@ -23,10 +25,21 @@ const useSearchEventQuery = () => {
   useEffect(() => {
     const getData = async () => {
       const colRef = collection(db, "events");
+      // const q = query(
+      //   colRef,
+      //   where("event_date", ">=", new Date().toISOString()),
+      //   limit(50)
+      // );
       const q = query(
         colRef,
-        where("event_date", ">=", new Date().toISOString()),
-        limit(50)
+        and(
+          where("event_date", ">=", new Date().toISOString()),
+
+          or(
+            where("keywords", "array-contains", searchTerm),
+            where("nameIndex", "array-contains", searchTerm)
+          )
+        )
       );
 
       try {
@@ -38,7 +51,7 @@ const useSearchEventQuery = () => {
           console.log(collectionData);
         });
         setData(collectionData);
-      } catch (err) {
+      } catch (err: FirebaseError | any) {
         setError(err);
         setLoading(false);
         console.error("Error fetching data: ", err);
@@ -48,7 +61,7 @@ const useSearchEventQuery = () => {
       }
     };
     getData();
-  }, []);
+  }, [searchTerm]);
 
   return { data, error, loading };
 };

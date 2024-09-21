@@ -77,7 +77,7 @@ const EventsCard = () => {
                     // className="event-card-image"
                     className="poster-img"
                   />
-                  <IonItem className="item-color"></IonItem>
+                  {/* <IonItem color={"none"} lines="none"></IonItem> */}
 
                   <IonCardHeader className="card-header">
                     <IonCardTitle
@@ -96,9 +96,11 @@ const EventsCard = () => {
                     <IonIcon
                       className="text-color-dark"
                       icon={timeOutline}
-                      slot="start"
+                      // slot="icon-only"
                     />
-                    <IonText>{formatDateString(event.event_date)}</IonText>
+                    <IonLabel>
+                      <IonText>{formatDateString(event.event_date)}</IonText>
+                    </IonLabel>
                   </IonItem>
                   <IonItem className="item-color">
                     <IonLabel>

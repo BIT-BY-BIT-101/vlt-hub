@@ -6,6 +6,8 @@ import useCreateEvent from "./useCreateEvent";
 import useFirestore from "./useFirestore";
 import useFirebaseAuth from "./useFirebaseAuth";
 import { useHistory } from "react-router-dom";
+import { text } from "ionicons/icons";
+import { textIndexToArray } from "../helpers/Helpers";
 
 const useHandleEvents = () => {
   const { userData } = useFirebaseAuth();
@@ -20,6 +22,15 @@ const useHandleEvents = () => {
   //   function setPaid(value: boolean) {
   //     setIsPaid(value);
   //   }
+
+  function keywordsToArray(str: string) {
+    // str.toLowerCase();
+    const keywordsArray = str
+      .toLowerCase()
+      .split(",")
+      .map((word) => word.trim());
+    return keywordsArray;
+  }
 
   const handleCreateEvent = async (data: any) => {
     const hostId = auth.currentUser?.uid!;
@@ -49,6 +60,8 @@ const useHandleEvents = () => {
       is_confirmed: false,
       is_paid: isPaid,
       is_transaction_complete: false,
+      nameIndex: textIndexToArray(data.title),
+      keywords: keywordsToArray(data.keywords),
 
       // createdAt: serverTimestamp(),
       //   updatedAt: serverTimestamp(),

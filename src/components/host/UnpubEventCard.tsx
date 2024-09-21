@@ -90,7 +90,7 @@ export const UnpubEventCard = () => {
   };
 
   return (
-    <IonGrid style={{ margin: "auto" }}>
+    <IonGrid className="margin-left margin-right">
       <div className="w-100 ion-margin">
         <IonButton
           // routerLink={`/host/venue-list`}
@@ -109,7 +109,7 @@ export const UnpubEventCard = () => {
           </IonLabel>
         </IonItem>
       ) : (
-        <IonRow className="w-100 ion-wrap">
+        <IonRow className="">
           {events.map((event: EventDataModel) => (
             <IonCol
               size="auto"
@@ -117,11 +117,11 @@ export const UnpubEventCard = () => {
               size-sm="12"
               size-md="4"
               sizeLg="3"
-              sizeXl="2"
+              sizeXl="3"
               // className="w-100"
               key={event.id}
             >
-              <div className="card card-width-100">
+              <div className="card ion-margin-left  ion-margin-right">
                 <IonItem
                   color={event.status === "rejected" ? "danger" : "primary"}
                   className="ion-text-uppercase"
@@ -194,6 +194,7 @@ export const UnpubEventCard = () => {
                     className="publish-btn"
                     shape="round"
                     slot="end"
+                    routerLink={`/host/event/details/${event.id}`}
                     // onClick={() => handleChatButtonClick(event)}
                   >
                     View

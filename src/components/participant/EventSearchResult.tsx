@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import useSearchEventQuery from "../../hooks/useSearchEventQuery";
 import {
   IonSkeletonText,
@@ -15,20 +15,24 @@ import {
 import { timeOutline } from "ionicons/icons";
 import { formatDateString } from "../../helpers/DateTimeFunctions";
 import { EventDataModel } from "../../models/Model";
+import Default from "../../assets/defaultCover.jpg";
 
 const EventSearchResult = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const query = searchParams.get("query");
-  const { data: events, error, loading } = useSearchEventQuery();
+  const query = searchParams.get("query")?.toLowerCase();
+  const { data: events, error, loading } = useSearchEventQuery(query);
+  const history = useHistory();
+
   console.log(query);
+
   console.log(events);
 
-  const filteredEvents = query
-    ? events?.filter((event) =>
-        event.title.toLowerCase().includes(query.toLowerCase())
-      )
-    : events;
+  // const filteredEvents = query
+  //   ? events?.filter((event) =>
+  //       event.title.toLowerCase().includes(query.toLowerCase())
+  //     )
+  //   : events;
 
   return (
     <>
@@ -37,7 +41,7 @@ const EventSearchResult = () => {
       ) : (
         <>
           {events?.length !== 0 ? (
-            filteredEvents.map((event: EventDataModel) => (
+            events?.map((event: EventDataModel) => (
               <IonCol
                 size="auto"
                 sizeXs="12"

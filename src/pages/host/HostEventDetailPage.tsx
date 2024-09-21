@@ -1,25 +1,10 @@
-import {
-  IonButton,
-  IonButtons,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonPage,
-  IonRow,
-  IonToolbar,
-} from "@ionic/react";
+import { IonPage, IonContent, IonGrid, IonRow, IonCol } from "@ionic/react";
 import React from "react";
-import "./ParticipantEventPage.css";
-import EventsDetailCard from "../../components/EventDetail";
-import { useHistory } from "react-router";
-import Menus from "../../components/menus/Menus";
 import Header from "../../components/header/Header";
-import RegisteredEventDetails from "../../components/participant/RegisteredEventDetails";
+import Menus from "../../components/menus/Menus";
 import EventDetail from "../../components/EventDetail";
 
-const ParticipantEventDetailPage: React.FC = () => {
-  const history = useHistory();
+const HostEventDetailPage = () => {
   return (
     <>
       {/* <ParticipantNavMenu /> */}
@@ -43,4 +28,4 @@ const ParticipantEventDetailPage: React.FC = () => {
   );
 };
 
-export default ParticipantEventDetailPage;
+export default HostEventDetailPage;

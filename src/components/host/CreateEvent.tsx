@@ -194,9 +194,10 @@ function CreateEvent() {
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Event Title:</span>
-        <IonInput
+        <IonTextarea
+          maxlength={100}
           className="hhome-form-input"
-          type="text"
+          // type="text"
           required
           {...register("title", { required: true })}
         />
@@ -227,6 +228,26 @@ function CreateEvent() {
           Please add a Description
         </p>
       )}
+      <IonLabel className="hhome-form-label">
+        <span className="hhome-form-title">Tags:</span>
+        {/* <IonInput
+          className="hhome-form-input"
+          type="text"
+          required
+          {...register("description")}
+          /> */}
+        <IonTextarea
+          className="hhome-form-input"
+          autoGrow={true}
+          required
+          {...register("keywords", { required: true })}
+        />
+      </IonLabel>
+      {/* {formError.keywords?.type === "required" && (
+        <p role="alert" className="text-color-danger">
+          Please add a Description
+        </p>
+      )} */}
 
       {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Fee:</span>

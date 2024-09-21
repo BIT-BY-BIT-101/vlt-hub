@@ -30,7 +30,8 @@ const HostHeader = () => {
   const handleClick = () => {
     if (currentUser?.data.role === "host") {
       // window.location.href = "/host/home";
-      history.push("/host/home");
+      // history.push("/host/home");
+      history.push("/host/event-list");
     }
     if (currentUser?.data.role === "venue") {
       // window.location.href = "/venue/home";

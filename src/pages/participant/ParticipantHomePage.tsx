@@ -52,7 +52,7 @@ const ParticipantHomePage = () => {
                 </IonRow>
                 <IonRow>
                   <IonTitle color={"dark"}>
-                    <h1>Upcomming Events</h1>
+                    <h1>Upcoming Events</h1>
                   </IonTitle>
                 </IonRow>
                 <IonRow style={{ marginLeft: "40px", marginRight: "40px" }}>

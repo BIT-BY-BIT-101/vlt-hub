@@ -19,7 +19,7 @@ const HostEventCalendar = () => {
   const history = useHistory();
   const { data: events, loading, error } = useFetchHostedEvents();
 
-  console.log(events);
+  // console.log(events);
 
   useEffect(() => {
     window.setTimeout(() => {
@@ -27,14 +27,7 @@ const HostEventCalendar = () => {
     }, 1000);
   });
 
-  const handleDateClick = (info) => {
-    // Handle date click here
-    console.log("Date clicked:", info.dateStr);
-    console.log(info);
-    // You can add custom logic here, like opening a modal with date details
-  };
-
-  const eventMap = events.map((event) => ({
+  const eventMap = events?.map((event) => ({
     id: event?.id,
     title: event?.title,
     start:
@@ -52,7 +45,7 @@ const HostEventCalendar = () => {
     console.log("Event clicked:", info.event.title);
     console.log(info.event.id);
 
-    history.push(`/participant/event/details/${info.event.id}`);
+    history.push(`/host/event/details/${info.event.id}`);
     // alert(`Event: ${info.event.title}\nDate: ${info.event.event_date}`);
     // You can add custom logic here, like opening a modal with event details
   };
@@ -70,7 +63,7 @@ const HostEventCalendar = () => {
         contentHeight={"auto"}
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        // eventClick={handleEventClick}
+        eventClick={handleEventClick}
         events={events.map((event) => ({
           id: event?.id,
           title: event?.title,
