@@ -157,6 +157,27 @@ ion-content {
   --color: var(--tertiary--color);
 }
 
+.my-items {
+  /* --ion-card-background: #ffff; */
+  --ion-card-background: var(--content-background);
+  /* cursor: pointer; */
+  /* max-width: 50vw; */
+  /* width: 100%; */
+  /* position: relative; */
+  border-radius: 0.4rem;
+  /* padding: 10px; */
+  color: black;
+  /* border: 2px solid #c3c6ce; */
+  transition: 0.5s ease-out;
+  margin-top: 20px;
+
+  &:hover {
+    border-color: var(--ion-color-primary);
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 20px var(--hover-shadow-color);
+  }
+}
+
 .bg-color-main {
   background-color: var(--main--color);
   color: black;
@@ -363,18 +384,20 @@ ion-thumbnail {
 
 .card-header {
   /* border: #5b2fae 1px solid; */
-  height: 80px;
+  /* height: 80px; */
+  max-height: 80px;
   overflow: hidden; /* Ensure content is hidden if it exceeds the height */
 }
 
 .card-title {
   /* border: #ae2f5e 1px solid; */
-  font-size: 14px;
+  font-size: 1.2rem;
+  font-weight: bold;
   width: 100% !important;
   /* max-width: calc(calc(100% - 80px) - 10px) !important; */
 
   color: var(--ion-color-primary);
-  /* white-space: nowrap; */
+  white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }

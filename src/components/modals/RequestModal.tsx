@@ -95,31 +95,6 @@ const RequestModal: React.FC<Props> = ({
       </IonContent>
 
       <IonFooter>
-        {/* <IonGrid>
-          <IonRow>
-            <IonCol>
-              <IonButton
-                shape="round"
-                color={"tertiary"}
-                onClick={handleAccept}
-              >
-                Accept
-              </IonButton>
-            </IonCol>
-
-            <IonCol>
-              <IonButton
-                fill="outline"
-                shape="round"
-                color={"danger"}
-                onClick={handleAccept}
-              >
-                Reject
-              </IonButton>
-            </IonCol>
-          </IonRow>
-        </IonGrid> */}
-
         <IonItem className="item-bg-none">
           <IonButtons slot="end">
             <IonButton

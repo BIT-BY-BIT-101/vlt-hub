@@ -21,6 +21,7 @@ import ChatBox from "../messaging/ChatBox";
 import RequestModal from "../modals/RequestModal";
 import useGetRequest from "../../hooks/useFetchRequests";
 import { formatDateString } from "../../helpers/DateTimeFunctions";
+import { Label } from "recharts";
 
 const RequestItems = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,17 +86,26 @@ const RequestItems = () => {
 
   return (
     <>
+      <IonItem
+        style={{ color: "var(--ion-color-primary)" }}
+        color={"none"}
+        lines="none"
+      >
+        <IonLabel>
+          <h1 style={{ fontWeight: "bold" }}>Requests</h1>
+        </IonLabel>
+      </IonItem>
       {requestData?.length === 0 ? (
-        <IonCard className="card">
+        <div className="card">
           <IonList className="item-bg-none">
             <IonItem className="item-bg-none">
               <IonLabel>No Requests at the moment</IonLabel>
             </IonItem>
           </IonList>
-        </IonCard>
+        </div>
       ) : (
         requestData?.map((request: any) => (
-          <IonCard className="card" key={request.id}>
+          <div className="ion-margin my-items" key={request.id}>
             <IonList className="item-bg-none">
               <IonItem className="item-bg-none">
                 <IonLabel slot="start" className="item-label">
@@ -132,14 +142,14 @@ const RequestItems = () => {
                 >
                   View
                 </IonButton>
-                <IonIcon
+                {/* <IonIcon
                   icon={closeCircle}
                   slot="end"
                   className="text-color-dark cursor-pointer"
-                />
+                /> */}
               </IonItem>
             </IonList>
-          </IonCard>
+          </div>
         ))
       )}
       <RequestModal

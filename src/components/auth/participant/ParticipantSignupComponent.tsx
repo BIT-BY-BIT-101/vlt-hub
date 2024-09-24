@@ -31,6 +31,7 @@ import {
   getMinimumDate,
   getMaximumDate,
 } from "../../../helpers/DateTimeFunctions";
+import emailjsApi from "../../../config/emailjs";
 
 const ParticipantSignupComponent = () => {
   const { currentUser } = useContext(AuthContext);
@@ -58,7 +59,20 @@ const ParticipantSignupComponent = () => {
         newLastnaem,
         newBirthdate,
         "participant"
-      );
+      ).then(async () => {
+        // const name = `${newFirstname} ${newLastnaem}`;
+
+        const payload = {
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          template_id: "template_t71sag1",
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+          template_params: {
+            name: newFirstname,
+          },
+        };
+
+        await emailjsApi.post("/send", payload);
+      });
       // Redirect or handle success as needed
       console.log("Account created successfully");
     } catch (err) {

@@ -53,26 +53,26 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  const getData = async () => {
-    try {
-      const colRef = collection(db, collectionPath);
-      const querySnapshot = await getDocs(colRef);
+  // const getData = async () => {
+  //   try {
+  //     const colRef = collection(db, collectionPath);
+  //     const querySnapshot = await getDocs(colRef);
 
-      const collectionData: any = [];
-      querySnapshot.forEach((doc) => {
-        collectionData.push({ id: doc.id, ...doc.data() });
-      });
+  //     const collectionData: any = [];
+  //     querySnapshot.forEach((doc) => {
+  //       collectionData.push({ id: doc.id, ...doc.data() });
+  //     });
 
-      setData(collectionData);
-      console.log(collectionData);
-    } catch (err) {
-      console.error("Error fetching data:", err);
-      setError(err);
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setData(collectionData);
+  //     console.log(collectionData);
+  //   } catch (err) {
+  //     console.error("Error fetching data:", err);
+  //     setError(err);
+  //     throw err;
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const updateData = async (id: string, data: any) => {
     try {
@@ -89,23 +89,23 @@ const useFirestore = (collectionPath: string) => {
     }
   };
 
-  useEffect(() => {
-    const unsub = onSnapshot(collection(db, collectionPath), (doc) => {
-      const collectionData: any = [];
-      doc.forEach((doc) => {
-        collectionData.push({ id: doc.id, ...doc.data() });
-      });
-      setData(collectionData);
-      setLoading(false);
-      console.log("Data Refreshed");
-    });
-    return () => unsub();
-  }, []);
+  // useEffect(() => {
+  //   const unsub = onSnapshot(collection(db, collectionPath), (doc) => {
+  //     const collectionData: any = [];
+  //     doc.forEach((doc) => {
+  //       collectionData.push({ id: doc.id, ...doc.data() });
+  //     });
+  //     setData(collectionData);
+  //     setLoading(false);
+  //     console.log("Data Refreshed");
+  //   });
+  //   return () => unsub();
+  // }, []);
 
-  useEffect(() => {
-    // fetchUserData();
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   // fetchUserData();
+  //   getData();
+  // }, []);
 
   const deleteData = async (id: string) => {
     try {

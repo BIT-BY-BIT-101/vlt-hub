@@ -37,7 +37,7 @@ import { EventDataModel } from "../../models/Model";
 import { colorFill, filter } from "ionicons/icons";
 
 const EventSlides = () => {
-  const { data, loading } = useFirestore("events");
+  // const { data, loading } = useFirestore("events");
   const events = [
     {
       id: 1,

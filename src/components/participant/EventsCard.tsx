@@ -1,12 +1,15 @@
 import {
   IonCard,
   IonCardHeader,
+  IonCardSubtitle,
   IonCardTitle,
   IonCol,
   IonIcon,
   IonImg,
   IonItem,
   IonLabel,
+  IonList,
+  IonNote,
   IonSkeletonText,
   IonTab,
   IonText,
@@ -26,6 +29,7 @@ import { EventDataModel } from "../../models/Model";
 import EventsModal from "../modals/EventsModal";
 import "./EventsCard.css";
 import { addCircleOutline, homeOutline, timeOutline } from "ionicons/icons";
+import useFetchpublishEvents from "../../hooks/useFetchpublishEvents";
 
 // type UserEventModalProps = {
 //   onOpen: () => void;
@@ -33,7 +37,8 @@ import { addCircleOutline, homeOutline, timeOutline } from "ionicons/icons";
 
 const EventsCard = () => {
   // const { data } = useQuery("events", "status", "==", "published");
-  const { data, loading, error } = useFirestore("events");
+  // const { data, loading, error } = useFirestore("events");
+  const { data, loading, error, hostInfo } = useFetchpublishEvents();
   const [showEventDetails, setShowEventDetails] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selected, setSelected] = useState<EventDataModel>();
@@ -43,6 +48,7 @@ const EventsCard = () => {
   const closeModal = () => setShowModal(false);
 
   console.log(data);
+  // console.log(hostInfo);
 
   return (
     <>
@@ -50,8 +56,8 @@ const EventsCard = () => {
         <IonSkeletonText animated style={{ width: "100%", height: "100%" }} />
       ) : (
         <>
-          {data.length !== 0 ? (
-            data.map((event: EventDataModel) => (
+          {data?.length !== 0 ? (
+            data?.map((event: EventDataModel) => (
               <IonCol
                 size="auto"
                 sizeXs="12"
@@ -77,32 +83,7 @@ const EventsCard = () => {
                     // className="event-card-image"
                     className="poster-img"
                   />
-                  {/* <IonItem color={"none"} lines="none"></IonItem> */}
-
-                  <IonCardHeader className="card-header">
-                    <IonCardTitle
-                      className="card-title f-weight-bold"
-                      // style={{ fontSize: getFontSizeForTitle(event.title) }}
-                    >
-                      {/* {event.title.slice(0, 100)}{" "} */}
-                      {/* Replace '20' with the desired length */}
-                      {/* {event.title.length > 100 && "..."}{" "} */}
-                      {/* Add ellipsis if title is longer */}
-                      {event.title}
-                    </IonCardTitle>
-                  </IonCardHeader>
-
-                  <IonItem className="item-color-dark">
-                    <IonIcon
-                      className="text-color-dark"
-                      icon={timeOutline}
-                      // slot="icon-only"
-                    />
-                    <IonLabel>
-                      <IonText>{formatDateString(event.event_date)}</IonText>
-                    </IonLabel>
-                  </IonItem>
-                  <IonItem className="item-color">
+                  <IonItem className="item-bg-none">
                     <IonLabel>
                       <p
                         className={`${
@@ -115,6 +96,41 @@ const EventsCard = () => {
                       </p>
                     </IonLabel>
                   </IonItem>
+
+                  <IonCardHeader
+                    className="card-header"
+                    style={{ paddingTop: "0px", paddingBottom: "0px" }}
+                  >
+                    <IonCardTitle
+                      className="card-title f-weight-bold"
+                      // style={{ fontSize: getFontSizeForTitle(event.title) }}
+                    >
+                      {/* {event.title.slice(0, 100)}{" "} */}
+                      {/* Replace '20' with the desired length */}
+                      {/* {event.title.length > 100 && "..."}{" "} */}
+                      {/* Add ellipsis if title is longer */}
+                      {event.title}
+                    </IonCardTitle>
+                    <IonCardSubtitle color={"dark"}>
+                      {event.host_name}
+                    </IonCardSubtitle>
+                  </IonCardHeader>
+
+                  <IonList
+                    className="item-bg-none"
+                    style={{ paddingTop: "0px", paddingBottom: "0px" }}
+                  >
+                    <IonItem className="item-color-dark">
+                      <IonIcon
+                        className="text-color-dark ion-margin-end"
+                        icon={timeOutline}
+                        // slot="icon-only"
+                      />
+                      <IonLabel>
+                        <p>{formatDateString(event.event_date)}</p>
+                      </IonLabel>
+                    </IonItem>
+                  </IonList>
                 </div>
               </IonCol>
             ))
@@ -126,11 +142,11 @@ const EventsCard = () => {
         </>
       )}
 
-      <EventsModal
+      {/* <EventsModal
         isOpen={showModal}
         onDidDismiss={closeModal}
         selected={selected}
-      />
+      /> */}
     </>
   );
 };

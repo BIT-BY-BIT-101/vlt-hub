@@ -2,7 +2,7 @@
 .idx/
 build/
 src/config/firebase.tsx
-
+react-email-starter/
 
 # Logs
 logs
