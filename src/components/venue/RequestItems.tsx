@@ -107,7 +107,13 @@ const RequestItems = () => {
         requestData?.map((request: any) => (
           <div className="ion-margin my-items" key={request.id}>
             <IonList className="item-bg-none">
-              <IonItem className="item-bg-none">
+              <IonItem
+                className="item-bg-none cursor-pointer"
+                onClick={() => {
+                  setIsOpen(true);
+                  setSelected(request);
+                }}
+              >
                 <IonLabel slot="start" className="item-label">
                   {request.event_title}
                   <p>{request.host_name}</p>
@@ -130,7 +136,7 @@ const RequestItems = () => {
                   Status
                   <p>{request.status}</p>
                 </IonLabel>
-                <IonButton
+                {/* <IonButton
                   slot="end"
                   shape="round"
                   color="primary"
@@ -141,7 +147,7 @@ const RequestItems = () => {
                   }}
                 >
                   View
-                </IonButton>
+                </IonButton> */}
                 {/* <IonIcon
                   icon={closeCircle}
                   slot="end"

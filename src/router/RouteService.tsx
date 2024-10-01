@@ -9,7 +9,6 @@ import ParticipantSigninPage from "../pages/auth/participants/ParticipantSigninP
 import ParticipantSignupPage from "../pages/auth/participants/ParticipantSignupPage";
 import VenueSigninPage from "../pages/auth/venue/VenueSigninPage";
 import VenueSignupPage from "../pages/auth/venue/VenueSignupPage";
-
 import ParticipantEventPage from "../pages/participant/ParticipantEventPage";
 import ParticipantHistoryPage from "../pages/participant/ParticipantHistoryPage";
 import ParticipantHomePage from "../pages/participant/ParticipantHomePage";
@@ -29,7 +28,6 @@ import Loader from "../components/loaders/Loader";
 import VenueEditVenuePage from "../pages/venue/VenueEditVenuePage";
 import VenueAddFacilityPage from "../pages/venue/VenueAddFacilityPage";
 import TransactionPage from "../pages/payment/TransactionPage";
-import ParticipantRegsiteredEventDetailPage from "../pages/participant/ParticipantRegsiteredEventDetailPage";
 import HostCreatePage from "../pages/host/HostCreatePage";
 import HostEventListPage from "../pages/host/HostEventListPage";
 import HostEventPage from "../pages/host/HostEventPage";
@@ -37,9 +35,10 @@ import HostHistoryPage from "../pages/host/HostHistoryPage";
 import HostHomePage from "../pages/host/HostHomePage";
 import { HostProfilePage } from "../pages/host/HostProfilePage";
 import HostVenueSelectionPage from "../pages/host/HostVenueSelectionPage";
-import ParticipantEventDetailPage from "../pages/participant/ParticipantEventDetailPage";
 import ParticipantEventSearch from "../pages/participant/ParticipantEventSearch";
 import HostEventDetailPage from "../pages/host/HostEventDetailPage";
+import { Host } from "ionicons/dist/types/stencil-public-runtime";
+import HostEditEventPage from "../pages/host/HostEditEventPage";
 
 const RouteService = () => {
   return (
@@ -200,7 +199,7 @@ const RouteService = () => {
         <ProtectedRoute
           path="/host/event/:id/edit"
           allowedRoles={"host"}
-          component={HostCreatePage}
+          component={HostEditEventPage}
           redirected="/host/signin"
         />
 

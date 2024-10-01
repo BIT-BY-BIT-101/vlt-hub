@@ -12,6 +12,6 @@ export default defineConfig({
     setupFiles: "./src/setupTests.ts",
   },
   server: {
-    host: true
-}
+    host: false,
+  },
 });

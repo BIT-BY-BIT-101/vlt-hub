@@ -13,6 +13,7 @@ export type EventDataModel = {
   host_name: string;
   event_fee: number;
   is_confirmed: boolean;
+  keywords: string[];
   createdAt: Date;
   updatedAt: Date;
 };

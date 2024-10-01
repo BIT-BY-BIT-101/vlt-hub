@@ -10,7 +10,7 @@ import {
   IonLabel,
   IonList,
 } from "@ionic/react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import useGetDoc from "../hooks/useGetDoc";
 import { useParams } from "react-router";
 import EventsModal from "./modals/EventsModal";
@@ -24,20 +24,24 @@ import PageNotFound from "../pages/error_pages/PageNotFound";
 import { Label } from "recharts";
 import { create, createSharp } from "ionicons/icons";
 import { AuthContext } from "../context/AuthContext";
+import { UpdateDataContext } from "../context/UpdateDataContext";
 
 type RouteParams = {
   id: string;
 };
 
 const EventDetail = () => {
+  const { setData } = useContext(UpdateDataContext);
   const { currentUser } = useContext(AuthContext);
   const { id } = useParams<RouteParams>();
   // const { data: event, error, loading } = useGetDoc("events", id);
   const { data: event, error, hostInfo, loading } = useGetEvent(id);
 
-  // console.log(id);
-
-  // console.log(event);
+  useEffect(() => {
+    if (event) {
+      setData(event);
+    }
+  }, [event, setData]);
 
   if (loading) {
     return <p>loading.....</p>;
@@ -94,7 +98,11 @@ const EventDetail = () => {
           </IonItem>
           {currentUser?.data.role === "host" && (
             <IonItem color={"none"}>
-              <IonButton slot="end" className="ion-padding">
+              <IonButton
+                slot="end"
+                className="ion-padding"
+                routerLink={`/host/event/${id}/edit`}
+              >
                 Edit Course
                 <IonIcon slot="icon-only" icon={createSharp} />
               </IonButton>

@@ -18,7 +18,7 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import SignUpSVG from "../../../assets/hsignup.svg";
 import Logo from "../../../assets/logo.png";
@@ -29,6 +29,10 @@ import {
   getMaximumDate,
   getMinimumDate,
 } from "../../../helpers/DateTimeFunctions";
+import nodeMailApi from "../../../config/nodemail";
+import { render } from "@react-email/render";
+
+import WelcomeEmail from "../../../emails/WelcomeEmail";
 
 const HostSignupComponent = () => {
   const { currentUser } = useContext(AuthContext);
@@ -39,6 +43,21 @@ const HostSignupComponent = () => {
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailMessage, setEmailMessage] = useState<string>();
+
+  useEffect(() => {
+    const appUrl = import.meta.env.VITE_APP_URL;
+    async function getTemplate() {
+      const emailTemplate = await render(
+        <WelcomeEmail appUrl={appUrl} firestName={newFirstname} />,
+        {
+          pretty: true,
+        }
+      );
+      setEmailMessage(emailTemplate);
+    }
+    getTemplate();
+  }, [newFirstname]);
 
   const handleSignup = async () => {
     try {
@@ -49,7 +68,22 @@ const HostSignupComponent = () => {
         newLastnaem,
         newBirthdate,
         "host"
-      );
+      )
+        .then(async () => {
+          // const name = `${newFirstname} ${newLastnaem}`;
+
+          const payload = {
+            name: newFirstname,
+            subject: "Welcome to V.L.T. Hub",
+            email: newEmail,
+            message: emailMessage,
+          };
+
+          await nodeMailApi.post("api/v1/send-email", payload);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
       // Redirect or handle success as needed
       console.log("Account created successfully");
     } catch (err) {

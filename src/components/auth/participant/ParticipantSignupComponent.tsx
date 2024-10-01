@@ -19,7 +19,7 @@ import {
   IonText,
 } from "@ionic/react";
 import { eye, eyeOff } from "ionicons/icons";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import SignUpSVG from "../../../assets/psignup.svg";
@@ -31,7 +31,9 @@ import {
   getMinimumDate,
   getMaximumDate,
 } from "../../../helpers/DateTimeFunctions";
-import emailjsApi from "../../../config/emailjs";
+import WelcomeEmail from "../../../emails/WelcomeEmail";
+import nodeMailApi from "../../../config/nodemail";
+import { render } from "@react-email/render";
 
 const ParticipantSignupComponent = () => {
   const { currentUser } = useContext(AuthContext);
@@ -43,10 +45,26 @@ const ParticipantSignupComponent = () => {
   const [newLastnaem, setNewLastname] = useState<string>("");
   const [newBirthdate, setNewBirthdate] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailMessage, setEmailMessage] = useState<string>();
 
   const [month, setMonth] = useState("");
   const [date, setDate] = useState("");
   const [year, setYear] = useState("");
+
+  // console.log(emailTemplate);
+  useEffect(() => {
+    const appUrl = import.meta.env.VITE_APP_URL;
+    async function getTemplate() {
+      const emailTemplate = await render(
+        <WelcomeEmail appUrl={appUrl} firestName={newFirstname} />,
+        {
+          pretty: true,
+        }
+      );
+      setEmailMessage(emailTemplate);
+    }
+    getTemplate();
+  }, [newFirstname]);
 
   const handleSignup = async () => {
     // const formattedBirthdate = `${month}/${date}/${year}`;
@@ -59,20 +77,22 @@ const ParticipantSignupComponent = () => {
         newLastnaem,
         newBirthdate,
         "participant"
-      ).then(async () => {
-        // const name = `${newFirstname} ${newLastnaem}`;
+      )
+        .then(async () => {
+          // const name = `${newFirstname} ${newLastnaem}`;
 
-        const payload = {
-          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
-          template_id: "template_t71sag1",
-          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-          template_params: {
+          const payload = {
             name: newFirstname,
-          },
-        };
+            subject: "Welcome to V.L.T. Hub",
+            email: newEmail,
+            message: emailMessage,
+          };
 
-        await emailjsApi.post("/send", payload);
-      });
+          await nodeMailApi.post("api/v1/send-email", payload);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
       // Redirect or handle success as needed
       console.log("Account created successfully");
     } catch (err) {
@@ -88,6 +108,7 @@ const ParticipantSignupComponent = () => {
   if (currentUser?.data.role === "participant") {
     return <Redirect to="/participant/home" />;
   }
+  // console.log(emailTemplate);
 
   const minDate = getMinimumDate();
   const maxDate = getMaximumDate();

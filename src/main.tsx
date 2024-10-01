@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import App from "./App";
 import { AuthContext, AuthContextProvider } from "./context/AuthContext";
+import { UpdateDataProvider } from "./context/UpdateDataContext";
 
 defineCustomElements(window);
 
@@ -11,7 +12,9 @@ const root = createRoot(container!);
 root.render(
   // <React.StrictMode>
   <AuthContextProvider>
-    <App />
+    <UpdateDataProvider>
+      <App />
+    </UpdateDataProvider>
   </AuthContextProvider>
   // </React.StrictMode>
 );

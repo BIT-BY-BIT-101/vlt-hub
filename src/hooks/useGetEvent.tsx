@@ -48,6 +48,7 @@ const useGetEvent = (path: string) => {
       }
     } catch (error) {
       setError(error);
+      throw error;
       console.error("Error getting document:", error);
     } finally {
       setLoading(false); // Ensure loading is set to false

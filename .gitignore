@@ -3,6 +3,7 @@
 build/
 src/config/firebase.tsx
 react-email-starter/
+api/
 
 # Logs
 logs

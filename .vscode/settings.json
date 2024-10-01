@@ -3,9 +3,29 @@
         {
             "splitTerminals": [
                 {
-                    "name": "server",
+                    "name": "Client Server",
                     "commands": [
                         "npm run dev"
+                    ]
+                },
+            ],
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "API Server",
+                    "commands": [
+                        "cd api && node server.js",
+                    ]
+                },
+            ],
+        },
+        {
+            "splitTerminals": [
+                {
+                    "name": "Email Server",
+                    "commands": [
+                        "npm run email",
                     ]
                 },
             ],

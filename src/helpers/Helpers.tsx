@@ -15,6 +15,26 @@ export const textIndexToArray = (str: string) => {
   return arr;
 };
 
+export function keywordsToArray(str: string) {
+  console.log(str);
+
+  // str.toLowerCase();
+  const keywordsArray = str
+    .toLowerCase()
+    .split(",")
+    .map((word) => word.trim());
+  return keywordsArray;
+}
+
+export function arrayToString(arr: string[]): string {
+  console.log(arr);
+
+  if (!arr || !Array.isArray(arr)) {
+    return "";
+  }
+  return arr.join(", ");
+}
+
 // export const keywordsToArray = (str: string) => {
 //   str.toLowerCase();
 //   const keywordsArray = str.split(",").map((word) => word.trim());

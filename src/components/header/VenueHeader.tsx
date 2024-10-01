@@ -105,11 +105,11 @@ const VenueHeader = () => {
             </IonCol>
             <IonCol size="2" className="login-button">
               {currentUser ? (
-                <IonItem
-                  className="item-color-dark"
-                  routerLink="/venue/profile"
-                >
-                  <IonThumbnail slot="start">
+                <IonItem className="item-color-dark">
+                  <IonThumbnail
+                    slot="start"
+                    onClick={() => history.push("/venue/profile")}
+                  >
                     <img
                       src={
                         currentUser?.data.photoURL
