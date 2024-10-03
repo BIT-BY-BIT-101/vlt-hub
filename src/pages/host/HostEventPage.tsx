@@ -29,6 +29,7 @@ import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
 import HostEventCalendar from "../../components/host/HostEventCalendar";
+import PublishedEvents from "../../components/host/PublishedEvents";
 
 const HostEventPage: React.FC = () => {
   return (
@@ -42,7 +43,8 @@ const HostEventPage: React.FC = () => {
             <IonRow>
               {/* <SidePanel /> */}
               <IonCol>
-                <HostEventCalendar />
+                {/* <HostEventCalendar /> */}
+                <PublishedEvents />
               </IonCol>
             </IonRow>
           </IonGrid>

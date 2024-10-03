@@ -82,6 +82,7 @@ const useFirestore = (collectionPath: string) => {
         updatedAt: serverTimestamp(),
       }).then((result) => {
         console.log("Data updated successfully! ", result);
+        return result;
       });
     } catch (err) {
       console.error("Error updating data:", err);

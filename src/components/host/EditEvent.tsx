@@ -9,111 +9,148 @@ import {
   IonToggle,
   IonButton,
   useIonViewDidEnter,
+  IonImg,
 } from "@ionic/react";
-import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { EventDataModel } from "../../models/Model";
 import { arrayRemove, arrayUnion, serverTimestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { auth } from "../../config/firebase";
-import { arrayToString, handleWindowRoute } from "../../helpers/Helpers";
+import {
+  arrayToString,
+  handleWindowRoute,
+  keywordsToArray,
+} from "../../helpers/Helpers";
 import useFirestore from "../../hooks/useFirestore";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import useGetEvent from "../../hooks/useGetEvent";
 import { UpdateDataContext } from "../../context/UpdateDataContext";
+import DefaultImg from "../../assets/defaultCover.jpg";
 
 type RouteParams = {
   id: string;
 };
 
 const EditEvent = () => {
-  const { data: EventDetails } = useContext(UpdateDataContext);
+  // const { data: eventDetails } = useContext(UpdateDataContext);
   const { id } = useParams<RouteParams>();
-  const { data: EventDetails } = useGetEvent(id!);
-  const [editedData, setEditedData] = useState<EventDataModel>();
+  const { data: eventDetails, error, loading } = useGetEvent(id!);
+  const [editedData, setEditedData] = useState<EventDataModel | null>();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [imgUrl, setImgUrl] = useState<File | null>(null);
+  const history = useHistory();
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { updateData: updateEvent, error: updateError } =
     useFirestore("events");
 
-  const keywordsData = EventDetails?.keywords;
-  // console.log(keywordsData);
+  const currentKeywords = eventDetails?.keywords;
+  // const currentKeywordString = arrayToString(currentKeywords);
+  console.log("keywords: ", currentKeywords);
+  // console.log("keywords string: ", currentKeywordString);
+
+  console.log("Details: ", eventDetails);
+
+  // console.log(currentKeywords);
 
   useEffect(() => {
-    setEditedData(EventDetails);
-  }, [id]);
+    if (eventDetails) {
+      setEditedData(eventDetails);
+    }
+  }, [eventDetails]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    try {
-      Swal.fire({
-        title: "Do you want to save?",
-        showCancelButton: true,
-        confirmButtonText: "Save",
-        heightAuto: false,
-      }).then(async (result) => {
-        console.log(editedData);
 
-        if (result.isConfirmed) {
-          Swal.fire({
-            heightAuto: false,
-            position: "top-right",
-            title: "Uploading..",
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: () => {
-              Swal.showLoading();
-            },
-          })
-            .then(async () => {
-              // Combine the state and any other data needed
+    Swal.fire({
+      title: "Do you want to save?",
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      heightAuto: false,
+    }).then(async (result) => {
+      console.log(editedData);
 
-              // Call the createEvent function to add the event data to Firebase
+      if (result.isConfirmed) {
+        Swal.fire({
+          heightAuto: false,
+          position: "top-right",
+          title: "Uploading..",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        })
+          .then(async () => {
+            // Combine the state and any other data needed
 
-              await updateEvent(id!, {
-                keywords: arrayRemove({ ...keywordsData }),
-              }).then(() => {
-                const newKeywords = arrayToString(editedData?.keywords);
+            // Call the createEvent function to add the event data to Firebase
+
+            await updateEvent(id!, {
+              keywords: arrayRemove({ currentKeywords }),
+            })
+              .then((res) => {
+                console.log("tags removed successfully: ", res);
+
+                console.log("keywords: ", editedData?.keywords);
+
+                // const newKeywords = arrayToString(editedData?.keywords);
+                const newKeywords = editedData?.keywords;
+                console.log("newKeywords: ", newKeywords);
+
                 updateEvent(id!, {
                   ...editedData,
-                  keywords: arrayUnion({ newKeywords }),
+                  keywords: newKeywords,
                   updatedAt: serverTimestamp(),
+                }).then(() => {
+                  Swal.fire({
+                    heightAuto: false,
+                    icon: "success",
+                    title: "Successfully added!",
+                  }).then(() => {
+                    // handleWindowRoute(`/host/event/details/${id}`);
+                    history.push(`/host/event/details/${id}`);
+                  });
                 });
+              })
+              .catch((error) => {
+                console.log(error);
               });
-
-              // Optionally, you can reset the form after successful submission
-              // reset();
-
-              // Log success or navigate to another page
-              console.log("Venue Added successfully!");
-            })
-            .then(() => {
-              Swal.fire({
-                heightAuto: false,
-                icon: "success",
-                title: "Successfully added!",
-              }).then(() => {
-                handleWindowRoute("/venue/profile");
-              });
+          })
+          .catch((error) => {
+            console.log("Error adding venue:", error);
+            Swal.fire({
+              heightAuto: false,
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
             });
-        }
-      });
-    } catch (err) {
-      console.log("Error adding venue:", err);
-      Swal.fire({
-        heightAuto: false,
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    }
+          });
+      }
+    });
   };
 
   const handleInputChange = (e: CustomEvent) => {
-    setEditedData((prevData: any) => () => ({
+    const { name, value } = e.target;
+
+    setEditedData((prevData: any) => ({
       ...prevData,
-      [e.target?.name]: e.target.value,
+      [name]: name === "keywords" ? keywordsToArray(value) : value,
     }));
   };
 
@@ -134,24 +171,35 @@ const EditEvent = () => {
     }
   };
 
+  const handleImageClick = () => {
+    fileInputRef?.current?.click();
+  };
+
   return (
     <>
       <IonCard className="hhome-card-container">
         <IonLabel className="hhome-form-label">
           <span className="hhome-form-title">Upload your poster:</span>
           <input
+            hidden
             type="file"
+            ref={fileInputRef}
             onChange={handleFileChange}
             accept="image/*"
-            className="hhome-form-input-file"
+            // className="hhome-form-input-file"
           />
-          {imagePreviewUrl && (
-            <img
-              src={imagePreviewUrl}
-              alt="Preview"
-              className="hhome-image-preview"
-            />
-          )}
+          {/* {imagePreviewUrl && ( */}
+          <IonImg
+            onClick={handleImageClick}
+            src={
+              editedData?.imageUrl
+                ? imagePreviewUrl || editedData?.imageUrl
+                : DefaultImg || imagePreviewUrl
+            }
+            alt="Preview"
+            className="hhome-image-preview"
+          />
+          {/* )} */}
         </IonLabel>
 
         <IonLabel className="hhome-form-label">
@@ -186,7 +234,7 @@ const EditEvent = () => {
             className="hhome-form-input"
             autoGrow={true}
             required
-            value={arrayToString(editedData?.keywords) || ""}
+            value={arrayToString(editedData?.keywords) || " "}
             name="keywords"
             onIonChange={handleInputChange}
           />

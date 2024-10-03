@@ -5,6 +5,7 @@ import {
   where,
   onSnapshot,
   and,
+  orderBy,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -31,7 +32,8 @@ const useFetchRequests = () => {
           where("status", "==", "confirming"),
           where("status", "==", "paying")
         )
-      )
+      ),
+      orderBy("created", "desc")
     );
 
     const unsub = onSnapshot(q, (doc) => {

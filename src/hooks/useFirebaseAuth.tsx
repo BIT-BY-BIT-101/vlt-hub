@@ -61,32 +61,32 @@ const useFirebaseAuth = () => {
   //   return () => unsubscribe;
   // }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const docRef = doc(db, "profiles", user.uid!);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const user = auth.currentUser;
+  //     if (user) {
+  //       const docRef = doc(db, "profiles", user.uid!);
 
-        const unsubscribe = onSnapshot(docRef, (doc) => {
-          try {
-            if (doc.exists()) {
-              const userData = { id: doc.id, ...doc.data() };
-              setUserData(userData);
-              console.log(userData);
-            } else {
-              console.log("No such document!");
-            }
-          } catch (error) {
-            setError(error);
-          }
-        });
+  //       const unsubscribe = onSnapshot(docRef, (doc) => {
+  //         try {
+  //           if (doc.exists()) {
+  //             const userData = { id: doc.id, ...doc.data() };
+  //             setUserData(userData);
+  //             console.log(userData);
+  //           } else {
+  //             console.log("No such document!");
+  //           }
+  //         } catch (error) {
+  //           setError(error);
+  //         }
+  //       });
 
-        return () => unsubscribe();
-      }
-    };
+  //       return () => unsubscribe();
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const signUp = async (
     email: string,

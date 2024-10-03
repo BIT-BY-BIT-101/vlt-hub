@@ -11,8 +11,9 @@ import {
   IonSelectOption,
   IonItem,
   IonToggle,
+  IonImg,
 } from "@ionic/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { useForm } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
@@ -24,6 +25,7 @@ import { serverTimestamp, Timestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
 import useCreateEvent from "../../hooks/useCreateEvent";
 import useHandleEvents from "../../hooks/useHandleEvents";
+import DefaultImg from "../../assets/defaultCover.jpg";
 
 // type RouteParams = {
 //   id: string;
@@ -64,6 +66,8 @@ function CreateEvent() {
   // const [isPaid, setIsPaid] = useState(false);
   // const [imagePreviewUrl, setImagePreviewUrl] = useState<File | null>(null);
   // const [imgUrl, setImgUrl] = useState<File | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const customVenueFormatOptions = {
     header: "Venue Format",
@@ -150,23 +154,30 @@ function CreateEvent() {
   }
   console.log(MinDate());
 
+  const handleImageClick = () => {
+    fileInputRef?.current?.click();
+  };
+
   return (
     <IonCard className="hhome-card-container">
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
         <input
+          hidden
+          ref={fileInputRef}
           type="file"
           onChange={handleFileChange}
           accept="image/*"
-          className="hhome-form-input-file"
+          // className="hhome-form-input-file"
         />
-        {imagePreviewUrl && (
-          <img
-            src={imagePreviewUrl}
-            alt="Preview"
-            className="hhome-image-preview"
-          />
-        )}
+        {/* {imagePreviewUrl && ( */}
+        <IonImg
+          onClick={handleImageClick}
+          src={imagePreviewUrl || DefaultImg}
+          alt="Preview"
+          className="hhome-image-preview"
+        />
+        {/* )} */}
       </IonLabel>
       {/* <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>

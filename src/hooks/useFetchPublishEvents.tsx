@@ -8,6 +8,7 @@ import {
   doc,
   getDocs,
   getDoc,
+  orderBy,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -49,7 +50,8 @@ const useFetchpublishEvents = () => {
           // where("status", "==", "paying"),
           where("is_transaction_complete", "==", false)
         )
-      )
+      ),
+      orderBy("event_date", "asc")
       // where("host_id", "==", currentUser?.uid),
     );
 
