@@ -12,16 +12,24 @@ import { Section } from "@react-email/section";
 import { Row } from "@react-email/row";
 import { Column } from "@react-email/column";
 import { Heading } from "@react-email/heading";
+import { Link } from "@react-email/link";
 
 import Logo from "../assets/logo.png";
+import { EventDataModel } from "../models/Model";
 
 type Props = {
   name: string;
   appUrl: string;
-  eventDetails: {};
+  event_title: string;
+  event_date: string;
 };
 
-const CourseCreationEmail = ({ name, appUrl, eventDetails }: Props) => {
+const CourseCreationEmail = ({
+  name,
+  appUrl,
+  event_title,
+  event_date,
+}: Props) => {
   const main = {
     backgroundColor: "#ffffff",
     fontFamily:
@@ -75,17 +83,45 @@ const CourseCreationEmail = ({ name, appUrl, eventDetails }: Props) => {
           <Section>
             <Text>Hi {name || "Joe"}</Text>
             <Text>
-              You have created a new course. You can see it in your account
-              details.
+              You have created a new course. Please wait for further
+              instructions from the VLT-Hub team. Below is the details of the
+              course.
             </Text>
           </Section>
 
           <Section>
-            <Heading as="h2" style={paragraph}>
-              Course Details:
-            </Heading>
+            <Heading as="h3">Course Details:</Heading>
+            <Row>
+              <Column>
+                <Heading
+                  as="h4"
+                  style={{
+                    ...paragraph,
+                  }}
+                >
+                  Course Name:
+                </Heading>
+                <Heading
+                  as="h4"
+                  style={{
+                    ...paragraph,
+                  }}
+                >
+                  Course Date:
+                </Heading>
+              </Column>
+              <Column>
+                <Text>{event_title || "Course Name"}</Text>
+                <Text>{event_date || "Course Date"}</Text>
+              </Column>
+            </Row>
+          </Section>
 
-            <Text></Text>
+          <Section>
+            <Hr style={hr} />
+            <Text style={paragraph}>
+              For more details, visit <Link href={appUrl || "#"}>VLT-Hub</Link>
+            </Text>
           </Section>
 
           <Section>

@@ -1,5 +1,4 @@
-import { createEvent } from "@testing-library/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { auth } from "../config/firebase";
 import useCreateEvent from "./useCreateEvent";
@@ -8,9 +7,13 @@ import useFirebaseAuth from "./useFirebaseAuth";
 import { useHistory } from "react-router-dom";
 import { text } from "ionicons/icons";
 import { textIndexToArray } from "../helpers/Helpers";
+import nodeMailApi from "../config/nodemail";
+import { AuthContext } from "../context/AuthContext";
 
 const useHandleEvents = () => {
-  const { userData } = useFirebaseAuth();
+  const { currentUser } = useContext(AuthContext);
+  // const { userData } = useFirebaseAuth();
+  const userData = currentUser?.data;
   const { addData: createRequest, error: requestError } =
     useFirestore("requests");
   const { createEvent, error: eventError } = useCreateEvent();
@@ -18,6 +21,7 @@ const useHandleEvents = () => {
 
   const [isPaid, setIsPaid] = useState(false);
   const [imgUrl, setImgUrl] = useState<File | null>(null);
+  const [emailMessage, setEmailMessage] = useState<string>("");
 
   //   function setPaid(value: boolean) {
   //     setIsPaid(value);
@@ -107,9 +111,19 @@ const useHandleEvents = () => {
                   status: "for verification",
                   is_confirmed: false,
                 })
-                  .then((res) => {
+                  .then(async (res) => {
                     console.log("response: ", res);
                     console.log("Request Error", requestError);
+
+                    const payload = {
+                      name: userData?.fname,
+                      subject: "New Course Created",
+                      email: currentUser?.email,
+                      message: emailMessage,
+                    };
+
+                    nodeMailApi.post("api/v1/send-email", payload);
+
                     Swal.fire({
                       title: "Success!",
                       text: "Event created successfully",
@@ -150,6 +164,7 @@ const useHandleEvents = () => {
     handleCreateEvent,
     setImgUrl,
     setIsPaid,
+    setEmailMessage,
   };
 };
 

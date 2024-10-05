@@ -13,9 +13,9 @@ import {
   IonToggle,
   IonImg,
 } from "@ionic/react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { auth } from "../../config/firebase";
 import { useHistory, useParams } from "react-router";
@@ -26,6 +26,10 @@ import Swal from "sweetalert2";
 import useCreateEvent from "../../hooks/useCreateEvent";
 import useHandleEvents from "../../hooks/useHandleEvents";
 import DefaultImg from "../../assets/defaultCover.jpg";
+import CourseCreationEmail from "../../emails/CourseCreationEmail";
+import { render } from "@react-email/render";
+import { AuthContext } from "../../context/AuthContext";
+import { formatDateString } from "../../helpers/DateTimeFunctions";
 
 // type RouteParams = {
 //   id: string;
@@ -34,14 +38,22 @@ import DefaultImg from "../../assets/defaultCover.jpg";
 function CreateEvent() {
   // const { id } = useParams<RouteParams>();
   // const { data: venueData } = useQuery("venue", "id", "==", id);
-  const { userData } = useFirebaseAuth();
+  // const { userData } = useFirebaseAuth();
   // const { addData: createEvent } = useFirestore(`venues/${id}/events`);
 
-  const { handleCreateEvent, setIsPaid, setImgUrl } = useHandleEvents();
+  const { currentUser } = useContext(AuthContext);
+
+  // const userData = currentUser?.data;
+
+  const { handleCreateEvent, setIsPaid, setImgUrl, setEmailMessage } =
+    useHandleEvents();
   const {
     register,
     handleSubmit,
     reset,
+    getValues,
+    control,
+    watch,
     formState: { errors: formError },
   } = useForm();
   const [eventData, setEventData] = useState({
@@ -49,7 +61,7 @@ function CreateEvent() {
     description: "",
     host_id: "",
     host_name: "",
-    eventDate: "",
+    event_date: "",
     venueType: "On-site",
     venue_Id: "",
     venue: "",
@@ -63,9 +75,9 @@ function CreateEvent() {
   const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
   const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
-  // const [isPaid, setIsPaid] = useState(false);
-  // const [imagePreviewUrl, setImagePreviewUrl] = useState<File | null>(null);
-  // const [imgUrl, setImgUrl] = useState<File | null>(null);
+
+  const [eventTitleValue, setEventTitleValue] = useState("");
+  const [eventDateValue, setEventDateValue] = useState();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -85,13 +97,36 @@ function CreateEvent() {
     translucent: true,
   };
 
-  // const handleInputChange = (e: any) => {
-  //   const { name, value } = e.target;
-  //   setEventData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleChange = (event: CustomEvent) => {
+    const { name, value } = event.target;
+    setEventData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    const appUrl = import.meta.env.VITE_APP_URL;
+    async function getTemplate() {
+      const emailTemplate = await render(
+        <CourseCreationEmail
+          appUrl={appUrl}
+          name={currentUser?.data?.fname}
+          event_title={eventData?.title}
+          event_date={formatDateString(eventData?.event_date)}
+        />,
+        {
+          pretty: true,
+        }
+      );
+      setEmailMessage(emailTemplate);
+    }
+    getTemplate();
+  }, [eventData]);
+
+  console.table(eventData);
+  console.log(eventData.title);
+  console.log(eventData.event_date);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -152,7 +187,6 @@ function CreateEvent() {
 
     return maxDate;
   }
-  console.log(MinDate());
 
   const handleImageClick = () => {
     fileInputRef?.current?.click();
@@ -179,36 +213,13 @@ function CreateEvent() {
         />
         {/* )} */}
       </IonLabel>
-      {/* <IonLabel className="hhome-form-label">
-        <span className="hhome-form-title">Upload your poster:</span>
-        {imagePreviewUrl && (
-          <img
-            src={imagePreviewUrl}
-            alt="Preview"
-            className="hhome-image-preview"
-          />
-        )}
-        {photos && (
-          <img
-            src={photos?.dataUrl}
-            alt="Preview"
-            className="hhome-image-preview"
-          />
-        )}
-        {uploading ? (
-          <IonButton disabled>...Upoloading</IonButton>
-        ) : (
-          <IonButton onClick={takePhoto}>Upload Photo</IonButton>
-          // <IonButton onClick={handleCamera}>Upload Photo</IonButton>
-        )}
-      </IonLabel> */}
 
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Event Title:</span>
         <IonTextarea
           maxlength={100}
           className="hhome-form-input"
-          // type="text"
+          onIonChange={handleChange}
           required
           {...register("title", { required: true })}
         />
@@ -220,7 +231,7 @@ function CreateEvent() {
       )}
 
       <IonLabel className="hhome-form-label">
-        <span className="hhome-form-title">Add a description:</span>
+        <span className="hhome-form-title">Description:</span>
         {/* <IonInput
           className="hhome-form-input"
           type="text"
@@ -280,6 +291,7 @@ function CreateEvent() {
                 <IonDatetime
                   {...register("event_date", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
+                  onIonChange={handleChange}
                   showDefaultButtons={true}
                   presentation="date"
                   id="date"
@@ -406,15 +418,6 @@ function CreateEvent() {
       >
         <span className="hsubmit-txt">Submit</span>
       </IonButton>
-      {/* <IonButton
-        type="submit"
-        expand="full"
-        fill="clear"
-        onClick={handleUpload}
-        className="hsubmit-btn"
-      >
-        <span className="hsubmit-txt">Upload</span>
-      </IonButton> */}
     </IonCard>
   );
 }

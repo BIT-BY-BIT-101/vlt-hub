@@ -17,7 +17,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import useFirestore from "../../hooks/useFirestore";
@@ -29,12 +29,16 @@ import EditProfile from "../modals/EditProfile";
 import UploadProfileImg from "../modals/UploadProfileImg";
 import PrimaryButton from "../PrimaryButton";
 import SecondaryButton from "../SecondaryButton";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProfileCard = () => {
-  const { userData } = useFirebaseAuth();
+  const { currentUser } = useContext(AuthContext);
+  // const { userData } = useFirebaseAuth();
   // const { userData } = useFirestore(`profiles`);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showUploadImg, setShowUploadImg] = useState(false);
+
+  const userData = currentUser?.data;
 
   const handleOpenEditProfile = () => {
     setShowEditModal(true);

@@ -47,10 +47,6 @@ const ParticipantSignupComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailMessage, setEmailMessage] = useState<string>();
 
-  const [month, setMonth] = useState("");
-  const [date, setDate] = useState("");
-  const [year, setYear] = useState("");
-
   // console.log(emailTemplate);
   useEffect(() => {
     const appUrl = import.meta.env.VITE_APP_URL;
