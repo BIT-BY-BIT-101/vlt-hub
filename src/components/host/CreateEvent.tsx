@@ -1,35 +1,24 @@
 import {
   IonCard,
   IonLabel,
-  IonInput,
+  IonImg,
+  IonTextarea,
   IonDatetimeButton,
   IonModal,
   IonDatetime,
-  IonButton,
-  IonTextarea,
-  IonSelect,
-  IonSelectOption,
-  IonItem,
+  IonInput,
   IonToggle,
-  IonImg,
+  IonButton,
+  IonItem,
 } from "@ionic/react";
-import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
-import useFirestore from "../../hooks/useFirestore";
-import { useForm, useWatch } from "react-hook-form";
-import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import { auth } from "../../config/firebase";
-import { useHistory, useParams } from "react-router";
-import useQueryDoc from "../../hooks/useQueryDoc";
-import useFirebaseStorage from "../../hooks/useFirestorage";
-import { serverTimestamp, Timestamp } from "firebase/firestore";
-import Swal from "sweetalert2";
-import useCreateEvent from "../../hooks/useCreateEvent";
+import { useContext, useState, useRef, useEffect, ChangeEvent } from "react";
+import { render } from "@react-email/render";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../context/AuthContext";
+import CourseCreationEmail from "../../emails/CourseCreationEmail";
+import { formatDateString } from "../../helpers/DateTimeFunctions";
 import useHandleEvents from "../../hooks/useHandleEvents";
 import DefaultImg from "../../assets/defaultCover.jpg";
-import CourseCreationEmail from "../../emails/CourseCreationEmail";
-import { render } from "@react-email/render";
-import { AuthContext } from "../../context/AuthContext";
-import { formatDateString } from "../../helpers/DateTimeFunctions";
 
 // type RouteParams = {
 //   id: string;
@@ -50,10 +39,6 @@ function CreateEvent() {
   const {
     register,
     handleSubmit,
-    reset,
-    getValues,
-    control,
-    watch,
     formState: { errors: formError },
   } = useForm();
   const [eventData, setEventData] = useState({
@@ -101,17 +86,20 @@ function CreateEvent() {
     const { name, value } = event.target;
     setEventData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: name === "event_date" ? value.toString() : value,
     }));
   };
 
   useEffect(() => {
+    const name = currentUser?.data?.fname;
+    console.log(name);
+
     const appUrl = import.meta.env.VITE_APP_URL;
     async function getTemplate() {
       const emailTemplate = await render(
         <CourseCreationEmail
           appUrl={appUrl}
-          name={currentUser?.data?.fname}
+          name={name}
           event_title={eventData?.title}
           event_date={formatDateString(eventData?.event_date)}
         />,
@@ -124,7 +112,11 @@ function CreateEvent() {
     getTemplate();
   }, [eventData]);
 
-  console.table(eventData);
+  useEffect(() => {
+    console.log(formError);
+  }, [formError]);
+
+  // console.table(eventData);
   console.log(eventData.title);
   console.log(eventData.event_date);
 
@@ -301,10 +293,8 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.eventDate?.type === "required" && (
-            <p role="alert" className="text-color-danger">
-              Please add the date in which the event will take place
-            </p>
+          {formError.event_date?.type === "required" && (
+            <p role="alert">This Field is required</p>
           )}
         </div>
         <div className="date-time-item">
@@ -325,10 +315,8 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.startTime?.type === "required" && (
-            <p role="alert" className="text-color-danger">
-              Please add the time in which the event will start
-            </p>
+          {formError.start_time?.type === "required" && (
+            <p role="alert">This Field is required</p>
           )}
         </div>
         <div className="date-time-item">
@@ -349,17 +337,9 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.endTime?.type === "required" && (
-            <p role="alert" className="text-color-danger">
-              Please select the time in which the event will end
-            </p>
+          {formError.end_time?.type === "required" && (
+            <p role="alert">This Field is required</p>
           )}
-
-          {/* {formError.event_fee?.type === "required" && (
-            <p role="alert" className="text-color-danger">
-              Please add amount fee
-            </p>
-          )} */}
         </div>
       </div>
       <IonLabel className="hhome-form-label">
@@ -374,7 +354,7 @@ function CreateEvent() {
       </IonLabel>
       {formError.event_deligates?.type === "required" && (
         <p role="alert" className="text-color-danger">
-          Please type value in this field(minimum of twety deligates)
+          Please type value in this field(minimum of 20 deligates)
         </p>
       )}
 
@@ -404,6 +384,14 @@ function CreateEvent() {
       </IonLabel>
 
       {/* </IonItem> */}
+
+      {formError && (
+        <IonItem color={"danger"} style={{ marginTop: "10px" }}>
+          <p role="alert" className="text-color-danger">
+            Please don't leave any field empty
+          </p>
+        </IonItem>
+      )}
 
       <IonButton
         type="submit"

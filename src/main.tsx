@@ -12,9 +12,9 @@ const root = createRoot(container!);
 root.render(
   // <React.StrictMode>
   <AuthContextProvider>
-    <UpdateDataProvider>
-      <App />
-    </UpdateDataProvider>
+    {/* <UpdateDataProvider> */}
+    <App />
+    {/* </UpdateDataProvider> */}
   </AuthContextProvider>
   // </React.StrictMode>
 );

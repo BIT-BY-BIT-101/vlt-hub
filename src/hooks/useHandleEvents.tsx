@@ -1,11 +1,9 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { auth } from "../config/firebase";
 import useCreateEvent from "./useCreateEvent";
 import useFirestore from "./useFirestore";
-import useFirebaseAuth from "./useFirebaseAuth";
 import { useHistory } from "react-router-dom";
-import { text } from "ionicons/icons";
 import { textIndexToArray } from "../helpers/Helpers";
 import nodeMailApi from "../config/nodemail";
 import { AuthContext } from "../context/AuthContext";
@@ -21,7 +19,7 @@ const useHandleEvents = () => {
 
   const [isPaid, setIsPaid] = useState(false);
   const [imgUrl, setImgUrl] = useState<File | null>(null);
-  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [emailMessage, setEmailMessage] = useState<string>();
 
   //   function setPaid(value: boolean) {
   //     setIsPaid(value);
