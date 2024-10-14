@@ -40,3 +40,6 @@ export function arrayToString(arr: string[]): string {
 //   const keywordsArray = str.split(",").map((word) => word.trim());
 //   return keywordsArray;
 // };
+
+export const defaultImg =
+  "https://ionicframework.com/docs/img/demos/thumbnail.svg";

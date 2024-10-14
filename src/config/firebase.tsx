@@ -24,7 +24,7 @@ const firebaseConfig = {
   messagingSenderId: "1047094733035",
   appId: "1:1047094733035:web:ad54e04800d43f3bf176ae",
 };
-  
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -32,9 +32,9 @@ export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export const db = getFirestore(app);
-// connectFirestoreEmulator(db, "127.0.0.1", 9098);
+// connectFirestoreEmulator(db, "127.0.0.1", 8080);
 export const storage = getStorage(app);
 // if (location.hostname === "localhost") {
 //   // Point to the Storage emulator running on localhost.
-//   connectStorageEmulator(storage, "127.0.0.1", 9096);
+//   connectStorageEmulator(storage, "127.0.0.1", 9199);
 // }

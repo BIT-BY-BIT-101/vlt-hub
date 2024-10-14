@@ -50,6 +50,8 @@ const useFirestore = (collectionPath: string) => {
       setLoading(false);
       console.error("Error adding event:", err);
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,6 +89,8 @@ const useFirestore = (collectionPath: string) => {
     } catch (err) {
       console.error("Error updating data:", err);
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -116,6 +120,9 @@ const useFirestore = (collectionPath: string) => {
       getData();
     } catch (err) {
       setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
     }
   };
 

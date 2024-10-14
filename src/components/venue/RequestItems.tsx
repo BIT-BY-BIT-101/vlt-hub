@@ -22,6 +22,7 @@ import RequestModal from "../modals/RequestModal";
 import useGetRequest from "../../hooks/useFetchRequests";
 import { formatDateString } from "../../helpers/DateTimeFunctions";
 import { Label } from "recharts";
+import useFetchRequests from "../../hooks/useFetchRequests";
 
 const RequestItems = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +40,7 @@ const RequestItems = () => {
   //   "==",
   //   currentUser?.data.venueId
   // );
-  const { data: requestData } = useGetRequest();
+  const { data: requestData } = useFetchRequests();
 
   // const [isOpen, setIsOpen] = useState(false);
   // const [chatroomId, setChatRoomId] = useState("");

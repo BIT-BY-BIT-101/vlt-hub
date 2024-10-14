@@ -41,7 +41,7 @@ const useHandleRequests = (selected: any) => {
           }).then(async () => {
             await upadateEvent(selected.event_id, {
               status: "confirmed",
-              is_confirmed: true,
+              // is_confirmed: true,
             }).then(() => {
               if (requestError === null) {
                 Swal.fire({
@@ -92,6 +92,7 @@ const useHandleRequests = (selected: any) => {
           }).then(async () => {
             await upadateEvent(selected.event_id, {
               status: "rejected",
+              is_transaction_complete: true,
             }).then(() => {
               if (requestError === null) {
                 Swal.fire({

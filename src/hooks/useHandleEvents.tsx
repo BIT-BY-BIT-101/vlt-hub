@@ -12,8 +12,11 @@ const useHandleEvents = () => {
   const { currentUser } = useContext(AuthContext);
   // const { userData } = useFirebaseAuth();
   const userData = currentUser?.data;
-  const { addData: createRequest, error: requestError } =
-    useFirestore("requests");
+  const {
+    addData: createRequest,
+    error: requestError,
+    loading: requestLoading,
+  } = useFirestore("requests");
   const { createEvent, error: eventError } = useCreateEvent();
   const history = useHistory();
 
@@ -106,8 +109,10 @@ const useHandleEvents = () => {
                   is_paid: isPaid,
                   host_id: hostId,
                   host_name: hostName,
+                  host_email: currentUser?.email,
                   status: "for verification",
                   is_confirmed: false,
+                  is_transaction_complete: false,
                 })
                   .then(async (res) => {
                     console.log("response: ", res);

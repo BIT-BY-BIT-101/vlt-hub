@@ -13,13 +13,16 @@ import {
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
 import "./UploadProfileImg.css";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, createRef, useRef, useState } from "react";
 import useFirebaseStorage from "../../hooks/useFirestorage";
 import { useForm } from "react-hook-form";
 import useFirestore from "../../hooks/useFirestore";
 import { auth } from "../../config/firebase";
 import useUpdateProfile from "../../hooks/useUpdateProfile";
 import Swal from "sweetalert2";
+import Cropper, { ReactCropperElement } from "react-cropper";
+import AvatarImageCropper from "./AvatarImageCropper";
+import { defaultImg } from "../../helpers/Helpers";
 
 type UploadImgProps = {
   userData: any;
@@ -38,9 +41,14 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
   const [imgUrl, setImgUrl] = useState<File | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { updateData } = useFirestore("profiles");
+  const [cropperModal, setCropperModal] = useState(false);
 
   const { register, handleSubmit, reset } = useForm();
+  const [croppedBase64, setCroppedBase64] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [image, setImage] = useState<any>(defaultImg);
+  const cropperRef = createRef<ReactCropperElement>();
 
   const handleDismissal = () => {
     onDidDismissal();
@@ -54,17 +62,40 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
     fileInputRef?.current?.click();
   };
 
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   setSelectedFile(file || null);
+
+  //   if (file) {
+  //     const img = file;
+  //     const imageUrl = URL.createObjectURL(file);
+  //     console.log("image: ", img);
+  //     console.log("url: ", imageUrl);
+  //     setImgUrl(img);
+  //     setImagePreviewUrl(imageUrl);
+  //     setCropperModal(true);
+  //   } else {
+  //     setImagePreviewUrl(null);
+  //     setImgUrl(null);
+  //   }
+  // };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     setSelectedFile(file || null);
 
     if (file) {
-      const img = file;
-      const imageUrl = URL.createObjectURL(file);
-      console.log("image: ", img);
-      console.log("url: ", imageUrl);
-      setImgUrl(img);
-      setImagePreviewUrl(imageUrl);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64Image = reader.result as string;
+        console.log("Base64 Image: ", base64Image);
+        // setImgUrl(file); // Keep the original file if needed for uploading
+        setImage(base64Image); // Set the Base64 image for the cropper
+        setCropperModal(true); // Trigger the cropper modal
+      };
+
+      reader.readAsDataURL(file); // Convert file to Base64
     } else {
       setImagePreviewUrl(null);
       setImgUrl(null);
@@ -75,6 +106,29 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
   //   await uploadImage(imgUrl, Date.now());
   //   console.log(imgUrl);
   // };
+
+  function handleCloseCropperModal() {
+    setImage(undefined);
+    setCropperModal(false);
+  }
+
+  async function onSaveCroppedImage(croppedBase64Image: string) {
+    if (croppedBase64Image) {
+      const blob = await (await fetch(croppedBase64Image)).blob(); // Convert Base64 to Blob
+      setImgUrl(blob);
+      console.log(blob);
+    }
+    setCroppedBase64(croppedBase64Image); // Save the cropped image in Base64 format
+    setImagePreviewUrl(croppedBase64Image);
+    // setImgUrl(croppedBase64Image);
+    setCropperModal(false); // Close the cropper modal
+  }
+
+  function onCancel() {
+    setImgUrl(null);
+    setImagePreviewUrl(null);
+    setCroppedBase64(null);
+  }
 
   const onSubmit = async () => {
     const id = auth.currentUser?.uid;
@@ -129,6 +183,7 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
 
     // onClose();
   };
+
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onDidDismissal}>
       <IonHeader>
@@ -149,16 +204,27 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
             src={
               userData?.photoURL
                 ? imagePreviewUrl || userData?.photoURL
-                : "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                : imagePreviewUrl ||
+                  "https://ionicframework.com/docs/img/demos/thumbnail.svg"
             }
           />
           <input
             type="file"
             ref={fileInputRef}
+            // ref={cropperRef}
             style={{ display: "none" }}
             onChange={handleFileChange}
+            // onChange={handleCropperModal}
           />
         </IonItem>
+
+        <AvatarImageCropper
+          open={cropperModal}
+          onDidDismissal={handleCloseCropperModal}
+          imageSrc={image}
+          onSaveCroppedImage={onSaveCroppedImage}
+          onCancel={onCancel}
+        />
       </IonContent>
       <IonFooter>
         <IonItem

@@ -34,6 +34,13 @@ service cloud.firestore {
       allow write: if authed()
     }
     
+     match /requests/{requestId} {
+    	allow read, write: if authed()
+    }
+    match /facilities/{facilityId} {
+    	allow read, write: if authed()
+    }
+    
     match /venues/{venueId} {
     	allow write: if authed()
     }

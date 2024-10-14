@@ -11,7 +11,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { EventDataModel } from "../models/Model";
 import { AuthContext } from "../context/AuthContext";
-import { dA } from "@fullcalendar/core/internal-common";
 
 const useFetchRequests = () => {
   const { currentUser } = useContext(AuthContext);
@@ -26,14 +25,10 @@ const useFetchRequests = () => {
       colRef,
       and(
         // where("host_id", "==", currentUser?.uid),
-        or(
-          // where("status", "==", "unpublished"),
-          where("status", "==", "for verification"),
-          where("status", "==", "confirming"),
-          where("status", "==", "paying")
-        )
+
+        or(where("is_transaction_complete", "==", false))
       ),
-      orderBy("created", "desc")
+      orderBy("updatedAt", "desc")
     );
 
     const unsub = onSnapshot(q, (doc) => {
