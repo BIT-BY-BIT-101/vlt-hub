@@ -24,6 +24,10 @@ export type UserDataModel = {
   fname: string;
   lname: string;
   email: string;
+  birthdate: Date;
+  role: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type VenueDataModel = {

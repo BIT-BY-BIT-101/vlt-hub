@@ -11,6 +11,11 @@ import {
   IonInput,
   IonSelect,
   IonSelectOption,
+  IonCol,
+  IonDatetime,
+  IonDatetimeButton,
+  IonGrid,
+  IonRow,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
 import React, { useContext, useEffect, useState } from "react";
@@ -19,6 +24,11 @@ import "./EditProfile.css";
 import { serverTimestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../context/AuthContext";
+import {
+  getMinimumDate,
+  getMaximumDate,
+} from "../../helpers/DateTimeFunctions";
+import { UserDataModel } from "../../models/Model";
 
 type EditProps = {
   userData: any;
@@ -36,19 +46,14 @@ const EditProfile: React.FC<EditProps> = ({
   const { currentUser } = useContext(AuthContext);
   const { updateData } = useFirestore("profiles");
 
-  const [editedData, setEditedData] = useState<any>();
+  const [editedData, setEditedData] = useState<UserDataModel>();
 
   useEffect(() => {
     setEditedData(userData);
-    console.log(editedData);
-
-    return () => {
-      setEditedData(null);
-      console.log(editedData);
-    };
+    console.table(editedData);
   }, [isOpen]);
 
-  console.log(editedData);
+  // console.log(editedData);
 
   const handleSaveChanges = async (e: any) => {
     e.preventDefault();
@@ -91,7 +96,7 @@ const EditProfile: React.FC<EditProps> = ({
               // reset();
 
               // Log success or navigate to another page
-              console.log("Venue Added successfully!");
+              console.log("Successfully Updated!");
             })
             .then(() => {
               Swal.fire({
@@ -133,11 +138,15 @@ const EditProfile: React.FC<EditProps> = ({
   };
 
   const handleInputChange = (e: CustomEvent) => {
+    const { name, value } = e.target;
     setEditedData((prevData: any) => ({
       ...prevData,
-      [e.target?.name]: e.target.value,
+      [name]: name === "birthdate" ? value.toString() : value,
     }));
   };
+
+  const minDate = getMinimumDate();
+  const maxDate = getMaximumDate();
 
   return (
     <>
@@ -187,6 +196,40 @@ const EditProfile: React.FC<EditProps> = ({
               onIonChange={handleInputChange}
             />
           </IonLabel>
+          <IonLabel className="veditprofile-form-label">
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonLabel className="veditprofile-form-label">
+                    Date of Birth:
+                  </IonLabel>
+                </IonCol>
+                <IonCol>
+                  <IonDatetimeButton
+                    datetime="date"
+                    // className="hsignup-birthdate-button"
+                    style={{ color: "black" }}
+                  ></IonDatetimeButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+            <IonModal keepContentsMounted={true}>
+              <IonDatetime
+                presentation="date"
+                id="date"
+                showDefaultButtons={true}
+                name="birthdate"
+                onIonChange={handleInputChange}
+                value={
+                  editedData?.birthdate
+                    ? editedData?.birthdate || maxDate
+                    : userData?.birthdate
+                }
+                min={minDate}
+                max={maxDate}
+              ></IonDatetime>
+            </IonModal>
+          </IonLabel>
 
           <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">Sex:</span>
@@ -215,7 +258,9 @@ const EditProfile: React.FC<EditProps> = ({
           </IonLabel>
 
           <IonLabel className="veditprofile-form-label">
-            <span className="veditprofile-form-title">Building No.:</span>
+            <span className="veditprofile-form-title">
+              Building/Floor/Block Number:
+            </span>
             <IonInput
               className="veditprofile-form-input"
               value={editedData?.bldg_no}
@@ -259,7 +304,7 @@ const EditProfile: React.FC<EditProps> = ({
               onIonChange={handleInputChange}
             />
           </IonLabel>
-          <IonLabel className="veditprofile-form-label">
+          {/* <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">Country:</span>
             <IonInput
               className="veditprofile-form-input"
@@ -273,7 +318,7 @@ const EditProfile: React.FC<EditProps> = ({
               // }
               onIonChange={handleInputChange}
             />
-          </IonLabel>
+          </IonLabel> */}
         </IonContent>
         <IonButton
           onClick={handleSaveChanges}

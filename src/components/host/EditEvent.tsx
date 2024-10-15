@@ -86,61 +86,65 @@ const EditEvent = () => {
       console.log(editedData);
 
       if (result.isConfirmed) {
+        // Show loading until the upload completes
         Swal.fire({
           heightAuto: false,
           position: "top-right",
           title: "Uploading..",
-          timer: 2000,
-          timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading();
+            Swal.showLoading(); // Keep loading animation active
           },
-        })
-          .then(async () => {
-            // Combine the state and any other data needed
+        });
 
-            // Call the createEvent function to add the event data to Firebase
-
-            await updateEvent(id!, {
-              keywords: arrayRemove({ currentKeywords }),
-            })
-              .then((res) => {
-                console.log("tags removed successfully: ", res);
-
-                console.log("keywords: ", editedData?.keywords);
-
-                // const newKeywords = arrayToString(editedData?.keywords);
-                const newKeywords = editedData?.keywords;
-                console.log("newKeywords: ", newKeywords);
-
-                updateEvent(id!, {
-                  ...editedData,
-                  keywords: newKeywords,
-                  updatedAt: serverTimestamp(),
-                }).then(() => {
-                  Swal.fire({
-                    heightAuto: false,
-                    icon: "success",
-                    title: "Successfully added!",
-                  }).then(() => {
-                    // handleWindowRoute(`/host/event/details/${id}`);
-                    history.push(`/host/event/details/${id}`);
-                  });
-                });
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          })
-          .catch((error) => {
-            console.log("Error adding venue:", error);
-            Swal.fire({
-              heightAuto: false,
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
+        try {
+          // First async task: remove current keywords
+          await updateEvent(id!, {
+            keywords: arrayRemove({ currentKeywords }),
           });
+
+          console.log("tags removed successfully");
+
+          console.log("keywords: ", editedData?.keywords);
+
+          // Prepare new keywords
+          const newKeywords = editedData?.keywords;
+          console.log("newKeywords: ", newKeywords);
+
+          // Second async task: update the event with new data
+          await updateEvent(
+            id!,
+            {
+              ...editedData,
+              keywords: newKeywords,
+              updatedAt: serverTimestamp(),
+            },
+            () => {
+              Swal.fire({
+                heightAuto: false,
+                icon: "success",
+                title: "Successfully added!",
+              }).then(() => {
+                // Redirect to event details
+                history.push({
+                  pathname: `/host/event/details/${id}`,
+                  state: { updatedEvent: editedData }, // Passing updated data
+                });
+              });
+            }
+          );
+
+          // Show success message
+        } catch (error) {
+          console.error("Error: ", error);
+
+          // Show error message if something goes wrong
+          Swal.fire({
+            heightAuto: false,
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
       }
     });
   };

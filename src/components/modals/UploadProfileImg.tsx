@@ -48,7 +48,7 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [image, setImage] = useState<any>(defaultImg);
-  const cropperRef = createRef<ReactCropperElement>();
+  // const cropperRef = createRef<ReactCropperElement>();
 
   const handleDismissal = () => {
     onDidDismissal();
@@ -133,6 +133,54 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
   const onSubmit = async () => {
     const id = auth.currentUser?.uid;
 
+    // Swal.fire({
+    //   title: "Do you want to save the changes?",
+    //   showCancelButton: true,
+    //   confirmButtonText: "Save",
+    //   heightAuto: false,
+    // }).then(async (result: any) => {
+    //   if (result.isConfirmed) {
+    //     Swal.fire({
+    //       heightAuto: false,
+    //       position: "top-right",
+    //       title: "Uploading..",
+    //       timer: 2000,
+    //       timerProgressBar: true,
+    //       didOpen: () => {
+    //         Swal.showLoading();
+    //       },
+    //     }).then(async () => {
+    //       await updateProfileImage(imgUrl, Date.now(), id).then(() => {
+    //         console.error(uploadError);
+
+    //         if (uploadError === null) {
+    //           Swal.fire({
+    //             heightAuto: false,
+    //             position: "top-right",
+    //             icon: "success",
+    //             title: "Profile picture uploaded",
+    //             showConfirmButton: false,
+    //             timer: 2000,
+    //           }).then(() => {
+    //             reset();
+    //             onClose();
+    //           });
+    //         } else {
+    //           Swal.fire({
+    //             heightAuto: false,
+    //             position: "top-right",
+    //             icon: "error",
+    //             title: "Errror",
+    //             text: "Something went wrong",
+    //             showConfirmButton: false,
+    //             timer: 2000,
+    //           });
+    //         }
+    //       });
+    //     });
+    //   }
+    // });
+
     Swal.fire({
       title: "Do you want to save the changes?",
       showCancelButton: true,
@@ -140,44 +188,44 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
       heightAuto: false,
     }).then(async (result: any) => {
       if (result.isConfirmed) {
+        // Show loading until upload completes
         Swal.fire({
           heightAuto: false,
           position: "top-right",
           title: "Uploading..",
-          timer: 2000,
-          timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading();
+            Swal.showLoading(); // Keep loading animation
           },
-        }).then(async () => {
-          await updateProfileImage(imgUrl, Date.now(), id).then(() => {
-            console.error(uploadError);
-
-            if (uploadError === null) {
-              Swal.fire({
-                heightAuto: false,
-                position: "top-right",
-                icon: "success",
-                title: "Profile picture uploaded",
-                showConfirmButton: false,
-                timer: 2000,
-              }).then(() => {
-                reset();
-                onClose();
-              });
-            } else {
-              Swal.fire({
-                heightAuto: false,
-                position: "top-right",
-                icon: "error",
-                title: "Errror",
-                text: "Something went wrong",
-                showConfirmButton: false,
-                timer: 2000,
-              });
-            }
-          });
         });
+
+        try {
+          // Await the upload process
+          await updateProfileImage(imgUrl, Date.now(), id);
+
+          // If no errors, show success message
+          Swal.fire({
+            heightAuto: false,
+            position: "top-right",
+            icon: "success",
+            title: "Profile picture uploaded",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            reset();
+            onClose();
+          });
+        } catch (uploadError) {
+          // If there's an error, show error message
+          Swal.fire({
+            heightAuto: false,
+            position: "top-right",
+            icon: "error",
+            title: "Error",
+            text: "Something went wrong",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       }
     });
 

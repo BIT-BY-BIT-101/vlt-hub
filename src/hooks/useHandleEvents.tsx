@@ -71,94 +71,84 @@ const useHandleEvents = () => {
       // createdAt: serverTimestamp(),
       //   updatedAt: serverTimestamp(),
     };
-
     Swal.fire({
       title: "Do you want to save?",
       showCancelButton: true,
       confirmButtonText: "Save",
       heightAuto: false,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        // Show loading until everything completes
         Swal.fire({
           heightAuto: false,
           position: "top-right",
           title: "Uploading..",
-          timer: 2000,
-          timerProgressBar: true,
           didOpen: () => {
-            Swal.showLoading();
+            Swal.showLoading(); // Keep the loading animation active
           },
-        }).then(async (result) => {
-          console.log("imgUrl: ", imgUrl);
+        });
 
-          /* Read more about handling dismissals below */
-          await createEvent(imgUrl, Date.now(), eventDataToSubmit)
-            .then(async (res) => {
-              console.log("response: ", res);
-              console.log("Event Error", eventError);
+        // Start the async operations
+        (async () => {
+          try {
+            // First async task: createEvent
+            const res = await createEvent(
+              imgUrl,
+              Date.now(),
+              eventDataToSubmit
+            );
 
-              if (res) {
-                await createRequest({
-                  event_title: data.title,
-                  event_id: res,
-                  event_date: data.event_date,
-                  event_description: data.description,
-                  event_start_date: data.start_time,
-                  event_end_date: data.end_time,
-                  is_paid: isPaid,
-                  host_id: hostId,
-                  host_name: hostName,
-                  host_email: currentUser?.email,
-                  status: "for verification",
-                  is_confirmed: false,
-                  is_transaction_complete: false,
-                })
-                  .then(async (res) => {
-                    console.log("response: ", res);
-                    console.log("Request Error", requestError);
+            if (res) {
+              // Second async task: createRequest
+              await createRequest({
+                event_title: data.title,
+                event_id: res,
+                event_date: data.event_date,
+                event_description: data.description,
+                event_start_date: data.start_time,
+                event_end_date: data.end_time,
+                is_paid: isPaid,
+                host_id: hostId,
+                host_name: hostName,
+                host_email: currentUser?.email,
+                status: "for verification",
+                is_confirmed: false,
+                is_transaction_complete: false,
+              });
 
-                    const payload = {
-                      name: userData?.fname,
-                      subject: "New Course Created",
-                      email: currentUser?.email,
-                      message: emailMessage,
-                    };
+              // Send email notification
+              const payload = {
+                name: userData?.fname,
+                subject: "New Course Created",
+                email: currentUser?.email,
+                message: emailMessage,
+              };
+              nodeMailApi.post("api/v1/send-email", payload);
 
-                    nodeMailApi.post("api/v1/send-email", payload);
-
-                    Swal.fire({
-                      title: "Success!",
-                      text: "Event created successfully",
-                      icon: "success",
-                      confirmButtonText: "OK",
-                      heightAuto: false,
-                    }).then(() => {
-                      history.push("/host/event-list");
-                    });
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    Swal.fire({
-                      title: "Error!",
-                      text: "Something went wrong, please try again",
-                      icon: "error",
-                      confirmButtonText: "OK",
-                      heightAuto: false,
-                    });
-                  });
-              }
-            })
-            .catch(() => {
+              // Show success message
               Swal.fire({
-                title: "Error!",
-                text: "Something went wrong, please try again",
-                icon: "error",
+                title: "Success!",
+                text: "Event created successfully",
+                icon: "success",
                 confirmButtonText: "OK",
                 heightAuto: false,
+              }).then(() => {
+                history.push("/host/event-list");
               });
+            }
+          } catch (error) {
+            console.error("Error: ", error);
+
+            // Show error message if something goes wrong
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong, please try again",
+              icon: "error",
+              confirmButtonText: "OK",
+              heightAuto: false,
             });
-        });
+          }
+        })();
       }
     });
   };

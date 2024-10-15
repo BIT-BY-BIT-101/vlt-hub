@@ -18,21 +18,48 @@ const EventImageCropper = ({
   onDidDismissal,
   imageSrc,
   onSaveCroppedImage,
+  onCancel,
 }: {
   open: boolean;
   onDidDismissal: () => void;
   imageSrc: string;
   onSaveCroppedImage: (croppedBase64Image: string) => void;
+  onCancel: () => void;
 }) => {
   const cropperRef = createRef<ReactCropperElement>();
   const [croppedImage, setCropImage] = useState<string>();
+
+  const getCropData = () => {
+    if (typeof cropperRef.current?.cropper !== "undefined") {
+      const cropData = cropperRef.current?.cropper
+        .getCroppedCanvas()
+        .toDataURL();
+      // .toBlob((blob) => {
+      //   if (blob) {
+      //     const croppedImageURL = URL.createObjectURL(blob); // Create a URL from the Blob
+      //     onSaveCroppedImage(croppedImageURL); // Pass the URL back to the parent component
+      //     console.log("url: ", croppedImageURL);
+      //   }
+      // });
+      console.log(cropData);
+      // setCropImage(cropData);
+      onSaveCroppedImage(cropData);
+      // onDidDismissal();
+    }
+  };
+
   return (
     <IonModal isOpen={open} onDidDismiss={onDidDismissal}>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Upload Picture</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={() => onDidDismissal()}>
+            <IonButton
+              onClick={() => {
+                onCancel();
+                onDidDismissal();
+              }}
+            >
               <IonIcon icon={closeCircle} />
             </IonButton>
           </IonButtons>
@@ -42,7 +69,7 @@ const EventImageCropper = ({
         ref={cropperRef}
         style={{ height: 400, width: "100%" }}
         // zoomTo={0.5}
-        initialAspectRatio={1}
+        initialAspectRatio={2}
         preview=".img-preview"
         src={imageSrc}
         viewMode={1}
@@ -56,7 +83,6 @@ const EventImageCropper = ({
         cropBoxMovable={false}
         cropBoxResizable={false}
         dragMode="move"
-        // draggable={false}
       />
 
       <IonFooter>
@@ -74,7 +100,14 @@ const EventImageCropper = ({
             >
               Save
             </IonButton>
-            <IonButton onClick={onDidDismissal}>Cancel</IonButton>
+            <IonButton
+              onClick={() => {
+                onCancel();
+                onDidDismissal();
+              }}
+            >
+              Cancel
+            </IonButton>
           </IonButtons>
         </IonItem>
       </IonFooter>

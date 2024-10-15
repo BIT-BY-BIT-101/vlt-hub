@@ -76,7 +76,7 @@ const useFirestore = (collectionPath: string) => {
   //   }
   // };
 
-  const updateData = async (id: string, data: any) => {
+  const updateData = async (id: string, data: any, callback?: () => void) => {
     try {
       const docRef = doc(db, collectionPath, id);
       await updateDoc(docRef, {
@@ -84,6 +84,7 @@ const useFirestore = (collectionPath: string) => {
         updatedAt: serverTimestamp(),
       }).then((result) => {
         console.log("Data updated successfully! ", result);
+        if (callback) callback();
         return result;
       });
     } catch (err) {

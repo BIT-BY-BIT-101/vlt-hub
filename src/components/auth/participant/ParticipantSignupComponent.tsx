@@ -191,7 +191,7 @@ const ParticipantSignupComponent = () => {
                   showDefaultButtons={true}
                   onIonChange={(e) => {
                     // const selectedDate = new Date().toString();
-                    setNewBirthdate(e.detail.value!.toString());
+                    setNewBirthdate(e.target.value!.toString());
                     console.log(e.detail.value!.toString());
                   }}
                   value={maxDate}

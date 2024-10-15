@@ -19,6 +19,8 @@ import CourseCreationEmail from "../../emails/CourseCreationEmail";
 import { formatDateString } from "../../helpers/DateTimeFunctions";
 import useHandleEvents from "../../hooks/useHandleEvents";
 import DefaultImg from "../../assets/defaultCover.jpg";
+import EventImageCropper from "../modals/EventImageCropper";
+import { defaultImg } from "../../helpers/Helpers";
 
 // type RouteParams = {
 //   id: string;
@@ -63,6 +65,10 @@ function CreateEvent() {
 
   const [eventTitleValue, setEventTitleValue] = useState("");
   const [eventDateValue, setEventDateValue] = useState();
+
+  const [image, setImage] = useState<any>(defaultImg);
+  const [cropperModal, setCropperModal] = useState(false);
+  const [croppedBase64, setCroppedBase64] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -120,17 +126,39 @@ function CreateEvent() {
   console.log(eventData.title);
   console.log(eventData.event_date);
 
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   setSelectedFile(file || null);
+
+  //   if (file) {
+  //     const img = file;
+  //     const imageUrl = URL.createObjectURL(file);
+  //     console.log("image: ", img);
+  //     console.log("url: ", imageUrl);
+  //     setImgUrl(img);
+  //     setImagePreviewUrl(imageUrl);
+  //   } else {
+  //     setImagePreviewUrl(null);
+  //     setImgUrl(null);
+  //   }
+  // };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     setSelectedFile(file || null);
 
     if (file) {
-      const img = file;
-      const imageUrl = URL.createObjectURL(file);
-      console.log("image: ", img);
-      console.log("url: ", imageUrl);
-      setImgUrl(img);
-      setImagePreviewUrl(imageUrl);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64Image = reader.result as string;
+        console.log("Base64 Image: ", base64Image);
+        // setImgUrl(file); // Keep the original file if needed for uploading
+        setImage(base64Image); // Set the Base64 image for the cropper
+        setCropperModal(true); // Trigger the cropper modal
+      };
+
+      reader.readAsDataURL(file); // Convert file to Base64
     } else {
       setImagePreviewUrl(null);
       setImgUrl(null);
@@ -184,8 +212,38 @@ function CreateEvent() {
     fileInputRef?.current?.click();
   };
 
+  function handleCloseCropperModal() {
+    setImage(undefined);
+    setCropperModal(false);
+  }
+
+  async function onSaveCroppedImage(croppedBase64Image: string) {
+    if (croppedBase64Image) {
+      const blob = await (await fetch(croppedBase64Image)).blob(); // Convert Base64 to Blob
+      setImgUrl(blob);
+      console.log(blob);
+    }
+    setCroppedBase64(croppedBase64Image); // Save the cropped image in Base64 format
+    setImagePreviewUrl(croppedBase64Image);
+    // setImgUrl(croppedBase64Image);
+    setCropperModal(false); // Close the cropper modal
+  }
+
+  function onCancel() {
+    setImgUrl(null);
+    setImagePreviewUrl(null);
+    setCroppedBase64(null);
+  }
+
   return (
     <IonCard className="hhome-card-container">
+      <EventImageCropper
+        imageSrc={image}
+        open={cropperModal}
+        onDidDismissal={handleCloseCropperModal}
+        onSaveCroppedImage={onSaveCroppedImage}
+        onCancel={onCancel}
+      />
       <IonLabel className="hhome-form-label">
         <span className="hhome-form-title">Upload your poster:</span>
         <input
@@ -385,13 +443,13 @@ function CreateEvent() {
 
       {/* </IonItem> */}
 
-      {formError && (
+      {/* {formError && (
         <IonItem color={"danger"} style={{ marginTop: "10px" }}>
           <p role="alert" className="text-color-danger">
             Please don't leave any field empty
           </p>
         </IonItem>
-      )}
+      )} */}
 
       <IonButton
         type="submit"
@@ -402,7 +460,7 @@ function CreateEvent() {
         onClick={handleSubmit(handleCreateEvent)}
         // className="hsubmit-btn"
         className="ion-margin-top"
-        disabled={!imagePreviewUrl || !formError}
+        // disabled={!imagePreviewUrl || !formError}
       >
         <span className="hsubmit-txt">Submit</span>
       </IonButton>
