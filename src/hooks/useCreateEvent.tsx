@@ -85,9 +85,9 @@ const useCreateEvent = () => {
 
       return dataSnapshot;
     } catch (err) {
-      console.error("Error Creating Event: ", err);
       deleteImage();
       setError(err);
+      console.error("Error Creating Event: ", err);
       throw err;
     } finally {
       setIsUploading(false);

@@ -1,22 +1,16 @@
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
-import React, { useContext, useState } from "react";
-import { db, storage } from "../config/firebase";
 import imageCompression from "browser-image-compression";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import {
   ref,
   uploadBytes,
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import React, { useContext, useState } from "react";
+import { storage, db } from "../config/firebase";
 import { AuthContext } from "../context/AuthContext";
 
-const useUpdateProfile = () => {
+const useUpdateEvent = () => {
   const { currentUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
@@ -25,7 +19,7 @@ const useUpdateProfile = () => {
   const [imagePath, setImagePath] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState<boolean>(true);
 
-  const userId = currentUser?.uid;
+  const id = currentUser?.uid;
 
   const compressImage = async (file: File): Promise<Blob> => {
     const options = {
@@ -47,13 +41,13 @@ const useUpdateProfile = () => {
    *
    * @param file a file that will be uploaded
    * @param filename the name of the file
-
+   * @param data the data of the event
    * @param id the id of the event or profile
    */
-  const updateProfileImage = async (
+  const updateData = async (
     file: File,
     filename: string,
-    // data: any,
+    data: any,
     id: string
   ) => {
     try {
@@ -61,7 +55,7 @@ const useUpdateProfile = () => {
 
       const compressedFile = await compressImage(file);
 
-      const storageRef = ref(storage, `profiles/${userId}/image`);
+      const storageRef = ref(storage, `events/${id}/images`);
       const imageRef = ref(storageRef, `${filename}`);
 
       // const snapshot = await uploadString(imageRef, file, "data_url");
@@ -72,11 +66,18 @@ const useUpdateProfile = () => {
       const downloadUrl = await getDownloadURL(snapshot.ref);
       const imagePath = snapshot.metadata.fullPath;
       console.log("path: ", imagePath);
-      const docRef = doc(db, "profiles", id);
+      const docRef = doc(db, "events", id);
       await updateDoc(docRef, {
-        photoURL: downloadUrl,
+        ...data,
+        imagePath: imagePath,
+        imageUrl: downloadUrl,
         updatedAt: serverTimestamp(),
       });
+
+      return {
+        imagePath: imagePath,
+        imageUrl: downloadUrl,
+      };
     } catch (err) {
       async () => {
         await deleteImage();
@@ -91,6 +92,7 @@ const useUpdateProfile = () => {
   };
 
   const deleteImage = async () => {
+    setLoading(true);
     if (imagePath) {
       console.log("Aborting upload...");
 
@@ -102,12 +104,15 @@ const useUpdateProfile = () => {
         console.log("Image deleted successfully");
       } catch (err) {
         console.error("Error deleting image:", err);
+        throw err;
+      } finally {
+        setLoading(false);
       }
     }
   };
 
   return {
-    updateProfileImage,
+    updateData,
     loading,
     error,
     isUploading,
@@ -116,4 +121,4 @@ const useUpdateProfile = () => {
   };
 };
 
-export default useUpdateProfile;
+export default useUpdateEvent;

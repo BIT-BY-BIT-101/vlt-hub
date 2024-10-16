@@ -22,9 +22,11 @@ import {
 import useGetEvent from "../hooks/useGetEvent";
 import PageNotFound from "../pages/error_pages/PageNotFound";
 import { Label } from "recharts";
-import { create, createSharp } from "ionicons/icons";
+import { arrowUpCircleSharp, create, createSharp } from "ionicons/icons";
 import { AuthContext } from "../context/AuthContext";
 import { UpdateDataContext } from "../context/UpdateDataContext";
+import useFirestore from "../hooks/useFirestore";
+import { serverTimestamp } from "firebase/firestore";
 
 type RouteParams = {
   id: string;
@@ -36,6 +38,7 @@ const EventDetail = () => {
   const { id } = useParams<RouteParams>();
   // const { data: event, error, loading } = useGetDoc("events", id);
   const { data: event, error, hostInfo, loading } = useGetEvent(id);
+  const { updateData: updateStatus } = useFirestore("events");
 
   const location = useLocation();
   const updatedEvent = location.state?.updatedEvent; // Access updated data if passed
@@ -55,6 +58,19 @@ const EventDetail = () => {
       <IonItem className="item-bg-none">Something went wrong</IonItem>
     </IonCard>;
   }
+
+  const handlePublishBtn = async (data: any) => {
+    await updateStatus(data.id!, {
+      status: "published",
+    });
+  };
+  const handleConfirmed = async (data: any) => {
+    await updateStatus(data.id!, {
+      status: "paying",
+      is_confirmed: true,
+      updatedAt: serverTimestamp(),
+    });
+  };
 
   const eventData = updatedEvent || event;
 
@@ -103,6 +119,29 @@ const EventDetail = () => {
         </IonItem>
         {currentUser?.data.role === "host" && (
           <IonItem color={"none"}>
+            {eventData?.is_confirmed ? (
+              <IonButton
+                slot="start"
+                className="ion-padding"
+                // routerLink={`/host/event/${id}/edit`}
+                onClick={() => handlePublishBtn(event)}
+                disabled={eventData.is_confirmed ? false : true}
+              >
+                Publish
+                <IonIcon slot="icon-only" icon={createSharp} />
+              </IonButton>
+            ) : (
+              <IonButton
+                slot="start"
+                className="ion-padding"
+                // routerLink={`/host/event/${id}/edit`}
+                onClick={() => handleConfirmed(event)}
+                disabled={eventData.status !== "confirming" ? true : false}
+              >
+                {eventData.status !== "confirming" ? "Pending" : "Confirm"}
+                <IonIcon slot="icon-only" icon={arrowUpCircleSharp} />
+              </IonButton>
+            )}
             <IonButton
               slot="end"
               className="ion-padding"

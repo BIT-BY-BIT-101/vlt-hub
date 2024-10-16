@@ -24,6 +24,7 @@ import Swal from "sweetalert2";
 import { auth } from "../../config/firebase";
 import {
   arrayToString,
+  defaultImg,
   handleWindowRoute,
   keywordsToArray,
 } from "../../helpers/Helpers";
@@ -32,6 +33,8 @@ import { useHistory, useParams } from "react-router";
 import useGetEvent from "../../hooks/useGetEvent";
 import { UpdateDataContext } from "../../context/UpdateDataContext";
 import DefaultImg from "../../assets/defaultCover.jpg";
+import EventImageCropper from "../modals/EventImageCropper";
+import useUpdateEvent from "../../hooks/useUpdateEvent";
 
 type RouteParams = {
   id: string;
@@ -43,14 +46,19 @@ const EditEvent = () => {
   const { data: eventDetails, error, loading } = useGetEvent(id!);
   const [editedData, setEditedData] = useState<EventDataModel | null>();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | undefined>();
   const [imgUrl, setImgUrl] = useState<File | null>(null);
+
+  const [image, setImage] = useState<any>(defaultImg);
+  const [cropperModal, setCropperModal] = useState(false);
+  const [croppedBase64, setCroppedBase64] = useState<string | null>(null);
   const history = useHistory();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { updateData: updateEvent, error: updateError } =
-    useFirestore("events");
+  const { updateData: removeKeywords } = useFirestore("events");
+
+  const { updateData: updateEvent, error: updateEventError } = useUpdateEvent();
 
   const currentKeywords = eventDetails?.keywords;
   // const currentKeywordString = arrayToString(currentKeywords);
@@ -98,7 +106,7 @@ const EditEvent = () => {
 
         try {
           // First async task: remove current keywords
-          await updateEvent(id!, {
+          await removeKeywords(id!, {
             keywords: arrayRemove({ currentKeywords }),
           });
 
@@ -111,27 +119,50 @@ const EditEvent = () => {
           console.log("newKeywords: ", newKeywords);
 
           // Second async task: update the event with new data
-          await updateEvent(
-            id!,
+          const eventData = await updateEvent(
+            imgUrl!,
+            Date.now().toString(),
             {
               ...editedData,
               keywords: newKeywords,
               updatedAt: serverTimestamp(),
             },
-            () => {
-              Swal.fire({
-                heightAuto: false,
-                icon: "success",
-                title: "Successfully added!",
-              }).then(() => {
-                // Redirect to event details
-                history.push({
-                  pathname: `/host/event/details/${id}`,
-                  state: { updatedEvent: editedData }, // Passing updated data
-                });
-              });
-            }
+            id!
           );
+
+          Swal.fire({
+            heightAuto: false,
+            icon: "success",
+            title: "Successfully added!",
+          }).then(() => {
+            // Redirect to event details
+            history.push({
+              pathname: `/host/event/details/${id}`,
+              state: { updatedEvent: { ...editedData, ...eventData } }, // Passing updated data
+            });
+          });
+
+          // await removeKeywords(
+          //   id!,
+          //   {
+          //     ...editedData,
+          //     keywords: newKeywords,
+          //     updatedAt: serverTimestamp(),
+          //   },
+          //   () => {
+          //     Swal.fire({
+          //       heightAuto: false,
+          //       icon: "success",
+          //       title: "Successfully added!",
+          //     }).then(() => {
+          //       // Redirect to event details
+          //       history.push({
+          //         pathname: `/host/event/details/${id}`,
+          //         state: { updatedEvent: editedData }, // Passing updated data
+          //       });
+          //     });
+          //   }
+          // );
 
           // Show success message
         } catch (error) {
@@ -163,12 +194,17 @@ const EditEvent = () => {
     setSelectedFile(file || null);
 
     if (file) {
-      const img = file;
-      const imageUrl = URL.createObjectURL(file);
-      console.log("image: ", img);
-      console.log("url: ", imageUrl);
-      setImgUrl(img);
-      setImagePreviewUrl(imageUrl);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        const base64Image = reader.result as string;
+        console.log("Base64 Image: ", base64Image);
+        // setImgUrl(file); // Keep the original file if needed for uploading
+        setImage(base64Image); // Set the Base64 image for the cropper
+        setCropperModal(true); // Trigger the cropper modal
+      };
+
+      reader.readAsDataURL(file); // Convert file to Base64
     } else {
       setImagePreviewUrl(null);
       setImgUrl(null);
@@ -179,9 +215,39 @@ const EditEvent = () => {
     fileInputRef?.current?.click();
   };
 
+  function handleCloseCropperModal() {
+    setImage(undefined);
+    setCropperModal(false);
+  }
+
+  async function onSaveCroppedImage(croppedBase64Image: string) {
+    if (croppedBase64Image) {
+      const blob = await (await fetch(croppedBase64Image)).blob(); // Convert Base64 to Blob
+      setImgUrl(blob);
+      console.log(blob);
+    }
+    setCroppedBase64(croppedBase64Image); // Save the cropped image in Base64 format
+    setImagePreviewUrl(croppedBase64Image);
+    // setImgUrl(croppedBase64Image);
+    setCropperModal(false); // Close the cropper modal
+  }
+
+  function onCancel() {
+    setImgUrl(null);
+    setImagePreviewUrl(undefined);
+    setCroppedBase64(null);
+  }
+
   return (
     <>
       <IonCard className="hhome-card-container">
+        <EventImageCropper
+          imageSrc={image}
+          open={cropperModal}
+          onDidDismissal={handleCloseCropperModal}
+          onSaveCroppedImage={onSaveCroppedImage}
+          onCancel={onCancel}
+        />
         <IonLabel className="hhome-form-label">
           <span className="hhome-form-title">Upload your poster:</span>
           <input
@@ -198,11 +264,12 @@ const EditEvent = () => {
             src={
               editedData?.imageUrl
                 ? imagePreviewUrl || editedData?.imageUrl
-                : DefaultImg || imagePreviewUrl
+                : defaultImg || imagePreviewUrl
             }
             alt="Preview"
             className="hhome-image-preview"
           />
+
           {/* )} */}
         </IonLabel>
 

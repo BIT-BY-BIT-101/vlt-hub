@@ -47,32 +47,32 @@ export const UnpubEventCard = () => {
     });
   };
 
-  const handleChatButtonClick = async (data: any) => {
-    console.log("clicked");
+  // const handleChatButtonClick = async (data: any) => {
+  //   console.log("clicked");
 
-    const ownerId = data.venue_owner_id;
-    const hostId = currentUser?.uid;
-    const chatRoomId = `${ownerId}_${hostId}`; // Create a unique chat room ID based on venue and host IDs
-    const chatRoomRef = doc(db, "chats", chatRoomId);
+  //   const ownerId = data.venue_owner_id;
+  //   const hostId = currentUser?.uid;
+  //   const chatRoomId = `${ownerId}_${hostId}`; // Create a unique chat room ID based on venue and host IDs
+  //   const chatRoomRef = doc(db, "chats", chatRoomId);
 
-    // Check if the chat room already exists
-    const chatRoomSnap = await getDoc(chatRoomRef);
-    if (!chatRoomSnap.exists()) {
-      // Create the chat room document
-      await setDoc(chatRoomRef, {
-        owner_id: ownerId,
-        host_id: hostId,
-        createdAt: serverTimestamp(),
-        // Add any other necessary fields
-      });
-    }
+  //   // Check if the chat room already exists
+  //   const chatRoomSnap = await getDoc(chatRoomRef);
+  //   if (!chatRoomSnap.exists()) {
+  //     // Create the chat room document
+  //     await setDoc(chatRoomRef, {
+  //       owner_id: ownerId,
+  //       host_id: hostId,
+  //       createdAt: serverTimestamp(),
+  //       // Add any other necessary fields
+  //     });
+  //   }
 
-    // Navigate to the chat room or open the chat interface
-    handleWindowRoute(`/host/chat/${chatRoomId}/messages`);
-    // toggleChatBox(chatRoomId);
-    // You might need to use a router or navigation library here
-    console.log("Chat button clicked for event:", data);
-  };
+  //   // Navigate to the chat room or open the chat interface
+  //   handleWindowRoute(`/host/chat/${chatRoomId}/messages`);
+  //   // toggleChatBox(chatRoomId);
+  //   // You might need to use a router or navigation library here
+  //   console.log("Chat button clicked for event:", data);
+  // };
 
   const handleConfirmed = async (data: any) => {
     await updateStatus(data.id!, {
@@ -83,11 +83,11 @@ export const UnpubEventCard = () => {
   };
 
   // Function to dynamically calculate font size based on title length
-  const getFontSizeForTitle = (title: string) => {
-    if (title.length > 30) {
-      return "14px";
-    }
-  };
+  // const getFontSizeForTitle = (title: string) => {
+  //   if (title.length > 30) {
+  //     return "14px";
+  //   }
+  // };
 
   return (
     <IonGrid className="margin-left margin-right">
