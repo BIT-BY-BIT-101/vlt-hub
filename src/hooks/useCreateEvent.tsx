@@ -81,7 +81,7 @@ const useCreateEvent = () => {
       //   imageUrl: downloadUrl,
       // });
 
-      console.log("Data added successfully!", dataSnapshot);
+      console.log("Image Uploaded successfully!", dataSnapshot);
 
       return dataSnapshot;
     } catch (err) {

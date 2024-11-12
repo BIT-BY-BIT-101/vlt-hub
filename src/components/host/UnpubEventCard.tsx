@@ -155,7 +155,7 @@ export const UnpubEventCard = () => {
                 <IonItem className="item-bg-none">
                   <IonLabel className="card-label">
                     <strong className="card-title">Date: </strong>
-                    <p>{formatDateString(event.event_date)}</p>
+                    <p>{formatDateString(event.date_from)}</p>
                   </IonLabel>
                 </IonItem>
                 <IonItem className="item-bg-none">

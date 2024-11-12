@@ -11,6 +11,7 @@ import {
   onSnapshot,
   serverTimestamp,
 } from "firebase/firestore";
+import { set } from "react-hook-form";
 
 export type User = {
   uid: string;
@@ -34,60 +35,6 @@ const useFirebaseAuth = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
-  //     if (authUser) {
-  //       const userDoc = doc(db, "profiles", authUser?.uid!);
-  //       const userDocSnap = await getDoc(userDoc);
-  //       if (userDocSnap.exists()) {
-  //         setUserData(userDocSnap.data());
-  //       }
-
-  //       const userObj: User = {
-  //         uid: authUser.uid,
-  //         email: authUser.email || "",
-  //       };
-  //       setUser(userObj);
-  //       setIsAuth(true);
-  //       setLoading(false);
-  //     } else {
-  //       setUser(null);
-  //       setIsAuth(false);
-  //     }
-  //     setLoading(false);
-  //   });
-  //   console.log("User", user);
-
-  //   return () => unsubscribe;
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const user = auth.currentUser;
-  //     if (user) {
-  //       const docRef = doc(db, "profiles", user.uid!);
-
-  //       const unsubscribe = onSnapshot(docRef, (doc) => {
-  //         try {
-  //           if (doc.exists()) {
-  //             const userData = { id: doc.id, ...doc.data() };
-  //             setUserData(userData);
-  //             console.log(userData);
-  //           } else {
-  //             console.log("No such document!");
-  //           }
-  //         } catch (error) {
-  //           setError(error);
-  //         }
-  //       });
-
-  //       return () => unsubscribe();
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   const signUp = async (
     email: string,
     password: string,
@@ -95,52 +42,66 @@ const useFirebaseAuth = () => {
     lname: string,
     birthdate: string,
     role: string
-  ): Promise<void> => {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+  ) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    const userId = auth.currentUser?.uid!;
-    const userRef = doc(db, "profiles", userId);
-    await setDoc(userRef, {
-      email,
-      fname,
-      lname,
-      birthdate,
-      role,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
-    const newUser: User = { uid: userCredential.user.uid, email };
-    setUser(newUser);
+      const userId = auth.currentUser?.uid!;
+      const userRef = doc(db, "profiles", userId);
+      await setDoc(userRef, {
+        email,
+        fname,
+        lname,
+        birthdate,
+        role,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      const newUser: User = { uid: userCredential.user.uid, email };
+      setUser(newUser);
+      return { token: userCredential.user.getIdToken() };
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signIn = async (email: string, password: string): Promise<void> => {
     // try {
-    await signInWithEmailAndPassword(auth, email, password);
-
-    // .then(() => {
-    //   setLoading(false);
-    // })
-    // .catch((err) => {
-    //   setError(err);
-    // });
-    // } catch (err) {
-    //   console.log(err);
-    //   setError(err);
-    // }
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.error(err);
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signOut = async (): Promise<void> => {
-    // localStorage.removeItem("session");
-    auth.signOut();
-    // console.log(currentUser, " Has beem Logged Out Successfully");
-    setIsAuth(false);
-    setUser(null);
-    setUserData(null);
-    setLoading(false);
+    try {
+      // localStorage.removeItem("session");
+      auth.signOut();
+      // console.log(currentUser, " Has beem Logged Out Successfully");
+      setIsAuth(false);
+      setUser(null);
+      setUserData(null);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setError(err);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   };
 
   return { user, loading, error, userData, signUp, signIn, signOut, isAuth };

@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import { textIndexToArray } from "../helpers/Helpers";
 import nodeMailApi from "../config/nodemail";
 import { AuthContext } from "../context/AuthContext";
+import { getAuth } from "firebase/auth";
 
 const useHandleEvents = () => {
   const { currentUser } = useContext(AuthContext);
@@ -98,12 +99,14 @@ const useHandleEvents = () => {
               eventDataToSubmit
             );
 
+            console.table(data);
+
             if (res) {
               // Second async task: createRequest
               await createRequest({
                 event_title: data.title,
                 event_id: res,
-                event_date: data.event_date,
+                event_date: data.date_from,
                 event_description: data.description,
                 event_start_date: data.start_time,
                 event_end_date: data.end_time,
@@ -123,7 +126,15 @@ const useHandleEvents = () => {
                 email: currentUser?.email,
                 message: emailMessage,
               };
-              nodeMailApi.post("api/v1/send-email", payload);
+
+              const token = await getAuth().currentUser?.getIdToken(true);
+
+              nodeMailApi.post("api/v1/mail/send-email", payload, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              });
 
               // Show success message
               Swal.fire({

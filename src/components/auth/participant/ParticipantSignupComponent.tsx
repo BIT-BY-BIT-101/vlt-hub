@@ -84,7 +84,12 @@ const ParticipantSignupComponent = () => {
             message: emailMessage,
           };
 
-          await nodeMailApi.post("api/v1/send-email", payload);
+          await nodeMailApi.post("api/v1/send-email", payload, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${currentUser?.token}`,
+            },
+          });
         })
         .catch((err) => {
           console.error(err);

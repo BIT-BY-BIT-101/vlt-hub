@@ -103,9 +103,10 @@ const RequestModal: React.FC<Props> = ({
               // strong
               // shape="round"
               color={"primary"}
-              onClick={() => handleAccept(onDidDismissal)}
+              // onClick={() => handleAccept(onDidDismissal)}
+              
             >
-              Accept
+              Make Proposal
             </IonButton>
             <IonButton
               // fill="outline"

@@ -7,6 +7,7 @@ export type User = {
   uid: string;
   email: string;
   data: any;
+  token: string;
 };
 
 interface AuthContextType {
@@ -39,6 +40,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
             uid: user?.uid!,
             email: user?.email!,
             data: userDocSnap?.data(),
+            token: (await user?.getIdToken(true)).toString(),
           };
           setRole(userRole);
           setCurrentUser(userObj);

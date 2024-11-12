@@ -334,27 +334,100 @@ function CreateEvent() {
       <div className="date-time-row">
         <div className="date-time-item">
           <IonLabel className="hhome-form-label date-time-label">
-            <span className="hhome-form-title">Event Date:</span>
+            <span className="hhome-form-title">Ingress Date:</span>
             <div className="date-time-container">
-              <IonDatetimeButton datetime="date"></IonDatetimeButton>
+              <IonDatetimeButton datetime="ingress_date"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("event_date", { required: true })}
+                  {...register("ingress_date", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   onIonChange={handleChange}
                   showDefaultButtons={true}
                   presentation="date"
-                  id="date"
+                  id="ingress_date"
                   min={MinDate()}
                   max={MaxDate()}
                 ></IonDatetime>
               </IonModal>
             </div>
           </IonLabel>
-          {formError.event_date?.type === "required" && (
+          {formError.ingress_date?.type === "required" && (
             <p role="alert">This Field is required</p>
           )}
         </div>
+        <div className="date-time-item">
+          <IonLabel className="hhome-form-label date-time-label">
+            <span className="hhome-form-title">Egress Date:</span>
+            <div className="date-time-container">
+              <IonDatetimeButton datetime="egress_date"></IonDatetimeButton>
+              <IonModal keepContentsMounted={true}>
+                <IonDatetime
+                  {...register("egress_date", { required: true })}
+                  // onIonChange={(e) => setEventDate(e.detail.value)}
+                  onIonChange={handleChange}
+                  showDefaultButtons={true}
+                  presentation="date"
+                  id="egress_date"
+                  min={MinDate()}
+                  max={MaxDate()}
+                ></IonDatetime>
+              </IonModal>
+            </div>
+          </IonLabel>
+          {formError.egress_date?.type === "required" && (
+            <p role="alert">This Field is required</p>
+          )}
+        </div>
+      </div>
+      <div className="date-time-row">
+        <div className="date-time-item">
+          <IonLabel className="hhome-form-label date-time-label">
+            <span className="hhome-form-title">Date From:</span>
+            <div className="date-time-container">
+              <IonDatetimeButton datetime="date_from"></IonDatetimeButton>
+              <IonModal keepContentsMounted={true}>
+                <IonDatetime
+                  {...register("date_from", { required: true })}
+                  // onIonChange={(e) => setEventDate(e.detail.value)}
+                  onIonChange={handleChange}
+                  showDefaultButtons={true}
+                  presentation="date"
+                  id="date_from"
+                  min={MinDate()}
+                  max={MaxDate()}
+                ></IonDatetime>
+              </IonModal>
+            </div>
+          </IonLabel>
+          {formError.date_from?.type === "required" && (
+            <p role="alert">This Field is required</p>
+          )}
+        </div>
+        <div className="date-time-item">
+          <IonLabel className="hhome-form-label date-time-label">
+            <span className="hhome-form-title">Date To:</span>
+            <div className="date-time-container">
+              <IonDatetimeButton datetime="date_to"></IonDatetimeButton>
+              <IonModal keepContentsMounted={true}>
+                <IonDatetime
+                  {...register("date_to", { required: true })}
+                  // onIonChange={(e) => setEventDate(e.detail.value)}
+                  onIonChange={handleChange}
+                  showDefaultButtons={true}
+                  presentation="date"
+                  id="date_to"
+                  min={MinDate()}
+                  max={MaxDate()}
+                ></IonDatetime>
+              </IonModal>
+            </div>
+          </IonLabel>
+          {formError.date_to?.type === "required" && (
+            <p role="alert">This Field is required</p>
+          )}
+        </div>
+      </div>
+      <div className="date-time-row">
         <div className="date-time-item">
           <IonLabel className="hhome-form-label date-time-label">
             <span className="hhome-form-title">Start Time:</span>

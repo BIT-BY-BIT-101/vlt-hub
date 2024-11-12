@@ -16,7 +16,8 @@
                     "name": "API Server",
                     "commands": [
                         "cd api && node server.js",
-                    ]
+                    ],
+                    "shouldRunCommands": false
                 },
             ],
         },

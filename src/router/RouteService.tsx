@@ -39,6 +39,7 @@ import ParticipantEventSearch from "../pages/participant/ParticipantEventSearch"
 import HostEventDetailPage from "../pages/host/HostEventDetailPage";
 import { Host } from "ionicons/dist/types/stencil-public-runtime";
 import HostEditEventPage from "../pages/host/HostEditEventPage";
+import GenerateQoutation from "../components/venue/GenerateQoutation";
 
 const RouteService = () => {
   return (
@@ -72,6 +73,9 @@ const RouteService = () => {
         </Route>
         <Route exact path="/home/events">
           <ParticipantHomePage />
+        </Route>
+        <Route exact path="/qoutations">
+          <GenerateQoutation />
         </Route>
 
         <Route render={() => <PageNotFound />} />
