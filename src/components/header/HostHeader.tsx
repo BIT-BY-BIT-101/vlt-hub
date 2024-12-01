@@ -23,9 +23,12 @@ import LogoutModal from "../modals/LogoutModal";
 
 const HostHeader = () => {
   const { currentUser } = useContext(AuthContext);
+  const isVerified = currentUser?.data.isVerified;
   const [searchText, setSearchText] = useState("");
   const history = useHistory();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  console.log("User: HOST");
 
   const handleClick = () => {
     if (currentUser?.data.role === "host") {
@@ -140,6 +143,19 @@ const HostHeader = () => {
         </IonGrid>
       </IonToolbar>
       <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
+      {isVerified === false && (
+        <div
+          style={{
+            backgroundColor: "orange",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          This account is not verified. Please click{" "}
+          <a href="/host/kyc">here</a> to proceed.
+        </div>
+      )}
     </IonHeader>
   );
 };

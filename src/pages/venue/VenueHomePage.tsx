@@ -34,11 +34,6 @@ import SidePanel from "../../components/SidePanel";
 import VenueCard from "../../components/venue/VenueCard";
 
 const VenueHomePage: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
-
   return (
     <>
       {/* <VenueNavMenu /> */}

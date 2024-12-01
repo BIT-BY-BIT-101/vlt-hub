@@ -8,11 +8,13 @@ import { textIndexToArray } from "../helpers/Helpers";
 import nodeMailApi from "../config/nodemail";
 import { AuthContext } from "../context/AuthContext";
 import { getAuth } from "firebase/auth";
+import { set } from "react-hook-form";
 
 const useHandleEvents = () => {
   const { currentUser } = useContext(AuthContext);
   // const { userData } = useFirebaseAuth();
   const userData = currentUser?.data;
+  const { deleteData: deleteEvent } = useFirestore("events");
   const {
     addData: createRequest,
     error: requestError,
@@ -43,11 +45,8 @@ const useHandleEvents = () => {
     const hostName = `${userData?.fname} ${userData?.lname}`;
     // const venueId = id;
     const status = "for confirmation";
-    // const venueName = venueData?.name;
-    // const venueOwnerId = venueData?.user_id;
 
-    // const convertDate = Timestamp.fromDate(eventDate);
-    // const convertDate = new Date(eventDate!);
+    console.log(data);
 
     // Combine the state and any other data needed
     const eventDataToSubmit = {
@@ -106,7 +105,11 @@ const useHandleEvents = () => {
               await createRequest({
                 event_title: data.title,
                 event_id: res,
-                event_date: data.date_from,
+                date_from: data.date_from,
+                date_to: data.date_to,
+                ingress_date: data.ingress_date,
+                egress_date: data.egress_date,
+                number_of_attendees: data.number_of_attendees,
                 event_description: data.description,
                 event_start_date: data.start_time,
                 event_end_date: data.end_time,
@@ -164,8 +167,59 @@ const useHandleEvents = () => {
     });
   };
 
+  const handleDeleEvent = async (id: string) => {
+    Swal.fire({
+      title: "Are you sure you want to delete this event?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+      iconColor: "red",
+      confirmButtonColor: "red",
+      heightAuto: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Show loading until everything completes
+        Swal.fire({
+          heightAuto: false,
+          position: "top-right",
+          title: "Removing Event from the lists..",
+          didOpen: () => {
+            Swal.showLoading(); // Keep the loading animation active
+          },
+        }); //end of block
+        (async () => {
+          try {
+            await deleteEvent(id);
+
+            // Show success message
+            Swal.fire({
+              title: "Success!",
+              text: "Event deleted successfully",
+              icon: "success",
+              confirmButtonText: "Done",
+              heightAuto: false,
+            }).then(() => {
+              history.push("/host/event-list");
+            });
+          } catch (err) {
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong, please try again",
+              icon: "error",
+              confirmButtonText: "Done",
+              heightAuto: false,
+            });
+            console.error("Error Deleting Event: ", err);
+            throw err;
+          } //end of block
+        })();
+      } // end of if block
+    });
+  };
+
   return {
     handleCreateEvent,
+    handleDeleEvent,
     setImgUrl,
     setIsPaid,
     setEmailMessage,

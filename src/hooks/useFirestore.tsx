@@ -88,6 +88,7 @@ const useFirestore = (collectionPath: string) => {
         return result;
       });
     } catch (err) {
+      setError(err);
       console.error("Error updating data:", err);
       throw err;
     } finally {
@@ -115,10 +116,9 @@ const useFirestore = (collectionPath: string) => {
 
   const deleteData = async (id: string) => {
     try {
+      setLoading(true);
       const docRef = doc(db, collectionPath, id);
       await deleteDoc(docRef);
-      // Refresh data after deletion
-      getData();
     } catch (err) {
       setError(err);
       throw err;

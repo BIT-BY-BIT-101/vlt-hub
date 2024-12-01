@@ -53,18 +53,24 @@ function CreateEvent() {
     venue_Id: "",
     venue: "",
     platform: "",
-    startTime: "",
-    endTime: "",
+    start_time: "",
+    end_time: "",
+    date_from: "",
+    date_to: "",
+    ingress_date: "",
+    egress_date: "",
+    keywords: "",
+    number_of_attendees: 0,
   });
-  const [eventDate, setEventDate] = useState<string>("");
-  const [venue, setVenue] = useState("");
+  // const [eventDate, setEventDate] = useState<string>("");
+  // const [venue, setVenue] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
-  const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
+  // const [additionalVenueOptions, setAdditionalVenueOptions] = useState(false);
+  // const [additionalOnlineOptions, setAdditionalOnlineOptions] = useState(false);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
 
-  const [eventTitleValue, setEventTitleValue] = useState("");
-  const [eventDateValue, setEventDateValue] = useState();
+  // const [eventTitleValue, setEventTitleValue] = useState("");
+  // const [eventDateValue, setEventDateValue] = useState();
 
   const [image, setImage] = useState<any>(defaultImg);
   const [cropperModal, setCropperModal] = useState(false);
@@ -89,16 +95,18 @@ function CreateEvent() {
   };
 
   const handleChange = (event: CustomEvent) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target as HTMLIonInputElement;
     setEventData((prevData) => ({
       ...prevData,
-      [name]: name === "event_date" ? value.toString() : value,
+      [name]:
+        name === "date_from" && "date_to" && "ingress_date" && "egress_date"
+          ? value?.toString()
+          : value,
     }));
   };
 
   useEffect(() => {
     const name = currentUser?.data?.fname;
-    console.log(name);
 
     const appUrl = import.meta.env.VITE_APP_URL;
     async function getTemplate() {
@@ -107,7 +115,7 @@ function CreateEvent() {
           appUrl={appUrl}
           name={name}
           event_title={eventData?.title}
-          event_date={formatDateString(eventData?.event_date)}
+          event_date={formatDateString(eventData?.date_from)}
         />,
         {
           pretty: true,
@@ -122,9 +130,9 @@ function CreateEvent() {
     console.log(formError);
   }, [formError]);
 
-  // console.table(eventData);
+  console.table(eventData);
   console.log(eventData.title);
-  console.log(eventData.event_date);
+  console.log(eventData.date_from);
 
   // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
   //   const file = event.target.files?.[0];
@@ -165,19 +173,19 @@ function CreateEvent() {
     }
   };
 
-  const handleVenueChange = (event: CustomEvent) => {
-    const selectedVenue = event.detail.value;
-    setVenue(selectedVenue);
+  // const handleVenueChange = (event: CustomEvent) => {
+  //   const selectedVenue = event.detail.value;
+  //   setVenue(selectedVenue);
 
-    setAdditionalVenueOptions(selectedVenue === "on-site");
+  //   setAdditionalVenueOptions(selectedVenue === "on-site");
 
-    setAdditionalOnlineOptions(selectedVenue === "online");
-  };
+  //   setAdditionalOnlineOptions(selectedVenue === "online");
+  // };
 
-  const handleOnlineOptionChange = (event: CustomEvent) => {
-    const selectedOnlineOption = event.detail.value;
-    console.log("Selected Online Option:", selectedOnlineOption);
-  };
+  // const handleOnlineOptionChange = (event: CustomEvent) => {
+  //   const selectedOnlineOption = event.detail.value;
+  //   console.log("Selected Online Option:", selectedOnlineOption);
+  // };
 
   // console.log("Photot: ", photos);
 
@@ -339,11 +347,12 @@ function CreateEvent() {
               <IonDatetimeButton datetime="ingress_date"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("ingress_date", { required: true })}
+                  // {...register("ingress_date", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   onIonChange={handleChange}
                   showDefaultButtons={true}
                   presentation="date"
+                  name="ingress_date"
                   id="ingress_date"
                   min={MinDate()}
                   max={MaxDate()}
@@ -351,9 +360,9 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.ingress_date?.type === "required" && (
+          {/* {formError.ingress_date?.type === "required" && (
             <p role="alert">This Field is required</p>
-          )}
+          )} */}
         </div>
         <div className="date-time-item">
           <IonLabel className="hhome-form-label date-time-label">
@@ -362,11 +371,12 @@ function CreateEvent() {
               <IonDatetimeButton datetime="egress_date"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("egress_date", { required: true })}
+                  // {...register("egress_date", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   onIonChange={handleChange}
                   showDefaultButtons={true}
                   presentation="date"
+                  name="egress_date"
                   id="egress_date"
                   min={MinDate()}
                   max={MaxDate()}
@@ -374,9 +384,9 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.egress_date?.type === "required" && (
+          {/* {formError.egress_date?.type === "required" && (
             <p role="alert">This Field is required</p>
-          )}
+          )} */}
         </div>
       </div>
       <div className="date-time-row">
@@ -387,11 +397,12 @@ function CreateEvent() {
               <IonDatetimeButton datetime="date_from"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("date_from", { required: true })}
+                  // {...register("date_from", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   onIonChange={handleChange}
                   showDefaultButtons={true}
                   presentation="date"
+                  name="date_from"
                   id="date_from"
                   min={MinDate()}
                   max={MaxDate()}
@@ -399,9 +410,9 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.date_from?.type === "required" && (
+          {/* {formError.date_from?.type === "required" && (
             <p role="alert">This Field is required</p>
-          )}
+          )} */}
         </div>
         <div className="date-time-item">
           <IonLabel className="hhome-form-label date-time-label">
@@ -410,11 +421,12 @@ function CreateEvent() {
               <IonDatetimeButton datetime="date_to"></IonDatetimeButton>
               <IonModal keepContentsMounted={true}>
                 <IonDatetime
-                  {...register("date_to", { required: true })}
+                  // {...register("date_to", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
                   onIonChange={handleChange}
                   showDefaultButtons={true}
                   presentation="date"
+                  name="date_to"
                   id="date_to"
                   min={MinDate()}
                   max={MaxDate()}
@@ -422,9 +434,9 @@ function CreateEvent() {
               </IonModal>
             </div>
           </IonLabel>
-          {formError.date_to?.type === "required" && (
+          {/* {formError.date_to?.type === "required" && (
             <p role="alert">This Field is required</p>
-          )}
+          )} */}
         </div>
       </div>
       <div className="date-time-row">
@@ -474,16 +486,16 @@ function CreateEvent() {
         </div>
       </div>
       <IonLabel className="hhome-form-label">
-        <span className="hhome-form-title">Number of Deligates:</span>
+        <span className="hhome-form-title">Number of Attendees:</span>
         <IonInput
           className="hhome-form-input"
           type="number"
           required
           min={20}
-          {...register("event_deligates", { required: true })}
+          {...register("number_of_attendees", { required: true })}
         />
       </IonLabel>
-      {formError.event_deligates?.type === "required" && (
+      {formError.number_of_attendees?.type === "required" && (
         <p role="alert" className="text-color-danger">
           Please type value in this field(minimum of 20 deligates)
         </p>
@@ -530,7 +542,9 @@ function CreateEvent() {
         shape="round"
         // fill="clear"
         // onClick={handleSubmit(onSubmit)}
-        onClick={handleSubmit(handleCreateEvent)}
+        onClick={handleSubmit(() => {
+          handleCreateEvent(eventData);
+        })}
         // className="hsubmit-btn"
         className="ion-margin-top"
         // disabled={!imagePreviewUrl || !formError}

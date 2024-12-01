@@ -40,6 +40,11 @@ import HostEventDetailPage from "../pages/host/HostEventDetailPage";
 import { Host } from "ionicons/dist/types/stencil-public-runtime";
 import HostEditEventPage from "../pages/host/HostEditEventPage";
 import GenerateQoutation from "../components/venue/GenerateQoutation";
+import HostVerificationPage from "../pages/host/HostVerificationInstructionPage";
+import HostVerificationFormPage from "../pages/host/HostVerificationFormPage";
+import VenueKYCRequestPage from "../pages/venue/VenueKYCRequestPage";
+import VenueKYCDetailsPage from "../pages/venue/VenueKYCDetailsPage";
+import VenueKYCEditPage from "../pages/venue/VenueKYCEditPage";
 
 const RouteService = () => {
   return (
@@ -160,19 +165,22 @@ const RouteService = () => {
           allowedRoles={"host"}
           component={HostHomePage}
           redirected="/host/signin"
+          // requiresKYC={true}
         />
         <ProtectedRoute
           path="/host/event-list"
           allowedRoles={"host"}
           component={HostEventListPage}
           redirected="/host/signin"
+          requiresKYC={true}
         />
-        <ProtectedRoute
+        {/* <ProtectedRoute
           path="/host/venue-list"
           allowedRoles={"host"}
           component={HostVenueSelectionPage}
           redirected="/host/signin"
-        />
+          requiresKYC={true}
+        /> */}
         <ProtectedRoute
           path="/host/create"
           // path="/host/:id/create"
@@ -206,6 +214,18 @@ const RouteService = () => {
           component={HostEditEventPage}
           redirected="/host/signin"
         />
+        <ProtectedRoute
+          path="/host/kyc"
+          allowedRoles={"host"}
+          redirected="/host/signin"
+          component={HostVerificationPage}
+        />
+        <ProtectedRoute
+          path="/host/kyc/verify"
+          allowedRoles={"host"}
+          redirected="/host/signin"
+          component={HostVerificationFormPage}
+        />
 
         {/* Venue Routes */}
         <Route exact path="/venue">
@@ -228,6 +248,24 @@ const RouteService = () => {
           path="/venue/requests"
           allowedRoles={"venue"}
           component={VenueRequestsPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/verification-requests"
+          allowedRoles={"venue"}
+          component={VenueKYCRequestPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/verification-requests/details/:id"
+          allowedRoles={"venue"}
+          component={VenueKYCDetailsPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          path="/venue/verification-requests/edit/:id"
+          allowedRoles={"venue"}
+          component={VenueKYCEditPage}
           redirected="/venue/signin"
         />
         <ProtectedRoute

@@ -49,9 +49,7 @@ const VenueCard = () => {
         venueData.map((venue: VenueDataModel) => (
           <IonCard key={venue.id} className="card">
             <IonCardHeader>
-              <IonCardTitle className="addvenue-title">
-                {venue.name}
-              </IonCardTitle>
+              <IonCardTitle className="card-title">{venue.name}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
               {/* <IonList className="item-color-dark">
@@ -84,10 +82,10 @@ const VenueCard = () => {
                     shape="round"
                     color={"tertiary"}
                     fill="outline"
-                    routerLink="/venue/booked-events"
+                    routerLink="/venue/verification-requests"
                     // slot="start"
                   >
-                    Calendar of Events
+                    Verification Requests
                   </IonButton>
                   <IonButton
                     className="ct-btn"
@@ -97,7 +95,7 @@ const VenueCard = () => {
                     routerLink="/venue/requests"
                     // slot="start"
                   >
-                    Requests
+                    Rental Request
                   </IonButton>
                 </IonItem>
               </IonList>

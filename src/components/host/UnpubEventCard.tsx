@@ -28,6 +28,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { handleWindowRoute } from "../../helpers/Helpers";
 export const UnpubEventCard = () => {
   const { currentUser } = useContext(AuthContext);
+  const isVerified = currentUser?.data.isVerified;
   const [imageLoadError, setImageLoadError] = useState(false);
   // const { data: events } = useQuery("events", "status", "==", "unpublished");
   const { data: events } = useFetchUnpublishedEvent();
@@ -89,6 +90,8 @@ export const UnpubEventCard = () => {
   //   }
   // };
 
+  console.log(events);
+
   return (
     <IonGrid className="margin-left margin-right">
       <div className="w-100 ion-margin">
@@ -98,6 +101,7 @@ export const UnpubEventCard = () => {
           shape="round"
           color={"primary"}
           // size="large"
+          disabled={!isVerified}
         >
           Create Event
         </IonButton>

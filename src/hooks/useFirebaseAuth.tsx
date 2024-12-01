@@ -58,6 +58,7 @@ const useFirebaseAuth = () => {
         lname,
         birthdate,
         role,
+        isVerified: false,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });

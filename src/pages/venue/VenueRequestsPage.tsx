@@ -33,11 +33,6 @@ import SidePanel from "../../components/SidePanel";
 import RequestItems from "../../components/venue/RequestItems";
 
 const VenueRequestsPage: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
-
   return (
     <>
       {/* <VenueNavMenu /> */}

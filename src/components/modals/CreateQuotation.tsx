@@ -18,7 +18,7 @@ import {
   IonSelectOption,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {
   //   userData: any;
@@ -28,6 +28,14 @@ type Props = {
 };
 
 const CreateQuotation = ({ isOpen, onDidDismissal, onClose }: Props) => {
+  const [editedData, setEditedData] = useState<>();
+  const handleInputChange = (e: CustomEvent) => {
+    const { name, value } = e.target as HTMLIonInputElement;
+    setEditedData((prevData: any) => ({
+      ...prevData,
+      [name]: name === "birthdate" ? value.toString() : value,
+    }));
+  };
   return (
     <>
       <IonModal
@@ -50,7 +58,6 @@ const CreateQuotation = ({ isOpen, onDidDismissal, onClose }: Props) => {
             <span className="veditprofile-form-title">Name:</span>
             <IonInput
               className="veditprofile-form-input"
-         
               name="fname"
               // onIonChange={(e) =>
               //   setEditedData((prevData: any) => ({
@@ -61,7 +68,7 @@ const CreateQuotation = ({ isOpen, onDidDismissal, onClose }: Props) => {
               onIonChange={handleInputChange}
             />
           </IonLabel>
-          
+
           <IonLabel className="veditprofile-form-label">
             <IonGrid>
               <IonRow>

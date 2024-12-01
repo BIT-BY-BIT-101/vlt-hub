@@ -10,7 +10,7 @@ import {
   IonItem,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
-import React, { createRef, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import Cropper, { ReactCropperElement } from "react-cropper";
 
 const EventImageCropper = ({
@@ -28,6 +28,12 @@ const EventImageCropper = ({
 }) => {
   const cropperRef = createRef<ReactCropperElement>();
   const [croppedImage, setCropImage] = useState<string>();
+
+  useEffect(() => {
+    window.setTimeout(() => {
+      window.dispatchEvent(new Event("resize"));
+    }, 1000);
+  });
 
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== "undefined") {

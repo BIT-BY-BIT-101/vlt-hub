@@ -40,7 +40,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
             uid: user?.uid!,
             email: user?.email!,
             data: userDocSnap?.data(),
-            token: (await user?.getIdToken(true)).toString(),
+            token: (await user?.getIdToken()).toString(),
           };
           setRole(userRole);
           setCurrentUser(userObj);

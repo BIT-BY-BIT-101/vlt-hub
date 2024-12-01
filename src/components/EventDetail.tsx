@@ -3,12 +3,15 @@ import {
   IonCard,
   IonCardContent,
   IonCardTitle,
+  IonCol,
   IonContent,
+  IonGrid,
   IonIcon,
   IonImg,
   IonItem,
   IonLabel,
   IonList,
+  IonRow,
 } from "@ionic/react";
 import React, { useContext, useEffect } from "react";
 import useGetDoc from "../hooks/useGetDoc";
@@ -22,11 +25,19 @@ import {
 import useGetEvent from "../hooks/useGetEvent";
 import PageNotFound from "../pages/error_pages/PageNotFound";
 import { Label } from "recharts";
-import { arrowUpCircleSharp, create, createSharp } from "ionicons/icons";
+import {
+  arrowUpCircleSharp,
+  create,
+  createSharp,
+  remove,
+  removeCircleOutline,
+  trash,
+} from "ionicons/icons";
 import { AuthContext } from "../context/AuthContext";
 import { UpdateDataContext } from "../context/UpdateDataContext";
 import useFirestore from "../hooks/useFirestore";
 import { serverTimestamp } from "firebase/firestore";
+import useHandleEvents from "../hooks/useHandleEvents";
 
 type RouteParams = {
   id: string;
@@ -39,6 +50,7 @@ const EventDetail = () => {
   // const { data: event, error, loading } = useGetDoc("events", id);
   const { data: event, error, hostInfo, loading } = useGetEvent(id);
   const { updateData: updateStatus } = useFirestore("events");
+  const { handleDeleEvent } = useHandleEvents();
 
   const location = useLocation();
   const updatedEvent = location.state?.updatedEvent; // Access updated data if passed
@@ -77,143 +89,156 @@ const EventDetail = () => {
   // if (event) {
   return (
     <>
-      <div className="event-page ion-margin-top ion-padding margin-left margin-right">
-        <IonCardTitle>
+      <IonGrid>
+        <div className="event-page ion-margin-top ion-padding margin-left margin-right">
+          <IonRow className="ion-justify-content-center">
+            <IonCardTitle>
+              <IonItem color={"none"} className="ion-text-center" lines="none">
+                <IonLabel className="ion-text-center">
+                  <h1
+                    style={{
+                      fontWeight: "bold",
+                      color: "var(--ion-color-primary)",
+                    }}
+                  >
+                    {eventData?.title}
+                  </h1>
+                </IonLabel>
+              </IonItem>
+            </IonCardTitle>
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <IonImg
+                src={eventData?.imageUrl}
+                style={{ objectFit: "cover", height: "400px", width: "100%" }}
+              />
+            </div>
+          </IonRow>
           <IonItem color={"none"} className="ion-text-center" lines="none">
-            <IonLabel className="ion-text-center">
-              <h1
+            <IonLabel>
+              <span
                 style={{
                   fontWeight: "bold",
+                  width: "100%",
                   color: "var(--ion-color-primary)",
                 }}
               >
-                {eventData.title}
-              </h1>
+                by: {hostInfo?.fname} {hostInfo?.lname}{" "}
+              </span>
             </IonLabel>
           </IonItem>
-        </IonCardTitle>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <IonImg
-            src={eventData?.imageUrl}
-            style={{ objectFit: "cover", height: "400px", width: "100%" }}
-          />
-        </div>
-        <IonItem color={"none"} className="ion-text-center" lines="none">
-          <IonLabel>
-            <span
-              style={{
-                fontWeight: "bold",
-                width: "100%",
-                color: "var(--ion-color-primary)",
-              }}
-            >
-              by: {hostInfo?.fname} {hostInfo?.lname}{" "}
-            </span>
-          </IonLabel>
-        </IonItem>
-        {currentUser?.data.role === "host" && (
-          <IonItem color={"none"}>
-            {eventData?.is_confirmed ? (
+          {currentUser?.data.role === "host" && (
+            // <IonItem color={"none"}></IonItem>
+            <IonRow>
+              <IonCol>
+                {eventData?.is_confirmed ? (
+                  <IonButton
+                    slot="start"
+                    className="ion-padding"
+                    // routerLink={`/host/event/${id}/edit`}
+                    onClick={() => handlePublishBtn(event)}
+                    disabled={eventData.is_confirmed ? false : true}
+                  >
+                    Publish
+                    <IonIcon slot="icon-only" icon={createSharp} />
+                  </IonButton>
+                ) : (
+                  <IonButton
+                    className="ion-padding"
+                    // routerLink={`/host/event/${id}/edit`}
+                    onClick={() => handleConfirmed(event)}
+                    disabled={eventData?.status !== "confirming" ? true : false}
+                  >
+                    {eventData?.status !== "confirming" ? "Pending" : "Confirm"}
+                    <IonIcon slot="icon-only" icon={arrowUpCircleSharp} />
+                  </IonButton>
+                )}
+              </IonCol>
               <IonButton
-                slot="start"
+                // slot="end"
                 className="ion-padding"
-                // routerLink={`/host/event/${id}/edit`}
-                onClick={() => handlePublishBtn(event)}
-                disabled={eventData.is_confirmed ? false : true}
+                routerLink={`/host/event/${id}/edit`}
               >
-                Publish
+                Edit Course
                 <IonIcon slot="icon-only" icon={createSharp} />
               </IonButton>
-            ) : (
               <IonButton
-                slot="start"
                 className="ion-padding"
-                // routerLink={`/host/event/${id}/edit`}
-                onClick={() => handleConfirmed(event)}
-                disabled={eventData.status !== "confirming" ? true : false}
+                color={"danger"}
+                onClick={() => handleDeleEvent(id)}
               >
-                {eventData.status !== "confirming" ? "Pending" : "Confirm"}
-                <IonIcon slot="icon-only" icon={arrowUpCircleSharp} />
+                Delete
+                <IonIcon slot="icon-only" icon={trash} />
               </IonButton>
-            )}
-            <IonButton
-              slot="end"
-              className="ion-padding"
-              routerLink={`/host/event/${id}/edit`}
-            >
-              Edit Course
-              <IonIcon slot="icon-only" icon={createSharp} />
-            </IonButton>
-          </IonItem>
-        )}
+            </IonRow>
+          )}
 
-        <IonItem color={"none"} lines="none">
-          <IonLabel slot="start">
-            <span
-              style={{
-                fontWeight: "bold",
-                fontSize: "20px",
-                color: "var(--ion-color-primary)",
+          <IonItem color={"none"} lines="none">
+            <IonLabel slot="start">
+              <span
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                  color: "var(--ion-color-primary)",
+                }}
+              >
+                Date:{" "}
+              </span>
+              <p style={{ color: "black" }}>
+                {formatDateString(eventData?.date_from)}
+              </p>
+            </IonLabel>
+          </IonItem>
+          <IonItem className="item-bg-none" lines="none">
+            <IonLabel>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                  color: "var(--ion-color-primary)",
+                }}
+              >
+                Time:{" "}
+              </span>
+              <p style={{ color: "black" }}>
+                {formatTimeString(eventData?.start_time)} -{" "}
+                {formatTimeString(eventData?.end_time)}
+              </p>
+            </IonLabel>
+          </IonItem>
+          <IonItem className="item-bg-none" lines="none">
+            <IonLabel>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                  color: "var(--ion-color-primary)",
+                }}
+              >
+                Description:
+              </span>
+            </IonLabel>
+          </IonItem>
+          <IonCardContent>
+            {/* <IonItem className="item-bg-none">{event?.description}</IonItem> */}
+            <p
+              style={{ color: "black" }}
+              dangerouslySetInnerHTML={{
+                __html: eventData?.description.replace(/\n/g, "<br />"),
               }}
-            >
-              Date:{" "}
-            </span>
-            <p style={{ color: "black" }}>
-              {formatDateString(eventData?.event_date)}
-            </p>
-          </IonLabel>
-        </IonItem>
-        <IonItem className="item-bg-none" lines="none">
-          <IonLabel>
-            <span
-              style={{
-                fontWeight: "bold",
-                fontSize: "20px",
-                color: "var(--ion-color-primary)",
-              }}
-            >
-              Time:{" "}
-            </span>
-            <p style={{ color: "black" }}>
-              {formatTimeString(eventData?.start_time)} -{" "}
-              {formatTimeString(eventData?.end_time)}
-            </p>
-          </IonLabel>
-        </IonItem>
-        <IonItem className="item-bg-none" lines="none">
-          <IonLabel>
-            <span
-              style={{
-                fontWeight: "bold",
-                fontSize: "20px",
-                color: "var(--ion-color-primary)",
-              }}
-            >
-              Description:
-            </span>
-          </IonLabel>
-        </IonItem>
-        <IonCardContent>
-          {/* <IonItem className="item-bg-none">{event?.description}</IonItem> */}
-          <p
-            style={{ color: "black" }}
-            dangerouslySetInnerHTML={{
-              __html: eventData?.description.replace(/\n/g, "<br />"),
-            }}
-          />
-        </IonCardContent>
-      </div>
+            />
+          </IonCardContent>
+        </div>
+      </IonGrid>
     </>
   );
-  // } else {
-  //   return <IonItem className="item-bg-none">Event not found</IonItem>;
-  // }
 };
 
 export default EventDetail;

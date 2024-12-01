@@ -15,7 +15,7 @@
                 {
                     "name": "API Server",
                     "commands": [
-                        "cd api && node server.js",
+                        "cd api && npm run dev",
                     ],
                     "shouldRunCommands": false
                 },
@@ -37,7 +37,8 @@
                     "name": "ngrok",
                     "commands": [
                         "ngrok http --domain=steady-hopelessly-grub.ngrok-free.app 8080"
-                    ]
+                    ],
+                    "shouldRunCommands": false
                 },
             ],
         },

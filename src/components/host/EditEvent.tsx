@@ -125,7 +125,7 @@ const EditEvent = () => {
             {
               ...editedData,
               keywords: newKeywords,
-              updatedAt: serverTimestamp(),
+              // updatedAt: serverTimestamp(),
             },
             id!
           );

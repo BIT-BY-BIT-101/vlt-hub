@@ -3,7 +3,8 @@ import { generatePDF } from "../../helpers/QoutationGenerator";
 import { IonPage, IonContent, IonButton } from "@ionic/react";
 
 const GenerateQoutation = () => {
-  const pdfRef = useRef<HTMLDivElement | null>(null);
+  const frontPageRef = useRef<HTMLDivElement | null>(null);
+  const venueRequirementsRef = useRef<HTMLDivElement | null>(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -15,52 +16,112 @@ const GenerateQoutation = () => {
   async function handleGeneratePDF() {
     if (!isLoaded) return;
 
-    await generatePDF(pdfRef);
+    await generatePDF([frontPageRef, venueRequirementsRef]);
   }
+
+  const styles = {
+    padding: "20px",
+    backgroundColor: "white",
+    fontFamily: "Arial, sans-serif",
+    color: "black",
+  };
+
   return (
     <IonPage>
       <IonButton expand="full" onClick={handleGeneratePDF} disabled={!isLoaded}>
         Download Proposal as PDF
       </IonButton>
-      <IonContent>
-        <div
-          ref={pdfRef}
-          style={{
-            padding: "20px",
-            backgroundColor: "white",
-            fontFamily: "Arial, sans-serif",
-            color: "black",
-          }}
-        >
+      <IonContent style={{ maxWidth: "800px", width: "800px" }}>
+        <div ref={frontPageRef} style={{ ...styles }}>
           {/* Proposal Header */}
-          <h2 style={{ textAlign: "center" }}>Venue and Catering Proposal</h2>
-          <p style={{ textAlign: "center" }}>
-            <strong>Prepared for:</strong> SMX Prime Holdings
-            <br />
-            <strong>Purpose:</strong> Stakeholders Assembly
-            <br />
-            <strong>Date:</strong> October 15, 2024
-          </p>
+          <h1
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              textDecoration: "underline",
+            }}
+          >
+            Rental Proposal
+          </h1>
 
           {/* Client and Proposal Details */}
-          <h3>Client Information</h3>
-          <p>
-            <strong>Client Name:</strong> `[Client Name]`
-          </p>
-          <p>
-            <strong>Event:</strong> [Event Name]
-          </p>
-          <p>
-            <strong>Contact Person:</strong> [Client Name]
-          </p>
-          <p>
-            <strong>Email:</strong> [Client Email]
-          </p>
-          <p>
-            <strong>Phone:</strong> [Contact Number]
-          </p>
+          <p>KNOWN ALL MEN BY THES PRESENTS:</p>
+          <br />
+          <p>This agreement is made and entered into, by and between:</p>
+          <br />
+          <table>
+            <tr>
+              <td width={"40px"}></td>
+              <td>LESSOR:</td>
+              <td>: SM PRIME HOLDINGS INC.:</td>
+            </tr>
+            <br />
+            <tr>
+              <td width={"40px"}></td>
+              <td>ADDRESS:</td>
+              <td>: [Address]</td>
+            </tr>
+            <br />
+            <tr>
+              <td width={"40px"}></td>
+              <td>AUTHORIZED REPRESENTATIVE:</td>
+            </tr>
+            <tr>
+              <td width={"40px"}></td>
+              <td width={"40px"}></td>
+              <td>
+                <p>MR. JOHN DOE</p>
+                <small>Manager</small>
+              </td>
+            </tr>
+            <br />
+            <tr>
+              <td></td>
+              <td>CONTACT Number</td>
+              <td>: 123-456-7890</td>
+            </tr>
+          </table>
+          <br />
+          <p>Hereinafter referred to as the "LESSOR";</p>
+          <p style={{ textAlign: "center" }}>-and-</p>
+          <table>
+            <tr>
+              <td width={"40px"}></td>
+              <td>LESSE</td>
+              <td>: [Organization/Company Name]</td>
+            </tr>
+            <br />
 
-          <h3>Proposal Summary</h3>
+            <tr>
+              <td width={"40px"}></td>
+              <td>ADDRESS:</td>
+              <td>: [Address]</td>
+            </tr>
+            <br />
+
+            <tr>
+              <td width={"40px"}></td>
+              <td>AUTHORIZED REPRESENTATIVE:</td>
+            </tr>
+            <tr>
+              <td width={"40px"}></td>
+              <td width={"40px"}></td>
+              <td>
+                <p>[FULL NAME]</p>
+                <small>[Position]</small>
+              </td>
+            </tr>
+            <br />
+            <tr>
+              <td width={"40px"}></td>
+              <td>CONTACT Number</td>
+              <td>: 123-456-7890</td>
+            </tr>
+          </table>
+        </div>
+
+        <div style={styles} ref={venueRequirementsRef}>
+          <h3>Venue Requirements</h3>
           <table
             style={{
               width: "100%",
@@ -133,7 +194,7 @@ const GenerateQoutation = () => {
           <ul>
             <li>
               Provision of venue and facilities at SMX Convention Center for the
-              [Event Name]
+              Python Crash Course
             </li>
             <li>
               Full catering service including lunch and snacks for all attendees
@@ -179,13 +240,47 @@ const GenerateQoutation = () => {
           {/* Acceptance Section */}
           <h3>Acceptance</h3>
           <p>
-            By signing below, SMX Prime Holdings agrees to the terms and
-            conditions outlined in this proposal for the lease of venue and
-            catering services.
+            HAVING FULLY READ, AND UNDERSTOOD OF, AND IN AGREEMENT TO ALL
+            COVENANTS, TERMS, AND CONDITIONS, WE HEREBY AFFIX OUR SIGNATURE ON
+            ___________ AT _______________ PHILIPPINES.
           </p>
-          <p>__________________________</p>
-          <p>Authorized Signature</p>
-          <p>Date: _____________________</p>
+          <br />
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <table style={{ textAlign: "center" }}>
+              <tr>
+                <td>[LESSOR]</td>
+                <td>[LESSE]</td>
+              </tr>
+              <br />
+              <tr>
+                <td>
+                  <strong>SMX PRIME HOLDINGS</strong>
+                </td>
+                <td>
+                  <strong>[ORGANIZATION/COMPANY NAME]</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>MR. JOHN DOE</p>
+                  <small>Senior Branch Manager</small>
+                </td>
+                <td>
+                  <p>[COMPANY REPRESENTATIVE]</p>
+                  <small>[Position]</small>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <br />
+          <br />
         </div>
       </IonContent>
     </IonPage>
