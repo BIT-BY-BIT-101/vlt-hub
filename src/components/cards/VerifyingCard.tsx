@@ -24,7 +24,10 @@ const VerifyingCard = () => {
           the verification is complete.
         </p>
 
-        <IonRouterLink routerLink="/host/home" style={{ textAlign: "center" }}>
+        <IonRouterLink
+          routerLink="/host/event-list"
+          style={{ textAlign: "center" }}
+        >
           Return to Home Page
         </IonRouterLink>
       </IonCardContent>

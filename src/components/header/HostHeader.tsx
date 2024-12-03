@@ -143,7 +143,7 @@ const HostHeader = () => {
         </IonGrid>
       </IonToolbar>
       <LogoutModal isOpen={showLogoutModal} onClose={handleModalClose} />
-      {isVerified === false && (
+      {!isVerified && (
         <div
           style={{
             backgroundColor: "orange",

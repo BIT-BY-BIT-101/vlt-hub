@@ -9,6 +9,7 @@ import {
   getDocs,
   getDoc,
   orderBy,
+  DocumentData,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebase";
@@ -18,7 +19,7 @@ import { set } from "react-hook-form";
 
 const useFetchpublishEvents = () => {
   const { currentUser } = useContext(AuthContext);
-  const [data, setData] = useState();
+  const [data, setData] = useState<DocumentData[] | null>();
   const [hostInfo, setHostInfo] = useState<string>();
   const [error, setError] = useState();
 

@@ -5,10 +5,13 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonContent,
+  IonGrid,
   IonItem,
   IonLabel,
   IonList,
   IonModal,
+  IonNote,
+  IonRow,
 } from "@ionic/react";
 import React, { useContext, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
@@ -17,9 +20,15 @@ import "./VenueCard.css";
 import useQuery from "../../hooks/useQuery";
 import { AuthContext } from "../../context/AuthContext";
 import useQueryDoc from "../../hooks/useQueryDoc";
+import {
+  formatDateString,
+  formatTimeString,
+} from "../../helpers/DateTimeFunctions";
+import useFetchpublishEvents from "../../hooks/useFetchpublishEvents";
 
 const VenueCard = () => {
   const { currentUser } = useContext(AuthContext);
+  const { data: events, loading, error, hostInfo } = useFetchpublishEvents();
   // const { data: venueData } = useFirestore("venues");
   const { data: venueData } = useQuery(
     "venues",
@@ -99,51 +108,47 @@ const VenueCard = () => {
                   </IonButton>
                 </IonItem>
               </IonList>
-              {/* <IonList className="item-color-dark">
-                <IonLabel>Maximum Capacity</IonLabel>
-                <IonItem className="item-color-dark">
-                  {venue.maxCapacity}
-                </IonItem>
-              </IonList> */}
-              {/* <div className="addvenue-btns">
-                <IonButton className="addvenue-editbtn">Edit</IonButton>
-                <IonButton
-                  className="addvenue-rmvbtn"
-                  onClick={handleCancelClick}
-                >
-                  Remove
-                </IonButton>
-              </div> */}
             </IonCardContent>
           </IonCard>
         ))}
 
-      {/* cancel Modal */}
-      {/* <IonModal
-        isOpen={showcancelModal}
-        onDidDismiss={() => setShowcancelModal(false)}
-        className="vevent-cancel-modal-container"
-      >
-        <IonContent className="vevent-cancel-modal-content">
-          <h2 className="vevent-cancel-modal-txt">Remove this venue?</h2>
-          <div className="vevent-modal-btn-container">
-            <IonButton
-              expand="block"
-              className="vyes-btn"
-              onClick={() => handlecancel(true)}
-            >
-              Yes
-            </IonButton>
-            <IonButton
-              expand="block"
-              className="vno-btn"
-              onClick={() => handlecancel(false)}
-            >
-              No
-            </IonButton>
-          </div>
-        </IonContent>
-      </IonModal> */}
+      {events?.map((event) => (
+        <IonCard className="card ion-padding" key={event.id}>
+          <IonGrid>
+            <IonRow>
+              <IonCardTitle>
+                <IonLabel className="card-label">
+                  <span className="form-title">{event.title}</span>
+                  <IonNote style={{ color: "var(--ion-color-primary)" }}>
+                    by: {event.host_name}
+                  </IonNote>
+                </IonLabel>
+              </IonCardTitle>
+            </IonRow>
+            <IonRow>
+              <IonCardContent>
+                <IonRow>
+                  <IonLabel>
+                    <strong className="form-title">Date: </strong>
+                    <span className="form-label">
+                      {formatDateString(event.date_from)}
+                    </span>
+                  </IonLabel>
+                </IonRow>
+                <IonRow>
+                  <IonLabel>
+                    <strong className="form-title">Time: </strong>
+                    <span className="form-label">
+                      {formatTimeString(event.start_time)}-
+                      {formatTimeString(event.end_time)}
+                    </span>
+                  </IonLabel>
+                </IonRow>
+              </IonCardContent>
+            </IonRow>
+          </IonGrid>
+        </IonCard>
+      ))}
     </>
   );
 };
