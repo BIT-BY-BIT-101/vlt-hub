@@ -20,23 +20,29 @@ const FacilityCard = () => {
     currentUser?.data.venueId
   );
   return (
-    <IonCard className="card">
-      <IonList className="item-color-dark ion-margin-top">
-        {facilityData?.map((facility: any) => (
-          <IonItem className="item-color">
-            <IonLabel>{facility.name}</IonLabel>
-            <IonIcon
-              icon={closeCircle}
-              slot="end"
-              className="text-color-dark cursor-pointer"
-            />
-            <IonButton fill="outline" shape="round" color={"tertiary"}>
-              Events
-            </IonButton>
-          </IonItem>
-        ))}
-      </IonList>
-    </IonCard>
+    <>
+      {facilityData?.map((facility: any) => (
+        <IonCard className="card" key={facility.id}>
+          <IonList className="item-color-dark ion-margin-top">
+            <IonItem
+              className="item-color"
+              lines="none"
+              routerLink={`/venue/facility/${facility.id}`}
+            >
+              <IonLabel>{facility.name}</IonLabel>
+              <IonButton fill="outline" shape="round" color={"tertiary"}>
+                Events
+              </IonButton>
+              <IonIcon
+                icon={closeCircle}
+                slot="end"
+                className="text-color-dark cursor-pointer"
+              />
+            </IonItem>
+          </IonList>
+        </IonCard>
+      ))}
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import AddVenue from "../../components/venue/AddVenue";
 import AddRoom from "../../components/venue/AddFacility";
 import AddFacility from "../../components/venue/AddFacility";
 
-const VenueAddFacilityPage = () => {
+const VenueAddFacilityPage: React.FC = () => {
   const history = useHistory();
   return (
     <>

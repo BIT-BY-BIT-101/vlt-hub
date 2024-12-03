@@ -434,6 +434,19 @@ ion-thumbnail {
   border-color: var(--highlight-color);
 }
 
+.form-datetime-button {
+  --ion-color-step-300: var(--ion-color-primary);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  caret-color: var(--ion-color-primary);
+}
+
+.form-datetime-button:hover {
+  border-color: var(--ion-color-primary);
+}
+
 ion-modal.modal-container::part(content) {
   --background: var(--main-color);
   --border-radius: 20px;

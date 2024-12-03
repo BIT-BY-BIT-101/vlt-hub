@@ -20,7 +20,7 @@ import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
 import FacilityCard from "../../components/venue/FacilityCard";
 
-const VenueListPage = () => {
+const VenueListPage: React.FC = () => {
   return (
     <>
       <Menus />

@@ -17,7 +17,7 @@ import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
 
-const VenueAddVenuePage = () => {
+const VenueAddVenuePage: React.FC = () => {
   const history = useHistory();
   return (
     <>

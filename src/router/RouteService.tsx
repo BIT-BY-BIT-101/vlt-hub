@@ -45,6 +45,9 @@ import HostVerificationFormPage from "../pages/host/HostVerificationFormPage";
 import VenueKYCRequestPage from "../pages/venue/VenueKYCRequestPage";
 import VenueKYCDetailsPage from "../pages/venue/VenueKYCDetailsPage";
 import VenueKYCEditPage from "../pages/venue/VenueKYCEditPage";
+import VenueRequestDetailPage from "../pages/venue/VenueRequestDetailPage";
+import VenueAddEventPage from "../pages/venue/VenueAddEventPage";
+import VenueFacilityListEvent from "../pages/venue/VenueFacilityListEventPage";
 
 const RouteService = () => {
   return (
@@ -245,24 +248,35 @@ const RouteService = () => {
           redirected="/venue/signin"
         />
         <ProtectedRoute
+          exact
           path="/venue/requests"
           allowedRoles={"venue"}
           component={VenueRequestsPage}
           redirected="/venue/signin"
         />
         <ProtectedRoute
+          exact
+          path="/venue/requests/details/:id"
+          allowedRoles={"venue"}
+          component={VenueRequestDetailPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          exact
           path="/venue/verification-requests"
           allowedRoles={"venue"}
           component={VenueKYCRequestPage}
           redirected="/venue/signin"
         />
         <ProtectedRoute
+          exact
           path="/venue/verification-requests/details/:id"
           allowedRoles={"venue"}
           component={VenueKYCDetailsPage}
           redirected="/venue/signin"
         />
         <ProtectedRoute
+          exact
           path="/venue/verification-requests/edit/:id"
           allowedRoles={"venue"}
           component={VenueKYCEditPage}
@@ -284,6 +298,20 @@ const RouteService = () => {
           path="/venue/list-venue"
           allowedRoles={"venue"}
           component={VenueListPage}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          exact
+          path="/venue/facility/:id"
+          allowedRoles={"venue"}
+          component={VenueFacilityListEvent}
+          redirected="/venue/signin"
+        />
+        <ProtectedRoute
+          exact
+          path="/venue/add-event/:id"
+          allowedRoles={"venue"}
+          component={VenueAddEventPage}
           redirected="/venue/signin"
         />
         <ProtectedRoute

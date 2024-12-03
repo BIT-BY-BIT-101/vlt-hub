@@ -44,7 +44,7 @@ const useHandleEvents = () => {
     const hostId = auth.currentUser?.uid!;
     const hostName = `${userData?.fname} ${userData?.lname}`;
     // const venueId = id;
-    const status = "for confirmation";
+    const status = "requesting proposal";
 
     console.log(data);
 
@@ -60,6 +60,10 @@ const useHandleEvents = () => {
       host_name: hostName,
       status: status,
       isArchived: false,
+      isPublished: false,
+      publishedAt: null,
+      isApproved: false,
+      approvedAt: null,
       // img_url: imageUrl,
       // img_path: imagePath,
       is_confirmed: false,
@@ -71,6 +75,21 @@ const useHandleEvents = () => {
       // createdAt: serverTimestamp(),
       //   updatedAt: serverTimestamp(),
     };
+
+    console.log(imgUrl);
+
+    if (imgUrl == null) {
+      Swal.fire({
+        heightAuto: false,
+        icon: "warning",
+        title: "Please upload an image",
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+        // timer: 1500,
+      });
+
+      throw new Error("Please upload an image");
+    }
     Swal.fire({
       title: "Do you want to save?",
       showCancelButton: true,
@@ -117,7 +136,7 @@ const useHandleEvents = () => {
                 host_id: hostId,
                 host_name: hostName,
                 host_email: currentUser?.email,
-                status: "for verification",
+                status: status,
                 is_confirmed: false,
                 is_transaction_complete: false,
               });

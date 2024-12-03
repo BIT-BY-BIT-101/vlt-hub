@@ -16,6 +16,7 @@ import {
   IonThumbnail,
   IonItem,
   IonLabel,
+  IonCardSubtitle,
 } from "@ionic/react";
 import React, { useState } from "react";
 import {
@@ -32,6 +33,7 @@ import "./RegisteredEventsCard.css";
 import useGetDoc from "../../hooks/useGetDoc";
 import RegisteredEventsModal from "../modals/RegisteredEventsModal";
 import Loader from "../loaders/Loader";
+import { DocumentData } from "firebase/firestore";
 
 const RegisteredEventsCard = () => {
   const {
@@ -84,100 +86,52 @@ const RegisteredEventsCard = () => {
         placeholder="Search events"
         onIonChange={handleSearchChange}
       ></IonSearchbar> */}
-      {filteredEvents.map((event: EventDataModel, index: number) => (
+      {filteredEvents.map((event: DocumentData, index: number) => (
         <IonCol size="auto" size-md="6" size-lg="3" sizeXs="10" key={index}>
           <>
-            {/* <h1 className="pevent-date">
-                      {formatDateString(event.eventDate)}
-                    </h1> */}
             <IonCard
-              className="bg-color-main pevent-card cursor-pointer"
+              className="bg-color-main ion-padding cursor-pointer"
               // onClick={() => openModal(event)}
               routerLink={`/participant/event/details/${event.id}`}
             >
-              {/* <IonCardHeader></IonCardHeader> */}
-              <IonItem className="item-color">
-                <IonImg
-                  src={event.imageUrl ? event.imageUrl : Default}
-                  alt={event.title}
-                  className="event-card-image"
-                />
-              </IonItem>
-              {/* <IonCardContent className="pevent-card-content"> */}
-
-              {/* <IonThumbnail>
-                  <img src={event.userImg || HostImg} alt="Host Image" />
-                </IonThumbnail> */}
-
-              <IonItem className="item-color">
-                <IonCardTitle className="text-color-dark f-size-auto">
-                  <IonLabel>{event.title}</IonLabel>
-                </IonCardTitle>
-              </IonItem>
-
               <IonItem className="item-color">
                 <IonLabel>
-                  <p>
-                    <span className=" text-color-rgb">Host: </span>
-                    {event.host_name}
-                  </p>
+                  <IonCardTitle className="text-color-dark f-size-auto">
+                    <IonLabel>{event.title}</IonLabel>
+                  </IonCardTitle>
+
+                  <IonCardSubtitle>
+                    <IonLabel>
+                      <p>
+                        by: <strong>{event.host_name}</strong>
+                      </p>
+                    </IonLabel>
+                  </IonCardSubtitle>
                 </IonLabel>
               </IonItem>
+
               <IonItem className="item-color">
                 <IonLabel>
                   <p>
                     <span className=" text-color-rgb">Date: </span>
-                    {formatDateString(event.event_date)}
+                    {formatDateString(event.date_from)}
                   </p>
                 </IonLabel>
               </IonItem>
-
-              {/* <IonItem className="item-color">
-                <IonButtons>
-                  <IonButton
-                    className="btn-primary"
-                    onClick={() => openModal(event)}
-                  >
-                    View
-                  </IonButton>
-                </IonButtons>
-              </IonItem> */}
-              {/* </IonCardContent> */}
+              <IonItem className="item-color">
+                <IonLabel>
+                  <p>
+                    <span className=" text-color-rgb">Time: </span>
+                    {`${formatTimeString(
+                      event.start_time
+                    )} - ${formatTimeString(event.end_time)}`}
+                  </p>
+                </IonLabel>
+              </IonItem>
             </IonCard>
-            {/* <RegisteredEventsModal
-              isOpen={showModal}
-              onDidDismiss={closeModal}
-              selected={selected}
-            /> */}
           </>
         </IonCol>
       ))}
-
-      {/* <IonModal
-        isOpen={showConfirmationModal}
-        onDidDismiss={() => setShowConfirmationModal(false)}
-        className="pevent-confirmation-modal-container"
-      >
-        <IonContent className="pevent-confirmation-modal-content">
-          <h2 className="pevent-confirmation-modal-txt">Are you sure?</h2>
-          <div className="pevent-modal-btn-container">
-            <IonButton
-              expand="block"
-              className="pyes-btn"
-              onClick={() => handleConfirmation(true)}
-            >
-              Yes
-            </IonButton>
-            <IonButton
-              expand="block"
-              className="pno-btn"
-              onClick={() => handleConfirmation(false)}
-            >
-              No
-            </IonButton>
-          </div>
-        </IonContent>
-      </IonModal> */}
     </>
   );
 };

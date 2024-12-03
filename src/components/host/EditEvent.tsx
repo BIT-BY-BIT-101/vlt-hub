@@ -138,7 +138,7 @@ const EditEvent = () => {
             // Redirect to event details
             history.push({
               pathname: `/host/event/details/${id}`,
-              state: { updatedEvent: { ...editedData, ...eventData } }, // Passing updated data
+              // state: { updatedEvent: { ...editedData, ...eventData } }, // Passing updated data
             });
           });
 

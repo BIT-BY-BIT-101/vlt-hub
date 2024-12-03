@@ -3,6 +3,8 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonItem,
+  IonLabel,
   IonMenuButton,
   IonPage,
   IonRow,
@@ -16,6 +18,7 @@ import EventsCard from "../../components/participant/EventsCard";
 import Header from "../../components/header/Header";
 import SidePanel from "../../components/SidePanel";
 import Menus from "../../components/menus/Menus";
+import HostDashboard from "../../components/host/HostDashboard";
 
 const HostHomePage: React.FC = () => {
   // const [showModal, setShowModal] = useState(false);
@@ -41,8 +44,23 @@ const HostHomePage: React.FC = () => {
         </IonHeader> */}
         <IonContent>
           <IonGrid>
+            <IonItem
+              color={"none"}
+              lines="none"
+              style={{ color: "var(--ion-color-primary)" }}
+            >
+              <IonLabel>
+                <h1>
+                  <strong>Dashboard</strong>
+                </h1>
+              </IonLabel>
+            </IonItem>
+            <IonRow className="ion-justify-content-center ion-align-items-center">
+              <HostDashboard />
+            </IonRow>
             <IonRow>
               {/* <SidePanel /> */}
+
               <EventsCard />
             </IonRow>
           </IonGrid>

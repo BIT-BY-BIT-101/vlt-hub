@@ -1,11 +1,19 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
-import ProfileCard from "../../components/cards/ProfileCard";
+import {
+  IonPage,
+  IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonItem,
+  IonButton,
+} from "@ionic/react";
+import React from "react";
 import Header from "../../components/header/Header";
-import SidePanel from "../../components/SidePanel";
 import Menus from "../../components/menus/Menus";
-import VenueAddressCard from "../../components/venue/VenueAddressCard";
+import FacilityCard from "../../components/venue/FacilityCard";
+import EventItem from "../../components/venue/EventItem";
 
-export const VenueProfilePage: React.FC = () => {
+const VenueFacilityListEventPage: React.FC = () => {
   return (
     <>
       <Menus />
@@ -16,9 +24,7 @@ export const VenueProfilePage: React.FC = () => {
             <IonRow className="ion-justify-content-center">
               {/* <SidePanel /> */}
               <IonCol>
-                <ProfileCard />
-                <br />
-                <VenueAddressCard />
+                <EventItem />
               </IonCol>
             </IonRow>
           </IonGrid>
@@ -27,3 +33,5 @@ export const VenueProfilePage: React.FC = () => {
     </>
   );
 };
+
+export default VenueFacilityListEventPage;

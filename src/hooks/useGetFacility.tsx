@@ -1,9 +1,9 @@
-import { doc, DocumentData, getDoc, onSnapshot } from "firebase/firestore";
+import { DocumentData, doc, onSnapshot, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { EventDataModel, UserDataModel } from "../models/Model";
+import { UserDataModel } from "../models/Model";
 
-const useGetEvent = (id: string) => {
+const useGetFacility = (id: string) => {
   const [data, setData] = useState<DocumentData | null>(null);
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -14,27 +14,26 @@ const useGetEvent = (id: string) => {
   useEffect(() => {
     if (!id) return;
 
-    const docRef = doc(db, "events", id);
+    const docRef = doc(db, "facilities", id);
 
     const unsubscribe = onSnapshot(docRef, async (docSnap) => {
       try {
         // const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = { id: docSnap.id, ...docSnap.data() };
-          console.log(data);
 
-          const hostRef = doc(db, "profiles", data.host_id);
-          const hostSnap = await getDoc(hostRef);
+          //   const hostRef = doc(db, "profiles", data.host_id);
+          //   const hostSnap = await getDoc(hostRef);
           // const venueRef = doc(db, "venue", data.venue_id);
           // const venueSnap = await getDoc(venueRef);
           // const facilityRef = doc(db, "facility", data.facility_id);
           // const facilitySnap = await getDoc(facilityRef);
 
-          if (hostSnap.exists()) {
-            const hostData = hostSnap.data();
-            setHostInfo(hostData);
-            setLoading(true);
-          }
+          //   if (hostSnap.exists()) {
+          //     const hostData = hostSnap.data();
+          //     setHostInfo(hostData);
+          //     setLoading(true);
+          //   }
 
           // if (venueSnap.exists()) {
           //   const venueData = venueSnap.data();
@@ -67,4 +66,4 @@ const useGetEvent = (id: string) => {
   return { data, hostInfo, error, loading };
 };
 
-export default useGetEvent;
+export default useGetFacility;

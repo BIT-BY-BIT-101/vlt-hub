@@ -9,23 +9,17 @@ import useFetchRequests from "../../hooks/useFetchRequests";
 import RequestModal from "../modals/RequestModal";
 import useFetchKYCs from "../../hooks/useFetchKYCs";
 import useGetDoc from "../../hooks/useGetDoc";
+import { useHistory } from "react-router";
 
 const VerificationRequest = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState();
   const { currentUser } = useContext(AuthContext);
 
   const { data: kycRequests } = useFetchKYCs();
+  const history = useHistory();
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
+  const handleRoute = () => {
+    history.push("/venue/verification-requests/details");
   };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-
-  console.log(kycRequests);
 
   return (
     <>
@@ -52,11 +46,8 @@ const VerificationRequest = () => {
             <IonList className="item-bg-none">
               <IonItem
                 routerLink={`/venue/verification-requests/details/${request?.kycData?.id}`}
+                // onClick={handleRoute}
                 className="item-bg-none cursor-pointer"
-                // onClick={() => {
-                //   setIsOpen(true);
-                //   setSelected(request);
-                // }}
               >
                 <IonLabel slot="start" className="item-label">
                   Name

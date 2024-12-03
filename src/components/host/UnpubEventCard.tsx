@@ -127,7 +127,13 @@ export const UnpubEventCard = () => {
             >
               <div className="card ion-margin-left  ion-margin-right">
                 <IonItem
-                  color={event.status === "rejected" ? "danger" : "primary"}
+                  color={
+                    event.status === "rejected"
+                      ? "danger"
+                      : event.status === "approved"
+                      ? "success"
+                      : "primary"
+                  }
                   className="ion-text-uppercase"
                 >
                   <IonLabel>{event.status}</IonLabel>

@@ -1,9 +1,9 @@
-import { doc, DocumentData, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, getDoc, DocumentData } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { UserDataModel } from "../models/Model";
+import { EventDataModel, UserDataModel } from "../models/Model";
 
-const useGetKYC = (id: string) => {
+const useGetRequest = (id: string) => {
   const [data, setData] = useState<DocumentData | null>(null);
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -11,24 +11,30 @@ const useGetKYC = (id: string) => {
   useEffect(() => {
     if (!id) return;
 
-    const docRef = doc(db, "kyc_sessions", id);
+    const docRef = doc(db, "requests", id);
 
     const unsubscribe = onSnapshot(
       docRef,
       async (docSnap) => {
         if (docSnap.exists()) {
           const data = { id: docSnap.id, ...docSnap.data() };
+          console.log(data);
 
           // Fetch related profile data
-          const hostRef = doc(db, "profiles", data.user_id);
+          const hostRef = doc(db, "profiles", data?.host_id);
+          const eventRef = doc(db, "events", data?.event_id);
           const hostSnap = await getDoc(hostRef);
+          const eventSnap = await getDoc(eventRef);
 
-          if (hostSnap.exists()) {
-            const hostData = hostSnap.data();
+          if (hostSnap.exists() && eventSnap.exists()) {
+            const hostData = { id: hostSnap.id, ...hostSnap.data() };
+            const eventData = { id: eventSnap.id, ...eventSnap.data() };
             console.log({ data, hostData });
 
-            setData({ data, hostData });
+            setData({ data, hostData, eventData });
           }
+
+          console.log(data);
         } else {
           setError(new Error("Document does not exist"));
         }
@@ -46,4 +52,4 @@ const useGetKYC = (id: string) => {
   return { data, error, loading };
 };
 
-export default useGetKYC;
+export default useGetRequest;

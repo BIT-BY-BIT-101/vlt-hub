@@ -46,23 +46,16 @@ const useUpdateProfile = () => {
   /**
    *
    * @param file a file that will be uploaded
-   * @param filename the name of the file
-
    * @param id the id of the event or profile
    */
-  const updateProfileImage = async (
-    file: File,
-    filename: string,
-    // data: any,
-    id: string
-  ) => {
+  const updateProfileImage = async (file: File, id: string) => {
     try {
       setIsUploading(true);
 
       const compressedFile = await compressImage(file);
 
       const storageRef = ref(storage, `profiles/${userId}/image`);
-      const imageRef = ref(storageRef, `${filename}`);
+      const imageRef = ref(storageRef, `profile_picture`);
 
       // const snapshot = await uploadString(imageRef, file, "data_url");
       // const snapshot = await uploadBytes(imageRef, file);

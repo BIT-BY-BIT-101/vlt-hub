@@ -54,7 +54,7 @@ const Header = () => {
     setSearchText(event.detail.value);
   };
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   if (currentUser?.data.role === "participant") {
     return <ParticipantHeader />;

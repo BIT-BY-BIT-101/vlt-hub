@@ -449,7 +449,7 @@ ion-modal.phome-modal-container::part(content) {
 }
 
 .phome-register-btn {
-  --background: var(--secondary-color);
+  --background: var(--ion-color-primary);
   --color: #fff;
   font-weight: bold;
   margin-top: 20px;

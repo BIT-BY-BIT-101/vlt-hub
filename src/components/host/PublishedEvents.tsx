@@ -3,7 +3,10 @@ import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { db } from "../../config/firebase";
 import { AuthContext } from "../../context/AuthContext";
-import { formatDateString } from "../../helpers/DateTimeFunctions";
+import {
+  formatDateString,
+  formatTimeString,
+} from "../../helpers/DateTimeFunctions";
 import { handleWindowRoute } from "../../helpers/Helpers";
 import RequestModal from "../modals/RequestModal";
 import useFetchpublishEvents from "../../hooks/useFetchpublishEvents";
@@ -24,16 +27,16 @@ const PublishedEvents = () => {
     const chatRoomRef = doc(db, "chats", chatRoomId);
 
     // Check if the chat room already exists
-    const chatRoomSnap = await getDoc(chatRoomRef);
-    if (!chatRoomSnap.exists()) {
-      // Create the chat room document
-      await setDoc(chatRoomRef, {
-        owner_id: ownerId,
-        host_id: hostId,
-        createdAt: serverTimestamp(),
-        // Add any other necessary fields
-      });
-    }
+    // const chatRoomSnap = await getDoc(chatRoomRef);
+    // if (!chatRoomSnap.exists()) {
+    //   // Create the chat room document
+    //   await setDoc(chatRoomRef, {
+    //     owner_id: ownerId,
+    //     host_id: hostId,
+    //     createdAt: serverTimestamp(),
+    //     // Add any other necessary fields
+    //   });
+    // }
 
     // Navigate to the chat room or open the chat interface
     handleWindowRoute(`/venue/chat/${chatRoomId}/messages`);
@@ -85,7 +88,13 @@ const PublishedEvents = () => {
                 </IonLabel>
                 <IonLabel slot="start" className="item-label">
                   Date
-                  <p>{formatDateString(request.event_date)}</p>
+                  <p>{formatDateString(request.date_from)}</p>
+                </IonLabel>
+                <IonLabel slot="start" className="item-label">
+                  Time
+                  <p>{`${formatTimeString(
+                    request?.start_time
+                  )}-${formatTimeString(request?.end_time)}`}</p>
                 </IonLabel>
 
                 {/* <IonLabel slot="end">

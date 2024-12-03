@@ -25,8 +25,8 @@ import { Label } from "recharts";
 import useFetchRequests from "../../hooks/useFetchRequests";
 
 const RequestItems = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState();
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [selected, setSelected] = useState();
   const { currentUser } = useContext(AuthContext);
   // const { data: requests } = useQuery(
   //   "requests",
@@ -50,40 +50,38 @@ const RequestItems = () => {
   //   setChatRoomId(id);
   // };
 
-  const handleChatButtonClick = async (request: any) => {
-    const ownerId = currentUser?.uid;
-    const hostId = request.host_id;
-    const chatRoomId = `${ownerId}_${hostId}`; // Create a unique chat room ID based on venue and host IDs
-    const chatRoomRef = doc(db, "chats", chatRoomId);
+  // const handleChatButtonClick = async (request: any) => {
+  //   const ownerId = currentUser?.uid;
+  //   const hostId = request.host_id;
+  //   const chatRoomId = `${ownerId}_${hostId}`; // Create a unique chat room ID based on venue and host IDs
+  //   const chatRoomRef = doc(db, "chats", chatRoomId);
 
-    // Check if the chat room already exists
-    const chatRoomSnap = await getDoc(chatRoomRef);
-    if (!chatRoomSnap.exists()) {
-      // Create the chat room document
-      await setDoc(chatRoomRef, {
-        owner_id: ownerId,
-        host_id: hostId,
-        createdAt: serverTimestamp(),
-        // Add any other necessary fields
-      });
-    }
+  //   // Check if the chat room already exists
+  //   const chatRoomSnap = await getDoc(chatRoomRef);
+  //   if (!chatRoomSnap.exists()) {
+  //     // Create the chat room document
+  //     await setDoc(chatRoomRef, {
+  //       owner_id: ownerId,
+  //       host_id: hostId,
+  //       createdAt: serverTimestamp(),
+  //       // Add any other necessary fields
+  //     });
+  //   }
 
-    // Navigate to the chat room or open the chat interface
-    handleWindowRoute(`/venue/chat/${chatRoomId}/messages`);
-    // toggleChatBox(chatRoomId);
-    // You might need to use a router or navigation library here
-    console.log("Chat button clicked for request:", request);
-  };
+  //   // Navigate to the chat room or open the chat interface
+  //   handleWindowRoute(`/venue/chat/${chatRoomId}/messages`);
+  //   // toggleChatBox(chatRoomId);
+  //   // You might need to use a router or navigation library here
+  //   console.log("Chat button clicked for request:", request);
+  // };
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
+  // const handleOpenModal = () => {
+  //   setIsOpen(true);
+  // };
 
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
-
-  console.log(requestData);
+  // const handleCloseModal = () => {
+  //   setIsOpen(false);
+  // };
 
   return (
     <>
@@ -110,10 +108,11 @@ const RequestItems = () => {
             <IonList className="item-bg-none">
               <IonItem
                 className="item-bg-none cursor-pointer"
-                onClick={() => {
-                  setIsOpen(true);
-                  setSelected(request);
-                }}
+                routerLink={`/venue/requests/details/${request.id}`}
+                // onClick={() => {
+                //   setIsOpen(true);
+                //   setSelected(request);
+                // }}
               >
                 <IonLabel slot="start" className="item-label">
                   {request.event_title}
@@ -121,7 +120,7 @@ const RequestItems = () => {
                 </IonLabel>
                 <IonLabel slot="start" className="item-label">
                   Date
-                  <p>{formatDateString(request.event_date)}</p>
+                  <p>{formatDateString(request.date_from)}</p>
                 </IonLabel>
                 {/* <IonButton
                     slot="end"
@@ -159,12 +158,12 @@ const RequestItems = () => {
           </div>
         ))
       )}
-      <RequestModal
+      {/* <RequestModal
         isOpen={isOpen}
         onDidDismissal={handleCloseModal}
         onClose={handleCloseModal}
         selected={selected}
-      />
+      /> */}
       {/* <ChatBox isOpen={isOpen} id={chatroomId} /> */}
     </>
   );

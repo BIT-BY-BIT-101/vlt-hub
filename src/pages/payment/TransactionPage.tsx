@@ -6,7 +6,7 @@ import SidePanel from "../../components/SidePanel";
 import VenueCard from "../../components/venue/VenueCard";
 import TransactionList from "../../components/TransactionList";
 
-const TransactionPage = () => {
+const TransactionPage: React.FC = () => {
   return (
     <>
       {/* <VenueNavMenu /> */}

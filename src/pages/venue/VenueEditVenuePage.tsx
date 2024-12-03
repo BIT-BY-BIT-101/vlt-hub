@@ -7,7 +7,7 @@ import SidePanel from "../../components/SidePanel";
 import AddVenue from "../../components/venue/AddVenue";
 import EditVenue from "../../components/venue/EditVenue";
 
-const VenueEditVenuePage = () => {
+const VenueEditVenuePage: React.FC = () => {
   const history = useHistory();
   return (
     <>

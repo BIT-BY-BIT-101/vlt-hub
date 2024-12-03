@@ -23,7 +23,8 @@ const ParticipantEventPage: React.FC = () => {
               {/* <SidePanel /> */}
 
               <IonCol>
-                <EventsCalendarCard />
+                {/* <EventsCalendarCard /> */}
+                <RegisteredEventsCard />
               </IonCol>
             </IonRow>
           </IonGrid>

@@ -17,7 +17,7 @@ import Menus from "../../components/menus/Menus";
 import SidePanel from "../../components/SidePanel";
 import EventSlides from "../../components/participant/EventSlides";
 
-const ParticipantHomePage = () => {
+const ParticipantHomePage: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
   const history = useHistory();
 

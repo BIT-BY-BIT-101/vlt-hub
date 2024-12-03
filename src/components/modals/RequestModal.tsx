@@ -8,16 +8,18 @@ import {
   IonHeader,
   IonIcon,
   IonImg,
+  IonInput,
   IonItem,
   IonLabel,
   IonList,
   IonModal,
+  IonProgressBar,
   IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   formatDateString,
   formatTimeString,
@@ -27,6 +29,7 @@ import { serverTimestamp } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router";
 import useRequestHandles from "../../hooks/useHandleRequests";
+import useUploadProposal from "../../hooks/useUploadProposal";
 
 type Props = {
   isOpen: boolean;
@@ -45,8 +48,36 @@ const RequestModal: React.FC<Props> = ({
     selected
     // onDidDismissal
   );
+  const { uploadProposal, uploadProgress, isUploading, downloadURL, error } =
+    useUploadProposal(selected?.event_id);
+  const [file, setFile] = useState<File | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const history = useHistory();
+
+  const handleFileClick = () => {
+    fileInputRef?.current?.click();
+  };
+
+  console.log(selected);
+
+  const handleFileChange = (event: any) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      uploadProposal(file, "proposals");
+    }
+  };
+
+  const handleUploadProposal = async () => {
+    if (file) {
+      uploadProposal(file, "proposals");
+    }
+  };
 
   return (
     <IonModal
@@ -76,7 +107,7 @@ const RequestModal: React.FC<Props> = ({
         <IonItem className="item-bg-none">
           <IonLabel slot="start">
             <strong>Date</strong>
-            <p slot="start">{formatDateString(selected?.event_date)}</p>
+            <p slot="start">{formatDateString(selected?.date_from)}</p>
           </IonLabel>
         </IonItem>
         <IonItem className="item-bg-none">
@@ -91,6 +122,35 @@ const RequestModal: React.FC<Props> = ({
             />
           </IonLabel>
         </IonItem>
+
+        <IonItem className="item-bg-none">
+          <IonLabel>
+            <strong>Upload Proposal</strong>
+            <br />
+            <input
+              type="file"
+              ref={fileInputRef}
+              // ref={cropperRef}
+              hidden
+              // style={{ display: "none" }}
+              onChange={handleFileChange}
+              // onChange={handleCropperModal}
+            />
+
+            <IonButton
+              expand="block"
+              // onClick={handleUpload}
+              onClick={handleFileClick}
+              // disabled={isUploading}
+            >
+              {file ? file.name : "Select A File"}
+            </IonButton>
+            {isUploading && (
+              <IonProgressBar value={uploadProgress / 100}></IonProgressBar>
+            )}
+          </IonLabel>
+        </IonItem>
+
         {/* </IonList> */}
       </IonContent>
 
@@ -103,10 +163,10 @@ const RequestModal: React.FC<Props> = ({
               // strong
               // shape="round"
               color={"primary"}
+              onClick={handleUploadProposal}
               // onClick={() => handleAccept(onDidDismissal)}
-              
             >
-              Make Proposal
+              {isUploading ? "Uploading..." : "Send Proposal"}
             </IonButton>
             <IonButton
               // fill="outline"

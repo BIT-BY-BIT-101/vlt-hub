@@ -11,11 +11,13 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonProgressBar,
   IonRow,
+  IonText,
 } from "@ionic/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import useGetDoc from "../hooks/useGetDoc";
-import { useLocation, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import EventsModal from "./modals/EventsModal";
 import Loader from "./loaders/Loader";
 import {
@@ -38,6 +40,8 @@ import { UpdateDataContext } from "../context/UpdateDataContext";
 import useFirestore from "../hooks/useFirestore";
 import { serverTimestamp } from "firebase/firestore";
 import useHandleEvents from "../hooks/useHandleEvents";
+import useUploadFilledProposal from "../hooks/useUploadFilledProposal";
+import useHandleEventRegister from "../hooks/useHandleEventRegister";
 
 type RouteParams = {
   id: string;
@@ -50,17 +54,51 @@ const EventDetail = () => {
   // const { data: event, error, loading } = useGetDoc("events", id);
   const { data: event, error, hostInfo, loading } = useGetEvent(id);
   const { updateData: updateStatus } = useFirestore("events");
+  const {
+    updateData: updateEvent,
+    loading: updatingEvent,
+    error: errorUpdatingEvent,
+  } = useFirestore("events");
   const { handleDeleEvent } = useHandleEvents();
 
-  const location = useLocation();
-  const updatedEvent = location.state?.updatedEvent; // Access updated data if passed
+  const {
+    uploadProposal,
+    uploadProgress,
+    isUploading,
+    downloadURL,
+    error: uploadError,
+  } = useUploadFilledProposal(event?.request_id);
 
-  useEffect(() => {
-    if (updatedEvent) {
-      // Use the updated data, for example, to set it to a local state
-      console.log("Received updated data:", updatedEvent);
+  const { handleCheckout, handleRegister, handleSignin } =
+    useHandleEventRegister(id);
+
+  const [file, setFile] = useState<File | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const history = useHistory();
+
+  const handleFileClick = () => {
+    fileInputRef?.current?.click();
+  };
+
+  const handleFileChange = (event: any) => {
+    const requestFile = event.target.files[0];
+    setFile(requestFile);
+  };
+
+  const handleUploadProposal = async () => {
+    if (file) {
+      uploadProposal(file);
+
+      await updateEvent(event?.id, {
+        is_transaction_complete: false,
+        status: "for approval",
+      });
+
+      history.push("/host/event-list");
     }
-  }, [updatedEvent]);
+  };
   if (loading && !event) {
     return <p>loading.....</p>;
   }
@@ -84,31 +122,36 @@ const EventDetail = () => {
     });
   };
 
-  const eventData = updatedEvent || event;
+  // const event = updatedEvent || event;
 
   // if (event) {
+  console.log(event);
+  console.log(event?.participants.includes(currentUser?.uid));
+
   return (
     <>
       <IonGrid>
         <div className="event-page ion-margin-top ion-padding margin-left margin-right">
           <IonRow className="ion-justify-content-center">
             <IonCardTitle>
-              <IonItem color={"none"} className="ion-text-center" lines="none">
-                <IonLabel className="ion-text-center">
-                  <h1
-                    style={{
-                      fontWeight: "bold",
-                      color: "var(--ion-color-primary)",
-                    }}
-                  >
-                    {eventData?.title}
-                  </h1>
-                </IonLabel>
-              </IonItem>
+              {/* <IonItem color={"none"} className="ion-text-center" lines="none"> */}
+              <IonLabel className="ion-text-center">
+                <h1
+                  style={{
+                    fontWeight: "bold",
+                    color: "var(--ion-color-primary)",
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  {event?.title}
+                </h1>
+              </IonLabel>
+              {/* </IonItem> */}
             </IonCardTitle>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <div
+              className="ion-margin-left ion-margin-right ion-margin-top"
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -116,8 +159,8 @@ const EventDetail = () => {
               }}
             >
               <IonImg
-                src={eventData?.imageUrl}
-                style={{ objectFit: "cover", height: "400px", width: "100%" }}
+                src={event?.imageUrl}
+                style={{ objectFit: "cover", height: "auto", width: "100vw" }}
               />
             </div>
           </IonRow>
@@ -134,52 +177,165 @@ const EventDetail = () => {
               </span>
             </IonLabel>
           </IonItem>
-          {currentUser?.data.role === "host" && (
-            // <IonItem color={"none"}></IonItem>
-            <IonRow>
-              <IonCol>
-                {eventData?.is_confirmed ? (
+          {!event?.participants?.includes(currentUser?.uid) && (
+            <>
+              {currentUser?.data.role === "participant" && currentUser ? (
+                <div className="phome-btn-container">
                   <IonButton
-                    slot="start"
-                    className="ion-padding"
-                    // routerLink={`/host/event/${id}/edit`}
-                    onClick={() => handlePublishBtn(event)}
-                    disabled={eventData.is_confirmed ? false : true}
+                    expand="block"
+                    className="phome-register-btn"
+                    onClick={event?.event_fee ? handleCheckout : handleRegister}
                   >
-                    Publish
-                    <IonIcon slot="icon-only" icon={createSharp} />
+                    {event?.event_fee ? "Pay Now" : "Register"}
                   </IonButton>
-                ) : (
+                </div>
+              ) : (
+                <div className="phome-btn-container">
                   <IonButton
-                    className="ion-padding"
-                    // routerLink={`/host/event/${id}/edit`}
-                    onClick={() => handleConfirmed(event)}
-                    disabled={eventData?.status !== "confirming" ? true : false}
+                    expand="block"
+                    className="phome-register-btn"
+                    // routerLink="/participant/signin"
+                    onClick={handleSignin}
                   >
-                    {eventData?.status !== "confirming" ? "Pending" : "Confirm"}
-                    <IonIcon slot="icon-only" icon={arrowUpCircleSharp} />
+                    Please Login
                   </IonButton>
-                )}
-              </IonCol>
-              <IonButton
-                // slot="end"
-                className="ion-padding"
-                routerLink={`/host/event/${id}/edit`}
-              >
-                Edit Course
-                <IonIcon slot="icon-only" icon={createSharp} />
-              </IonButton>
-              <IonButton
-                className="ion-padding"
-                color={"danger"}
-                onClick={() => handleDeleEvent(id)}
-              >
-                Delete
-                <IonIcon slot="icon-only" icon={trash} />
-              </IonButton>
-            </IonRow>
+                </div>
+              )}
+              )
+            </>
           )}
 
+          {/* End of Register button */}
+          {currentUser?.data.role === "host" && (
+            // <IonItem color={"none"}></IonItem>
+            <>
+              <IonRow>
+                <IonCol>
+                  {event?.status === "for confirmation" && (
+                    <IonButton
+                      className="ion-padding"
+                      // routerLink={`/host/event/${id}/edit`}
+                      onClick={handleUploadProposal}
+                      disabled={isUploading}
+                    >
+                      {isUploading ? "Uploading..." : "Send Proposal"}
+                      {/* <IonIcon slot="icon-only" icon={arrowUpCircleSharp} /> */}
+                    </IonButton>
+                  )}
+                  {/* {event?.is_confirmed ? (
+                    <IonButton
+                      slot="start"
+                      className="ion-padding"
+                      // routerLink={`/host/event/${id}/edit`}
+                      onClick={() => handlePublishBtn(event)}
+                      disabled={event.is_confirmed ? false : true}
+                    >
+                      Publish
+                      <IonIcon slot="icon-only" icon={createSharp} />
+                    </IonButton>
+                  ) : (
+                    <IonButton
+                      className="ion-padding"
+                      // routerLink={`/host/event/${id}/edit`}
+                      onClick={() => handleConfirmed(event)}
+                      disabled={event?.status !== "confirming" ? true : false}
+                    >
+                      {event?.status !== "confirming" ? "Pending" : "Confirm"}
+                      <IonIcon slot="icon-only" icon={arrowUpCircleSharp} />
+                    </IonButton>
+                  )} */}
+                </IonCol>
+                <IonButton
+                  disabled={event?.isPublished ? true : false}
+                  // slot="end"
+                  className="ion-padding"
+                  routerLink={`/host/event/${id}/edit`}
+                >
+                  Edit Course
+                  <IonIcon slot="icon-only" icon={createSharp} />
+                </IonButton>
+                <IonButton
+                  disabled={event?.isPublished ? true : false}
+                  className="ion-padding"
+                  color={"danger"}
+                  onClick={() => handleDeleEvent(id)}
+                >
+                  Delete
+                  <IonIcon slot="icon-only" icon={trash} />
+                </IonButton>
+              </IonRow>
+              {event?.status === "for confirmation" && (
+                <>
+                  <IonRow>
+                    <IonCol>
+                      <IonItem color={"none"} lines="none">
+                        <IonLabel slot="start">
+                          <span
+                            style={{
+                              fontWeight: "bold",
+                              fontSize: "20px",
+                              // color: "var(--ion-color-primary)",
+                              color: "black",
+                            }}
+                          >
+                            Proposal:{" "}
+                          </span>
+                          <a
+                            slot="end"
+                            href={event?.proposal_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View Document
+                          </a>
+                        </IonLabel>
+                      </IonItem>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol>
+                      <IonItem className="item-bg-none">
+                        <IonLabel>
+                          <strong>Upload Proposal</strong>
+                          <br />
+                          <input
+                            type="file"
+                            ref={fileInputRef}
+                            accept="application/pdf"
+                            hidden
+                            // style={{ display: "none" }}
+                            onChange={handleFileChange}
+                            // onChange={handleCropperModal}
+                          />
+
+                          <IonButton
+                            expand="block"
+                            // onClick={handleUpload}
+                            onClick={handleFileClick}
+                            // disabled={isUploading}
+                          >
+                            {file ? file.name : "Select A File"}
+                          </IonButton>
+                        </IonLabel>
+                      </IonItem>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonItem color={"none"}>
+                      {isUploading && (
+                        <IonProgressBar
+                          value={uploadProgress / 100}
+                        ></IonProgressBar>
+                      )}
+                      {uploadError && (
+                        <IonText color="danger">Error: {uploadError}</IonText>
+                      )}
+                    </IonItem>
+                  </IonRow>
+                </>
+              )}
+            </>
+          )}
           <IonItem color={"none"} lines="none">
             <IonLabel slot="start">
               <span
@@ -192,7 +348,7 @@ const EventDetail = () => {
                 Date:{" "}
               </span>
               <p style={{ color: "black" }}>
-                {formatDateString(eventData?.date_from)}
+                {formatDateString(event?.date_from)}
               </p>
             </IonLabel>
           </IonItem>
@@ -208,8 +364,8 @@ const EventDetail = () => {
                 Time:{" "}
               </span>
               <p style={{ color: "black" }}>
-                {formatTimeString(eventData?.start_time)} -{" "}
-                {formatTimeString(eventData?.end_time)}
+                {formatTimeString(event?.start_time)} -{" "}
+                {formatTimeString(event?.end_time)}
               </p>
             </IonLabel>
           </IonItem>
@@ -231,7 +387,7 @@ const EventDetail = () => {
             <p
               style={{ color: "black" }}
               dangerouslySetInnerHTML={{
-                __html: eventData?.description.replace(/\n/g, "<br />"),
+                __html: event?.description.replace(/\n/g, "<br />"),
               }}
             />
           </IonCardContent>

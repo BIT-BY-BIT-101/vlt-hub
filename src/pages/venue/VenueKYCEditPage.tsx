@@ -4,7 +4,7 @@ import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
 import VerificationRequest from "../../components/venue/VerificationRequest";
 
-const VenueKYCEditPage = () => {
+const VenueKYCEditPage: React.FC = () => {
   return (
     <>
       {/* <VenueNavMenu /> */}

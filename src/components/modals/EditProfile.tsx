@@ -16,6 +16,7 @@ import {
   IonDatetimeButton,
   IonGrid,
   IonRow,
+  IonItem,
 } from "@ionic/react";
 import { closeCircle } from "ionicons/icons";
 import React, { useContext, useEffect, useState } from "react";
@@ -166,6 +167,11 @@ const EditProfile: React.FC<EditProps> = ({
           </IonToolbar>
         </IonHeader>
         <IonContent className="veditprofile-modal-content">
+          <IonItem color={"none"}>
+            <h2 style={{ color: "black", fontWeight: "bold" }}>
+              Personal Information
+            </h2>
+          </IonItem>
           <IonLabel className="veditprofile-form-label">
             <span className="veditprofile-form-title">Name:</span>
             <IonInput
@@ -197,22 +203,12 @@ const EditProfile: React.FC<EditProps> = ({
             />
           </IonLabel>
           <IonLabel className="veditprofile-form-label">
-            <IonGrid>
-              <IonRow>
-                <IonCol>
-                  <IonLabel className="veditprofile-form-label">
-                    Date of Birth:
-                  </IonLabel>
-                </IonCol>
-                <IonCol>
-                  <IonDatetimeButton
-                    datetime="date"
-                    // className="hsignup-birthdate-button"
-                    style={{ color: "black" }}
-                  ></IonDatetimeButton>
-                </IonCol>
-              </IonRow>
-            </IonGrid>
+            <span className="veditprofile-form-title">Date of Birth:</span>
+            <IonDatetimeButton
+              datetime="date"
+              className="form-datetime-button"
+              style={{ color: "black" }}
+            ></IonDatetimeButton>
             <IonModal keepContentsMounted={true}>
               <IonDatetime
                 presentation="date"
@@ -319,6 +315,81 @@ const EditProfile: React.FC<EditProps> = ({
               onIonChange={handleInputChange}
             />
           </IonLabel> */}
+
+          <IonItem color={"none"}>
+            <h2 style={{ color: "black", fontWeight: "bold" }}>
+              Company/Organization Information
+            </h2>
+          </IonItem>
+
+          <IonLabel className="veditprofile-form-label">
+            <span className="veditprofile-form-title">
+              Company/Organization Name
+            </span>
+            <IonInput
+              className="veditprofile-form-input"
+              value={editedData?.company_name}
+              name="company_name"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     bldg_no: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
+            />
+          </IonLabel>
+          <IonLabel className="veditprofile-form-label">
+            <span className="veditprofile-form-title">
+              Company/Organization Address
+            </span>
+            <IonInput
+              className="veditprofile-form-input"
+              value={editedData?.company_address}
+              name="company_address"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     bldg_no: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
+            />
+          </IonLabel>
+          <IonLabel className="veditprofile-form-label">
+            <span className="veditprofile-form-title">
+              Company/Organization Contact Number
+            </span>
+            <IonInput
+              className="veditprofile-form-input"
+              value={editedData?.company_tel}
+              name="company_tel"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     bldg_no: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
+            />
+          </IonLabel>
+          <IonLabel className="veditprofile-form-label">
+            <span className="veditprofile-form-title">
+              Company/Organization Email Address
+            </span>
+            <IonInput
+              className="veditprofile-form-input"
+              value={editedData?.company_email}
+              name="company_email"
+              // onIonChange={(e) =>
+              //   setEditedData((prevData: any) => ({
+              //     ...prevData,
+              //     bldg_no: e.detail.value!,
+              //   }))
+              // }
+              onIonChange={handleInputChange}
+            />
+          </IonLabel>
         </IonContent>
         <IonButton
           onClick={handleSaveChanges}

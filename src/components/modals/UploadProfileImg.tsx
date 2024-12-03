@@ -200,7 +200,7 @@ const UploadProfileImg: React.FC<UploadImgProps> = ({
 
         try {
           // Await the upload process
-          await updateProfileImage(imgUrl, Date.now(), id);
+          await updateProfileImage(imgUrl, id);
 
           // If no errors, show success message
           Swal.fire({

@@ -40,18 +40,19 @@ const useFetchpublishEvents = () => {
       colRef,
       and(
         // where("host_id", "==", currentUser?.uid),
-        where("event_date", ">=", new Date().toISOString()),
-        or(
-          // where("status", "==", "unpublished"),
-          // where("status", "==", "for confirmation"),
-          // where("status", "==", "rejected"),
-          // where("status", "==", "confirming"),
-          // where("status", "==", "confirmed"),
-          // where("status", "==", "paying"),
-          where("is_transaction_complete", "==", false)
-        )
+        // where("event_date", ">=", new Date().toISOString()),
+        where("date_from", ">=", new Date().toISOString()),
+        // or(
+        // where("status", "==", "unpublished"),
+        // where("status", "==", "for confirmation"),
+        // where("status", "==", "rejected"),
+        // where("status", "==", "confirming"),
+        // where("status", "==", "confirmed"),
+        // where("status", "==", "paying"),
+        where("isPublished", "==", true)
+        // )
       ),
-      orderBy("event_date", "asc")
+      orderBy("date_from", "desc")
       // where("host_id", "==", currentUser?.uid),
     );
 

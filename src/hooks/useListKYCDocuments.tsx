@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import { FirebaseError } from "firebase/app";
+import { storage } from "../config/firebase";
 
-const useListKYCDocuments = (kyc_session_id: string) => {
+const useListKYCDocuments = (host_id: string) => {
   const [documents, setDocuments] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,20 +12,22 @@ const useListKYCDocuments = (kyc_session_id: string) => {
     const fetchKYCDocuments = async () => {
       try {
         const storage = getStorage(); // Ensure Firebase is initialized
-        const folderRef = ref(
-          storage,
-          `profiles/${kyc_session_id}/kyc_documents`
-        );
+        const folderRef = ref(storage, `profiles/${host_id}/kyc_documents`);
         const result = await listAll(folderRef);
 
-        const urls = await Promise.all(
-          result.items.map((item) => getDownloadURL(item))
-        );
+        // console.log(result);
 
-        setDocuments(urls);
+        const documents = await Promise.all(
+          result.items.map(async (item) => ({
+            url: await getDownloadURL(item),
+            name: item.name,
+          }))
+        );
+        console.log("KYC documents:", documents);
+
+        setDocuments(documents);
       } catch (err: FirebaseError | any) {
         console.error("Error fetching KYC documents:", err);
-
         setError(err);
         throw err;
       } finally {
@@ -33,7 +36,7 @@ const useListKYCDocuments = (kyc_session_id: string) => {
     };
 
     fetchKYCDocuments();
-  }, [kyc_session_id]);
+  }, [host_id]);
 
   return { documents, loading, error };
 };

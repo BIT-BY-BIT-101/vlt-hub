@@ -17,7 +17,7 @@ const useUpdateEvent = () => {
 
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imagePath, setImagePath] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState<boolean>(true);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const id = currentUser?.uid;
 
@@ -39,43 +39,54 @@ const useUpdateEvent = () => {
 
   /**
    *
-   * @param file a file that will be uploaded
+   * @param file a file that will be uploaded (optional)
    * @param filename the name of the file
    * @param data the data of the event
    * @param id the id of the event or profile
    */
   const updateData = async (
-    file: File,
-    filename: string,
+    file: File | null,
+    filename: string | null,
     data: any,
     id: string
   ) => {
     try {
       setIsUploading(true);
 
-      const compressedFile = await compressImage(file);
+      let downloadUrl = imageUrl;
+      let newImagePath = imagePath;
 
-      const storageRef = ref(storage, `events/${id}/images`);
-      const imageRef = ref(storageRef, `${filename}`);
+      if (file && filename) {
+        const compressedFile = await compressImage(file);
+        const storageRef = ref(storage, `events/${id}/images`);
+        const imageRef = ref(storageRef, `${filename}`);
 
-      // const snapshot = await uploadString(imageRef, file, "data_url");
-      // const snapshot = await uploadBytes(imageRef, file);
-      const snapshot = await uploadBytes(imageRef, compressedFile);
-      console.log("Uploaded a blob or file! ", snapshot);
-      // Upload completed successfully, get download URL
-      const downloadUrl = await getDownloadURL(snapshot.ref);
-      const imagePath = snapshot.metadata.fullPath;
-      console.log("path: ", imagePath);
+        const snapshot = await uploadBytes(imageRef, compressedFile);
+        console.log("Uploaded a blob or file!", snapshot);
+
+        downloadUrl = await getDownloadURL(snapshot.ref);
+        newImagePath = snapshot.metadata.fullPath;
+        console.log("path:", newImagePath);
+      }
+
       const docRef = doc(db, "events", id);
-      await updateDoc(docRef, {
+      const updateData = {
         ...data,
-        imagePath: imagePath,
-        imageUrl: downloadUrl,
         updatedAt: serverTimestamp(),
-      });
+      };
+
+      if (downloadUrl && newImagePath) {
+        updateData.imagePath = newImagePath;
+        updateData.imageUrl = downloadUrl;
+      }
+
+      await updateDoc(docRef, updateData);
+
+      setImageUrl(downloadUrl);
+      setImagePath(newImagePath);
 
       return {
-        imagePath: imagePath,
+        imagePath: newImagePath,
         imageUrl: downloadUrl,
       };
     } catch (err) {
@@ -83,7 +94,7 @@ const useUpdateEvent = () => {
         await deleteImage();
         setError(err);
       };
-      console.error("Error: ", err);
+      console.error("Error:", err);
       throw err;
     } finally {
       setIsUploading(false);
@@ -94,8 +105,7 @@ const useUpdateEvent = () => {
   const deleteImage = async () => {
     setLoading(true);
     if (imagePath) {
-      console.log("Aborting upload...");
-
+      console.log("Deleting image...");
       try {
         const imageRef = ref(storage, imagePath);
         await deleteObject(imageRef);

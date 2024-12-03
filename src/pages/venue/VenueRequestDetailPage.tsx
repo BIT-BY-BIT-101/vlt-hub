@@ -2,9 +2,9 @@ import { IonPage, IonContent, IonGrid, IonRow, IonCol } from "@ionic/react";
 import React from "react";
 import Header from "../../components/header/Header";
 import Menus from "../../components/menus/Menus";
-import KYCDetails from "../../components/venue/KYCDetails";
+import RequestDetails from "../../components/venue/RequestDetails";
 
-const VenueKYCDetailsPage: React.FC = () => {
+const VenueRequestDetailPage: React.FC = () => {
   return (
     <>
       {/* <VenueNavMenu /> */}
@@ -16,7 +16,7 @@ const VenueKYCDetailsPage: React.FC = () => {
             <IonRow>
               {/* <SidePanel /> */}
               <IonCol>
-                <KYCDetails />
+                <RequestDetails />
               </IonCol>
             </IonRow>
           </IonGrid>
@@ -26,4 +26,4 @@ const VenueKYCDetailsPage: React.FC = () => {
   );
 };
 
-export default VenueKYCDetailsPage;
+export default VenueRequestDetailPage;

@@ -60,7 +60,7 @@ function CreateEvent() {
     ingress_date: "",
     egress_date: "",
     keywords: "",
-    number_of_attendees: 0,
+    number_of_attendees: "",
   });
   // const [eventDate, setEventDate] = useState<string>("");
   // const [venue, setVenue] = useState("");
@@ -299,6 +299,7 @@ function CreateEvent() {
         <IonTextarea
           className="hhome-form-input"
           autoGrow={true}
+          onIonChange={handleChange}
           required
           {...register("description", { required: true })}
         />
@@ -449,6 +450,8 @@ function CreateEvent() {
                 <IonDatetime
                   {...register("start_time", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
+                  onIonChange={handleChange}
+                  name="start_time"
                   showDefaultButtons={true}
                   presentation="time"
                   id="start"
@@ -471,6 +474,8 @@ function CreateEvent() {
                 <IonDatetime
                   {...register("end_time", { required: true })}
                   // onIonChange={(e) => setEventDate(e.detail.value)}
+                  onIonChange={handleChange}
+                  name="end_time"
                   showDefaultButtons={true}
                   presentation="time"
                   id="end"
@@ -492,6 +497,7 @@ function CreateEvent() {
           type="number"
           required
           min={20}
+          onIonChange={handleChange}
           {...register("number_of_attendees", { required: true })}
         />
       </IonLabel>

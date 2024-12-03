@@ -5,7 +5,7 @@ import Menus from "../../components/menus/Menus";
 import RequestItems from "../../components/venue/RequestItems";
 import VerificationRequest from "../../components/venue/VerificationRequest";
 
-const VenueKYCRequestPage = () => {
+const VenueKYCRequestPage: React.FC = () => {
   return (
     <>
       {/* <VenueNavMenu /> */}
